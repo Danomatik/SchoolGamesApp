@@ -7,7 +7,11 @@ public class Route : MonoBehaviour
     Transform[] childObjects;
     public List<Transform> childNodeList = new List<Transform>();
 
-    void OnDrawGizmos()
+    void Start()
+    {
+        FillNodes();
+    }
+    /*void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
         FillNodes();
@@ -21,7 +25,7 @@ public class Route : MonoBehaviour
                 Gizmos.DrawLine(prevPos, currentPos);
             }
         }
-    }
+    }*/
 
     void FillNodes()
     {
