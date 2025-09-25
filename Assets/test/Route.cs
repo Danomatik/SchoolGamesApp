@@ -11,21 +11,6 @@ public class Route : MonoBehaviour
     {
         FillNodes();
     }
-    /*void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        FillNodes();
-
-        for (int i = 0; i < childNodeList.Count; i++)
-        {
-            Vector3 currentPos = childNodeList[i].position;
-            if (i > 0)
-            {
-                Vector3 prevPos = childNodeList[i - 1].position;
-                Gizmos.DrawLine(prevPos, currentPos);
-            }
-        }
-    }*/
 
     void FillNodes()
     {
