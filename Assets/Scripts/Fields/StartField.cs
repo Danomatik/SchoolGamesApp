@@ -7,7 +7,14 @@ public class StartField : MonoBehaviour
     private GameManager GameManager;
     void OnTriggerEnter (Collider other)
     {
-        GameManager.AddMoney(500);
-        Debug.Log ("Player has Entered Start Field!");
+        PlayerCTRL player = other.GetComponent<PlayerCTRL>();
+
+        if(player != null && player.PlayerID == GameManager.GetCurrentPlayer().PlayerID)
+        {
+            GameManager.AddMoney(500);
+            Debug.Log($"Aktiver Spieler (ID: {player.PlayerID}) ist auf dem Startfeld gelandet!");
+
+        }
+
     }
 }
