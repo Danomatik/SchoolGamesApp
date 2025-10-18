@@ -1,0 +1,2202 @@
+{
+  "junior_de": {
+    "gruendung": [
+      {
+        "id": 1,
+        "text": "Rund ein Viertel aller unselbständig Beschäftigten arbeitet im sekundären Sektor. Wie wird dieser Sektor noch bezeichnet?",
+        "options": ["Produzierender Sektor", "Dienstleistungssektor", "Landwirtschaftlicher Sektor"],
+        "correctIndex": 0
+      },
+      {
+        "id": 2,
+        "text": "In welchem Sektor der Volkswirtschaft sind die meisten Menschen beschäftigt?",
+        "options": ["Primärer Sektor", "Sekundärer Sektor", "Tertiärer Sektor"],
+        "correctIndex": 2
+      },
+      {
+        "id": 3,
+        "text": "Welcher Lehrberuf wird von Männern in Österreich am öftesten gewählt?",
+        "options": ["IT-Fachmann", "Metalltechniker", "Kraftfahrzeugtechniker"],
+        "correctIndex": 2
+      },
+      {
+        "id": 4,
+        "text": "Welche rechtliche Unternehmensform kommt in Österreich am öftesten vor?",
+        "options": ["Einzelunternehmen", "GmbH", "Aktiengesellschaft"],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "Die steirische Landesregierung hat ihren Sitz in...",
+        "options": ["Kapfenberg.", "Graz.", "Wien."],
+        "correctIndex": 1
+      },
+      {
+        "id": 6,
+        "text": "Wie viele Menschen leben ca. in Wien?",
+        "options": ["1,2 Millionen", "1,5 Millionen", "1,9 Millionen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 7,
+        "text": "Welcher Lehrberuf wird von Frauen in Österreich am öftesten gewählt?",
+        "options": ["Frisörin", "Köchin", "Einzelhandelskauffrau"],
+        "correctIndex": 2
+      },
+      {
+        "id": 8,
+        "text": "Welches Fremdwort verwendet man für Wettbewerb?",
+        "options": ["Konstruktion", "Konferenz", "Konkurrenz"],
+        "correctIndex": 2
+      },
+      {
+        "id": 9,
+        "text": "Wenn Geld von einem Konto auf ein anderes eingezahlt wird, spricht man von...",
+        "options": ["Übertrag.", "Überbuchung.", "Überweisung."],
+        "correctIndex": 2
+      },
+      {
+        "id": 10,
+        "text": "Wie viele Lehrberufe gibt es derzeit in Österreich?",
+        "options": ["Mehr als 200", "78", "120"],
+        "correctIndex": 0
+      },
+      {
+        "id": 11,
+        "text": "Wofür steht in der Wirtschaft der Begriff B2B?",
+        "options": ["Best-to-Best", "Business-to-Business", "Buyer-to-Buyer"],
+        "correctIndex": 1
+      },
+      {
+        "id": 12,
+        "text": "Wie viel Prozent der österreichischen Unternehmen sind Kleine und Mittlere Unternehmen (KMU)?",
+        "options": ["99,6%", "72,5%", "40,1%"],
+        "correctIndex": 0
+      },
+      {
+        "id": 13,
+        "text": "Wie bezeichnet man einen Preisnachlass, den man als Stammkunde beim Einkaufen für seine Treue erhält?",
+        "options": ["Rabatt", "Skonto", "Gutschrift"],
+        "correctIndex": 0
+      },
+      {
+        "id": 14,
+        "text": "Wie bezeichnet man Geschäfte des Einzelhandels, die billiger verkaufen?",
+        "options": ["Diskonter", "Supermarkt", "Kleinhändler"],
+        "correctIndex": 0
+      },
+      {
+        "id": 15,
+        "text": "Der Elektrohändler Kaiser hat am Ende des Jahres mehr Ausgaben als Einnahmen getätigt. Er machte daher in diesem Jahr...",
+        "options": ["einen Verlust.", "einen Gewinn.", "ein Vermögen."],
+        "correctIndex": 0
+      },
+      {
+        "id": 16,
+        "text": "Wie nennt man eine Produktionsweise, die fast nur mit computergesteuerten Maschinen erfolgt und sehr wenige MitarbeiterInnen benötigt?",
+        "options": ["Automation", "Autofabrikation", "Autoproduktion"],
+        "correctIndex": 0
+      },
+      {
+        "id": 17,
+        "text": "Wenn in einem Betrieb eine bestimmte Zahl von gleichartigen Produkten erzeugt wird, handelt es sich um...",
+        "options": ["Massenproduktion.", "eine Menge.", "eine Serie."],
+        "correctIndex": 0
+      },
+      {
+        "id": 18,
+        "text": "Warum ist es für uns alle wichtig, dass es Unternehmer gibt?",
+        "options": ["Sie schaffen Arbeitsplätze", "Sie fördern die Familienplanung", "Sie fördern das Bankenwesen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 19,
+        "text": "Herr Anton S. arbeitet als Manager in einem großen Hotel. In welcher Branche ist er tätig?",
+        "options": ["Transport", "Handel", "Tourismus"],
+        "correctIndex": 2
+      },
+      {
+        "id": 20,
+        "text": "Eine Gemüsebäurin verfügt über 5 Hektar Anbaufläche. Zu welchem Produktionsfaktor zählt diese?",
+        "options": ["Kapital", "Arbeit", "Grund und Boden"],
+        "correctIndex": 2
+      },
+      {
+        "id": 21,
+        "text": "Welche ist die wichtigste Voraussetzung für eine Unternehmensgründung?",
+        "options": ["Mut", "Geschäftsidee", "Geld"],
+        "correctIndex": 1
+      },
+      {
+        "id": 22,
+        "text": "Wir alle verbrauchen täglich viele Güter. Wir sind daher alle...",
+        "options": ["Produzenten.", "Konsumenten.", "Kontrahenten."],
+        "correctIndex": 1
+      },
+      {
+        "id": 23,
+        "text": "In welchem Wirtschaftssektor arbeiten die meisten ÖsterreicherInnen?",
+        "options": ["In der Land- und Forstwirtschaft", "Im Dienstleistungssektor", "In der Gütererzeugung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 24,
+        "text": "Johannes geht in ein Geschäft und kauft neue Rollen für sein Skateboard. Er verwendet Geld als...",
+        "options": ["Aufbewahrungsmittel.", "Recheneinheit.", "Tauschmittel."],
+        "correctIndex": 2
+      },
+      {
+        "id": 25,
+        "text": "Inge sieht nach, wie viel Geld sie auf ihrem Sparbuch hat. Sie verwendet hier Geld...",
+        "options": ["als Recheneinheit.", "als Tauschmittel.", "zur Wertaufbewahrung."],
+        "correctIndex": 2
+      },
+      {
+        "id": 26,
+        "text": "Wirtschaftlich handelt, wer...",
+        "options": ["mit gegebenen Mitteln ein möglichst großes oder gutes Ergebnis erreicht.", "möglichst viel erzeugt.", "viel spart."],
+        "correctIndex": 0
+      },
+      {
+        "id": 27,
+        "text": "Werner V. betreibt einen Tischlerbetrieb mit 5 MitarbeiterInnen. Er ist...",
+        "options": ["Arbeitnehmer.", "Arbeitgeber.", "Betriebsrat."],
+        "correctIndex": 1
+      },
+      {
+        "id": 28,
+        "text": "Andreas K. arbeitet als Maurer bei einer Baufirma. In welchem Sektor der Wirtschaft arbeitet er?",
+        "options": ["Primärer Sektor", "Sekundärer Sektor", "Tertiärer Sektor"],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Wie nennt man Energiequellen, die nachwachsen oder nie zur Neige gehen?",
+        "options": ["Neue Energien", "Endlose Energien", "Erneuerbare Energien"],
+        "correctIndex": 2
+      },
+      {
+        "id": 30,
+        "text": "Mit welchem Ausdruck fasst man alle Voraussetzungen für den Standort eines Betriebes zusammen?",
+        "options": ["Einrichtungsstruktur", "Infrastruktur", "Platzbedingungen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 31,
+        "text": "Kunden, die immer wieder im selben Geschäft kaufen, bezeichnet man als...",
+        "options": ["Stammkunden.", "Superkunden.", "fixe Kunden."],
+        "correctIndex": 0
+      },
+      {
+        "id": 32,
+        "text": "Das kleine Lebensmittelgeschäft um die Ecke oder im Dorf dient...",
+        "options": ["dem billigen Großeinkauf.", "der Nahversorgung.", "der Versorgung mit allem, was ein Haushalt braucht."],
+        "correctIndex": 1
+      },
+      {
+        "id": 33,
+        "text": "Wie nennt man die Einfuhr von Waren aus dem Ausland und die Ausfuhr von Waren in das Ausland?",
+        "options": ["Binnenhandel", "Auslandshandel", "Außenhandel"],
+        "correctIndex": 2
+      },
+      {
+        "id": 34,
+        "text": "Wer eine handwerkliche Lehre mit einer Prüfung abgeschlossen hat, nennt sich...",
+        "options": ["Gelehrter oder Gelehrtin.", "Geselle oder Gesellin.", "Gefährte oder Gefährtin."],
+        "correctIndex": 1
+      },
+      {
+        "id": 35,
+        "text": "Die Befähigung für einen bestimmten Beruf oder eine bestimmte Aufgabe nennt man...",
+        "options": ["Flexibilität.", "Zumutbarkeit.", "Qualifikation."],
+        "correctIndex": 2
+      },
+      {
+        "id": 36,
+        "text": "Gute Beratung, aber nur eine beschränkte Auswahl von Produkten erhält man...",
+        "options": ["im Supermarkt.", "im Fachgeschäft.", "in der Shopping City."],
+        "correctIndex": 1
+      },
+      {
+        "id": 37,
+        "text": "Wer ist auf der Vorderseite der österreichischen 1-Euro-Münze abgebildet?",
+        "options": ["Ludwig van Beethoven", "Joseph Haydn", "Wolfgang Amadeus Mozart"],
+        "correctIndex": 1
+      },
+      {
+        "id": 38,
+        "text": "Mit welchem Fremdwort bezeichnet man die Herstellung von Gütern?",
+        "options": ["Organisation", "Produktion", "Intervention"],
+        "correctIndex": 1
+      },
+      {
+        "id": 39,
+        "text": "Der Gemüsehändler Berger hat am Ende des Monats mehr Einnahmen als Ausgaben. Er machte daher...",
+        "options": ["einen Umsatz.", "einen Gewinn.", "einen Absatz."],
+        "correctIndex": 1
+      },
+      {
+        "id": 40,
+        "text": "Wenn der Kontostand bei der Bank ins Minus rutscht, dann hat man das Konto...",
+        "options": ["überzogen.", "überdehnt.", "übernommen."],
+        "correctIndex": 0
+      },
+      {
+        "id": 41,
+        "text": "Wenn die Ausgaben größer sind als die Einnahmen, spricht man von einem...",
+        "options": ["Konkurs.", "Überschuss.", "Defizit."],
+        "correctIndex": 2
+      },
+      {
+        "id": 42,
+        "text": "Wie nennt man die Gebühr, die man für die Benützung von bestimmten Straßen oder Tunnels zahlt?",
+        "options": ["Steuer", "Zoll", "Maut"],
+        "correctIndex": 2
+      },
+      {
+        "id": 43,
+        "text": "Der Gegenwert für Waren und Dienstleistungen in Geld heißt...",
+        "options": ["Preis.", "Warenwert.", "Wertschöpfung."],
+        "correctIndex": 0
+      },
+      {
+        "id": 44,
+        "text": "Wenn eine Ware mit einer anderen Ware bezahlt wird, spricht man von...",
+        "options": ["Warenbezahlung.", "Tauschhandel.", "Warenhandel."],
+        "correctIndex": 1
+      },
+      {
+        "id": 45,
+        "text": "Wer als ArbeiterIn oder AngestellteR für ein Unternehmen arbeitet und dafür bezahlt wird, leistet...",
+        "options": ["Unternehmensarbeit.", "selbständige Arbeit.", "unselbständige Arbeit."],
+        "correctIndex": 2
+      },
+      {
+        "id": 46,
+        "text": "Wer für sich selbst in seinem eigenen Unternehmen arbeitet, leistet....",
+        "options": ["unselbständige Arbeit.", "Eigenarbeit.", "selbständige Arbeit."],
+        "correctIndex": 2
+      },
+      {
+        "id": 47,
+        "text": "Wie bezeichnet man die Industrie, die wichtige Rohstoffe oder Ausgangsmaterialien herstellt?",
+        "options": ["Basisindustrie", "Grundstoffindustrie", "Hauptindustrie"],
+        "correctIndex": 1
+      },
+      {
+        "id": 48,
+        "text": "Arbeitskräfte, die nach der Zahl der erzeugten Stücke bezahlt werden, bekommen einen...",
+        "options": ["Akkordlohn.", "Stundenlohn.", "Tageslohn."],
+        "correctIndex": 0
+      },
+      {
+        "id": 49,
+        "text": "Der Preis, zu dem ein Händler seine Ware einkauft, ist der...",
+        "options": ["Beschaffungspreis.", "Vorkaufspreis.", "Einstandspreis."],
+        "correctIndex": 2
+      },
+      {
+        "id": 50,
+        "text": "Bei welchem Vertrag steht man für die Schulden eines anderen ein?",
+        "options": ["Darlehen", "Abtretung", "Bürgschaft"],
+        "correctIndex": 2
+      },
+      {
+        "id": 51,
+        "text": "Welche Aufgaben hat ein Betriebsrat?",
+        "options": ["Vertretung des Betriebes nach außen", "Unterstützung der Geschäftsführung vor dem Arbeitsgericht", "Vertretung der Anliegen der Belegschaft"],
+        "correctIndex": 2
+      },
+      {
+        "id": 52,
+        "text": "Wer führte 1908 in der Automobilindustrie die Fließbandfertigung ein?",
+        "options": ["Henry Ford", "Carl Friedrich Benz", "Ferdinand Alexander Porsche"],
+        "correctIndex": 0
+      },
+      {
+        "id": 53,
+        "text": "Wie nennt man das Geld, das man bei der Rückgabe von Leihflaschen erhält?",
+        "options": ["Pfand", "Kaution", "Gage"],
+        "correctIndex": 0
+      },
+      {
+        "id": 54,
+        "text": "Die von KreditnehmerInnen zu zahlenden Kosten für einen Kredit nennt man...",
+        "options": ["Zinsen.", "Dividende.", "Hypothek."],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "Wie nennt man eine Produktionsstätte für maschinell gefertigte Waren?",
+        "options": ["Fabrik", "Lager", "Baumarkt"],
+        "correctIndex": 0
+      },
+      {
+        "id": 56,
+        "text": "Was versteht man in einer Volkswirtschaft unter dem primären Sektor?",
+        "options": ["Landwirtschaft", "Industrie", "Dienstleistungsgewerbe"],
+        "correctIndex": 0
+      },
+      {
+        "id": 57,
+        "text": "Was bedeutet die Abkürzung KMU?",
+        "options": ["Kleine und mittlere Unternehmen", "Kreditschutzverband", "Bankgruppe"],
+        "correctIndex": 0
+      },
+      {
+        "id": 58,
+        "text": "Wer bekommt für seine Arbeit einen Lohn?",
+        "options": ["PolizistIn", "KindergärtnerIn", "BauarbeiterIn"],
+        "correctIndex": 2
+      },
+      {
+        "id": 59,
+        "text": "Wie nennt man den Preis für ausgeborgtes Geld?",
+        "options": ["Miete", "Zinsen", "Pacht"],
+        "correctIndex": 1
+      },
+      {
+        "id": 60,
+        "text": "Wer sein Gehalt bei einer Bank beheben möchte, braucht...",
+        "options": ["ein Sparbuch.", "eine Anzahlung.", "ein Konto."],
+        "correctIndex": 2
+      },
+      {
+        "id": 61,
+        "text": "Was bedeutet die Abkürzung EU?",
+        "options": ["Erster Umsatz", "Europäische Umwelt", "Europäische Union"],
+        "correctIndex": 2
+      },
+      {
+        "id": 62,
+        "text": "Welche Energiequelle liefert erneuerbare Energie?",
+        "options": ["Wind", "Kohle", "Erdgas"],
+        "correctIndex": 0
+      },
+      {
+        "id": 63,
+        "text": "Was ist keine erneuerbare Energiequelle?",
+        "options": ["Sonnenenergie", "Strom aus Wasserkraft", "Erdöl"],
+        "correctIndex": 2
+      },
+      {
+        "id": 64,
+        "text": "Geschäfte, in denen wir täglich einkaufen, zählen zum...",
+        "options": ["Großhandel.", "Warenhandel.", "Einzelhandel."],
+        "correctIndex": 2
+      },
+      {
+        "id": 65,
+        "text": "Was ist ein Merkmal eines Gewerbebetriebes?",
+        "options": ["Gütererzeugung nach Maß für bekannte KundInnen", "Fließbandarbeit", "Massenproduktion"],
+        "correctIndex": 0
+      },
+      {
+        "id": 66,
+        "text": "Wie nennt man HändlerInnen, die den Einzelhandel beliefern?",
+        "options": ["Lieferhandel", "Großhandel", "Kleinhandel"],
+        "correctIndex": 1
+      },
+      {
+        "id": 67,
+        "text": "Wenn das Angebot größer ist als die Nachfrage, dann...",
+        "options": ["sinken die Preise.", "steigen die Preise.", "wird alles teurer."],
+        "correctIndex": 0
+      },
+      {
+        "id": 68,
+        "text": "Wer arbeitet im sekundären Sektor der Wirtschaft?",
+        "options": ["VolksschullehrerIn", "TaxifahrerIn", "TischlermeisterIn"],
+        "correctIndex": 2
+      },
+      {
+        "id": 69,
+        "text": "Wer arbeitet im primären Sektor der Wirtschaft?",
+        "options": ["ReiseleiterIn", "LandwirtIn", "ProgrammiererIn"],
+        "correctIndex": 1
+      },
+      {
+        "id": 70,
+        "text": "Wer arbeitet im tertiären Sektor der Wirtschaft?",
+        "options": ["Krankenpflegepersonal", "IT-TechnikerIn", "FliesenlegerIn"],
+        "correctIndex": 0
+      },
+      {
+        "id": 71,
+        "text": "Einzelfertigung überwiegt in...",
+        "options": ["Gewerbebetrieben.", "Industriebetrieben.", "Großunternehmen."],
+        "correctIndex": 0
+      },
+      {
+        "id": 72,
+        "text": "Massenproduktion überwiegt in...",
+        "options": ["Kleinunternehmen.", "Industriebetrieben.", "Handwerksbetrieben."],
+        "correctIndex": 1
+      },
+      {
+        "id": 73,
+        "text": "Wer eine Lehre macht, besucht parallel dazu eine...",
+        "options": ["Hauptschule.", "Berufsschule.", "Lehrlingsschule."],
+        "correctIndex": 1
+      },
+      {
+        "id": 74,
+        "text": "Wie lange ist die Laufzeit bei einem mittelfristigen Kredit?",
+        "options": ["Bis zu 1 Jahr", "Über 5 Jahre", "1 bis 5 Jahre"],
+        "correctIndex": 2
+      },
+      {
+        "id": 75,
+        "text": "Auf welchem Markt werden die Preise durch Handeln gebildet?",
+        "options": ["Supermarkt", "Flohmarkt", "Arbeitsmarkt"],
+        "correctIndex": 1
+      },
+      {
+        "id": 76,
+        "text": "Zu welchem Sektor der Wirtschaft gehören Banken?",
+        "options": ["Primärer Sektor", "Sekundärer Sektor", "Tertiärer Sektor"],
+        "correctIndex": 2
+      },
+      {
+        "id": 77,
+        "text": "Wie nennt man den Platz, an dem sich ein Betrieb ansiedelt?",
+        "options": ["Standplatz", "Standort", "Standpunkt"],
+        "correctIndex": 1
+      },
+      {
+        "id": 78,
+        "text": "FriseurInnen, KellnerInnen und ElektrikerInnen erbringen...",
+        "options": ["öffentliche Dienstleistungen.", "private Dienstleistungen.", "allgemeine Dienstleistungen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 79,
+        "text": "Wer ist KonsumentIn, also EndverbraucherIn?",
+        "options": ["Wer wandern geht", "Wer im Supermarkt einkauft", "Wer arbeitet"],
+        "correctIndex": 1
+      },
+      {
+        "id": 80,
+        "text": "Was ist ein Kennzeichen für ein Entwicklungsland?",
+        "options": ["60 Pkw je 100 EinwohnerInnen", "1 Arzt je 100 EinwohnerInnen", "50 von 100 Menschen können weder lesen noch schreiben"],
+        "correctIndex": 2
+      },
+      {
+        "id": 81,
+        "text": "Wer ein Unternehmen gründet, sollte auch...",
+        "options": ["besonders viel Geld haben.", "Mut zum Risiko haben.", "alles selber machen wollen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 82,
+        "text": "Was ist ein Rabatt?",
+        "options": ["Eine Vermittlungsgebühr", "Im Voraus gezahlter Zins", "Preisnachlass"],
+        "correctIndex": 2
+      },
+      {
+        "id": 83,
+        "text": "Was zahlen KreditnehmerInnen?",
+        "options": ["Prämie", "Zinsen", "Dividende"],
+        "correctIndex": 1
+      },
+      {
+        "id": 84,
+        "text": "Welcher Staat exportiert den meisten Kaffee?",
+        "options": ["Brasilien", "Costa Rica", "Kolumbien"],
+        "correctIndex": 0
+      },
+      {
+        "id": 85,
+        "text": "Wie heißt die britische Währung?",
+        "options": ["Euro", "Pfund Sterling", "Dollar"],
+        "correctIndex": 1
+      },
+      {
+        "id": 86,
+        "text": "Was ist Mobbing?",
+        "options": ["Sauberkeitswahn am Arbeitsplatz", "Ein ruinöser Verdrängungswettbewerb", "Eine starke Belästigung von KollegInnen/MitschülerInnen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 87,
+        "text": "Was exportiert Kuba hauptsächlich?",
+        "options": ["Zucker", "Bananen", "Tabak"],
+        "correctIndex": 2
+      },
+      {
+        "id": 88,
+        "text": "Der Euro ist kein gesetzliches Zahlungsmittel in...",
+        "options": ["Großbritannien.", "Irland.", "Luxemburg."],
+        "correctIndex": 0
+      },
+      {
+        "id": 89,
+        "text": "Welche Voraussetzungen braucht man zum Wirtschaften?",
+        "options": ["Produktionsstufen", "Produktionsfaktoren", "Produktionsweisen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 90,
+        "text": "Wodurch wird eine Erfindung geschützt?",
+        "options": ["Dispens", "Latenz", "Patent"],
+        "correctIndex": 2
+      },
+      {
+        "id": 91,
+        "text": "Was bedeutet stornieren?",
+        "options": ["Rügen", "Den Preis herabsetzen", "Rückgängig machen, widerrufen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 92,
+        "text": "Wer muss in China mit 1 bis 2 Euro am Tag auskommen?",
+        "options": ["WanderarbeiterInnen", "Wandervögel", "WanderpolitikerInnen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 93,
+        "text": "Wie bezeichnet man Wirtschaft noch?",
+        "options": ["Ökonomie", "Ökologie", "Ökotopie"],
+        "correctIndex": 0
+      },
+      {
+        "id": 94,
+        "text": "Wofür steht das Kürzel USt?",
+        "options": ["Umsatzsteuer", "Umstandssteuer", "Unternehmenssteuer"],
+        "correctIndex": 0
+      },
+      {
+        "id": 95,
+        "text": "Was ist der höchste Wert auf einem Euro-Schein?",
+        "options": ["250 Euro", "500 Euro", "1.000 Euro"],
+        "correctIndex": 1
+      },
+      {
+        "id": 96,
+        "text": "Kann man sich gegen einen Mahnbescheid wehren?",
+        "options": ["Ja", "Nein"],
+        "correctIndex": 0
+      },
+      {
+        "id": 97,
+        "text": "Unternehmen kommunizieren über unterschiedliche Kanäle. Unter anderem häufig über facebook, twitter, instagram etc. Wie bezeichnet man diese Dienste nicht?",
+        "options": ["Web 2.0", "Social Media", "SEO"],
+        "correctIndex": 2
+      },
+      {
+        "id": 98,
+        "text": "Wie bezeichnet man die Ausfuhr von Waren ins Ausland?",
+        "options": ["Import", "Export", "Europort"],
+        "correctIndex": 1
+      },
+      {
+        "id": 99,
+        "text": "Hans betreibt einen Friseursalon. Was bietet er hauptsächlich an?",
+        "options": ["Sachgüter", "Dienstleistungen", "Freie Güter"],
+        "correctIndex": 1
+      },
+      {
+        "id": 100,
+        "text": "Eine Aktie ist...",
+        "options": ["eine ausgestorbene Tierart.", "ein altes Blasinstrument.", "ein Wertpapier."],
+        "correctIndex": 2
+      },
+      {
+        "id": 101,
+        "text": "Welches Bedürfnis zählt nach der Maslowschen Bedürfnispyramide zu den Grundbedürfnissen?",
+        "options": ["Essen", "Karriere", "tolles Auto"],
+        "correctIndex": 0
+      },
+      {
+        "id": 102,
+        "text": "Wie hoch ist die Umsatzsteuer grundsätzlich in Österreich?",
+        "options": ["5%", "20%", "25%"],
+        "correctIndex": 1
+      },
+      {
+        "id": 103,
+        "text": "Wie viele MitarbeiterInnen beschäftigen Betriebe in Österreich maximal, wenn sie zu den Kleinstbetrieben zählen?",
+        "options": ["Bis zu 9 MitarbeiterInnen", "10 bis 20 MitarbeiterInnen", "Bis zu 30 MitarbeiterInnen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 104,
+        "text": "Ein Modeunternehmen verkauft in einem Shop Kleidungsstücke für Damen und Herren. Zu welcher Branche zählt das Unternehmen?",
+        "options": ["Industrie", "Handel", "Transport und Verkehr"],
+        "correctIndex": 1
+      },
+      {
+        "id": 105,
+        "text": "Was sind Pflichten des Käufers bei der Erfüllung eines Kaufvertrags?",
+        "options": ["Annahme und Zahlung der Ware", "Bereitstellung der Ware", "Schreiben der Rechnung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 106,
+        "text": "Was versteht man unter dem Begriff „Vorauszahlung“?",
+        "options": ["Der gesamte Preis wird vorab bezahlt.", "Ein Teil des Preises wird vorab bezahlt.", "Der Preis wird im Nachhinein bezahlt."],
+        "correctIndex": 1
+      },
+      {
+        "id": 107,
+        "text": "Sara kauft sich in einem Einkaufszentrum ein neues Kleidungsstück. Ihr gefällt es bei der Anprobe zu Hause nicht mehr und sie will es umtauschen. Darf sie das?",
+        "options": ["Ja, innerhalb von 14 Tagen.", "Ja, innerhalb von 30 Tagen.", "Nicht unbedingt, denn es gibt kein gesetzliches Recht auf Umtausch."],
+        "correctIndex": 2
+      },
+      {
+        "id": 108,
+        "text": "Die kleine Anna kauft sich in einem Kiosk einen Schokoriegel und zahlt an der Kassa mit einem 5-Euro-Schein. Wie nennt man diese Zahlungsmethode?",
+        "options": ["Barzahlung", "Überweisung", "Bankomatzahlung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 109,
+        "text": "Wie wird das vorübergehende Aufbewahren von Produkten genannt?",
+        "options": ["Beschaffung", "Lagerung", "Produktion"],
+        "correctIndex": 1
+      },
+      {
+        "id": 110,
+        "text": "Mit welcher Karte kann man im Geschäftsalltag nicht bezahlen?",
+        "options": ["Kreditkarte", "Postkarte", "Bankomatkarte"],
+        "correctIndex": 1
+      },
+      {
+        "id": 111,
+        "text": "Was ist auf einem Kontoauszug normalerweise nicht angegeben?",
+        "options": ["IBAN", "Name des Kontoinhabers", "Familienstand des Kontoinhabers"],
+        "correctIndex": 2
+      },
+      {
+        "id": 112,
+        "text": "Paul geht zu einem Bankomaten und möchte Geld abheben. Welchen Code muss er zuvor eingeben?",
+        "options": ["PIN-Code", "Kontonummer", "Dresscode"],
+        "correctIndex": 0
+      },
+      {
+        "id": 113,
+        "text": "Wie bezeichnet man die Abwicklung von Bankgeschäften über das Internet?",
+        "options": ["E-Banking", "Online Shopping", "E-Card"],
+        "correctIndex": 0
+      },
+      {
+        "id": 114,
+        "text": "Welcher der folgenden Begriffe beschreibt ein Geldinstitut?",
+        "options": ["Parkbank", "Werkbank", "Geschäftsbank"],
+        "correctIndex": 2
+      },
+      {
+        "id": 115,
+        "text": "Ein Unternehmen kauft für die Produktion seiner Güter eine neue Maschine. Es handelt sich dabei um...",
+        "options": ["eine Injektion.", "eine Infektion.", "eine Investition."],
+        "correctIndex": 2
+      },
+      {
+        "id": 116,
+        "text": "Philipp ist neu in eine Wohnung eingezogen. Dafür musste er einen... unterschreiben.",
+        "options": ["Pachtvertrag", "Mietvertrag", "Dienstvertrag"],
+        "correctIndex": 1
+      },
+      {
+        "id": 117,
+        "text": "Gehälter und Löhne stellen für das Unternehmen... dar.",
+        "options": ["Personalkosten", "Materialkosten", "Maschinenkosten"],
+        "correctIndex": 0
+      },
+      {
+        "id": 118,
+        "text": "Was darf bei Bewerbungsunterlagen normalerweise nicht fehlen?",
+        "options": ["Lebenslauf", "Kontoauszug", "Geburtsurkunde"],
+        "correctIndex": 0
+      },
+      {
+        "id": 119,
+        "text": "Wie nennt man jenen Ort, wo Angebot und Nachfrage aufeinander treffen?",
+        "options": ["Handelsort", "Markt", "Messe"],
+        "correctIndex": 1
+      },
+      {
+        "id": 120,
+        "text": "Welche Institution vertritt die Interessen der Unternehmen in Österreich?",
+        "options": ["Wirtschaftskammer", "Arbeiterkammer", "Speisekammer"],
+        "correctIndex": 0
+      }
+    ],
+    "investition": [
+      {
+        "id": 1,
+        "text": "Welchem volkswirtschaftlichen Sektor wird der Tourismusbereich zugerechnet?",
+        "options": ["Dem primären Sektor", "Dem sekundären Sektor", "Dem tertiären Sektor"],
+        "correctIndex": 2
+      },
+      {
+        "id": 2,
+        "text": "Österreichweit werden jährlich rund 240.000 Tonnen an Obst geerntet. Die Steiermark als „Obstbundesland“ hält davon den größten Anteil. Wie hoch ist dieser?",
+        "options": ["30%", "50%", "80%"],
+        "correctIndex": 1
+      },
+      {
+        "id": 3,
+        "text": "Ein vielversprechendes Infrastrukturprojekt für die Steiermark ist der Bau des 33 Kilometer langen Koralmtunnels, der bis 2026 fertiggestellt werden soll. Welche Verbindung wird durch den Koralmtunnel beschleunigt werden?",
+        "options": ["Graz–Linz", "Graz–Wien", "Graz–Klagenfurt"],
+        "correctIndex": 2
+      },
+      {
+        "id": 4,
+        "text": "Wofür wird der Rohstoff Eisenerz verwendet?",
+        "options": ["Stahlerzeugung", "Asphalterzeugung", "Glaserzeugung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "In welchem Dienstverhältnis sind ZeitarbeiterInnen bei Leiharbeitsfirmen in Österreich und Deutschland angestellt?",
+        "options": ["Befristetes Dienstverhältnis", "Unbefristetes Dienstverhältnis", "Werkvertrag"],
+        "correctIndex": 1
+      },
+      {
+        "id": 6,
+        "text": "Bei Amazon kann man bequem Produkte via Smartphone im Internet bestellen. Wie nennt man das Einkaufen via Smartphone?",
+        "options": ["Mobile-Shopping", "Handy-Shopping", "Tele-Shopping"],
+        "correctIndex": 0
+      },
+      {
+        "id": 7,
+        "text": "Die österreichischen Rohstoffproduzenten arbeiten erfolgreich daran, die Auswirkungen auf die Umwelt gering zu halten. Was wird dadurch positiv beeinflusst?",
+        "options": ["Ökonomischer Händedruck", "Ökodynamischer Fingerabdruck", "Ökologischer Fußabdruck"],
+        "correctIndex": 2
+      },
+      {
+        "id": 8,
+        "text": "Worin besteht der Unterschied zwischen Groß- und Einzelhandel?",
+        "options": ["Menge der gehandelten Waren", "Art der gehandelten Waren", "Belieferter Kundenkreis"],
+        "correctIndex": 2
+      },
+      {
+        "id": 9,
+        "text": "Viele Textil- bzw. Einzelhandelsunternehmen haben einen Online-Shop. Wie wird diese Form des Vertriebs genannt?",
+        "options": ["E-Shopping", "E-Commerce", "E-Recruiting"],
+        "correctIndex": 1
+      },
+      {
+        "id": 10,
+        "text": "Die größte Talklagerstätte Mitteleuropas befindet sich in...",
+        "options": ["Italien.", "Österreich.", "Norwegen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 11,
+        "text": "„Nachhaltige Rohstoffgewinnung“ bedeutet, den Abbau unter Berücksichtigung folgender Aspekte zu betreiben:",
+        "options": ["Des Gewinns", "Der Umwelt", "Des sozialen Umfelds"],
+        "correctIndex": 1
+      },
+      {
+        "id": 12,
+        "text": "In welcher Marktsituation sind die Käufer im Vorteil?",
+        "options": ["Bei einem Monopol", "Wenn das Angebot größer ist als die Nachfrage", "Wenn die Nachfrage größer ist als das Angebot"],
+        "correctIndex": 1
+      },
+      {
+        "id": 13,
+        "text": "Wenn der US-Dollar gegenüber dem Euro an Wert verliert,...",
+        "options": [
+          "wird die Reise eines Deutschen in die USA billiger.",
+          "wird die Reise eines Amerikaners nach Deutschland billiger.",
+          "hat das keine Auswirkungen auf Reisen."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 14,
+        "text": "Die Europäische Union ist...",
+        "options": ["eine Freihandelszone.", "eine Zollunion.", "ein Bundesstaat."],
+        "correctIndex": 1
+      },
+      {
+        "id": 15,
+        "text": "Was trifft auf Dienstleistungen zu?",
+        "options": ["Dienstleistungen können nicht gelagert werden", "Dienstleistungen sind überall zu bekommen", "Dienstleistungen sind heute eine Selbstverständlichkeit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 16,
+        "text": "Das Europäische Parlament hat seinen Hauptsitz in...",
+        "options": ["Luxemburg.", "Frankfurt am Main.", "Straßburg."],
+        "correctIndex": 2
+      },
+      {
+        "id": 17,
+        "text": "Euro-Münzen und Euro-Banknoten gibt es seit...",
+        "options": ["1995.", "2002.", "2004."],
+        "correctIndex": 1
+      },
+      {
+        "id": 18,
+        "text": "Wenn Geld weniger Wert wird, spricht man von...",
+        "options": ["Deflation.", "Abflation.", "Inflation."],
+        "correctIndex": 2
+      },
+      {
+        "id": 19,
+        "text": "Ein Gehaltskonto bei einer Bank ist ein...",
+        "options": ["Sparkonto.", "Punktekonto.", "Girokonto."],
+        "correctIndex": 2
+      },
+      {
+        "id": 20,
+        "text": "Ein Markt ist dort,...",
+        "options": [
+          "wo etwas erzeugt wird.",
+          "wo sich Angebot und Nachfrage treffen.",
+          "wo sich ArbeitgeberInnen und ArbeitnehmerInnen treffen."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 21,
+        "text": "Wie bezeichnet man die Produktion von Bio-Gemüse richtig?",
+        "options": ["Biolandwirtschaft", "Organisch-biologischer Anbau", "Organische Landwirtschaft"],
+        "correctIndex": 2
+      },
+      {
+        "id": 22,
+        "text": "Was bedeutet die Abkürzung KESt?",
+        "options": ["Kapitalerfolgsstatistik", "Kapital- und Einkommensteuer", "Kapitalertragssteuer"],
+        "correctIndex": 2
+      },
+      {
+        "id": 23,
+        "text": "Ein Girokonto eignet sich vor allem...",
+        "options": ["zum Sparen.", "für hohe Zinseinnahmen.", "für laufende Geldbewegungen."],
+        "correctIndex": 2
+      },
+      {
+        "id": 24,
+        "text": "Was gehört zum Dienstleistungsgeschäft einer Bank?",
+        "options": ["Spareinlagen entgegennehmen", "Kredite vergeben", "Währungsumtausch"],
+        "correctIndex": 2
+      },
+      {
+        "id": 25,
+        "text": "Wie bezeichnet man den Handel innerhalb eines Landes?",
+        "options": ["Binnenhandel", "Außenhandel", "Innerer Handel"],
+        "correctIndex": 0
+      },
+      {
+        "id": 26,
+        "text": "Das Tauschverhältnis zwischen den Währungen nennt man...",
+        "options": ["Tauschkurse.", "Umtauschpreise.", "Wechselkurse."],
+        "correctIndex": 2
+      },
+      {
+        "id": 27,
+        "text": "Ein Budget ist ein...",
+        "options": ["Wirtschaftsstandort.", "Haushaltsplan.", "Haushaltsdefizit."],
+        "correctIndex": 1
+      },
+      {
+        "id": 28,
+        "text": "Wirtschaften heißt...",
+        "options": [
+          "möglichst viel erzeugen und verbrauchen.",
+          "mit den gegebenen Mitteln sorgfältig haushalten.",
+          "viel Handel treiben."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Kleinbetriebe haben...",
+        "options": ["weniger als 10 MitarbeiterInnen.", "weniger als 50 MitarbeiterInnen.", "bis zu 100 MitarbeiterInnen."],
+        "correctIndex": 0
+      },
+      {
+        "id": 30,
+        "text": "Ein anderes Wort für Kredit ist...",
+        "options": ["Bankgeschäft.", "Leihgeld.", "Darlehen."],
+        "correctIndex": 2
+      },
+      {
+        "id": 31,
+        "text": "Anlageberatung gehört in einer Bank zum...",
+        "options": ["Einlagengeschäft.", "Dienstleistungsgeschäft.", "Kreditgeschäft."],
+        "correctIndex": 1
+      },
+      {
+        "id": 32,
+        "text": "Was ist eine Dividende?",
+        "options": ["Ein anderes Wort für Rente", "Der Lohn eines Börsenmaklers", "Ein ausgeschütteter Gewinn an einen Aktionär/eine Aktionärin"],
+        "correctIndex": 2
+      },
+      {
+        "id": 33,
+        "text": "Welcher Nachbarstaat Österreichs ist nicht Mitglied der EU?",
+        "options": ["Ungarn", "Slowenien", "Schweiz"],
+        "correctIndex": 2
+      },
+      {
+        "id": 34,
+        "text": "Die gesamte Wirtschaft eines Landes bezeichnet man als...",
+        "options": ["Betriebswirtschaft.", "Volkswirtschaft.", "Volkseinkommen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 35,
+        "text": "Die Zinsen, die die Bank an die Sparenden bezahlt, heißen...",
+        "options": ["Bankzinsen.", "Sollzinsen.", "Habenzinsen."],
+        "correctIndex": 2
+      },
+      {
+        "id": 36,
+        "text": "Auf welchem Konto ändert sich der Kontostand sehr häufig?",
+        "options": ["Sparkonto", "Girokonto", "Wertpapierkonto"],
+        "correctIndex": 1
+      },
+      {
+        "id": 37,
+        "text": "Welches Unternehmen kann nur einem Unternehmer oder einer Unternehmerin gehören?",
+        "options": ["Personengesellschaft", "Kapitalgesellschaft", "Einzelunternehmen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 38,
+        "text": "Die Inflationsrate gibt an,...",
+        "options": [
+          "um wie viel Prozent man sich mehr Güter kaufen kann.",
+          "um wie viel Prozent alles teurer geworden ist.",
+          "um wie viel Prozent manche Waren billiger werden."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 39,
+        "text": "Bankomatkarten und Kreditkarten zählen zum...",
+        "options": ["Papiergeld.", "Plastikgeld.", "Bankgeld."],
+        "correctIndex": 1
+      },
+      {
+        "id": 40,
+        "text": "Was ist keine Stärke eines Supermarktes?",
+        "options": ["Selbstbedienung", "Einkaufswagen", "Persönliche Beratung und Bedienung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 41,
+        "text": "Wie nennt man einen Preisnachlass?",
+        "options": ["Rabatt", "Karat", "Hausse"],
+        "correctIndex": 0
+      },
+      {
+        "id": 42,
+        "text": "Wie wird ein Versicherungsschein genannt?",
+        "options": ["Polizze", "Polyp", "Polier"],
+        "correctIndex": 0
+      },
+      {
+        "id": 43,
+        "text": "Mehrwertsteuer ist im allgemeinen Sprachgebrauch die...",
+        "options": ["Umsatzsteuer.", "Grundsteuer.", "Einkommenssteuer."],
+        "correctIndex": 0
+      },
+      {
+        "id": 44,
+        "text": "Was ist ein Kontokorrent-Konto?",
+        "options": ["Geschäftskonto bei einem Kreditinstitut", "Leasingvertrag mit einem Finanzdienstleister", "Aktiendepot bei einer Bank"],
+        "correctIndex": 0
+      },
+      {
+        "id": 45,
+        "text": "Wie nennt man die Kosten, die auf jeden Fall anfallen, egal wie viel man produziert?",
+        "options": ["Variable Kosten", "Fixe Kosten", "Hauptkosten"],
+        "correctIndex": 1
+      },
+      {
+        "id": 46,
+        "text": "Die zunehmende Vernetzung der Weltwirtschaft wird bezeichnet als...",
+        "options": ["Globalisierung.", "Finanzierung.", "Supranationalisierung."],
+        "correctIndex": 0
+      },
+      {
+        "id": 47,
+        "text": "Wünsche werden in der Sprache der Wirtschaft bezeichnet als...",
+        "options": ["Nachfrage.", "Bedarf.", "Bedürfnisse."],
+        "correctIndex": 2
+      },
+      {
+        "id": 48,
+        "text": "Maria M. betreibt am Bahnhof eine kleine Trafik. Sie arbeitet...",
+        "options": ["selbständig.", "als Angestellte.", "unselbständig."],
+        "correctIndex": 0
+      },
+      {
+        "id": 49,
+        "text": "Herr Walter R. ist Beamter im Finanzamt. Er bekommt für seine Arbeit...",
+        "options": ["Lohn.", "Gehalt.", "Zinsen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 50,
+        "text": "Die Menge Geld, die du besitzt, um dir deine Wünsche zu erfüllen, nennt man...",
+        "options": ["Kaufkraft.", "Bedarf.", "Geldwert."],
+        "correctIndex": 0
+      },
+      {
+        "id": 51,
+        "text": "Die durchschnittliche Entwicklung der Preise wird gemessen...",
+        "options": ["mit einem Warenkorb.", "bei einem Probeeinkauf.", "durch Befragungen der KonsumentInnen."],
+        "correctIndex": 0
+      },
+      {
+        "id": 52,
+        "text": "In der EU wird der wirtschaftliche Alltag erleichtert durch die...",
+        "options": ["vier Grundfreiheiten.", "drei Grundgesetze.", "sieben Richtlinien."],
+        "correctIndex": 0
+      },
+      {
+        "id": 53,
+        "text": "Wo werden Rohstoffe immer unter höchsten Sicherheitsstandards und unter größtmöglicher Schonung der Umwelt abgebaut und verarbeitet?",
+        "options": ["In China", "In Österreich", "In Süd-Amerika"],
+        "correctIndex": 1
+      },
+      {
+        "id": 54,
+        "text": "Friedrich R. aus Wien möchte in Paris ein Bankkonto eröffnen. Welche Freiheit in der EU ermöglicht ihm das?",
+        "options": ["Freiheit des Warenverkehrs", "Freier Personenverkehr", "Freiheit des Kapitalverkehrs"],
+        "correctIndex": 2
+      },
+      {
+        "id": 55,
+        "text": "Das Bruttoinlandsprodukt ergibt sich...",
+        "options": [
+          "aus der Wertschöpfung aller Produkte und Dienstleistungen.",
+          "aus dem Einkommen aller Unternehmen.",
+          "aus dem Vermögen aller EinwohnerInnen eines Landes."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 56,
+        "text": "Wie viel Geld man auf seinem Gehaltskonto hat, sieht man auf dem...",
+        "options": ["Kontoausweis.", "Kontostand.", "Kontorahmen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 57,
+        "text": "Das gesetzlich geregelte Zahlungsmittel eines Landes nennt man...",
+        "options": ["Nationalbank.", "Währung.", "Geldumlauf."],
+        "correctIndex": 1
+      },
+      {
+        "id": 58,
+        "text": "Müllabfuhr, Kanalräumung und Stromversorgung der Gemeinden und Bundesländer sind...",
+        "options": ["allgemeine Dienstleistungen.", "öffentliche Dienstleistungen.", "staatliche Dienstleistungen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 59,
+        "text": "Alle Einnahmen und Ausgaben aus dem Reiseverkehr fallen unter die...",
+        "options": ["Bilanz des Warenverkehrs.", "Devisenbilanz.", "Reisebürobilanz."],
+        "correctIndex": 1
+      },
+      {
+        "id": 60,
+        "text": "Wenn eine Währung in eine andere umgetauscht wird, spricht man von...",
+        "options": ["Geldtransfer.", "Währungstransfer.", "Geldwechsel."],
+        "correctIndex": 2
+      },
+      {
+        "id": 61,
+        "text": "Wenn man einen Geldbetrag überweisen will, benutzt man...",
+        "options": ["Smart-Banking.", "Einzahlungsschein.", "Buchungsschein."],
+        "correctIndex": 1
+      },
+      {
+        "id": 62,
+        "text": "Wenn jemand mit der Bankomatkarte bezahlt,...",
+        "options": [
+          "wird das Geld erst im nächsten Monat vom Konto abgebucht.",
+          "gewährt die Bank gewissermaßen einen Kredit.",
+          "wird der Betrag gleich vom Konto der KundInnen abgebucht."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 63,
+        "text": "Wer nur in einer bestimmten Jahreszeit z.B. im Sommer berufstätig ist, macht...",
+        "options": ["Saisonarbeit.", "Sommerarbeit.", "Halbjahresarbeit."],
+        "correctIndex": 0
+      },
+      {
+        "id": 64,
+        "text": "Was ist die Maastricht-Grenze?",
+        "options": [
+          "Die Grenze zwischen Frankreich und Deutschland",
+          "Kriterien zur Begrenzung der Staatsverschuldung der Euro-Länder",
+          "Das Defizit der EU darf nicht höher als das der USA sein"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 65,
+        "text": "Welche dieser Interessenvertretungen ist in Österreich gesetzlich vorgeschrieben?",
+        "options": ["Arbeiterkammer", "Gewerkschaftsbund", "Industriellenvereinigung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 66,
+        "text": "Wie nennt man die Zusammenarbeit der ArbeitnehmerInnen und ArbeitgeberInnen in ganz Österreich?",
+        "options": ["Handelspartnerschaft", "Sozialpartnerschaft", "Wirtschaftspartnerschaft"],
+        "correctIndex": 1
+      },
+      {
+        "id": 67,
+        "text": "Wer einen Geldbetrag nicht auf einmal, sondern in kleinen Einheiten zurückzahlt, der zahlt...",
+        "options": ["Raten.", "Portionen.", "Teilmengen."],
+        "correctIndex": 0
+      },
+      {
+        "id": 68,
+        "text": "Mit welchem Wort beschreibt man die momentane wirtschaftliche Lage eines Landes?",
+        "options": ["Konjunktur", "Konfusion", "Konkurrenz"],
+        "correctIndex": 0
+      },
+      {
+        "id": 69,
+        "text": "Wenn man über die möglichen Reparaturkosten genau Bescheid wissen will, verlangt man...",
+        "options": ["eine Reparaturübersicht.", "einen Kostenplan.", "einen Kostenvoranschlag."],
+        "correctIndex": 2
+      },
+      {
+        "id": 70,
+        "text": "Wie wird in den Medien das Treffen der Staats- und Regierungschefs der EU-Staaten oft bezeichnet?",
+        "options": ["Eurokonferenz", "Gipfeltreffen", "Kommissionstreffen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 71,
+        "text": "Wie nennt man alle Maßnahmen, mit denen ärmeren Ländern geholfen werden soll?",
+        "options": ["Armutshilfe", "Notstandshilfe", "Entwicklungshilfe"],
+        "correctIndex": 2
+      },
+      {
+        "id": 72,
+        "text": "Wie nennt man Gebiete, die den wirtschaftlichen Schwerpunkt eines Landes bilden?",
+        "options": ["Wirtschaftshauptgebiete", "Wirtschaftsräume", "Wirtschaftszentren"],
+        "correctIndex": 2
+      },
+      {
+        "id": 73,
+        "text": "Welcher dieser Staaten war von Anfang an Mitglied der EU?",
+        "options": ["Deutschland", "Österreich", "Rumänien"],
+        "correctIndex": 0
+      },
+      {
+        "id": 74,
+        "text": "Wenn du Bargeld für Reisen ins Ausland wechseln möchtest, dann kaufst du...",
+        "options": ["Valuten.", "Wechselwährungen.", "Devisen."],
+        "correctIndex": 0
+      },
+      {
+        "id": 75,
+        "text": "Die Entwicklungsländer werden zusammengefasst mit dem Begriff...",
+        "options": ["zweite Welt.", "dritte Welt.", "arme Welt."],
+        "correctIndex": 1
+      },
+      {
+        "id": 76,
+        "text": "Welcher Wirtschaftszweig bietet in Österreich die meisten Arbeitsplätze?",
+        "options": ["Industrie", "Landwirtschaft", "Tourismus"],
+        "correctIndex": 2
+      },
+      {
+        "id": 77,
+        "text": "Die Zinsen, die die Bank für Kredite verrechnet, nennt man...",
+        "options": ["Habenzinsen.", "Bankzinsen.", "Sollzinsen."],
+        "correctIndex": 2
+      },
+      {
+        "id": 78,
+        "text": "Bis zu welcher Unternehmensgröße spricht man von einem KMU?",
+        "options": ["Bis zu 150 MitarbeiterInnen", "Bis zu 250 MitarbeiterInnen", "Bis zu 100 MitarbeiterInnen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 79,
+        "text": "Welche Versicherung müssen KFZ-HalterInnen in Österreich abschließen?",
+        "options": ["Insassenunfallversicherung", "Kaskoversicherung", "Haftpflichtversicherung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 80,
+        "text": "Ein grafisch gestaltetes Wortzeichen einer Firma nennt man...",
+        "options": ["Logo.", "Klaro.", "Jepp."],
+        "correctIndex": 0
+      },
+      {
+        "id": 81,
+        "text": "Wie nennt man das Einkommen, das man nach dem Ausscheiden aus dem Arbeitsleben erhält?",
+        "options": ["Pension", "Ertrag", "Bezug"],
+        "correctIndex": 0
+      },
+      {
+        "id": 82,
+        "text": "Was bedeutet es, wenn ein Unternehmen „rote Zahlen“ schreibt?",
+        "options": ["Es macht Verlust", "Es macht Gewinn", "Es macht einen höheren Gewinn als im Vorjahr"],
+        "correctIndex": 0
+      },
+      {
+        "id": 83,
+        "text": "Unter welchem Namen ist der Vertrag bekannt, durch welchen die EU an die Stelle der EWG trat?",
+        "options": ["Vertrag von Maastricht", "Schlussakte von Helsinki", "Römische Verträge"],
+        "correctIndex": 0
+      },
+      {
+        "id": 84,
+        "text": "Daniela hat zum Geburtstag 50 Euro bekommen. Damit will sie möglichst viele Bücher kaufen. Sie handelt nach dem...",
+        "options": ["Maximalprinzip.", "Minimalprinzip.", "Optimalprinzip."],
+        "correctIndex": 0
+      },
+      {
+        "id": 85,
+        "text": "Emil geht von Geschäft zu Geschäft, um bestimmte Sportschuhe günstig einzukaufen. Er handelt nach dem...",
+        "options": ["Optimalprinzip.", "Maximalprinzip.", "Minimalprinzip."],
+        "correctIndex": 2
+      },
+      {
+        "id": 86,
+        "text": "Wenn man die Telefon- oder Stromrechnung von seinem Bankkonto automatisch abbuchen lässt, handelt es sich um...",
+        "options": ["eine Überweisung.", "einen Dauerauftrag.", "einen Einziehungsauftrag."],
+        "correctIndex": 2
+      },
+      {
+        "id": 87,
+        "text": "Wie nennt man eine einfache Wirtschaftsweise in den Tropen, bei der die Anbauflächen ständig verlegt werden?",
+        "options": ["Wechselfeldwirtschaft", "Nomadismus", "Wanderfeldbau"],
+        "correctIndex": 2
+      },
+      {
+        "id": 88,
+        "text": "Wie nennt man sämtliche Aktivitäten, die sich auf den Transport der Ware vom Produzenten zum Konsumenten beziehen?",
+        "options": ["Didaktik", "Logistik", "Informatik"],
+        "correctIndex": 1
+      },
+      {
+        "id": 89,
+        "text": "Geld ist Tauschmittel, Recheneinheit und dient zur Wertaufbewahrung. Diese drei Merkmale werden bezeichnet als...",
+        "options": ["die Funktionen von Geld.", "die Kaufkraft von Geld.", "Geldwert."],
+        "correctIndex": 0
+      },
+      {
+        "id": 90,
+        "text": "Wie nennt man die Einführung eines neu entwickelten Produktes auf dem Markt?",
+        "options": ["Lounge", "Lobby", "Launch"],
+        "correctIndex": 2
+      },
+      {
+        "id": 91,
+        "text": "Wie nennt man den Wertzuwachs vom rohen Holz bis zum Fertigprodukt Tisch?",
+        "options": ["Wertschöpfung", "Wertgewinn", "Wertsteigerung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 92,
+        "text": "11.031 Erfindungen wurden 2021 von ÖsterreicherInnen weltweit registriert. Wo erfolgt die Anmeldung für den Schutz einer Erfindung?",
+        "options": ["Normenamt", "Patentamt", "Schutzamt"],
+        "correctIndex": 1
+      },
+      {
+        "id": 93,
+        "text": "Ein Staat hat mehr Ausgaben als Einnahmen, es besteht daher ein...",
+        "options": ["Budgetdefizit.", "Gewinn.", "Ausgleich."],
+        "correctIndex": 0
+      },
+      {
+        "id": 94,
+        "text": "Was bedeutet die Abkürzung „EWG“?",
+        "options": ["Europäische Wirtschaftsgemeinschaft", "Einkaufswarengesetz", "Europäische Wettergemeinschaft"],
+        "correctIndex": 0
+      },
+      {
+        "id": 95,
+        "text": "Welches der folgenden Länder war kein Gründungsmitglied der Europäischen Union?",
+        "options": ["Italien", "Frankreich", "Österreich"],
+        "correctIndex": 2
+      },
+      {
+        "id": 96,
+        "text": "Was ist ein nicht-monetäres Ziel?",
+        "options": ["Gewinn erzielen", "Nachhaltigkeit", "Produktionskosten senken"],
+        "correctIndex": 1
+      },
+      {
+        "id": 97,
+        "text": "Welche Währung hat die Schweiz?",
+        "options": ["Euro", "Schweizer Dollar", "Schweizer Franken"],
+        "correctIndex": 2
+      },
+      {
+        "id": 98,
+        "text": "Welcher Bestandteil ist in einem Kaufvertrag gesetzlich nicht verpflichtend?",
+        "options": ["Menge", "Preis", "Verpackung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 99,
+        "text": "Simon kauft eine große Anzahl von Stoffen bei einem Unternehmen ein. Der dabei gewährte Rabatt wird auch... genannt.",
+        "options": ["Schlussrabatt", "Treuerabatt", "Mengenrabatt"],
+        "correctIndex": 2
+      },
+      {
+        "id": 100,
+        "text": "Den Hauptbestandteil eines Gutes bezeichnet man als...",
+        "options": ["Hilfsstoff.", "Werkstoff.", "Rohstoff."],
+        "correctIndex": 2
+      },
+      {
+        "id": 101,
+        "text": "Wie lautet der Rechnungsbetrag inklusive Umsatzsteuer?",
+        "options": ["Brutto", "Netto", "Verhandlungspreis"],
+        "correctIndex": 0
+      },
+      {
+        "id": 102,
+        "text": "Was zählt zu den Aufgaben des Personalwesens in einem Unternehmen?",
+        "options": ["Gütereinkauf", "Lagerhaltung", "Abschluss von Arbeitsverträgen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 103,
+        "text": "Wann wurde im Vereinigten Königreich der Brexit mittels Volksabstimmung beschlossen?",
+        "options": ["2014", "2016", "2018"],
+        "correctIndex": 1
+      },
+      {
+        "id": 104,
+        "text": "Für welchen Wirtschaftszweig ist Tirol besonders bekannt?",
+        "options": ["Tourismus", "Industrie", "Handel"],
+        "correctIndex": 0
+      },
+      {
+        "id": 105,
+        "text": "Wie bezeichnet man das Bankkonto, das im Alltag für bargeldlose Zahlungen verwendet wird?",
+        "options": ["Sparbuch", "Girokonto", "Bausparkonto"],
+        "correctIndex": 1
+      },
+      {
+        "id": 106,
+        "text": "Lisa bekommt am 15. jeden Monats ein Taschengeld von genau 50 Euro von ihrem Papa auf ihr Girokonto überwiesen. Hierbei handelt es sich um...",
+        "options": ["ein Einzugsverfahren.", "einen Dauerauftrag.", "einen Wechsel."],
+        "correctIndex": 1
+      },
+      {
+        "id": 107,
+        "text": "Wie erfolgt die Identifizierung von Produkten im Supermarkt?",
+        "options": ["Barcode", "IBAN", "PIN"],
+        "correctIndex": 0
+      },
+      {
+        "id": 108,
+        "text": "Welcher der folgenden Begriffe bezeichnet eine Einnahmequelle für den Staat?",
+        "options": ["Staatsinvestitionen", "Steuern", "Rezessionen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 109,
+        "text": "Wofür steht die Abkürzung „EZB“?",
+        "options": ["Europäische Zentralbank", "Englische Zentralbank", "Europäische Zahlungsbedingungen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 110,
+        "text": "Wo ist der Sitz der Europäische Zentralbank (EZB)?",
+        "options": ["Frankfurt am Main", "Berlin", "Brüssel"],
+        "correctIndex": 0
+      },
+      {
+        "id": 111,
+        "text": "Ein Unternehmen setzt Maßnahmen zur Steigerung der Verkaufszahlen. Von welcher Abteilung werden diese Schritte durchgeführt?",
+        "options": ["Einkauf", "Rechnungswesen", "Marketing"],
+        "correctIndex": 2
+      },
+      {
+        "id": 112,
+        "text": "Wenn man sich bei einem Unternehmen bewirbt, wird man häufig zu... eingeladen.",
+        "options": ["einem Vorstellungsgespräch", "Kaffee und Kuchen", "einem Verkaufsgespräch"],
+        "correctIndex": 0
+      },
+      {
+        "id": 113,
+        "text": "Wie nennt man in der Wirtschaft das Zusammenspiel von Haushalten, Unternehmen und Staat?",
+        "options": ["Konjunktur", "Wirtschaftskreislauf", "Bruttoinlandsprodukt"],
+        "correctIndex": 1
+      },
+      {
+        "id": 114,
+        "text": "Welcher Wirtschaftszweig vermittelt zwischen Erzeuger und Konsumenten?",
+        "options": ["Tourismus", "Banken", "Handel"],
+        "correctIndex": 2
+      },
+      {
+        "id": 115,
+        "text": "Wenn auf einem Gehaltskonto Geld eintrifft, zeigt der Kontoauszug eine...",
+        "options": ["Lastschrift.", "Gutschrift.", "Kontoschrift."],
+        "correctIndex": 1
+      },
+      {
+        "id": 116,
+        "text": "Wenn ein Betrag vom Gehaltskonto abgebucht wird, handelt es sich um eine...",
+        "options": ["Gutschrift.", "Sparschrift.", "Lastschrift."],
+        "correctIndex": 2
+      },
+      {
+        "id": 117,
+        "text": "Wie nennt man die schriftliche Darstellung des Kontostandes bei einem Gehaltskonto?",
+        "options": ["Kontobuchung", "Kontoauszug", "Kontoeintrag"],
+        "correctIndex": 1
+      },
+      {
+        "id": 118,
+        "text": "Was bedeutet die Abkürzung „EWG“?",
+        "options": ["Europäische Wirtschaftsgemeinschaft", "Einkaufswarengesetz", "Europäische Wettergemeinschaft"],
+        "correctIndex": 0
+      },
+      {
+        "id": 119,
+        "text": "Wenn jemand mit der Kreditkarte bezahlt,...",
+        "options": [
+          "wird das Geld erst im nächsten Monat vom Konto abgebucht.",
+          "gewährt die Bank gewissermaßen einen Kredit.",
+          "wird der Betrag gleich vom Konto des Kunden/der Kundin abgebucht."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 120,
+        "text": "Was bedeutet „abgabenfrei“ im Zollbereich?",
+        "options": ["Bei der Einreise müssen keine Zölle bezahlt werden", "Die Reisefreimenge wurde überschritten", "Die Reisefreigrenze ist nicht anwendbar"],
+        "correctIndex": 0
+      }
+    ],
+    "ag": [
+      {
+        "id": 1,
+        "text": "Was bedeutet „Tilgung“?",
+        "options": ["Rückzahlung des Kredits", "Aufbrauchen des Kredits", "Verschwenden des Kredits"],
+        "correctIndex": 0
+      },
+      {
+        "id": 2,
+        "text": "Was ist ein EURIBOR?",
+        "options": ["Eine Zahlungsart", "Eine Kreditart", "Der Leitzins des Geldmarktes"],
+        "correctIndex": 2
+      },
+      {
+        "id": 3,
+        "text": "Rund 194 Milliarden Euro werden in Österreich jährlich durch Export erwirtschaftet. Welches Land, an das ein Drittel dieser Ausfuhren fließt, ist der wichtigste Handelspartner für Österreich?",
+        "options": ["USA", "Deutschland", "Italien"],
+        "correctIndex": 1
+      },
+      {
+        "id": 4,
+        "text": "Der Ölpreis verändert sich täglich, die Menge des geförderten Rohöls und der weltweite Bedarf spielen eine Rolle. Was bestimmt maßgeblich den Ölpreis?",
+        "options": ["Angebot und Nachfrage", "Kosten und Ertrag", "Verkehr und Wetter"],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "Der Anteil der Ein-Personen-Unternehmen (EPU) steigt kontinuierlich an. Wie viele der rund 576.063 aktiven Wirtschaftskammermitglieder sind EPUs?",
+        "options": ["Ein Drittel", "Ein Viertel", "Mehr als zwei Drittel"],
+        "correctIndex": 2
+      },
+      {
+        "id": 6,
+        "text": "Oberösterreich ist u.a. für seine Cluster bekannt. Was versteht man gemeinhin unter einem Cluster?",
+        "options": ["Räumliche Konzentration von Unternehmen", "Rechtlicher Zusammenschluss von Unternehmen", "Fokussierung auf den Export"],
+        "correctIndex": 0
+      },
+      {
+        "id": 7,
+        "text": "Wer sind die „Shareholder“, um die sich die großen Firmen häufig Gedanken machen?",
+        "options": ["Börsenaufsicht", "Vorstandsmitglieder", "AktienbesitzerInnen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 8,
+        "text": "Welche Aussage ist richtig? Ein Aktionär...",
+        "options": ["ist Miteigentümer des Unternehmens.", "haftet für das Unternehmen.", "ist Teil des Aufsichtsrats eines Unternehmens."],
+        "correctIndex": 0
+      },
+      {
+        "id": 9,
+        "text": "Zu welchem Wirtschaftssektor gehört die Bergbauindustrie?",
+        "options": ["Primärer Sektor", "Sekundärer Sektor", "Tertiärer Sektor"],
+        "correctIndex": 0
+      },
+      {
+        "id": 10,
+        "text": "Wie heißt der österreichische Aktienindex?",
+        "options": ["DAX", "STOXX", "ATX"],
+        "correctIndex": 2
+      },
+      {
+        "id": 11,
+        "text": "Börsennotierte Unternehmen zahlen an ihre Aktionäre...",
+        "options": ["Dividenden.", "Boni.", "Kredite."],
+        "correctIndex": 0
+      },
+      {
+        "id": 12,
+        "text": "Welches Land nimmt nicht an der Europäischen Währungsunion teil?",
+        "options": ["Italien", "Ungarn", "Österreich"],
+        "correctIndex": 1
+      },
+      {
+        "id": 13,
+        "text": "Wie nennt man Produkte, die bei der Erstellung bereits konsumiert werden und daher weder auf Vorrat produziert noch gelagert werden können?",
+        "options": ["Verbrauchsgüter", "Dienstleistungen", "Gebrauchsgüter"],
+        "correctIndex": 1
+      },
+      {
+        "id": 14,
+        "text": "Wie nennt man eine Wirtschaftsgemeinschaft, in der die Mitglieder untereinander keine Zölle einheben, gegenüber Nichtmitgliedern aber Zölle vorschreiben können, wie sie wollen?",
+        "options": ["Wirtschaftskreislauf", "Freihandelszone", "Handelsunion"],
+        "correctIndex": 1
+      },
+      {
+        "id": 15,
+        "text": "Warum haben Staaten wie Kuwait oder die Vereinigten Arabischen Emirate ein hohes Bruttoinlandsprodukt pro Kopf?",
+        "options": ["Weil dort nur Millionäre und Milliardäre leben", "Weil dort viel Erdöl gefördert wird und wenige Menschen leben", "Weil dort große Konzerne ihren Sitz haben"],
+        "correctIndex": 1
+      },
+      {
+        "id": 16,
+        "text": "Auf jeder Seite der Straße gibt es eine Tankstelle, jeweils von einem anderen Mineralölkonzern. Um welche Standortorientierung handelt es sich?",
+        "options": ["Konkurrenzorientierung", "Rohstofforientierung", "Arbeitskräfteorientierung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 17,
+        "text": "Wie nennt man alle Maßnahmen, die dazu beitragen, ein Unternehmen und seine Produkte bekannt zu machen?",
+        "options": ["Marketing", "Kommunikation", "Verkaufsförderung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 18,
+        "text": "Herr Gustav G. ist Unternehmer. Wenn er Geld aufbringt, um sein Geschäft zu erneuern, dann handelt es sich um eine...",
+        "options": ["Intervention.", "Investition.", "Interaktion."],
+        "correctIndex": 1
+      },
+      {
+        "id": 19,
+        "text": "Sabine vergleicht den Preis für neue Jeans mit ihrem Geld im Sparschwein. Sie verwendet hier Geld...",
+        "options": ["als Tauschmittel.", "als Recheneinheit.", "zur Wertaufbewahrung."],
+        "correctIndex": 1
+      },
+      {
+        "id": 20,
+        "text": "Wenn der Wechselkurs einer Währung gegenüber den anderen Währungen hoch bleibt, spricht man von einer...",
+        "options": ["weichen Währung.", "guten Währung.", "harten Währung."],
+        "correctIndex": 2
+      },
+      {
+        "id": 21,
+        "text": "Wie nennt man einen Staat, der durch sehr niedrige Steuern „Steuerflüchtlinge“ aus anderen Staaten anlockt?",
+        "options": ["Steuerparadies", "Steuerfluchtburg", "Steuerversteck"],
+        "correctIndex": 0
+      },
+      {
+        "id": 22,
+        "text": "Wie nennt man Gebiete, in denen Unternehmen wenig Steuern zahlen müssen und billige Arbeitskräfte haben, um für den Export zu produzieren?",
+        "options": ["Billige Produktionszonen", "Freie Exportzonen", "Steueroasen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 23,
+        "text": "Wenn zwei Unternehmen sich zu einem neuen, gemeinsamen Unternehmen zusammenschließen, spricht man von...",
+        "options": ["einer Fusion.", "einer Akkumulation.", "einem Kartell."],
+        "correctIndex": 0
+      },
+      {
+        "id": 24,
+        "text": "Die vielen kleinen senkrechten Linien, mit denen die Preise im Supermarkt gekennzeichnet sind, heißen...",
+        "options": ["Strichlinien.", "Strichcode.", "Preisstriche."],
+        "correctIndex": 1
+      },
+      {
+        "id": 25,
+        "text": "Wie sollte man wirtschaften, um Natur und Rohstoffe nicht auszubeuten, sondern um sie für künftige Generationen zu schonen und zu erhalten?",
+        "options": ["Sorgfältig", "Sparsam", "Nachhaltig"],
+        "correctIndex": 2
+      },
+      {
+        "id": 26,
+        "text": "Wie nennt man die Zusammenarbeit zwischen den reichen Industrieländern und den armen Ländern der Welt?",
+        "options": ["Entwicklungszusammenarbeit", "Wirtschaftszusammenarbeit", "Handelszusammenarbeit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 27,
+        "text": "Welche Branche befasst sich mit dem Erkunden von Bedürfnissen und mit der Zufriedenheit der KundenInnen?",
+        "options": ["Markterkundung", "Marktforschung", "Bedürfnisforschung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 28,
+        "text": "Eine Textilfabrik verlegt ihre Produktion in ein Niedriglohnland. Um welche Art der Standortorientierung handelt es sich?",
+        "options": ["Verkehrsorientierung", "Arbeitskräfteorientierung", "Konkurrenzorientierung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Die gesamte Wirtschaftsleistung eines Landes wird abgekürzt mit den Buchstaben...",
+        "options": ["GWL.", "BIP.", "BWL."],
+        "correctIndex": 1
+      },
+      {
+        "id": 30,
+        "text": "Was kennzeichnet ein Produkt und gibt ihm einen unverwechselbaren Charakter?",
+        "options": ["Name", "Form", "Marke"],
+        "correctIndex": 2
+      },
+      {
+        "id": 31,
+        "text": "Wie nennt man Güter, die zur Produktion von anderen Gütern dienen?",
+        "options": ["Konsumgüter", "Werkzeuggüter", "Investitionsgüter"],
+        "correctIndex": 2
+      },
+      {
+        "id": 32,
+        "text": "Mit welcher Plastikkarte muss man zahlen, damit das Geld erst später vom Konto abgebucht wird?",
+        "options": ["Bankomatkarte", "Kreditkarte", "Kundenkarte"],
+        "correctIndex": 1
+      },
+      {
+        "id": 33,
+        "text": "Der Geldwert aller verkauften Produkte oder Dienstleistungen eines Unternehmens ist...",
+        "options": ["der Gewinn.", "der Umsatz.", "die Bilanz."],
+        "correctIndex": 1
+      },
+      {
+        "id": 34,
+        "text": "Mit der Einführung des Euro entstand innerhalb der EU eine...",
+        "options": ["Zollunion.", "Freihandelszone.", "Wirtschafts- und Währungsunion."],
+        "correctIndex": 2
+      },
+      {
+        "id": 35,
+        "text": "Was regelt den freien Grenzverkehr in den meisten EU-Staaten?",
+        "options": ["Abkommen von Maastricht", "Abkommen von Schengen", "Abkommen von Paris"],
+        "correctIndex": 1
+      },
+      {
+        "id": 36,
+        "text": "Wer vertritt die Interessen der ArbeitnehmerInnen in einem Unternehmen?",
+        "options": ["Betriebsvertreter", "Arbeitnehmerrat", "Betriebsrat"],
+        "correctIndex": 2
+      },
+      {
+        "id": 37,
+        "text": "Wie bezeichnet man das Wiederverwerten von Altstoffen wie Glas und Papier?",
+        "options": ["Recycling", "Reproducing", "Remaking"],
+        "correctIndex": 0
+      },
+      {
+        "id": 38,
+        "text": "Wenn man alle Importgüter und Exportgüter einander gegenüberstellt, erhält man die...",
+        "options": ["Leistungsbilanz.", "Zahlungsbilanz.", "Handelsbilanz."],
+        "correctIndex": 2
+      },
+      {
+        "id": 39,
+        "text": "Was bilden Unternehmen, die die Preise ihrer Produkte untereinander absprechen?",
+        "options": ["Eine Fusion", "Einen Konzern", "Ein Kartell"],
+        "correctIndex": 2
+      },
+      {
+        "id": 40,
+        "text": "Wie nennt man den Zusammenschluss von mehreren Unternehmen, die aber rechtlich selbständig bleiben?",
+        "options": ["Konzern", "Kartell", "Konzentrat"],
+        "correctIndex": 0
+      },
+      {
+        "id": 41,
+        "text": "Die Organisation erdölexportierender Länder (OPEC) ist ein...",
+        "options": ["Ölmulti.", "Konzern.", "Kartell."],
+        "correctIndex": 2
+      },
+      {
+        "id": 42,
+        "text": "Ausgaben, die bei der Herstellung oder beim Verkauf eines Produktes anfallen, nennt man...",
+        "options": ["Einkaufskosten.", "Unkosten.", "Selbstkosten."],
+        "correctIndex": 2
+      },
+      {
+        "id": 43,
+        "text": "Die Filiale einer Bäckerei an einer stark befahrenen Straßenkreuzung ist...",
+        "options": ["kostenorientiert.", "kundenorientiert.", "rohstofforientiert."],
+        "correctIndex": 1
+      },
+      {
+        "id": 44,
+        "text": "Der Standort einer Molkerei in der Nähe von Grünlandgebieten mit vielen Kühen ist...",
+        "options": ["kundenorientiert.", "kostenorientiert.", "rohstofforientiert."],
+        "correctIndex": 2
+      },
+      {
+        "id": 45,
+        "text": "Wenn man das Bruttoinlandsprodukt eines Landes durch die Einwohnerzahl teilt, erhält man das...",
+        "options": ["Durchschnitts-BIP.", "BIP pro Kopf.", "Bevölkerungs-BIP."],
+        "correctIndex": 1
+      },
+      {
+        "id": 46,
+        "text": "Länder wie Indien oder Brasilien nennt man aufgrund ihrer wirtschaftlichen Fortschritte...",
+        "options": ["Entwicklungsländer.", "Fortschrittsländer.", "Schwellenländer."],
+        "correctIndex": 2
+      },
+      {
+        "id": 47,
+        "text": "Konzerne, die in vielen Staaten der Erde wirtschaftlich tätig sind, bezeichnet man als...",
+        "options": ["Weltunternehmen.", "Global Players.", "Konzerngiganten."],
+        "correctIndex": 1
+      },
+      {
+        "id": 48,
+        "text": "Hoch entwickelte Staaten mit einem hohen BIP pro Kopf nennt man...",
+        "options": ["Industrieländer.", "Entwicklungsländer.", "Schwellenländer."],
+        "correctIndex": 0
+      },
+      {
+        "id": 49,
+        "text": "Landeskrankenhäuser, Polizeiwachzimmer und Gemeinde-Kindergärten zählen zu den...",
+        "options": ["privaten Dienstleistungen.", "allgemeinen Dienstleistungen.", "öffentlichen Dienstleistungen."],
+        "correctIndex": 2
+      },
+      {
+        "id": 50,
+        "text": "Wenn der Wechselkurs einer Währung von der Notenbank gezielt herabgesetzt wird, spricht man von...",
+        "options": ["Abwertung.", "Aufwertung.", "Absenkung."],
+        "correctIndex": 0
+      },
+      {
+        "id": 51,
+        "text": "Wie nennt man Zinsen, die für das Überziehen eines Kontos an die Bank zu zahlen sind?",
+        "options": ["Sollzinsen", "Habenzinsen", "Kontozinsen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 52,
+        "text": "Wie nennt man die Münzen und Banknoten einer ausländischen Währung?",
+        "options": ["Valuten", "Devisen", "Wertpapiere"],
+        "correctIndex": 0
+      },
+      {
+        "id": 53,
+        "text": "Wie bezeichnet man ein Wertpapier, mit dem man MiteigentümerIn eines großen Unternehmens wird?",
+        "options": ["Anleihe", "Aktie", "Schuldschein"],
+        "correctIndex": 1
+      },
+      {
+        "id": 54,
+        "text": "Wenn eine Währung gegenüber anderen Währungen an Wert gewinnt, dann...",
+        "options": ["erleichtert das die Importe.", "erleichtert das die Exporte.", "hat das keine Auswirkungen auf den Außenhandel."],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "Wenn der Dollar gegenüber dem Euro an Wert verliert, dann...",
+        "options": ["wird eine Reise in die USA billiger.", "hat das keine Auswirkungen auf den Reiseverkehr.", "wird eine Reise in die USA teurer."],
+        "correctIndex": 0
+      },
+      {
+        "id": 56,
+        "text": "Wie nennt man einen Besitzer von Aktien? Achte auf die Schreibweise!",
+        "options": ["Aktioneur", "Aktionär", "Aktionaut"],
+        "correctIndex": 1
+      },
+      {
+        "id": 57,
+        "text": "Was wird in der Wirtschaft umgangssprachlich als „Multi“ bezeichnet?",
+        "options": ["International tätiger großer Konzern", "Viele kleine Unternehmen", "Viele begabte ManagerInnen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 58,
+        "text": "Was ist der Europäische Rat?",
+        "options": ["Eine Menschenrechtsorganisation", "Das Treffen der Staats- und Regierungschefs der EU-Staaten", "Eine Organisation der UNO"],
+        "correctIndex": 1
+      },
+      {
+        "id": 59,
+        "text": "Auf welchem Gebiet gibt es eine gemeinsame Politik in der EU?",
+        "options": ["Industrie", "Landwirtschaft", "Tourismus"],
+        "correctIndex": 1
+      },
+      {
+        "id": 60,
+        "text": "Menschen, die man mit einem bestimmten Produkt ansprechen will, nennt man...",
+        "options": ["Interessentengruppe.", "ProduktkäuferInnen.", "Zielgruppe."],
+        "correctIndex": 2
+      },
+      {
+        "id": 61,
+        "text": "Wodurch kann man das Verhalten von MitarbeiterInnen am besten lenken?",
+        "options": ["Bestimmung", "Motivation", "Autonomie"],
+        "correctIndex": 1
+      },
+      {
+        "id": 62,
+        "text": "Was ist Aufgabe des Managements?",
+        "options": ["Bezahlung der MitarbeiterInnen", "Forschen und Entwickeln neuer Produkte", "Planung, Organisation, Entscheiden und Kontrolle in einem Unternehmen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 63,
+        "text": "Welche graphische Darstellung zeigt, wie ein Unternehmen organisatorisch aufgebaut ist?",
+        "options": ["Organigramm", "Betriebs-Diagramm", "Organisationszeichnung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 64,
+        "text": "Öffentliche Krankenhäuser, Feuerwehr und Volksschulen zählen zu den...",
+        "options": ["privaten Dienstleistungen.", "allgemeinen Dienstleistungen.", "öffentlichen Dienstleistungen."],
+        "correctIndex": 2
+      },
+      {
+        "id": 65,
+        "text": "Welche Institution schützt vor unerwartet hohen Ausgaben?",
+        "options": ["Versicherung", "Bank", "Staat"],
+        "correctIndex": 0
+      },
+      {
+        "id": 66,
+        "text": "LKW, Bagger, Eisenbahnwaggon und Maurergerüst sind...",
+        "options": ["Konsumgüter.", "Investitionsgüter.", "Verbrauchsgüter."],
+        "correctIndex": 1
+      },
+      {
+        "id": 67,
+        "text": "Ein Unternehmer, der Güter ins Ausland verkauft, ist ein...",
+        "options": ["Importeur.", "Hasardeur.", "Exporteur."],
+        "correctIndex": 2
+      },
+      {
+        "id": 68,
+        "text": "Bei einer Inflation...",
+        "options": ["sinken die Preise.", "wird das Geld weniger Wert.", "können alle mehr kaufen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 69,
+        "text": "Wie nennt man das Anwachsen des Bruttoinlandsproduktes?",
+        "options": ["Inflation", "Wirtschaftswachstum", "Leistungsbilanz"],
+        "correctIndex": 1
+      },
+      {
+        "id": 70,
+        "text": "Wer verliert bei einer Inflation?",
+        "options": ["Wer Geld verborgt", "Wer sich Geld ausborgt", "Wer viele Güter kauft"],
+        "correctIndex": 0
+      },
+      {
+        "id": 71,
+        "text": "Das Wirtschaftswachstum wird gemessen an...",
+        "options": ["der Veränderung des Bruttoinlandsproduktes in Prozenten.", "am Konjunkturaufschwung.", "am Lebensstandard."],
+        "correctIndex": 0
+      },
+      {
+        "id": 72,
+        "text": "Wenn das Angebot gegenüber der Nachfrage zurückgeht,...",
+        "options": ["sinkt der Preis.", "steigt der Preis.", "wird die Ware billiger."],
+        "correctIndex": 1
+      },
+      {
+        "id": 73,
+        "text": "Was trifft auf einen Industriebetrieb zu?",
+        "options": ["Erzeugung auf Bestellung für bekannte KundInnen", "Gütererzeugung erfolgt in großen Serien", "Wenige Arbeitskräfte"],
+        "correctIndex": 1
+      },
+      {
+        "id": 74,
+        "text": "Wer gewinnt bei einer Inflation?",
+        "options": ["Wer Geld ausborgt", "Wer Geld spart", "Wer Geld verleiht"],
+        "correctIndex": 0
+      },
+      {
+        "id": 75,
+        "text": "Welcher dieser Staaten ist nicht Mitglied der G8?",
+        "options": ["Deutschland", "Frankreich", "Spanien"],
+        "correctIndex": 2
+      },
+      {
+        "id": 76,
+        "text": "Wer steht hinter der Abkürzung G8?",
+        "options": ["Die 8 wichtigsten Volkswirtschaften der Welt", "Die 8 größten Staaten innerhalb der EU", "Die 8 größten Erdölproduzenten"],
+        "correctIndex": 0
+      },
+      {
+        "id": 77,
+        "text": "Die größte Weltorganisation ist die...",
+        "options": ["EU.", "UNO.", "WTO."],
+        "correctIndex": 1
+      },
+      {
+        "id": 78,
+        "text": "Mit Bankomatkarte oder Kreditkarte verfügt man über...",
+        "options": ["Bargeld.", "Buchgeld.", "Papiergeld."],
+        "correctIndex": 1
+      },
+      {
+        "id": 79,
+        "text": "Wie nennt man Guthaben in ausländischer Währung?",
+        "options": ["Sorten", "Valuten", "Devisen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 80,
+        "text": "Wie nennt man den Handelsplatz für Wertpapiere?",
+        "options": ["Aktienhaus", "Börse", "Zentralbank"],
+        "correctIndex": 1
+      },
+      {
+        "id": 81,
+        "text": "Was versteht man unter einem „Businessplan“?",
+        "options": ["Plan zur Umsetzung einer Geschäftsidee", "Geschäftsspiel", "Orientierungsplan eines Betriebes"],
+        "correctIndex": 0
+      },
+      {
+        "id": 82,
+        "text": "Was ist kein Ziel der EU?",
+        "options": ["Friede und Sicherheit", "Gemeinsamer Markt", "Einheitliche Löhne und Gehälter"],
+        "correctIndex": 2
+      },
+      {
+        "id": 83,
+        "text": "Welche Länder traten gemeinsam mit Österreich der EU bei?",
+        "options": ["Finnland und Schweden", "Polen und die Tschechische Republik", "Belgien und die Niederlande"],
+        "correctIndex": 0
+      },
+      {
+        "id": 84,
+        "text": "Großbetriebe haben...",
+        "options": ["mehr als 100 MitarbeiterInnen.", "mehr als 250 MitarbeiterInnen.", "mehr als 1.000 MitarbeiterInnen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 85,
+        "text": "Länder, in denen billig produziert werden kann, nennt man...",
+        "options": ["Niedrigwirtschaftsstaaten.", "Niedriglohnländer.", "Niedrigindustrieländer."],
+        "correctIndex": 1
+      },
+      {
+        "id": 86,
+        "text": "Ohne Grenzkontrollen reisen kann man zwischen...",
+        "options": ["Deutschland und Frankreich.", "Polen und Russland.", "Serbien und Kroatien."],
+        "correctIndex": 0
+      },
+      {
+        "id": 87,
+        "text": "Was zählt nicht zu den vier Freiheiten in der EU?",
+        "options": ["Freier Kapitalverkehr", "Freier Personenverkehr", "Freier Eisenbahnverkehr"],
+        "correctIndex": 2
+      },
+      {
+        "id": 88,
+        "text": "Was ist das Ziel der WTO?",
+        "options": ["Erleichterung des Welthandels", "Durchsetzung der Menschenrechte", "Durchführung der Fußballweltmeisterschaft"],
+        "correctIndex": 0
+      },
+      {
+        "id": 89,
+        "text": "Wonach richtet sich der Preis eines Produktes nicht?",
+        "options": ["Nach der Betriebsgröße", "Nach den eigenen Kosten", "Nach der Nachfrage"],
+        "correctIndex": 0
+      },
+      {
+        "id": 90,
+        "text": "Unter Fremdfinanzierung versteht man...",
+        "options": ["einen Bankkredit.", "die Bezahlung fremder MitarbeiterInnen.", "den Ankauf einer fremden Firma."],
+        "correctIndex": 0
+      },
+      {
+        "id": 91,
+        "text": "Wer bringt in Österreich Münzen und Banknoten in Umlauf?",
+        "options": ["Europäische Zentralbank", "Österreichische Nationalbank", "Alle großen Banken Österreichs"],
+        "correctIndex": 1
+      },
+      {
+        "id": 92,
+        "text": "Was regelt die Aufbauorganisation in einem Betrieb?",
+        "options": ["Wer im Betrieb wofür zuständig ist", "Was in welcher Reihenfolge zu tun ist", "Aus welchen Teilen sich die Produkte zusammensetzen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 93,
+        "text": "Was erhält einE AktionärIn?",
+        "options": ["Zinsen", "Prämie", "Dividende"],
+        "correctIndex": 2
+      },
+      {
+        "id": 94,
+        "text": "Wenn der Euro gegenüber dem US-Dollar an Wert verliert,...",
+        "options": ["wird der Import von Erdöl billiger.", "werden amerikanische Computer teurer.", "wird der Aufenthalt eines Deutschen in den USA billiger."],
+        "correctIndex": 2
+      },
+      {
+        "id": 95,
+        "text": "Wie heißt in der Wirtschaft das Gegenteil von Deflation?",
+        "options": ["Inflation", "Revision", "Marktinvasion"],
+        "correctIndex": 0
+      },
+      {
+        "id": 96,
+        "text": "Was bedeutet der Begriff „unbeschränkte Haftung“?",
+        "options": ["Haftung mit Firmen- und Privatvermögen", "Haftung nur mit dem Barvermögen", "Haftung nur mit dem Firmenvermögen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 97,
+        "text": "Was ist eine Reaktion von ArbeitgeberInnen auf einen Streik?",
+        "options": ["Aussperrung", "Einsperrung", "Ausstand"],
+        "correctIndex": 0
+      },
+      {
+        "id": 98,
+        "text": "Die Leistungsbilanz sollte langfristig...",
+        "options": ["Überschüsse aufweisen.", "ausgeglichen sein.", "immer positiv sein."],
+        "correctIndex": 1
+      },
+      {
+        "id": 99,
+        "text": "Österreichs wichtigster Handelspartner ist...",
+        "options": ["Slowenien.", "Ungarn.", "Deutschland."],
+        "correctIndex": 2
+      },
+      {
+        "id": 100,
+        "text": "Aktiva...",
+        "options": ["bezeichnen die Summe des Unternehmensvermögens.", "sind aktive MitarbeiterInnen eines Unternehmens.", "bezeichnen verschiedene Aktionen."],
+        "correctIndex": 0
+      },
+      {
+        "id": 101,
+        "text": "Wie bezeichnet man einen Markt mit nur einem Anbieter?",
+        "options": ["Polypol", "Oligopol", "Monopol"],
+        "correctIndex": 2
+      },
+      {
+        "id": 102,
+        "text": "Was ist die Rolle des Staates in einer freien Marktwirtschaft?",
+        "options": ["Der Staat soll nicht in das Markteschehen eingreifen.", "Der Staat greift korrigierend ein.", "Der Staat bestimmt und plant das Markteschehen genau."],
+        "correctIndex": 1
+      },
+      {
+        "id": 103,
+        "text": "Was bedeutet der Begriff „Liquidität“?",
+        "options": ["Zahlungsfähigkeit", "Produktivität", "Wirtschaftlichkeit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 104,
+        "text": "Die Bank leiht Georg einen Geldbetrag von 10.000 Euro, sie gewährt ihm also einen...",
+        "options": ["Kredit.", "Kaufvertrag.", "Werkvertrag."],
+        "correctIndex": 0
+      },
+      {
+        "id": 105,
+        "text": "Wie bezeichnet man die Menge, bei der Angebot und Nachfrage übereinstimmen?",
+        "options": ["Sättigungsmenge", "Liefermenge", "Gleichgewichtsmenge"],
+        "correctIndex": 2
+      },
+      {
+        "id": 106,
+        "text": "Ein Unternehmen notiert an der Börse, es ist somit...",
+        "options": ["eine Aktiengesellschaft.", "ein Verein.", "ein Einzelunternehmen."],
+        "correctIndex": 0
+      },
+      {
+        "id": 107,
+        "text": "Wie bezeichnet man das Gewicht einer Verpackung?",
+        "options": ["Brutto", "Tara", "Netto"],
+        "correctIndex": 1
+      },
+      {
+        "id": 108,
+        "text": "Wie lautet die Abkürzung für „Allgemeine Geschäftsbedingungen“?",
+        "options": ["ABGB", "AGB", "AG"],
+        "correctIndex": 1
+      },
+      {
+        "id": 109,
+        "text": "2004 gab es die größte Erweiterung von Mitgliedstaaten der EU. Wie viele Länder traten bei?",
+        "options": ["8", "10", "12"],
+        "correctIndex": 2
+      },
+      {
+        "id": 110,
+        "text": "Was versteht man unter dem Begriff „E-Commerce“?",
+        "options": ["Eigenhandel", "Elektronischer Geschäftsverkehr", "Ersatzinvestition"],
+        "correctIndex": 1
+      },
+      {
+        "id": 111,
+        "text": "Was bedeutet der Begriff „Firma“ genau?",
+        "options": ["Rechtlich geschützter Name eines Unternehmens", "Ort der Güterherstellung", "Wirtschaftseinheit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 112,
+        "text": "Wofür steht die Abkürzung „BIC“?",
+        "options": ["Bank Identifier Code", "Bank International Center", "Business International Corporation"],
+        "correctIndex": 0
+      },
+      {
+        "id": 113,
+        "text": "Bei welchen Transaktionen ist die Angabe des BIC besonders wichtig?",
+        "options": ["Inlandsüberweisungen", "Auslandsüberweisungen", "Barzahlungen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 114,
+        "text": "Wofür steht die Abkürzung „PIN“ bei einem PIN-Code?",
+        "options": ["Personal Investment Number", "Personal Innovation Number", "Personal Identification Number"],
+        "correctIndex": 2
+      },
+      {
+        "id": 115,
+        "text": "Wo befindet sich der Sitz des Europäischen Gerichtshofs?",
+        "options": ["Luxemburg", "Straßburg", "Berlin"],
+        "correctIndex": 0
+      },
+      {
+        "id": 116,
+        "text": "Wie bezeichnet man ein wirtschaftliches Hoch?",
+        "options": ["Boom", "Rezession", "Depression"],
+        "correctIndex": 0
+      },
+      {
+        "id": 117,
+        "text": "Globalisierung bezeichnet...",
+        "options": ["die weltweite Vernetzung.", "die nationale Wirtschaft.", "die europaweite Vernetzung."],
+        "correctIndex": 0
+      },
+      {
+        "id": 118,
+        "text": "Welche Steuer wird vom Bruttolohn abgezogen und muss ans Finanzamt überwiesen werden?",
+        "options": ["Umsatzsteuer", "Grunderwerbssteuer", "Lohnsteuer"],
+        "correctIndex": 2
+      },
+      {
+        "id": 119,
+        "text": "Welches der folgenden Länder ist ein Schwellenland?",
+        "options": ["Brasilien", "Österreich", "Frankreich"],
+        "correctIndex": 0
+      },
+      {
+        "id": 120,
+        "text": "Thomas verkauft ein Möbelstück an seinen Freund Alex. Um welche Art von Geschäft handelt es sich hierbei?",
+        "options": ["B2B", "B2C", "C2C"],
+        "correctIndex": 2
+      }
+    ]
+  }
+}

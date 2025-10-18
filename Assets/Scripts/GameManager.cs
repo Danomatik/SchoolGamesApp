@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public List<PlayerCTRL> players;
     private bool isTurnInProgress = false;
     public FieldType[] boardLayout = new FieldType[40];
+    
+    [SerializeField]
+    private QuestionManager questionManager;
 
     void Start()
     {
@@ -109,30 +112,13 @@ public class GameManager : MonoBehaviour
 
     public void PlayerFinishedMoving(int finalPosition)
     {
-        Debug.Log($"GameManager knows the player is at position {finalPosition}. Triggering field logic now.");
-
-        FieldType type = boardLayout[finalPosition];
-
-        switch (type)
+        // Check if there's a QuizField at this position
+        if (questionManager != null)
         {
-            case FieldType.Start:
-                Debug.Log("Feld-Logik: Startfeld!");
-                break;
-            case FieldType.Company:
-                Debug.Log("Feld-Logik: Unternehmensfeld!");
-                // Rufe hier die Logik für Unternehmensfelder auf.
-                // LandedOnCompany(finalPosition); 
-                break;
-            case FieldType.Bank:
-                Debug.Log("Feld-Logik: Bankfeld!");
-                break;
-            case FieldType.Action:
-                Debug.Log("Feld-Logik: Aktionsfeld!");
-                break;
+            questionManager.CheckForQuizField(finalPosition);
         }
 
         EndTurn();
-
         isTurnInProgress = false;
     }
     
