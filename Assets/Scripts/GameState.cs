@@ -7,3 +7,4 @@ public class GameState
     public int CurrentPlayerTurnID;
 
 }
+ 

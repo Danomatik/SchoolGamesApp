@@ -16,31 +16,40 @@ public class PlayerCTRL : MonoBehaviour
     [Header("Movement Settings")]
     public float stoppingDistance = 0.1f;
     
-    // This is now the ONLY way to move the player from the outside
-    public void StartMove(int stepsToTake) // Parameter name changed for clarity
+    public void StartMove(int stepsToTake) 
     {
         StartCoroutine(MoveStepByStep(stepsToTake));
     }
 
     private IEnumerator MoveStepByStep(int stepsToTake)
     {
+        float stepTimeout = 1.4f;
+
         while (stepsToTake > 0)
         {
             currentPos = (currentPos + 1) % route.childNodeList.Count;
             agent.SetDestination(route.childNodeList[currentPos].position);
+
+            float timer = 0.0f;
+            // Warte, bis das Ziel erreicht ist ODER der Timer abläuft, weil er manchmal stuck bleibt
+            while (!(!agent.pathPending && agent.remainingDistance < stoppingDistance))
+            {
+                timer += Time.deltaTime;
+                if (timer > stepTimeout)
+                {
+                    Debug.LogWarning($"Spieler {PlayerID} HÄNGT! Breche Bewegung ab.");
+                    agent.Warp(route.childNodeList[currentPos].position); 
+                    break; 
+                }
+                yield return null; 
+            }
  
-            // Wait until the agent reaches the next node
-            yield return new WaitUntil(() => !agent.pathPending && agent.remainingDistance < stoppingDistance);
-            
             stepsToTake--;
             
-            // Optional short pause between steps for better visual feedback
-            yield return new WaitForSeconds(0.2f); 
+            yield return new WaitForSeconds(0.0f); 
         }
 
         Debug.Log($"Player {PlayerID} finished moving and is now at position {currentPos}.");
-
-        // BUG FIX #1: Tell the GameManager the move is finished!
         gameManager.PlayerFinishedMoving(currentPos);
     }
 }

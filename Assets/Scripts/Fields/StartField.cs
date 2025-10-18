@@ -4,17 +4,15 @@ using UnityEngine;
 public class StartField : MonoBehaviour
 {
     [SerializeField]
-    private GameManager GameManager;
-    void OnTriggerEnter (Collider other)
+    private GameManager gameManager;
+
+    void OnTriggerEnter(Collider other)
     {
-        PlayerCTRL player = other.GetComponent<PlayerCTRL>();
+        PlayerCTRL triggeredPiece = other.GetComponentInParent<PlayerCTRL>();
+        if (triggeredPiece == null) return;
 
-        if(player != null && player.PlayerID == GameManager.GetCurrentPlayer().PlayerID)
-        {
-            GameManager.AddMoney(500);
-            Debug.Log($"Aktiver Spieler (ID: {player.PlayerID}) ist auf dem Startfeld gelandet!");
-
-        }
-
+        gameManager.AddMoney(triggeredPiece.PlayerID, 400); 
+        
+        Debug.Log($"Spieler {triggeredPiece.PlayerID} überquert das Startfeld und erhält Geld.");
     }
 }

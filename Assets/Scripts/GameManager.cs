@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
     public GameState CurrentGame;
     public List<PlayerCTRL> players;
     private bool isTurnInProgress = false;
+    public FieldType[] boardLayout = new FieldType[40];
 
     void Start()
     {
@@ -28,6 +30,16 @@ public class GameManager : MonoBehaviour
     public void AddMoney(int amount)
     {
         PlayerData currentPlayer = GetCurrentPlayer();
+        if (currentPlayer != null)
+        {
+            currentPlayer.Money += amount;
+            Debug.Log($"Spieler {currentPlayer.PlayerID} erhält {amount}€. Neuer Stand: {currentPlayer.Money}€");
+        }
+    }
+
+    public void AddMoney(int playerID, int amount)
+    {
+        PlayerData currentPlayer = CurrentGame.AllPlayers.Find(p => p.PlayerID == playerID);
         if (currentPlayer != null)
         {
             currentPlayer.Money += amount;
@@ -61,9 +73,13 @@ public class GameManager : MonoBehaviour
         {
             CurrentGame.CurrentPlayerTurnID = 0;
         }
+
+        UpdateAgentPriorities();
+        Debug.Log($"Zug beendet. Spieler {GetCurrentPlayer().PlayerID} ist jetzt an der Reihe.");
+
     }
 
-// ---------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -74,12 +90,12 @@ public class GameManager : MonoBehaviour
 
     public void TakeTurn()
     {
-        if (isTurnInProgress)
-            return;
-
+        if (isTurnInProgress) return;
         isTurnInProgress = true;
 
-        int diceRoll = Random.Range(1, 7);
+        UpdateAgentPriorities();
+
+        int diceRoll = Random.Range(2, 13);
         Debug.Log($"Player {GetCurrentPlayer().PlayerID} rolled a {diceRoll}!");
 
         //Find the Correct player in the scene
@@ -90,16 +106,58 @@ public class GameManager : MonoBehaviour
             activePlayer.StartMove(diceRoll);
         }
     }
-    
+
     public void PlayerFinishedMoving(int finalPosition)
     {
         Debug.Log($"GameManager knows the player is at position {finalPosition}. Triggering field logic now.");
-        // Hier kommt später die Logik rein, um die Aktion des Feldes auszulösen
-        // For now, we just end the turn
+
+        FieldType type = boardLayout[finalPosition];
+
+        switch (type)
+        {
+            case FieldType.Start:
+                Debug.Log("Feld-Logik: Startfeld!");
+                break;
+            case FieldType.Company:
+                Debug.Log("Feld-Logik: Unternehmensfeld!");
+                // Rufe hier die Logik für Unternehmensfelder auf.
+                // LandedOnCompany(finalPosition); 
+                break;
+            case FieldType.Bank:
+                Debug.Log("Feld-Logik: Bankfeld!");
+                break;
+            case FieldType.Action:
+                Debug.Log("Feld-Logik: Aktionsfeld!");
+                break;
+        }
+
         EndTurn();
 
         isTurnInProgress = false;
     }
+    
+   // ---------------------------------------------------------------------------------------------
+        public void UpdateAgentPriorities()
+    {
+        PlayerData currentPlayer = GetCurrentPlayer();
+
+        foreach (PlayerCTRL player in players)
+        {
+            NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                if (player.PlayerID == currentPlayer.PlayerID)
+                {
+                    agent.avoidancePriority = 50;
+                }
+                else
+                {
+                    agent.avoidancePriority = 51;
+                }
+            }
+        }
+    }
+
 
     public void TestCurrencySystem()
     {
@@ -107,13 +165,13 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Anfangsgeld: {GetCurrentPlayer().Money}€");
 
         // Test 1: Geld hinzufügen
-        AddMoney(400); // Ruft jetzt die neue Funktion auf
+        AddMoney(400); 
 
         // Test 2: Erfolgreich Geld abziehen
-        RemoveMoney(500); // Ruft jetzt die neue Funktion auf
+        RemoveMoney(400); 
 
         // Test 3: Fehlgeschlagenes Abziehen
-        RemoveMoney(5000); // Ruft jetzt die neue Funktion auf
+        RemoveMoney(5000); 
 
         Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
     }
