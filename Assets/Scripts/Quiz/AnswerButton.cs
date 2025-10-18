@@ -14,9 +14,10 @@ public class AnswerButton : MonoBehaviour
 
     // Farben (optional im Inspector überschreiben)
     [Header("Colors")]
-    public Color neutral = Color.white;
-    public Color correct = new Color(0.78f, 0.93f, 0.80f); // grünlich
-    public Color wrong   = new Color(0.98f, 0.79f, 0.79f); // rötlich
+public Color neutral = new Color32(0x2A, 0x7C, 0xA6, 0xFF); // Hex: #2A7CA6 (kräftiges Blau)
+public Color correct = new Color(0.35f, 0.85f, 0.45f);     // stärkeres Grün
+public Color wrong   = new Color(0.9f, 0.25f, 0.25f);      // stärkeres Rot
+
 
     public void Init(string text, int index, System.Action<int> onClick)
     {
