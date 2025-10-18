@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class StartField : MonoBehaviour
 {
-    void OnTriggerEnter(Collider other)
+    [SerializeField]
+    private GameManager GameManager;
+    void OnTriggerEnter (Collider other)
     {
-        Debug.Log("OSDFJOSDFHOSDFHOSDHFO" + other.name);
+        GameManager.AddMoney(500);
+        Debug.Log ("Player has Entered Start Field!");
     }
 }

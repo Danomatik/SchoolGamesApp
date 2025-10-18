@@ -16,49 +16,49 @@ public class GameManager : MonoBehaviour
         TestCurrencySystem();
     }
 
-    public void AddMoney(int playerID, int amount)
+    public void AddMoney(int amount)
     {
-        PlayerData targetPlayer = CurrentGame.AllPlayers.Find(p => p.PlayerID == playerID);
-        if (targetPlayer != null)
+        PlayerData currentPlayer = GetCurrentPlayer();
+        if (currentPlayer != null)
         {
-            targetPlayer.Money += amount;
-            Debug.Log($"Spieler {playerID} erhält {amount}€. Neuer Stand: {targetPlayer.Money}€");
+            currentPlayer.Money += amount;
+            Debug.Log($"Spieler {currentPlayer.PlayerID} erhält {amount}€. Neuer Stand: {currentPlayer.Money}€");
         }
     }
-    
-    public bool RemoveMoney(int playerID, int amount)
+
+    public bool RemoveMoney(int amount)
     {
-        PlayerData targetPlayer = CurrentGame.AllPlayers.Find(p => p.PlayerID == playerID);
-        if (targetPlayer != null && targetPlayer.Money >= amount)
+        PlayerData currentPlayer = GetCurrentPlayer();
+        if (currentPlayer != null && currentPlayer.Money >= amount)
         {
-            targetPlayer.Money -= amount;
-            Debug.Log($"Spieler {playerID} bezahlt {amount}€. Neuer Stand: {targetPlayer.Money}€");
+            currentPlayer.Money -= amount;
+            Debug.Log($"Spieler {currentPlayer.PlayerID} bezahlt {amount}€. Neuer Stand: {currentPlayer.Money}€");
             return true;
         }
-        Debug.LogWarning($"Spieler {playerID} hat zu wenig Geld, um {amount}€ zu bezahlen!");
+        Debug.LogWarning($"Spieler {currentPlayer.PlayerID} hat zu wenig Geld, um {amount}€ zu bezahlen!");
         return false;
     }
     
+    public PlayerData GetCurrentPlayer()
+    {
+        return CurrentGame.AllPlayers[CurrentGame.CurrentPlayerTurnID];
+    }
+    
+// In GameManager.cs
     public void TestCurrencySystem()
     {
-    Debug.Log("--- STARTE WÄHRUNGSSYSTEM-TEST ---");
-    Debug.Log($"Anfangsgeld: {CurrentGame.AllPlayers[0].Money}€"); // Sollte 3000€ sein
+        Debug.Log("--- STARTE WÄHRUNGSSYSTEM-TEST ---");
+        Debug.Log($"Anfangsgeld: {GetCurrentPlayer().Money}€");
 
-    // Test 1: Geld hinzufügen
-    Debug.Log("Test 1: Füge 400€ hinzu.");
-    AddMoney(1, 400);
-    Debug.Log($"Neuer Stand nach Hinzufügen: {CurrentGame.AllPlayers[0].Money}€"); // Sollte 3400€ sein
+        // Test 1: Geld hinzufügen
+        AddMoney(400); // Ruft jetzt die neue Funktion auf
 
-    // Test 2: Erfolgreich Geld abziehen
-    Debug.Log("Test 2: Ziehe 500€ ab.");
-    bool kaufErfolgreich = RemoveMoney(1, 500);
-    Debug.Log($"Kauf war erfolgreich: {kaufErfolgreich}. Neuer Stand: {CurrentGame.AllPlayers[0].Money}€"); // Sollte 2900€ sein
+        // Test 2: Erfolgreich Geld abziehen
+        RemoveMoney(500); // Ruft jetzt die neue Funktion auf
 
-    // Test 3: Fehlgeschlagenes Abziehen
-    Debug.Log("Test 3: Versuche 5000€ abzuziehen.");
-    bool kaufFehlgeschlagen = RemoveMoney(1, 5000);
-    Debug.Log($"Kauf war erfolgreich: {kaufFehlgeschlagen}. Finaler Stand: {CurrentGame.AllPlayers[0].Money}€"); // Sollte 2900€ bleiben
-
-    Debug.Log("--- WÄHRUNGSSYSTEM-TEST BEENDET ---");
-}
+        // Test 3: Fehlgeschlagenes Abziehen
+        RemoveMoney(5000); // Ruft jetzt die neue Funktion auf
+        
+        Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
+    }
 }
