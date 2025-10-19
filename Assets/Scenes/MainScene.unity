@@ -417,7 +417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 21
 --- !u!1 &272746154
 GameObject:
@@ -789,7 +789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 22
 --- !u!1 &330585543
 GameObject:
@@ -1295,7 +1295,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 30
 --- !u!1 &566804631
 GameObject:
@@ -1950,7 +1950,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 36
 --- !u!1 &823775623
 GameObject:
@@ -2369,7 +2369,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 28
 --- !u!1 &881308827
 GameObject:
@@ -3003,7 +3003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 33
 --- !u!1 &1153256220
 GameObject:
@@ -3425,7 +3425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 32
 --- !u!1 &1212465339
 GameObject:
@@ -3549,7 +3549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 20
 --- !u!1 &1230427837
 GameObject:
@@ -3673,7 +3673,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 26
 --- !u!1 &1270194908
 GameObject:
@@ -4045,7 +4045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 31
 --- !u!1 &1427146676
 GameObject:
@@ -4665,7 +4665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 34
 --- !u!1 &1588636490
 GameObject:
@@ -4789,7 +4789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 27
 --- !u!1 &1652555024
 GameObject:
@@ -5037,7 +5037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 35
 --- !u!1 &1689990861
 GameObject:
@@ -5223,7 +5223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 25
 --- !u!1 &1827210106
 GameObject:
@@ -5469,7 +5469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 29
 --- !u!1 &1843353032
 GameObject:
@@ -5593,7 +5593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 23
 --- !u!1 &1921489190
 GameObject:
@@ -5717,7 +5717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1689990862}
-  questionManager: {fileID: 0}
+  questionManager: {fileID: 1689990864}
   fieldIndex: 24
 --- !u!1 &1929595673
 GameObject:
