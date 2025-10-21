@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private QuestionManager questionManager;
 
+    [SerializeField]
+    private DiceRoller diceRoller;
+
     void Start()
     {
         CurrentGame = new GameState();
@@ -87,7 +90,7 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TakeTurn();
+            //TakeTurn();
         }
     }
 
@@ -98,7 +101,7 @@ public class GameManager : MonoBehaviour
 
         UpdateAgentPriorities();
 
-        int diceRoll = Random.Range(2, 13);
+        int diceRoll = diceRoller.GetAddedValue();
         Debug.Log($"Player {GetCurrentPlayer().PlayerID} rolled a {diceRoll}!");
 
         //Find the Correct player in the scene
