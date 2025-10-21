@@ -2,7 +2,7 @@
 - Project name: SchoolGames
 - Unity version: Unity 6000.0.51f1
 - Active game object:
-  - Name: GameManager
+  - Name: Canvas
   - Tag: Untagged
-  - Layer: Default
+  - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

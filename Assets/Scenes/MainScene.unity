@@ -2096,7 +2096,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 725138798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c108feaf5daada45807752f72d59351, type: 3}
+  m_Script: {fileID: 11500000, guid: 3088d607ffe209149965bca46c077a49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dice1: {fileID: 1455864204}
