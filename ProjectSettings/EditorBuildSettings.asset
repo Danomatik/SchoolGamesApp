@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Scenes/Menu Ipad.unity
     guid: e0e8a55f31e50df429e8d80eaa434418
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
