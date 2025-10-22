@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,12 +9,14 @@ public class GameManager : MonoBehaviour
     public List<PlayerCTRL> players;
     private bool isTurnInProgress = false;
     public FieldType[] boardLayout = new FieldType[40];
-    
+
     [SerializeField]
     private QuestionManager questionManager;
 
     [SerializeField]
     private DiceRoller diceRoller;
+
+    public CinemachineCamera cam;
 
     void Start()
     {
@@ -109,6 +112,18 @@ public class GameManager : MonoBehaviour
 
         if (activePlayer != null)
         {
+            // Get the first child transform of the player
+            if (activePlayer.transform.childCount > 0)
+            {
+                Transform playerChild = activePlayer.transform.GetChild(0);
+                cam.Follow = playerChild;
+            }
+            else
+            {
+                // Fallback to the player's own transform if no children exist
+                cam.Follow = activePlayer.transform;
+            }
+
             activePlayer.StartMove(diceRoll);
         }
     }
@@ -124,9 +139,9 @@ public class GameManager : MonoBehaviour
         EndTurn();
         isTurnInProgress = false;
     }
-    
-   // ---------------------------------------------------------------------------------------------
-        public void UpdateAgentPriorities()
+
+    // ---------------------------------------------------------------------------------------------
+    public void UpdateAgentPriorities()
     {
         PlayerData currentPlayer = GetCurrentPlayer();
 
@@ -154,13 +169,13 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Anfangsgeld: {GetCurrentPlayer().Money}€");
 
         // Test 1: Geld hinzufügen
-        AddMoney(400); 
+        AddMoney(400);
 
         // Test 2: Erfolgreich Geld abziehen
-        RemoveMoney(400); 
+        RemoveMoney(400);
 
         // Test 3: Fehlgeschlagenes Abziehen
-        RemoveMoney(5000); 
+        RemoveMoney(5000);
 
         Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
     }
