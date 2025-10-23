@@ -130,10 +130,42 @@ public class GameManager : MonoBehaviour
 
     public void PlayerFinishedMoving(int finalPosition)
     {
-        // Check if there's a QuizField at this position
-        if (questionManager != null)
+        // Check field type from board layout
+        if (finalPosition < boardLayout.Length)
         {
-            questionManager.CheckForQuizField(finalPosition);
+            FieldType fieldType = boardLayout[finalPosition];
+            
+            switch (fieldType)
+            {
+                case FieldType.Start:
+                    Debug.Log("Player landed on Start field!");
+                    // Add start field logic here (like giving money)
+                    break;
+                    
+                case FieldType.Company:
+                    Debug.Log("Player landed on Company field!");
+                    // Add company field logic here (like buying/selling)
+                    break;
+                    
+                case FieldType.Bank:
+                    Debug.Log("Player landed on Bank field!");
+                    // Add bank field logic here (like taxes, fees, bonuses)
+                    break;
+                    
+                case FieldType.Action:
+                    Debug.Log("Player landed on Action field!");
+                    // Add action field logic here (like chance cards)
+                    break;
+                    
+                case FieldType.Quiz:
+                    Debug.Log("Player landed on Quiz field!");
+                    // Show random question from JSON
+                    if (questionManager != null)
+                    {
+                        questionManager.PrintRandomQuestion();
+                    }
+                    break;
+            }
         }
 
         EndTurn();
