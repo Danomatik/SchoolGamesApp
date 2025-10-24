@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class DiceRoller : MonoBehaviour
@@ -15,6 +16,10 @@ public class DiceRoller : MonoBehaviour
     private bool rolling = false;
 
     public GameManager gameManager;
+
+    public Transform diceFocus;
+
+    public CinemachineCamera cam;
 
     public void RollDice()
     {
@@ -33,6 +38,8 @@ public class DiceRoller : MonoBehaviour
         // Kraft + Drehmoment anwenden
         ThrowDice(dice1);
         ThrowDice(dice2);
+
+        cam.Follow = diceFocus;
 
         // Warten bis sie still sind
         yield return new WaitUntil(() => dice1.IsSleeping() && dice2.IsSleeping());

@@ -1,14 +1,8 @@
 <!-- UNITY CODE ASSIST INSTRUCTIONS START -->
-- Project name: SchoolGamesApp
+- Project name: SchoolGames
 - Unity version: Unity 6000.0.51f1
-- Active scene:
-  - Name: MainScene
-  - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController
-  - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI
 - Active game object:
-  - Name: Corner 2
-  - Tag: Untagged
+  - Name: Main Camera
+  - Tag: MainCamera
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
