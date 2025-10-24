@@ -8,8 +8,8 @@ public class JoinMultiplayer : MonoBehaviour
 		SceneManager.LoadScene("MainScene");
 	}
 
-	public void LoadAScene()
+	public void LoadMenu()
 	{
-
+		SceneManager.LoadScene("MenuScene");
 	}
 }
