@@ -118,17 +118,37 @@ public class GameManager : MonoBehaviour
 
     public PlayerData GetCurrentPlayer()
     {
-        return CurrentGame.AllPlayers[CurrentGame.CurrentPlayerTurnID];
+        if (CurrentGame.AllPlayers == null || CurrentGame.AllPlayers.Count == 0)
+        {
+            Debug.LogError("GetCurrentPlayer: AllPlayers is null or empty!");
+            return null;
+        }
+        
+        if (currentPlayerIndex < 0 || currentPlayerIndex >= CurrentGame.AllPlayers.Count)
+        {
+            Debug.LogError($"GetCurrentPlayer: currentPlayerIndex {currentPlayerIndex} is out of bounds! AllPlayers count: {CurrentGame.AllPlayers.Count}");
+            return null;
+        }
+        
+        return CurrentGame.AllPlayers[currentPlayerIndex];
     }
 
     public void EndTurn()
     {
-        CurrentGame.CurrentPlayerTurnID++;
-        if (CurrentGame.CurrentPlayerTurnID >= CurrentGame.AllPlayers.Count)
-            CurrentGame.CurrentPlayerTurnID = 0;
+        currentPlayerIndex++;
+        if (currentPlayerIndex >= CurrentGame.AllPlayers.Count)
+            currentPlayerIndex = 0;
 
         UpdateAgentPriorities();
-        Debug.Log($"Zug beendet. Spieler {GetCurrentPlayer().PlayerID} ist jetzt an der Reihe.");
+        PlayerData nextPlayer = GetCurrentPlayer();
+        if (nextPlayer != null)
+        {
+            Debug.Log($"Zug beendet. Spieler {nextPlayer.PlayerID} ist jetzt an der Reihe.");
+        }
+        else
+        {
+            Debug.LogError("EndTurn: Could not get next player!");
+        }
     }
 
     // ============================================================
@@ -181,9 +201,30 @@ public class GameManager : MonoBehaviour
                     
                 case FieldType.Bank:
                     Debug.Log("Player landed on Bank field!");
-                    if (bankCardManager != null)
+                    PlayerData currentPlayer = GetCurrentPlayer();
+                    if (currentPlayer != null)
                     {
-                        bankCardManager.PrintRandomBankCard();
+                        Debug.Log($"Current player before bank card: {currentPlayer.PlayerID}");
+                        if (bankCardManager != null)
+                        {
+                            bankCardManager.ExecuteRandomBankCard();
+                            PlayerData playerAfter = GetCurrentPlayer();
+                            if (playerAfter != null)
+                            {
+                                Debug.Log($"Current player after bank card: {playerAfter.PlayerID}");
+                            }
+                            // Check if the bank card action allows rolling again
+                            if (bankCardManager.ShouldRollAgain())
+                            {
+                                // Don't end turn, player can roll again
+                                isTurnInProgress = false;
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogError("Bank field: Current player is null!");
                     }
                     break;
             }
@@ -196,6 +237,12 @@ public class GameManager : MonoBehaviour
     public void UpdateAgentPriorities()
     {
         PlayerData currentPlayer = GetCurrentPlayer();
+        if (currentPlayer == null)
+        {
+            Debug.LogError("UpdateAgentPriorities: Current player is null!");
+            return;
+        }
+        
         foreach (PlayerCTRL player in players)
         {
             NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
@@ -307,5 +354,59 @@ public class GameManager : MonoBehaviour
         RemoveMoney(5000);
 
         Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
+    }
+
+    // ============================================================
+    // 🏃 MOVEMENT SYSTEM FOR BANK CARDS
+    // ============================================================
+    public void MovePlayer(int steps)
+    {
+        PlayerData currentPlayer = GetCurrentPlayer();
+        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == currentPlayer.PlayerID);
+        
+        Debug.Log($"MovePlayer called: Current player is {currentPlayer.PlayerID}, looking for PlayerCTRL with ID {currentPlayer.PlayerID}");
+        Debug.Log($"Found PlayerCTRL: {(activePlayer != null ? "Yes" : "No")}");
+        
+        if (activePlayer != null)
+        {
+            Debug.Log($"Bank Card Action: Moving player {currentPlayer.PlayerID} {steps} steps forward");
+            activePlayer.StartMove(steps);
+        }
+        else
+        {
+            Debug.LogError($"Could not find PlayerCTRL for player {currentPlayer.PlayerID}");
+        }
+    }
+
+    public void MovePlayerToField(int fieldPosition)
+    {
+        PlayerData currentPlayer = GetCurrentPlayer();
+        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == currentPlayer.PlayerID);
+        
+        if (activePlayer != null)
+        {
+            int currentPos = activePlayer.currentPos;
+            int stepsNeeded = (fieldPosition - currentPos + 40) % 40; // Handle wrap-around
+            
+            Debug.Log($"Bank Card Action: Moving player {currentPlayer.PlayerID} to field {fieldPosition} ({stepsNeeded} steps)");
+            activePlayer.StartMove(stepsNeeded);
+        }
+    }
+
+    public void SkipTurn()
+    {
+        Debug.Log($"Bank Card Action: Player {GetCurrentPlayer().PlayerID} skips their turn");
+        EndTurn();
+    }
+
+    public void RollAgain()
+    {
+        Debug.Log($"Bank Card Action: Player {GetCurrentPlayer().PlayerID} gets to roll again!");
+        
+        // Don't end the turn, let the player roll again
+        isTurnInProgress = false;
+        
+        // The player can now roll again by pressing Space or using the dice system
+        Debug.Log("Player can now roll again!");
     }
 }
