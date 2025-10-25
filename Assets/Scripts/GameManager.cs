@@ -47,6 +47,9 @@ public class GameManager : MonoBehaviour
     {
         CurrentGame = new GameState();
 
+        // Initialize board layout - all fields are Company by default
+        InitializeBoardLayout();
+
         // Spieler 1
         PlayerData humanPlayer = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
         CurrentGame.AllPlayers.Add(humanPlayer);
@@ -59,6 +62,21 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Spieler 1 hat {humanPlayer.Money} € Startgeld");
 
         TestCurrencySystem();
+    }
+
+
+    private void InitializeBoardLayout()
+    {
+        // Set all fields to Company by default
+        for (int i = 0; i < boardLayout.Length; i++)
+        {
+            boardLayout[i] = FieldType.Company;
+        }
+        
+        // Set specific fields to other types
+        boardLayout[0] = FieldType.Start; // Starting field
+        // You can add more specific fields here if needed
+        // boardLayout[10] = FieldType.Bank; // Example bank field
     }
 
     // ============================================================
@@ -141,8 +159,31 @@ public class GameManager : MonoBehaviour
 
     public void PlayerFinishedMoving(int finalPosition)
     {
-        if (questionManager != null)
-            questionManager.CheckForQuizField(finalPosition);
+        // Check field type from board layout
+        if (finalPosition < boardLayout.Length)
+        {
+            FieldType fieldType = boardLayout[finalPosition];
+            
+            switch (fieldType)
+            {
+                case FieldType.Start:
+                    Debug.Log("Player landed on Start field!");
+                    break;
+                    
+                case FieldType.Company:
+                    Debug.Log("Player landed on Company field!");
+                    // Show random question from JSON for company field
+                    if (questionManager != null)
+                    {
+                        questionManager.PrintRandomQuestion();
+                    }
+                    break;
+                    
+                case FieldType.Bank:
+                    Debug.Log("Player landed on Bank field!");
+                    break;
+            }
+        }
 
         EndTurn();
         isTurnInProgress = false;
