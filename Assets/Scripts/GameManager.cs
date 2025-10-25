@@ -22,7 +22,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Camera")]
     public CinemachineCamera cam;
+
+    public float smoothSpeed = 5f;
     public float defaultLens = 3.55f;
+
+    public float targetOrthoSize;
+    private float currentOrthoSize;
 
     // ============================================================
     // 🎲 DICE ROLLER SETTINGS
@@ -64,6 +69,21 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Spieler 1 hat {humanPlayer.Money} € Startgeld");
 
         TestCurrencySystem();
+
+        if (cam == null)
+            cam = GetComponent<CinemachineCamera>();
+
+        currentOrthoSize = cam.Lens.OrthographicSize;
+    }
+    
+    private void LateUpdate() {
+        currentOrthoSize = Mathf.Lerp(currentOrthoSize, targetOrthoSize, Time.deltaTime * smoothSpeed);
+        cam.Lens.OrthographicSize = currentOrthoSize;
+    }
+
+    public void SetTargetSize(float newSize)
+    {
+        targetOrthoSize = newSize;
     }
 
 
@@ -74,7 +94,7 @@ public class GameManager : MonoBehaviour
         {
             boardLayout[i] = FieldType.Bank;
         }
-        
+
         // Set specific fields to other types
         boardLayout[0] = FieldType.Start; // Starting field
         // You can add more specific fields here if needed
@@ -152,7 +172,7 @@ public class GameManager : MonoBehaviour
                 ? activePlayer.transform.GetChild(0)
                 : activePlayer.transform;
 
-            cam.Lens.OrthographicSize = defaultLens;
+            SetTargetSize(defaultLens);
             cam.Follow = playerChild;
 
             activePlayer.StartMove(diceRoll);
@@ -228,7 +248,7 @@ public class GameManager : MonoBehaviour
 
         // Focus camera on dice
         cam.Follow = diceTargetGroup.transform;
-        cam.Lens.OrthographicSize = diceLensSize;
+        SetTargetSize(diceLensSize);
 
 
         // Wait until both dice stop moving

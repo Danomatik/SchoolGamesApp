@@ -1054,10 +1054,10 @@ MonoBehaviour:
   UpdateMethod: 1
   Targets:
   - Object: {fileID: 1832168574}
-    Weight: 1
+    Weight: 2
     Radius: 0.1
   - Object: {fileID: 1348870185}
-    Weight: 1
+    Weight: 2
     Radius: 0.1
   m_LegacyTargets: []
 --- !u!1 &310234189
@@ -1300,7 +1300,7 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    m_Quality: 3
+    m_Quality: 0
     m_FrameInfluence: 0.1
     m_JitterScale: 1
     m_MipBias: 0
@@ -4279,6 +4279,7 @@ GameObject:
   - component: {fileID: 1211106367}
   - component: {fileID: 1211106366}
   - component: {fileID: 1211106365}
+  - component: {fileID: 1211106369}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -4410,7 +4411,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 0
   TargetOffset: {x: 0.77, y: 0.86, z: 0.27}
-  Damping: {x: 1, y: 1}
+  Damping: {x: 0.2, y: 0.2}
   Lookahead:
     Enabled: 1
     Time: 0.178
@@ -4494,6 +4495,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 17.223, y: 49.82, z: 0}
+--- !u!114 &1211106369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211106363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210e7336f8b40964cac78f9305b075af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vcam: {fileID: 0}
+  smoothSpeed: 5
+  targetOrthoSize: 5
 --- !u!1 &1238639834
 GameObject:
   m_ObjectHideFlags: 0
@@ -7252,15 +7268,17 @@ MonoBehaviour:
   - {fileID: 3899099}
   boardLayout: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   questionManager: {fileID: 1871652809}
-  bankCardManager: {fileID: 0}
+  bankCardManager: {fileID: 1871652812}
   cam: {fileID: 1211106364}
+  smoothSpeed: 5
   defaultLens: 3.55
+  targetOrthoSize: 0
   dice1: {fileID: 1832168576}
   dice2: {fileID: 1348870187}
   spawnPos1: {fileID: 1497075296}
   spawnPos2: {fileID: 951950849}
   diceTargetGroup: {fileID: 287610435}
-  diceLensSize: 9
+  diceLensSize: 10
   throwForce: 8
   torqueForce: 10
 --- !u!4 &1871652811
@@ -8870,11 +8888,11 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 330585546}
+  - {fileID: 1211106368}
   - {fileID: 1340544241}
   - {fileID: 1871652811}
   - {fileID: 1164569295}
   - {fileID: 1329458868}
-  - {fileID: 1211106368}
   - {fileID: 2031918326}
   - {fileID: 660008646}
   - {fileID: 3899100}
