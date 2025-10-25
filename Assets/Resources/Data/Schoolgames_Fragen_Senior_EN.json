@@ -1,0 +1,2662 @@
+{
+  "senior-en": {
+    "foundation": [
+      {
+        "id": 1,
+        "text": "What kind of land registry entry puts a burden on property?",
+        "options": ["Mortgage", "Loan", "Personal loan"],
+        "correctIndex": 0
+      },
+      {
+        "id": 2,
+        "text": "What does „redemption“ mean?",
+        "options": ["Repayment of the loan", "Utilization of the credit", "Wasting the credit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 3,
+        "text": "What is the name of the Styrian institution responsible for granting funding to companies?",
+        "options": [
+          "Business Promotion Center Styria (WFS)",
+          "Styrian Fund for Business Support (FFW)",
+          "Styrian Business Promotion Agency (SFG)"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 4,
+        "text": "The Styrian Economic Development Agency SFG is entitled to enforce endogenous regional development. What does this mean?",
+        "options": [
+          "Promoting growth from within",
+          "Encouraging targeted business settlements",
+          "Spreading companies all over the country"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "What is the name for a unit of ownership of a company?",
+        "options": ["Loyalty card", "Share", "Credit card"],
+        "correctIndex": 1
+      },
+      {
+        "id": 6,
+        "text": "To which product group do the most important Austrian export goods belong?",
+        "options": [
+          "Engineering products and vehicles",
+          "Wood and wooden products",
+          "Meat and edible offal"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 7,
+        "text": "Which economic sector is playing a particularly important role in Austria?",
+        "options": ["Agriculture", "Tourism", "Industry"],
+        "correctIndex": 1
+      },
+      {
+        "id": 8,
+        "text": "What defines the short-term break-even price?",
+        "options": ["The manufacturing costs", "Prime costs", "Variable costs"],
+        "correctIndex": 2
+      },
+      {
+        "id": 9,
+        "text": "In the automobile supplier industry, “productivity“ plays a key role. What does the term “productivity“ mean?",
+        "options": [
+          "Improving the design of the products",
+          "Integrating more products into the range of goods",
+          "Producing more within the same timeframe"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 10,
+        "text": "How many students are enrolled in public universities in Austria?",
+        "options": ["About 250,000", "About 400,000", "About 500,000"],
+        "correctIndex": 2
+      },
+      {
+        "id": 11,
+        "text": "What academic title is awarded to those who complete their doctoral study programme?",
+        "options": ["Bachelor", "Master", "Doctor"],
+        "correctIndex": 2
+      },
+      {
+        "id": 12,
+        "text": "In 2017, Lower Austria succeeded in winning the title of “European Entrepreneurial Region” (EER). What does “Entrepreneurial Region” mean?",
+        "options": [
+          "An innovative business region",
+          "An agricultural region",
+          "A labour-intensive region"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 13,
+        "text": "A special brand is ordered in varying quantities, four times a year, at fixed times. What is the name of this method?",
+        "options": ["Point-of-order method", "Order cycle method", "Fixed order method"],
+        "correctIndex": 1
+      },
+      {
+        "id": 14,
+        "text": "Electromobility is a central topic for many automobile suppliers. What do you think is the biggest challenge for them?",
+        "options": [
+          "The car’s acceleration",
+          "The capacity of the battery and operating range of the vehicle",
+          "The air-conditioning"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 15,
+        "text": "Who is responsible for the content of a print medium?",
+        "options": ["On-duty editor", "Editor-in-chief", "Journalist"],
+        "correctIndex": 1
+      },
+      {
+        "id": 16,
+        "text": "The systematic and target audience-oriented coordination of all marketing tools is defined in the...",
+        "options": ["sales plan.", "communications plan.", "marketing plan."],
+        "correctIndex": 2
+      },
+      {
+        "id": 17,
+        "text": "If we observe the prices at which competitors are offering their products and then design our own pricing accordingly, we speak of...",
+        "options": [
+          "demand-oriented pricing.",
+          "competition-oriented pricing.",
+          "cost-oriented pricing."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 18,
+        "text": "Asset planning shows the difference between turnover and profit. Why is this important for entrepreneurs?",
+        "options": [
+          "To ensure the financial existence of the company",
+          "To get a good rate of interest from the bank",
+          "For tax auditing"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 19,
+        "text": "What is the term used to denote the immediate and unilateral dissolution of an employment contract by the employer for an important reason?",
+        "options": ["Termination", "Dismissal", "Expiry"],
+        "correctIndex": 1
+      },
+      {
+        "id": 20,
+        "text": "What name do we give to the plan used to portray the outlook for the economic success of a planned business idea over the next 1 to 5 years?",
+        "options": ["Finance plan", "Business plan", "Marketing plan"],
+        "correctIndex": 1
+      },
+      {
+        "id": 21,
+        "text": "What is the term used to describe the recognition, creation, deployment and implementation of new ideas in a field of economic activity?",
+        "options": ["Entrepreneurship", "Officialdom", "Gainful employment"],
+        "correctIndex": 0
+      },
+      {
+        "id": 22,
+        "text": "Management requests the consent of the Works Council to employ a new member of staff. Which of the following statements is correct?",
+        "options": [
+          "The Works Council can refuse consent under certain circumstances.",
+          "Even if the Works Council is against the employment, management always has the last word.",
+          "The Works Council can refuse to give its consent without needing to provide reasons."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 23,
+        "text": "What is the opposite of “deflation“ in the economy?",
+        "options": ["Inflation", "Revision", "Market invasion"],
+        "correctIndex": 0
+      },
+      {
+        "id": 24,
+        "text": "When OPEC countries reduce oil production and demand remains at the same level, we speak of...",
+        "options": [
+          "competition-oriented pricing policy.",
+          "cost-oriented pricing policy.",
+          "demand-oriented pricing policy."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 25,
+        "text": "What is the name given to the relocation of “procurement“ from high-wage to low-wage countries?",
+        "options": ["Insourcing", "Global sourcing", "Outsourcing"],
+        "correctIndex": 2
+      },
+      {
+        "id": 26,
+        "text": "What are “non-wage labour costs“?",
+        "options": [
+          "Costs to the employer in addition to actually paid wages",
+          "Costs the employer must pay out of his own pocket",
+          "Employment bureau costs"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 27,
+        "text": "A “profit and loss statement“ is...",
+        "options": [
+          "a comparison of costs and revenues.",
+          "a comparison of deposits and withdrawals in vertical form.",
+          "used to determine taxable income."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 28,
+        "text": "In contrast to industrial and trading companies, service companies produce exclusively...",
+        "options": ["invisible goods.", "intangible goods.", "tangible goods."],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Public relations, sales promotion, viral and guerilla marketing are all terms from the field of...",
+        "options": ["distribution policy.", "communications policy.", "pricing policy."],
+        "correctIndex": 1
+      },
+      {
+        "id": 30,
+        "text": "A sales agent is...",
+        "options": [
+          "an add-on from Microsoft which automatically subdivides continous text into paragraphs in Word.",
+          "a polite man who helps women in high heels use the stairs.",
+          "a sales intermediary, such as a traveling salesman."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 31,
+        "text": "“Traveling salespeople“ are...",
+        "options": [
+          "tourists who like haggling for bargains while on holiday.",
+          "commercial employees who do deals on behalf and on account of their employer.",
+          "managers who have to travel regularly as part of their job."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 32,
+        "text": "What does “direct sale“ imply?",
+        "options": [
+          "That the sale is directly from the producer to the retailer",
+          "In a direct sale, no intermediaries are used",
+          "In a direct sale, only wholesalers are used, but not retailers"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 33,
+        "text": "When a company offers its classic fine-ribbed line of underwear in “Sport“ and “Modern“ versions as well, we refer to this as...",
+        "options": [
+          "a broadening of its product range.",
+          "a deepening of its product range.",
+          "an extension of its product range."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 34,
+        "text": "What determines the type of loan?",
+        "options": ["The purpose of consumption", "The type of processing", "The intended use"],
+        "correctIndex": 2
+      },
+      {
+        "id": 35,
+        "text": "When a customer continues to buy from the same provider for a significant period of time, we refer to this as...",
+        "options": ["customer lobby.", "customer loyalty.", "customer love."],
+        "correctIndex": 1
+      },
+      {
+        "id": 36,
+        "text": "What name do we give to a future state we are aiming to achieve?",
+        "options": ["Imagination", "Goal", "Dream"],
+        "correctIndex": 1
+      },
+      {
+        "id": 37,
+        "text": "Which of the following points can be considered a “quantitative module“ of a business plan?",
+        "options": ["A business idea", "A finance plan", "A marketing plan"],
+        "correctIndex": 1
+      },
+      {
+        "id": 38,
+        "text": "Which section of the balance sheet do durable economic goods appear in?",
+        "options": ["Private assets", "Current assets", "Capital assets"],
+        "correctIndex": 2
+      },
+      {
+        "id": 39,
+        "text": "What is the legal form most frequently used for establishing companies in Austria?",
+        "options": ["Sole proprietorship", "Public limited company", "Limited partnership"],
+        "correctIndex": 0
+      },
+      {
+        "id": 40,
+        "text": "In the business sector, what is meant by “total costs“?",
+        "options": ["Cost of living", "Fixed costs and variable costs", "End price"],
+        "correctIndex": 1
+      },
+      {
+        "id": 41,
+        "text": "In accounting, what is meant by the term “balance sheet“?",
+        "options": [
+          "The sum of all expenses",
+          "A comparison of capital and assets",
+          "A retrospective view of the previous year"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 42,
+        "text": "Why is it important for society to have entrepreneurs?",
+        "options": [
+          "They promote family planning",
+          "They create jobs",
+          "They support the banking system"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 43,
+        "text": "What is the term used to describe marketing in which no retailers are involved between the manufacturer and the end user?",
+        "options": ["Indirect marketing", "Wholesale", "Direct marketing"],
+        "correctIndex": 2
+      },
+      {
+        "id": 44,
+        "text": "In marketing, what term is used to describe actual and potential customers?",
+        "options": ["Market", "Business", "Position"],
+        "correctIndex": 0
+      },
+      {
+        "id": 45,
+        "text": "Which of the following measures is part of the “advertising“ communication tool?",
+        "options": [
+          "Product sampling in the commercial establishment",
+          "A radio spot for the new product",
+          "Organisation of a sports event"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 46,
+        "text": "Which of the following measures is part of the “public relations“ communication tool?",
+        "options": [
+          "Special positioning in a wire basket",
+          "A poster of a grocery store",
+          "An article on the social commitment of a company"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 47,
+        "text": "Which of the following terms has nothing to do with “marketing“?",
+        "options": ["Materials management", "Market research", "Product policy"],
+        "correctIndex": 0
+      },
+      {
+        "id": 48,
+        "text": "What are the three factors of economic production?",
+        "options": [
+          "Labour, land and capital",
+          "Labour, government and businesses",
+          "Labour, materials and equipment"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 49,
+        "text": "What is decisive for the writing down of depreciable assets?",
+        "options": ["Profit in cost accounting", "Life expectancy", "Asset depreciation range"],
+        "correctIndex": 2
+      },
+      {
+        "id": 50,
+        "text": "What is the minimum number of people needed to incorporate a limited liability company?",
+        "options": ["1 person", "2 people", "3 people"],
+        "correctIndex": 0
+      },
+      {
+        "id": 51,
+        "text": "Can a creditor collect its debts from each individual partner in a general partnership?",
+        "options": ["Yes", "No", "Varies"],
+        "correctIndex": 0
+      },
+      {
+        "id": 52,
+        "text": "Which of the following points is a prerequisite for getting credit with a supplier?",
+        "options": ["Credit check", "A written contract", "Neither of these answers"],
+        "correctIndex": 2
+      },
+      {
+        "id": 53,
+        "text": "What name do we give to a market in which the supply of goods is greater than the demand for goods?",
+        "options": ["A seller’s market", "A buyer’s market", "A hypermarket"],
+        "correctIndex": 1
+      },
+      {
+        "id": 54,
+        "text": "If a manufacturer is not to make a loss, the sales price should at least cover...",
+        "options": ["the prime costs.", "the purchasing costs.", "the manufacturing costs."],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "What name do we give to a market in which demand for goods is greater than supply?",
+        "options": ["A seller’s market", "A hypermarket", "A buyer’s market"],
+        "correctIndex": 0
+      },
+      {
+        "id": 56,
+        "text": "What is the priority aim of a service provider?",
+        "options": [
+          "Processing (production)",
+          "Buying and selling goods (distribution)",
+          "Advising on legal and commercial questions"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 57,
+        "text": "Which of the following companies is not a service provider?",
+        "options": [
+          "Volksbank",
+          "BIPA Parfumerien Gesellschaft m.b.H.",
+          "ÖBB"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 58,
+        "text": "What do we call the area in which advertising measures are conducted?",
+        "options": ["Distribution area", "Advertising region", "Commercial sector"],
+        "correctIndex": 0
+      },
+      {
+        "id": 59,
+        "text": "What are the basic functions (main tasks) of any company?",
+        "options": [
+          "Service provision, marketing and administration",
+          "Procurement, controlling and distribution",
+          "Procurement, service provision and sales"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 60,
+        "text": "We refer to the development of a completely new product as...",
+        "options": ["product variation.", "product diversification.", "product innovation."],
+        "correctIndex": 2
+      },
+      {
+        "id": 61,
+        "text": "As a rule, the following applies to the advertising budget: When turnover falls, expenditure on advertising is...",
+        "options": ["stopped.", "reduced.", "increased."],
+        "correctIndex": 1
+      },
+      {
+        "id": 62,
+        "text": "What is the meaning of the term “brainstorming“?",
+        "options": ["Thought analysis", "Collecting of ideas", "Brain current analysis"],
+        "correctIndex": 1
+      },
+      {
+        "id": 63,
+        "text": "What is the meaning of a “business plan“?",
+        "options": [
+          "A plan for how to implement a business idea",
+          "A business game",
+          "An orientation plan for a factory"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 64,
+        "text": "How long is the validity period of a medium-term loan?",
+        "options": ["Up to 1 year", "Over 5 years", "1 to 5 years"],
+        "correctIndex": 2
+      },
+      {
+        "id": 65,
+        "text": "What is meant by the term “equity capital“?",
+        "options": ["Assets of employees", "Borrowed money", "Money raised by the company’s proprietors"],
+        "correctIndex": 2
+      },
+      {
+        "id": 66,
+        "text": "What is meant by the term “startup costs“?",
+        "options": [
+          "Contributions to the state by setting up a company",
+          "Initial expenses incurred in setting up a company",
+          "Notary costs"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 67,
+        "text": "Who normally conducts the business of a KG (limited partnership)?",
+        "options": ["Limited partners", "An unlimited partner", "An external CEO"],
+        "correctIndex": 1
+      },
+      {
+        "id": 68,
+        "text": "When we refer to the “positioning“ of a product, we mean...",
+        "options": [
+          "the number of retailers supplied with the product.",
+          "the perceived image to be achieved amongst customers.",
+          "presentation of the product at the POP."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 69,
+        "text": "What does not make up part of “product policy“?",
+        "options": ["3 for the price of 2", "A new recipe for a body lotion", "Product customisation based on customers’ wishes"],
+        "correctIndex": 0
+      },
+      {
+        "id": 70,
+        "text": "What does “distribution policy” involve?",
+        "options": [
+          "Selecting a new sales channel",
+          "A new safety feature in a car",
+          "A reduction in prices at the end of the season"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 71,
+        "text": "What is meant by the term “returns“?",
+        "options": ["Bank profits", "Yields from savings", "Earnings from invested capital"],
+        "correctIndex": 2
+      },
+      {
+        "id": 72,
+        "text": "What do we mean when we describe a businessperson as being “liquid“?",
+        "options": ["He is bankrupt", "He can comply with a contract", "He is capable of making payments"],
+        "correctIndex": 2
+      },
+      {
+        "id": 73,
+        "text": "The total supply of a trading company is known as its...",
+        "options": ["volume of goods.", "warehouse.", "product range."],
+        "correctIndex": 2
+      },
+      {
+        "id": 74,
+        "text": "What do we call the assignment of a debt?",
+        "options": ["A cession", "A mortgage", "A pledge"],
+        "correctIndex": 0
+      },
+      {
+        "id": 75,
+        "text": "What does the term “insolvent“ mean?",
+        "options": ["Extortionate", "Able to pay", "Unable to pay"],
+        "correctIndex": 2
+      },
+      {
+        "id": 76,
+        "text": "What name do we give to a decline in economic activity?",
+        "options": ["Inflation", "Recession", "Review"],
+        "correctIndex": 1
+      },
+      {
+        "id": 77,
+        "text": "A company’s profit divided by its sales revenue x 100% is known as its...",
+        "options": ["net profit ratio.", "return on investment.", "return on equity."],
+        "correctIndex": 0
+      },
+      {
+        "id": 78,
+        "text": "How is total revenue calculated?",
+        "options": ["Prices multiplied by sales volume", "Profits minus costs", "Revenues less expenses"],
+        "correctIndex": 0
+      },
+      {
+        "id": 79,
+        "text": "Of the following legal forms of company, which is a type of partnership?",
+        "options": ["GmbH", "OG", "AG"],
+        "correctIndex": 1
+      },
+      {
+        "id": 80,
+        "text": "As a sole trader, the extent of your liability is limited to...",
+        "options": [
+          "all your private assets.",
+          "the assets of the company.",
+          "loan capital only."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 81,
+        "text": "The German-language term “OG” is an abbreviation for a type of company. What does OG stand for?",
+        "options": [
+          "Ordentliche Gemeinschaft (ordinary association)",
+          "Offene Gesellschaft (general partnership)",
+          "Oberste Genossenschaft (supreme cooperative)"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 82,
+        "text": "The German-language term “KG” is an abbreviation for a particular type of company. What does KG stand for?",
+        "options": [
+          "Kommanditgesellschaft (limited partnership)",
+          "Komplementärgesellschaft (general partnership)",
+          "Klagegemeinschaft (legal association)"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 83,
+        "text": "The German-language term “GmbH und Co. KG” is an abbreviation for a particular type of company. What is a GmbH und Co. KG?",
+        "options": [
+          "A limited partnership in which a limited liability company is the limited partner",
+          "A limited partnership in which a limited liability company is the general partner",
+          "A limited liability company in which a limited partnership is the partner"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 84,
+        "text": "What is the main advantage of a limited liability corporation?",
+        "options": ["Low founding costs", "Limited liability", "Easy decision-making"],
+        "correctIndex": 1
+      },
+      {
+        "id": 85,
+        "text": "Which of the following applies to the limited partners of a KG (limited partnership)?",
+        "options": [
+          "They are subject to unlimited liability",
+          "They can participate in the profits",
+          "They have the right to take decisions"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 86,
+        "text": "What is meant by the term “niche market“?",
+        "options": [
+          "A small submarket with very little competition",
+          "A large market with a great deal of competition",
+          "The receptiveness of the market"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 87,
+        "text": "What is meant by the term “monopoly“?",
+        "options": [
+          "A market with a single provider",
+          "A market with a small number of providers",
+          "A market with numerous companies"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 88,
+        "text": "What is meant by the term “polypoly“?",
+        "options": [
+          "A market with a single provider",
+          "A market with a small number of providers",
+          "A market with numerous companies"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 89,
+        "text": "What does the abbreviation “B2C“ stand for?",
+        "options": ["Be-to-Café", "Business-to-Control", "Business-to-Consumer"],
+        "correctIndex": 2
+      },
+      {
+        "id": 90,
+        "text": "When we refer to a “business“, what is meant?",
+        "options": [
+          "A methodically organised economic unit",
+          "An organisation functioning according to the principles of a planned economy",
+          "A spontaneous investment in a business idea"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 91,
+        "text": "The term “distribution policy” stands for the...",
+        "options": ["distribution of products.", "marketing of products.", "manufacturing of products."],
+        "correctIndex": 0
+      },
+      {
+        "id": 92,
+        "text": "What does a “buyer’s market“ feature?",
+        "options": ["A gap in supply", "A gap in demand", "Surplus demand"],
+        "correctIndex": 2
+      },
+      {
+        "id": 93,
+        "text": "Which of the following is not a raw material?",
+        "options": ["Lubricant", "Wood", "Plastic laminated veneer"],
+        "correctIndex": 0
+      },
+      {
+        "id": 94,
+        "text": "Warehousing costs do not include...",
+        "options": [
+          "the costs of the warehouse staff.",
+          "the costs of buying forklift trucks.",
+          "the costs of insuring the stock and premises."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 95,
+        "text": "When we talk of a “seller’s market“, what is meant?",
+        "options": ["Surplus supply", "A gap in demand", "Surplus demand"],
+        "correctIndex": 2
+      },
+      {
+        "id": 96,
+        "text": "Is it only written contracts that are effective?",
+        "options": ["Yes", "No"],
+        "correctIndex": 1
+      },
+      {
+        "id": 97,
+        "text": "What is meant by “guerilla marketing“?",
+        "options": [
+          "A strong effect should be achieved by unusual, sometimes even illegal advertising campaigns.",
+          "The term originally comes from the guerilla fighters who wanted to use their messages to motivate people to join revolutions.",
+          "It is a term from zoo management, describing how T-shirts are put on gorillas for advertising reasons."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 98,
+        "text": "What does the “M” in the term “SMART criteria“ stand for?",
+        "options": ["Manageable", "Measurable", "Minimised"],
+        "correctIndex": 1
+      },
+      {
+        "id": 99,
+        "text": "Employees who participate in the profit of a company are also called...",
+        "options": ["shareholders.", "investors.", "associates."],
+        "correctIndex": 0
+      },
+      {
+        "id": 100,
+        "text": "The ATX shows the stock price development of Austria‘s largest companies. How many companies are listed in the ATX?",
+        "options": ["15", "20", "30"],
+        "correctIndex": 1
+      },
+      {
+        "id": 101,
+        "text": "A company would like to permanently increase its competitiveness. Which of the following measures (among others) is likely to do this?",
+        "options": ["Long delivery times", "High quality of products", "Low pay for employees"],
+        "correctIndex": 1
+      },
+      {
+        "id": 102,
+        "text": "A company wants trainee positions to be found easily during search queries (e.g. Google). How can you improve that?",
+        "options": ["Social media campaigns", "Search engine optimisation", "Special advertisement banner"],
+        "correctIndex": 1
+      },
+      {
+        "id": 103,
+        "text": "What explains the purpose of a company and why it exists?",
+        "options": ["Mission statement", "Vision statement", "Financial statement"],
+        "correctIndex": 0
+      },
+      {
+        "id": 104,
+        "text": "What is the role of a company’s senior management team?",
+        "options": ["Divisional management", "Group leadership", "Company management"],
+        "correctIndex": 2
+      },
+      {
+        "id": 105,
+        "text": "Which time scale does strategic planning cover?",
+        "options": ["Short-term", "Medium-term", "Long-term"],
+        "correctIndex": 2
+      },
+      {
+        "id": 106,
+        "text": "What is the smallest organisational unit in a company?",
+        "options": ["Department", "Position", "Branch"],
+        "correctIndex": 1
+      },
+      {
+        "id": 107,
+        "text": "What did the Austrian government introduce at the beginning of the COVID crisis 2020 to mitigate economic damage?",
+        "options": ["Reduced working hours", "Moonlighting", "A tax increase"],
+        "correctIndex": 0
+      },
+      {
+        "id": 108,
+        "text": "Which of these is not a psychological marketing goal?",
+        "options": ["Image", "Awareness levels", "Turnover"],
+        "correctIndex": 2
+      },
+      {
+        "id": 109,
+        "text": "Which of the following is one of the most important laws for an individual doing business with companies in Austria?",
+        "options": ["Consumer Protection Act", "Stock Corporation Act", "Companies Act"],
+        "correctIndex": 0
+      },
+      {
+        "id": 110,
+        "text": "Which type of retail does not count as brick-and-mortar trading?",
+        "options": ["Supermarket", "Department store", "Teleshopping"],
+        "correctIndex": 2
+      },
+      {
+        "id": 111,
+        "text": "A shoe retailer sells exclusively shoes and bags in a shop. As such, he has a...",
+        "options": ["narrow range.", "wide range.", "high range."],
+        "correctIndex": 1
+      },
+      {
+        "id": 112,
+        "text": "One of the “Controlling” department’s tasks is...",
+        "options": ["to hire staff.", "to provide information.", "advertising."],
+        "correctIndex": 1
+      },
+      {
+        "id": 113,
+        "text": "A company wishes to use psychological pricing (threshold price) and therefore markets its product at...",
+        "options": ["EUR 9.99.", "EUR 10.00.", "EUR 10.05."],
+        "correctIndex": 0
+      },
+      {
+        "id": 114,
+        "text": "What is not included in ordinary statutory social security in Austria?",
+        "options": ["Health insurance", "Retirement pension contributions", "Life insurance"],
+        "correctIndex": 2
+      },
+      {
+        "id": 115,
+        "text": "On what principle does Austrian social insurance work?",
+        "options": ["Cost-effectiveness", "Solidarity", "Profit"],
+        "correctIndex": 1
+      },
+      {
+        "id": 116,
+        "text": "What does not count as an incidental cost of acquisition of a machine?",
+        "options": ["Transport", "Purchase price", "Assembly"],
+        "correctIndex": 1
+      },
+      {
+        "id": 117,
+        "text": "A company wants to purchase a new plant and has to choose between two options. What can be used to help make this decision?",
+        "options": [
+          "An investment calculation method",
+          "Accounting procedures",
+          "Cash-flow methodology"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 118,
+        "text": "On what basis must liabilities be valued?",
+        "options": [
+          "The lower of cost or market",
+          "By using the mean value principle",
+          "The higher of cost or market"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 119,
+        "text": "What kind of retained earnings do not exist?",
+        "options": ["Legal reserves", "Loss reserves", "Statutory revenue reserves"],
+        "correctIndex": 1
+      },
+      {
+        "id": 120,
+        "text": "How long is the statutory warranty period for movable goods in Austria?",
+        "options": ["1 year", "2 years", "3 years"],
+        "correctIndex": 1
+      }
+    ],
+    "investment": [
+      {
+        "id": 1,
+        "text": "When stock analysts issue “hold“ recommendations, they...",
+        "options": [
+          "give “buy“ recommendations.",
+          "give “sell“ recommendations.",
+          "give a recommendation to keep a stock."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 2,
+        "text": "Usually, an equity ratio of 30- 40% is required for granting a loan. What does this mean?",
+        "options": [
+          "Ratio of equity to debt",
+          "Share of equity capital compared to total capital",
+          "Equity share in the profits"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 3,
+        "text": "What is EURIBOR?",
+        "options": ["A payment method", "A type of credit", "The key interest rate of the money market"],
+        "correctIndex": 2
+      },
+      {
+        "id": 4,
+        "text": "Styria is home to five clusters. What industrial sector are the members of AC Styria active in?",
+        "options": [
+          "Forestry and wood processing",
+          "Environmentally friendly technologies",
+          "Automobile suppliers and mobility"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 5,
+        "text": "Austrian exports to the so-called “BRIC“ countries have doubled over the last 20 years. What does the abbreviation “BRIC“ stand for?",
+        "options": [
+          "Bulgaria, Romania, India, China",
+          "Balkans, Russia, Italy, China",
+          "Brazil, Russia, India, China"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 6,
+        "text": "You are planning to open a trading company. What legal regulation is decisive for the founding of a company?",
+        "options": ["Labor law", "Industrial code", "Administrative law"],
+        "correctIndex": 1
+      },
+      {
+        "id": 7,
+        "text": "Which state in Austria has the most overnight stays in summer and winter?",
+        "options": ["Salzburg", "Vienna", "Styria"],
+        "correctIndex": 2
+      },
+      {
+        "id": 8,
+        "text": "What does IPO stand for?",
+        "options": [
+          "Initial Public Offering",
+          "Invalid Price Offering",
+          "Initiative of Private Organisations"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 9,
+        "text": "Where does the OPEC have its headquarters?",
+        "options": ["Frankfurt", "Caracas", "Vienna"],
+        "correctIndex": 2
+      },
+      {
+        "id": 10,
+        "text": "What is the “Sunday question“?",
+        "options": [
+          "A question only asked on Sundays",
+          "A question only published on Sundays",
+          "“Who would you vote for on Sunday?“"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 11,
+        "text": "In the field of market research, what is a group of people called that is chosen out of all possible participants?",
+        "options": ["Experimental group", "Sample", "Selection group"],
+        "correctIndex": 1
+      },
+      {
+        "id": 12,
+        "text": "Austria is Europe‘s frontrunner in renewable energy sources. What is the current percentage share of renewable energy in Austria‘s electricity consumption?",
+        "options": ["75%", "58%", "37%"],
+        "correctIndex": 1
+      },
+      {
+        "id": 13,
+        "text": "How many(private and public) universities are there in Austria?",
+        "options": ["25", "39", "42"],
+        "correctIndex": 1
+      },
+      {
+        "id": 14,
+        "text": "What is the name given to the collecting of data about the characteristics of a certain market?",
+        "options": ["Business research", "Market research", "Field research"],
+        "correctIndex": 1
+      },
+      {
+        "id": 15,
+        "text": "Which of the following is one of Maslow’s “hierarchy of needs“?",
+        "options": [
+          "The need for safety",
+          "Basic physiological needs",
+          "The need for self-actualisation"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 16,
+        "text": "Which of the following statements is correct?",
+        "options": [
+          "Foreign guests spend more in Austria than Austrians do abroad.",
+          "Austrian guests spend more on foreign tours than foreigners do in Austria.",
+          "Austrian guests spend as much abroad as foreigners do in Austria."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 17,
+        "text": "What is the name of the department dealing with the processes involved in the distribution of goods, ranging from transportation to storage and the stacking of shelves?",
+        "options": ["Warehousing", "Transport", "Logistics"],
+        "correctIndex": 2
+      },
+      {
+        "id": 18,
+        "text": "Retailers refer to a harmonised and customer-oriented set of products, product lines and product groups offered as their...",
+        "options": ["product range.", "offer.", "product mix."],
+        "correctIndex": 0
+      },
+      {
+        "id": 19,
+        "text": "When we say a product is a “cash-cow“, what do we mean?",
+        "options": [
+          "A product with which high profits can be generated.",
+          "An agricultural product strongly positioned in the market.",
+          "A “cash-cow“ is defined as operating income+ depreciation."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 20,
+        "text": "Ms. Himmel deposits EUR 1,000 in a savings account and earns EUR 50 a year on her investment. What is the rate of return on the capital she invested?",
+        "options": ["5%", "10%", "15%"],
+        "correctIndex": 0
+      },
+      {
+        "id": 21,
+        "text": "If an Austrian dealer exports products to Japan, then...",
+        "options": [
+          "the balance of trade improves in favor of Austria.",
+          "the balance of services deteriorates for Japan.",
+          "this has no consequences for the balance of services."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 22,
+        "text": "In market research, if we draw upon existing data(internal or external), then we refer to...",
+        "options": ["an experiment.", "primary research.", "secondary research."],
+        "correctIndex": 2
+      },
+      {
+        "id": 23,
+        "text": "Which of the following forms of company has both shareholders with limited liability and with unlimited liability?",
+        "options": ["KG(limited partnership)", "GmbH(limited liability company)", "OHG(general partnership)"],
+        "correctIndex": 0
+      },
+      {
+        "id": 24,
+        "text": "What triggered the global financial crisis of 2007/08?",
+        "options": [
+          "Insufficient money in circulation",
+          "‘Lax’ mortgage lending",
+          "An excess of leasing deals"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 25,
+        "text": "Ideally, which department within the organisational structure of a company should be in charge of corporate social responsibility?",
+        "options": ["Public Relations", "Management", "Personnel Management"],
+        "correctIndex": 1
+      },
+      {
+        "id": 26,
+        "text": "What kind of pricing can be said to exist if a price is calculated based on initial costs and profit(especially in the case of services)?",
+        "options": [
+          "Competition-oriented pricing",
+          "Cost-oriented pricing",
+          "Customer benefit-oriented pricing"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 27,
+        "text": "What name do we give to the perceived idea a customer has of a company or brand?",
+        "options": ["Ideal", "Image", "Ideology"],
+        "correctIndex": 1
+      },
+      {
+        "id": 28,
+        "text": "What type of management aligns a product with the demands of customers and market conditions?",
+        "options": ["Market management", "Product management", "Needs management"],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "What term is used to describe a company’s basic approach to orienting itself to the requirements of the market?",
+        "options": ["Clienting", "Marketing", "Pricing"],
+        "correctIndex": 1
+      },
+      {
+        "id": 30,
+        "text": "What can be used to portray the trend in the turnover and profit of a product over a specified period of time?",
+        "options": ["Turnover graph", "Profit cycle", "Product life cycle"],
+        "correctIndex": 2
+      },
+      {
+        "id": 31,
+        "text": "What is the name given to the section of a business plan which reveals at first glance whether a business idea is of interest?",
+        "options": ["Financing", "Marketing plan", "Executive summary"],
+        "correctIndex": 2
+      },
+      {
+        "id": 32,
+        "text": "What is the term used to describe the conceptual preparation and structuring of decisions and their implementation?",
+        "options": ["Strategy", "Organisation", "Planning"],
+        "correctIndex": 2
+      },
+      {
+        "id": 33,
+        "text": "What is the name of the tool used to link a company‘s goals with concrete measures and their subsequent monitoring?",
+        "options": ["UPS", "CRM", "BSC(Balanced Score Card)"],
+        "correctIndex": 2
+      },
+      {
+        "id": 34,
+        "text": "When new ideas are implemented in the form of products or services, we refer to...",
+        "options": ["franchising.", "benchmarking.", "innovations."],
+        "correctIndex": 2
+      },
+      {
+        "id": 35,
+        "text": "A person who plans a company and then goes on to launch it successfully at his own risk is...",
+        "options": ["a freelancer.", "an entrepreneur.", "an intrapreneur."],
+        "correctIndex": 1
+      },
+      {
+        "id": 36,
+        "text": "What are the key factors in deciding where customers choose to shop?",
+        "options": [
+          "Attractive shop-layout",
+          "Wide product range",
+          "Low VAT rate"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 37,
+        "text": "What is the word for the interest rate offered for overnight deposits, and therefore on regular savings?",
+        "options": ["Base lending rate", "Ground lending rate", "Lower lending rate"],
+        "correctIndex": 1
+      },
+      {
+        "id": 38,
+        "text": "The abbreviation “EBIT“ is short for...",
+        "options": [
+          "earnings before interest and taxes.",
+          "equity before interests and taxes.",
+          "equal balanced interest tax."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 39,
+        "text": "The purchase price of a fixed asset is EUR 60 million. How much is the annual depreciation if the asset‘s useful life is 30 years?",
+        "options": ["EUR 1 million", "EUR 2 million", "EUR 4 million"],
+        "correctIndex": 1
+      },
+      {
+        "id": 40,
+        "text": "The voluntary association representing the interests of Austrian industry is known as...",
+        "options": [
+          "the Association of Industry.",
+          "the Chamber of Commerce.",
+          "the Industrial Federation."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 41,
+        "text": "If a currency constantly loses value relative to other currencies, we call it a...",
+        "options": ["soft currency.", "loss currency.", "gentle currency."],
+        "correctIndex": 0
+      },
+      {
+        "id": 42,
+        "text": "The opposite of currency devaluation is...",
+        "options": ["caluation.", "deflation.", "proflation."],
+        "correctIndex": 1
+      },
+      {
+        "id": 43,
+        "text": "What is the key indicator used to compare the prosperity of the populations of different countries?",
+        "options": [
+          "Gross prosperity value",
+          "Gross domestic product",
+          "Per capita gross domestic product"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 44,
+        "text": "Which of the following makes up part of “self-financing“ in a company?",
+        "options": ["Bank loans", "Profits", "Funds from other entrepreneurs"],
+        "correctIndex": 1
+      },
+      {
+        "id": 45,
+        "text": "What is the term used to describe an obligation we vouch for in return for our debts?",
+        "options": ["Liability", "Indebtedness(encumbrance)", "Debt obligation"],
+        "correctIndex": 0
+      },
+      {
+        "id": 46,
+        "text": "What do we call the process used to break tasks down into practical subtasks?",
+        "options": ["Task synthesis", "Task analysis", "Department formation"],
+        "correctIndex": 1
+      },
+      {
+        "id": 47,
+        "text": "Which of these is part of a company’s internal marketing environment?",
+        "options": ["Employees", "Customers", "Creditors"],
+        "correctIndex": 0
+      },
+      {
+        "id": 48,
+        "text": "What is the prerequisite for successful implementation of “management by objectives“?",
+        "options": [
+          "A good relationship with the boss",
+          "Precise definition of goals",
+          "Good cooperation"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 49,
+        "text": "How should one not represent the market share of a product?",
+        "options": ["Quantitatively", "As an estimate", "In terms of value"],
+        "correctIndex": 1
+      },
+      {
+        "id": 50,
+        "text": "What term is used to denote a situation in which a single customer can choose from numerous providers?",
+        "options": ["Demand oligopoly", "Demand polypoly", "Demand monopoly"],
+        "correctIndex": 2
+      },
+      {
+        "id": 51,
+        "text": "People have been asked what factors are important for them when selecting a job. On what importance was the high of salary ranked?",
+        "options": ["1st", "3rd", "5th"],
+        "correctIndex": 1
+      },
+      {
+        "id": 52,
+        "text": "What do we call the marketing tool of granting rebates and discounts?",
+        "options": ["Product policy", "Distribution policy", "Price policy"],
+        "correctIndex": 2
+      },
+      {
+        "id": 53,
+        "text": "What name do we give to a market in which the supply of goods is greater than the demand for goods?",
+        "options": ["A seller’s market", "A buyer’s market", "A hypermarket"],
+        "correctIndex": 1
+      },
+      {
+        "id": 54,
+        "text": "Which of the following factors is unlikely to have any effect on the final price of a product?",
+        "options": ["Color of the packaging", "Demand", "Competition"],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "Because the products of many providers fulfill the same core needs nowadays, they need to demonstrate...",
+        "options": ["an ideal benefit.", "an added benefit.", "a consumer benefit."],
+        "correctIndex": 1
+      },
+      {
+        "id": 56,
+        "text": "What name do we give to target orientation in marketing?",
+        "options": ["Vision", "Mission", "Division"],
+        "correctIndex": 0
+      },
+      {
+        "id": 57,
+        "text": "Which of the following is not part of the buyer decision process?",
+        "options": ["Problem recognition", "Approach to research", "Search for information"],
+        "correctIndex": 1
+      },
+      {
+        "id": 58,
+        "text": "Which of the following measures is part of the “sales promotion“ communication tool?",
+        "options": [
+          "A donation to the St. Anna-Hospital",
+          "A poster of a groceries retailer",
+          "Product sampling in a shop"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 59,
+        "text": "Where in a company is the meaningful allocation of separate tasks to different posts defined?",
+        "options": [
+          "In its organisational structure",
+          "In its business plan",
+          "In its process organisation"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 60,
+        "text": "Which of the following forms of financing is not considered part of “financing through borrowed capital“?",
+        "options": [
+          "Supplier credits with defined term of payment",
+          "Inclusion of new shareholders",
+          "Mezzanine financing"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 61,
+        "text": "What is the term used to describe pricing oriented to demand and supply?",
+        "options": [
+          "Competition-oriented pricing",
+          "Cost-oriented pricing",
+          "Customer benefit-oriented pricing"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 62,
+        "text": "What do you call the stage in the life cycle of a product at which turnover reaches its peak value?",
+        "options": ["Downswing", "Maturity", "Growth"],
+        "correctIndex": 1
+      },
+      {
+        "id": 63,
+        "text": "In indirect sales, what name do we give to the links between a manufacturer and an end-user?",
+        "options": ["Consumers", "Retailers", "Customers"],
+        "correctIndex": 1
+      },
+      {
+        "id": 64,
+        "text": "What is meant by “company strategy“?",
+        "options": [
+          "The planned behavior of a company designed to ensure that it achieves its goals",
+          "Combating the measures of competitors",
+          "Advertising measures"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 65,
+        "text": "Which of the following types of company is not primarily concerned with making a profit?",
+        "options": ["Cooperative", "AG(public limited company)", "GmbH(limited liability company)"],
+        "correctIndex": 0
+      },
+      {
+        "id": 66,
+        "text": "If a company goes bankrupt, the sole proprietor of that company is not liable to provide cover using...",
+        "options": [
+          "his/her own savings.",
+          "the assets of his/her parents.",
+          "his/her own house."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 67,
+        "text": "What do we call the stage in the development of a team in which the “rules of the game“ are defined?",
+        "options": ["Warm-up", "Forming", "Norming"],
+        "correctIndex": 1
+      },
+      {
+        "id": 68,
+        "text": "What do we call the control used for a “target-performance comparison“ and to detect deviations?",
+        "options": ["Process controls", "Control of results", "Premise controls"],
+        "correctIndex": 1
+      },
+      {
+        "id": 69,
+        "text": "What information should always be provided in a product policy?",
+        "options": [
+          "Competitor prices",
+          "Needs of the target group",
+          "Needs of the company‘s boss"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 70,
+        "text": "Which market is a polypoly in Austria and Germany?",
+        "options": ["The drinks market", "Mail delivery", "Public transportation"],
+        "correctIndex": 0
+      },
+      {
+        "id": 71,
+        "text": "What is the economic term given to the threshold a company needs to cross to move from loss into profit?",
+        "options": ["Break-even point", "Backbone", "Hurray threshold"],
+        "correctIndex": 0
+      },
+      {
+        "id": 72,
+        "text": "There is an unknown quantity when calculating annual depreciation. Which of the following is it?",
+        "options": ["Purchase price", "Estimated useful life", "Operating costs"],
+        "correctIndex": 1
+      },
+      {
+        "id": 73,
+        "text": "What is meant by the term “oligopoly“?",
+        "options": [
+          "A market with a single provider",
+          "A market with a small number of providers",
+          "A market with numerous companies"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 74,
+        "text": "How do you calculate a company‘s return on its equity?",
+        "options": [
+          "(Profit/ equity capital) x 100",
+          "(Equity capital/ profit) x 100",
+          "(Equity capital/ total equity and liabilities) x 100"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 75,
+        "text": "What do we call the optimum harmonisation of marketing tools?",
+        "options": ["Marketing mix", "Marketing max", "Marketing Fritz"],
+        "correctIndex": 0
+      },
+      {
+        "id": 76,
+        "text": "Which of the following terms is not part of the marketing mix?",
+        "options": ["Distribution policy", "Contracting policy", "Persecution policy"],
+        "correctIndex": 2
+      },
+      {
+        "id": 77,
+        "text": "What do you call stocks with highs on the stock market?",
+        "options": ["Yellow chips", "Blue chips", "Green chips"],
+        "correctIndex": 1
+      },
+      {
+        "id": 78,
+        "text": "If the variable costs of a product are taken away from its sales price, how do we refer to the figure which is produced?",
+        "options": ["Profit", "Profit margin", "Turnover"],
+        "correctIndex": 1
+      },
+      {
+        "id": 79,
+        "text": "Which factor(s) are disregarded by all investment appraisal methods?",
+        "options": ["Hard facts", "Soft facts", "Hard facts and soft facts"],
+        "correctIndex": 1
+      },
+      {
+        "id": 80,
+        "text": "What is the abbreviation for the World Trade Organization?",
+        "options": ["WTO", "WHO", "WTU"],
+        "correctIndex": 0
+      },
+      {
+        "id": 81,
+        "text": "The most important goal of the European Central Bank is to ensure...",
+        "options": [
+          "stability of monetary value.",
+          "a strong euro.",
+          "a high level of interest."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 82,
+        "text": "Austria has been a member of the European Union since...",
+        "options": ["1995.", "1998.", "2002."],
+        "correctIndex": 0
+      },
+      {
+        "id": 83,
+        "text": "What is China‘s currency?",
+        "options": ["Yen", "Yuan", "Wuan"],
+        "correctIndex": 1
+      },
+      {
+        "id": 84,
+        "text": "What does the term “secondary research“ mean in marketing?",
+        "options": [
+          "Researching the internal marketing environment",
+          "Using existing data",
+          "Researching the external marketing environment"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 85,
+        "text": "What do clear goals enable a company to do?",
+        "options": ["Calculate salaries", "Generate ideas", "Conduct its planning"],
+        "correctIndex": 2
+      },
+      {
+        "id": 86,
+        "text": "How is the “profit margin” of a company calculated?",
+        "options": [
+          "Turnover- Variable costs",
+          "Turnover- Rents- Taxes",
+          "Turnover- Salaries"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 87,
+        "text": "What is meant by the term “borrowed capital“?",
+        "options": [
+          "Assets of a competitor company",
+          "Capital one has to pay back",
+          "Gifted money"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 88,
+        "text": "What is the disadvantage of secondary research?",
+        "options": ["Its inaccuracy", "Its cost", "The time involved"],
+        "correctIndex": 0
+      },
+      {
+        "id": 89,
+        "text": "If a company declares itself to be bankrupt, it is...",
+        "options": ["creditworthy.", "insolvent.", "hiring."],
+        "correctIndex": 1
+      },
+      {
+        "id": 90,
+        "text": "Complementary goods...",
+        "options": [
+          "complement one another.",
+          "replace one another.",
+          "are goods belonging to a KG(limited partnership)."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 91,
+        "text": "How is the profit margin of an order calculated?",
+        "options": [
+          "Sales revenue plus variable costs",
+          "Sales revenue less variable costs",
+          "Sales revenue less fixed costs"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 92,
+        "text": "Which of the following statements apply to fixed costs?",
+        "options": [
+          "They are independent of output",
+          "They are dependent on output",
+          "They increase together with output"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 93,
+        "text": "Which of the following cases will produce a positive profit margin?",
+        "options": [
+          "Fixed costs are greater than variable costs",
+          "Sales revenues are greater than variable costs",
+          "Fixed costs are smaller than variable costs"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 94,
+        "text": "A positive profit margin helps cover...",
+        "options": ["fixed costs.", "variable costs.", "fixed and variable costs."],
+        "correctIndex": 0
+      },
+      {
+        "id": 95,
+        "text": "Which of the following statements is correct?",
+        "options": [
+          "Sales revenue is equal to profit",
+          "Sales revenue is greater than profit",
+          "Profit is greater than sales revenue"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 96,
+        "text": "What do the 4 P‘s stand for in connection with the marketing mix?",
+        "options": [
+          "Product, Price, Promotion, Place",
+          "Product, Portfolio, Presence, Place",
+          "Progress, Price, Place, Portfolio"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 97,
+        "text": "Is it possible to transfer a claim?",
+        "options": ["Yes", "No"],
+        "correctIndex": 0
+      },
+      {
+        "id": 98,
+        "text": "How often is the shareholders‘ meeting held in a public limited company?",
+        "options": ["Once a quarter", "Once a year", "Twice a year"],
+        "correctIndex": 1
+      },
+      {
+        "id": 99,
+        "text": "In the automobile supplier industry, JIS(Just In Sequence) delivery is often used. What does that mean?",
+        "options": [
+          "The right car parts are delivered to the production facility in the right sequence and at the right time",
+          "Each production facility is responsible for one part of the car",
+          "All the car parts are arranged in order at the production facility and subsequently assembled in this order"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 100,
+        "text": "Besides the Profit and Loss account, what else does an annual closure include?",
+        "options": [
+          "Cash-basis accounting",
+          "Balance sheet accounting",
+          "Business plan"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 101,
+        "text": "Logistics usually tries to keep its inventory levels as low as possible. Why?",
+        "options": [
+          "Inventories generate costs and tie up capital",
+          "If inventories get too big, the employees lose track of things.",
+          "Inventories disappear quickly"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 102,
+        "text": "What should a company submit if it wants venture capital from a private investor?",
+        "options": ["Business plan", "Loan application", "Loan securities"],
+        "correctIndex": 0
+      },
+      {
+        "id": 103,
+        "text": "Which analysis tool presents the strengths, weaknesses, opportunities and threats of a company?",
+        "options": ["Scenario analysis", "Break-even analysis", "SWOT analysis"],
+        "correctIndex": 2
+      },
+      {
+        "id": 104,
+        "text": "The corona crisis has caused Austrian government spending to...",
+        "options": ["increase.", "decrease.", "stabilise."],
+        "correctIndex": 0
+      },
+      {
+        "id": 105,
+        "text": "What do we call the final phase in the product life cycle, just before a product is withdrawn from the market?",
+        "options": ["Growth", "Saturation", "Decline"],
+        "correctIndex": 2
+      },
+      {
+        "id": 106,
+        "text": "Which term is not part of the PDCA cycle?",
+        "options": ["Plan", "Do", "Communicate"],
+        "correctIndex": 2
+      },
+      {
+        "id": 107,
+        "text": "What is a partner of a KG(limited partnership) known as in Austria?",
+        "options": [
+          "“Komplementär”(general partner)",
+          "“Kommanditist”(limited partner)",
+          "“Vorstand”(board of directors)"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 108,
+        "text": "What is the minimum amount of share capital required for an AG(plc) in Austria?",
+        "options": ["EUR 50,000", "EUR 70,000", "EUR 80,000"],
+        "correctIndex": 0
+      },
+      {
+        "id": 109,
+        "text": "What is another way of describing a supply chain?",
+        "options": ["Booking chain", "Value chain", "Development chain"],
+        "correctIndex": 1
+      },
+      {
+        "id": 110,
+        "text": "What are trade barriers designed to prevent?",
+        "options": [
+          "Importing of foreign goods",
+          "Exporting of domestic goods",
+          "Moonlighting"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 111,
+        "text": "The “Finanzplan” contains the planned...",
+        "options": [
+          "profit and loss.",
+          "asset and capital structures.",
+          "income and expenditure."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 112,
+        "text": "What is the management body of a GmbH (limited liability company) called?",
+        "options": ["“Vorstand”", "“Aufsichtsrat”", "“Geschäftsführung”"],
+        "correctIndex": 2
+      },
+      {
+        "id": 113,
+        "text": "A company only produces goods when it receives an order. Which principle is being applied here?",
+        "options": ["Make-to-stock", "Make-to-order", "Make-or-buy"],
+        "correctIndex": 1
+      },
+      {
+        "id": 114,
+        "text": "How are wages generally set in Austria?",
+        "options": [
+          "Based on the employee‘s popularity within the company",
+          "Privately negotiated between the employer and the employee",
+          "Collective bargaining"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 115,
+        "text": "A beverage producer takes back bottles from its customers, cleans and then refills them. The bottles are therefore...",
+        "options": ["re-used.", "recycled.", "returned and disposed of."],
+        "correctIndex": 0
+      },
+      {
+        "id": 116,
+        "text": "What is a “bond”?",
+        "options": ["Debt instrument", "Equity security", "Derivative security"],
+        "correctIndex": 0
+      },
+      {
+        "id": 117,
+        "text": "What are “opportunity costs”?",
+        "options": ["Lost profit/benefit", "Competition costs", "Costs of surplus stock"],
+        "correctIndex": 0
+      },
+      {
+        "id": 118,
+        "text": "A sole trader has to be registered in the Austrian commercial register if their turnover reaches how much in any one year?",
+        "options": ["EUR 500,000", "EUR 700,000", "EUR 1,000,000"],
+        "correctIndex": 2
+      },
+      {
+        "id": 119,
+        "text": "Which of the following does not constitute manufacturing costs?",
+        "options": [
+          "Marketing and administration costs",
+          "Cost of materials",
+          "Production costs"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 120,
+        "text": "Which of the following constitutes short-term lending?",
+        "options": ["Loan", "Bond", "Overdraft"],
+        "correctIndex": 2
+      }
+    ],
+    "plc": [
+      {
+        "id": 1,
+        "text": "Economic growth is measured by the...",
+        "options": ["Gross Regional Product.", "Group Median Income.", "Standard of living."],
+        "correctIndex": 0
+      },
+      {
+        "id": 2,
+        "text": "Approximately how high is the potential workforce (non-self-employed employees and the unemployed) in Austria?",
+        "options": ["8 billion people", "6 billion people", "4 billion people"],
+        "correctIndex": 1
+      },
+      {
+        "id": 3,
+        "text": "What proportion of the minimum share capital has to be deposited immediately in cash by the partners when founding a GmbH?",
+        "options": ["50%", "75%", "100%"],
+        "correctIndex": 0
+      },
+      {
+        "id": 4,
+        "text": "What is meant by the term “Return on Capital Employed”?",
+        "options": [
+          "Profit achieved in relation to the capital used",
+          "Turnover achieved in relation to liquidity",
+          "Liquid funds available in the short-term"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "The “Research & Development” ratio shows how much a country spends on R&D compared to its total expenditure. Which Austrian province has the highest R&D ratio, at around 5.1%?",
+        "options": ["Vienna", "Styria", "Upper Austria"],
+        "correctIndex": 1
+      },
+      {
+        "id": 6,
+        "text": "Which balance sheet ratio shows the relation between entrepreneurial profit and the total capital committed?",
+        "options": ["Return on Investment", "Profit on turnover", "Share"],
+        "correctIndex": 0
+      },
+      {
+        "id": 7,
+        "text": "What does “shareholder value” mean?",
+        "options": [
+          "The value a company creates for its shareholders",
+          "The value of a company on the capital market",
+          "The price at which you can buy a share"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 8,
+        "text": "What is a rapid drop in stock prices known as?",
+        "options": ["Baisier", "Hidown", "Slump"],
+        "correctIndex": 2
+      },
+      {
+        "id": 9,
+        "text": "Investment funds are based on the principle of...",
+        "options": ["risk diversification.", "profit maximisation.", "minimum taxation."],
+        "correctIndex": 0
+      },
+      {
+        "id": 10,
+        "text": "Budget stabilisation through consolidation. What does this mean?",
+        "options": [
+          "Increasing spendings to stimulate the economy",
+          "Reducing budget revenue",
+          "Regulating expenditure and revenue to reduce the debt in the long term"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 11,
+        "text": "How do you calculate a company‘s turnover?",
+        "options": ["Quantity x (sales) price", "Quantity x purchase price", "Profit margin x (sales) price"],
+        "correctIndex": 0
+      },
+      {
+        "id": 12,
+        "text": "Due to new regulations defining the minimum equity ratios of banks, credit rating of SMEs has been complicated in recent years. What are these regulations known as?",
+        "options": ["Bern 2", "Zurich 1", "Basle 3"],
+        "correctIndex": 2
+      },
+      {
+        "id": 13,
+        "text": "Which of the following tasks is not a means of data collection in market research?",
+        "options": ["Experiments", "Interviews", "Estimates"],
+        "correctIndex": 2
+      },
+      {
+        "id": 14,
+        "text": "Which of the following terms does not belong to the elements of the mission statement of a company?",
+        "options": ["Vision", "Values", "Evaluation"],
+        "correctIndex": 2
+      },
+      {
+        "id": 15,
+        "text": "The three pillars of sustainability are economy, ecology and...",
+        "options": ["social awareness.", "security.", "health."],
+        "correctIndex": 0
+      },
+      {
+        "id": 16,
+        "text": "What is the meaning of the term “management”?",
+        "options": [
+          "Deciding the cash flows of a company",
+          "Leading and shaping a company",
+          "Leading the employees of a company"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 17,
+        "text": "What do we call a organisation structure that is focused on procedure?",
+        "options": ["Task organisation", "Process organisation", "Role organisation"],
+        "correctIndex": 1
+      },
+      {
+        "id": 18,
+        "text": "What is meant by the term “EBT”?",
+        "options": ["Electronic Bank Transfer", "Excess Baggage Ticket", "Earnings Before Taxes"],
+        "correctIndex": 2
+      },
+      {
+        "id": 19,
+        "text": "Which of the following has no impact on the price of a product?",
+        "options": [
+          "Competitor prices",
+          "Buyers’ preferences",
+          "Buying habits of employees"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 20,
+        "text": "What can be deduced directly from a company’s “financial plan“?",
+        "options": [
+          "The extent of its financing requirement",
+          "The extent of its loan interests",
+          "The working hours required"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 21,
+        "text": "What is the minimum composition of a KG (limited partnership)?",
+        "options": [
+          "1 private limited company plus 1 partner",
+          "2 partners",
+          "1 partner plus 1 limited partner"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 22,
+        "text": "What does inflation cause?",
+        "options": [
+          "Stagnation of economic activity",
+          "A lowering of prices",
+          "Devaluation of money"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 23,
+        "text": "In market research, at which point is a decision reached as to whether one should collect new data or use existing data?",
+        "options": [
+          "When selecting random samples",
+          "During primary research",
+          "When conducting a market analysis"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 24,
+        "text": "What is the right-hand side of the balance sheet known as?",
+        "options": ["Assets side", "Equity and liabilities side", "Income"],
+        "correctIndex": 1
+      },
+      {
+        "id": 25,
+        "text": "What is the left-hand side of the balance sheet known as?",
+        "options": ["Assets side", "Equity and liabilities side", "Expenses"],
+        "correctIndex": 0
+      },
+      {
+        "id": 26,
+        "text": "What determines order quantity in the retail sector?",
+        "options": ["Anticipated demand", "Space in the warehouse", "Bulk discount"],
+        "correctIndex": 0
+      },
+      {
+        "id": 27,
+        "text": "What is another expression for “equity ratio“?",
+        "options": ["Equity base", "Debt ratio", "Cash flow"],
+        "correctIndex": 0
+      },
+      {
+        "id": 28,
+        "text": "What is meant by the term “benchmarking“?",
+        "options": [
+          "Concentrating on your own strengths",
+          "Comparing yourself with the best",
+          "Increasing your return on sales"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Who is in charge of a public limited company’s day-to-day business?",
+        "options": [
+          "Its general meeting of shareholders",
+          "Its board of management",
+          "Its supervisory board"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 30,
+        "text": "What does the abbreviation “USP“ stand for?",
+        "options": [
+          "Unique Selling Proposition",
+          "Unbeatable Service Performance",
+          "Unit in Sales Project"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 31,
+        "text": "The bridging function is a typical feature of...",
+        "options": ["service.", "trade.", "production."],
+        "correctIndex": 1
+      },
+      {
+        "id": 32,
+        "text": "The duties of an employer do not include...",
+        "options": [
+          "a duty of care.",
+          "a duty of compensation.",
+          "a duty of information and consultation."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 33,
+        "text": "In principle, which of the following moves in the opposite direction than the flow of goods?",
+        "options": ["Information flow", "Electrical current", "Cash flow"],
+        "correctIndex": 2
+      },
+      {
+        "id": 34,
+        "text": "Examples of auxiliary materials include...",
+        "options": [
+          "energy, cleaning agents and coolants.",
+          "paint, screws and nails.",
+          "clamping plates, metal sheets and rubber mats."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 35,
+        "text": "Since when has it been possible to establish a “European Company (SE)“ in Austria?",
+        "options": ["2004", "2005", "2006"],
+        "correctIndex": 0
+      },
+      {
+        "id": 36,
+        "text": "The value of all the goods and services realised by the permanent residents of a country, both within the country and abroad, is known as its...",
+        "options": ["cash flow.", "gross national product.", "gross domestic product."],
+        "correctIndex": 1
+      },
+      {
+        "id": 37,
+        "text": "What regulates the order of subtasks in the company organisation?",
+        "options": ["Organisational structure", "Process organisation", "Organisational chart"],
+        "correctIndex": 1
+      },
+      {
+        "id": 38,
+        "text": "Which of the following management tasks cannot be delegated?",
+        "options": ["Planning", "Controlling", "Accounting"],
+        "correctIndex": 2
+      },
+      {
+        "id": 39,
+        "text": "In marketing, what name do we give to the consideration of how a product can be brought to a customer most effectively?",
+        "options": ["Product policy", "Distribution policy", "Price policy"],
+        "correctIndex": 1
+      },
+      {
+        "id": 40,
+        "text": "Which of the following measures is part of the “Events and Sponsoring“ communication tool?",
+        "options": [
+          "Organisation of a fundraising gala for „Licht ins Dunkel“",
+          "Transmission of a company newsletter",
+          "A radio ad for a new product"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 41,
+        "text": "On the supply side, when do we use the term “oligopoly“?",
+        "options": [
+          "When numerous providers exist",
+          "When very few providers exist",
+          "When one provider exists"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 42,
+        "text": "What term do we use to describe the conscious, focused and target-oriented influencing of people?",
+        "options": ["Instruction", "Leadership", "Dictatorship"],
+        "correctIndex": 1
+      },
+      {
+        "id": 43,
+        "text": "When do we use the term “polypoly“ on the supply side?",
+        "options": [
+          "When numerous providers exist",
+          "When very few providers exist",
+          "When one provider exists"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 44,
+        "text": "What term do we use to describe the procurement chain of a company, from the supplier to the manufacturer and the end user?",
+        "options": ["Sales logistics", "Supply chain management", "Procurement logistics"],
+        "correctIndex": 1
+      },
+      {
+        "id": 45,
+        "text": "Which technology plays an important role in optimising business processes?",
+        "options": ["Corporate technology", "Information technology", "Business technology"],
+        "correctIndex": 1
+      },
+      {
+        "id": 46,
+        "text": "What is the name given to the period that elapses between the date a notice of termination is issued and the date the termination enters into force?",
+        "options": ["Notice period", "Expiry term", "Retention period"],
+        "correctIndex": 0
+      },
+      {
+        "id": 47,
+        "text": "What form of company is solely responsible for its own debts?",
+        "options": [
+          "OG (general partnership)",
+          "KG (limited partnership)",
+          "AG (public limited company)"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 48,
+        "text": "In Austria, what is the minimum authorised capital required to set up a private limited company?",
+        "options": ["EUR 20,000", "EUR 35,000", "EUR 50,000"],
+        "correctIndex": 2
+      },
+      {
+        "id": 49,
+        "text": "What name do we give to goods used to produce other goods?",
+        "options": ["Machinery", "Capital goods", "Consumer goods"],
+        "correctIndex": 1
+      },
+      {
+        "id": 50,
+        "text": "What is the term used to describe a calculated reduction in value of operational assets?",
+        "options": ["Depreciation", "Assessment notice", "Loss"],
+        "correctIndex": 0
+      },
+      {
+        "id": 51,
+        "text": "What is used to protect “intellectual creations“, such as music, films and literature?",
+        "options": ["Patent", "Copyright", "Trademark"],
+        "correctIndex": 1
+      },
+      {
+        "id": 52,
+        "text": "What do we call the law governing the legal relationship between an employer and his employees?",
+        "options": ["Service law", "Right of termination", "Labour law"],
+        "correctIndex": 2
+      },
+      {
+        "id": 53,
+        "text": "Which street is commonly associated with New York’s best-known stock exchange, the NYSE?",
+        "options": ["Wall Street", "23rd Street", "Canal Street"],
+        "correctIndex": 0
+      },
+      {
+        "id": 54,
+        "text": "What city is home to the International Monetary Fund (IMF)?",
+        "options": ["Washington D.C.", "Chicago", "New York"],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "The Austrian GDP is approximately...",
+        "options": ["EUR 130 bn.", "EUR 280 bn.", "EUR 450 bn."],
+        "correctIndex": 2
+      },
+      {
+        "id": 56,
+        "text": "Which of these items is included in the assets side of the balance sheet of a sporting goods retailer?",
+        "options": ["Its stock of tennis rackets", "A bank loan", "An interest-free loan from aunt Dorothy"],
+        "correctIndex": 0
+      },
+      {
+        "id": 57,
+        "text": "Which of these items is included in the equity and liabilities side of the balance sheet of a sporting goods retailer?",
+        "options": ["Company car", "Display shelving", "Bank loan"],
+        "correctIndex": 2
+      },
+      {
+        "id": 58,
+        "text": "Which of these items is included in the fixed assets of a sporting goods retailer?",
+        "options": ["Computer cash register", "Office materials", "Swimming trunks"],
+        "correctIndex": 0
+      },
+      {
+        "id": 59,
+        "text": "Which of these items is included in the current assets of a sporting goods retailer?",
+        "options": ["Business premises", "Snowboards", "Lighting"],
+        "correctIndex": 1
+      },
+      {
+        "id": 60,
+        "text": "What is another term for a company‘s creditworthiness?",
+        "options": ["Liquidity", "Profitability", "Credit rating"],
+        "correctIndex": 2
+      },
+      {
+        "id": 61,
+        "text": "A shareholder‘s proportion of the profit generated and distributed by a public limited company is known as the...",
+        "options": ["nominal value.", "price gain.", "dividend."],
+        "correctIndex": 2
+      },
+      {
+        "id": 62,
+        "text": "Which of the following is a classic creativity technique?",
+        "options": ["ABC analysis", "Brainstorming", "Portfolio analysis"],
+        "correctIndex": 1
+      },
+      {
+        "id": 63,
+        "text": "What does the “T“ in the term “SMART criteria“ stand for?",
+        "options": ["Total", "Timed", "Terminated"],
+        "correctIndex": 1
+      },
+      {
+        "id": 64,
+        "text": "Which substitution products have replaced CD?",
+        "options": [
+          "Streaming services and digital offers",
+          "Cassettes",
+          "Records"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 65,
+        "text": "Mature products are usually bought by what type of customer?",
+        "options": ["Early adopters", "Early/late majority", "Laggards"],
+        "correctIndex": 1
+      },
+      {
+        "id": 66,
+        "text": "Which form of financing focuses on the use of the object being financed?",
+        "options": ["Leasing", "Loan", "Credit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 67,
+        "text": "Compared to a normal bank loan, the interest rate on an advance on a current account is normally...",
+        "options": ["higher.", "lower.", "the same."],
+        "correctIndex": 0
+      },
+      {
+        "id": 68,
+        "text": "How do we refer to the distribution of profits at AGs (public limited companies)?",
+        "options": ["Dividends", "Flow", "Multiple"],
+        "correctIndex": 0
+      },
+      {
+        "id": 69,
+        "text": "If the frequency of inventory turnover is high, how do we then describe the average warehousing time?",
+        "options": [
+          "As being low",
+          "As rising disproportionately slowly",
+          "As rising disproportionately quickly"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 70,
+        "text": "What mathematical discipline is most important for insurance?",
+        "options": ["Probability calculus", "Linear algebra", "Trigonometry"],
+        "correctIndex": 0
+      },
+      {
+        "id": 71,
+        "text": "The Scoring Model is a controlling tool which...",
+        "options": [
+          "measures and compares selection criteria.",
+          "measures customer satisfaction.",
+          "measures the sales quota."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 72,
+        "text": "In the German economy, advertising costs as a percentage of turnover are between...",
+        "options": ["1 and 5%.", "1 and 20%.", "5 and 25%."],
+        "correctIndex": 1
+      },
+      {
+        "id": 73,
+        "text": "How does a balance sheet show that a company has operated successfully in the past year?",
+        "options": [
+          "The assets have increased",
+          "The equity capital has increased",
+          "Neither of these answers is correct"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 74,
+        "text": "Which policy is responsible for making decisions determining the range of service a company offers?",
+        "options": ["Pricing policy", "Product policy", "Communications policy"],
+        "correctIndex": 1
+      },
+      {
+        "id": 75,
+        "text": "What is the priority objective of an industrial company?",
+        "options": [
+          "Processing (production)",
+          "Buying and selling goods (distribution)",
+          "Advising on legal and economic questions"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 76,
+        "text": "The main problem in the procurement division lies in the definition of...",
+        "options": [
+          "the highest-quality suppliers.",
+          "the shortest warehousing times.",
+          "the cheapest order volumes."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 77,
+        "text": "A precise definition of goals allows for...",
+        "options": [
+          "good vacation planning.",
+          "rapid turnover.",
+          "precise orientation when dealing with tasks."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 78,
+        "text": "If warehousing costs are a small proportion of the total, how do we describe the inventory turnover rate?",
+        "options": [
+          "As rising disproportionately slowly",
+          "As rising disproportionately quickly",
+          "As high"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 79,
+        "text": "What percentage of all inventions happen by pure chance in the research and development activities of any company?",
+        "options": ["Approx. 5%", "Approx. 25%", "Approx. 30%"],
+        "correctIndex": 0
+      },
+      {
+        "id": 80,
+        "text": "Which of the following can be used by a company to legally safeguard a product’s “external appearance“ or design?",
+        "options": ["Copyright", "Design patent", "Patent"],
+        "correctIndex": 1
+      },
+      {
+        "id": 81,
+        "text": "What is the name given to the agreement between an employee interest group and the employer interest grouping?",
+        "options": ["Employment contract", "Collective agreement", "Service contract"],
+        "correctIndex": 1
+      },
+      {
+        "id": 82,
+        "text": "What is the term used to describe the unilateral dissolution of an employment contract by the employer without important reason?",
+        "options": ["Dismissal", "Dissolution", "Termination"],
+        "correctIndex": 2
+      },
+      {
+        "id": 83,
+        "text": "What means are used to promote entrepreneurial spirit and orientation to ideas and opportunities at an existing company?",
+        "options": [
+          "Corporate entrepreneurship",
+          "Change management",
+          "Quality management"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 84,
+        "text": "In marketing, what is the term used to describe the “fine tuning“ between the subareas of product policy, price policy, sales policy and communication policy?",
+        "options": ["Policy mix", "Marketing mix", "Business mix"],
+        "correctIndex": 1
+      },
+      {
+        "id": 85,
+        "text": "Can an individual partner in an OG, or general partnership, order new office fixtures and fittings without consultation?",
+        "options": ["Yes", "No", "Varies"],
+        "correctIndex": 1
+      },
+      {
+        "id": 86,
+        "text": "You acquire a technical innovation immediately after a product is introduced to the market. What kind of customer are you?",
+        "options": ["Early adopter", "Late majority", "Laggard"],
+        "correctIndex": 0
+      },
+      {
+        "id": 87,
+        "text": "A thirst-quenching drink is to be sold at lower prices in Sweden than in Dubai. This is known as...",
+        "options": [
+          "phasing-out strategy.",
+          "price differentiation.",
+          "penetration strategy."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 88,
+        "text": "A product which has already been on the market for a long time and continues to achieve high sales is also referred to as...",
+        "options": ["poor dog.", "star.", "cash cow."],
+        "correctIndex": 2
+      },
+      {
+        "id": 89,
+        "text": "What is the main job of human resource management?",
+        "options": [
+          "Precisely settling and punctually transferring wages and salaries",
+          "Managing personnel files",
+          "Providing qualified personnel at the right time in the right place"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 90,
+        "text": "Criteria such as delivery reliability, image and technical know-how are referred to as...",
+        "options": ["quantitative criteria.", "measurable criteria.", "qualitative criteria."],
+        "correctIndex": 2
+      },
+      {
+        "id": 91,
+        "text": "What price strategy is chosen by companies for the introduction of innovative and qualitatively high-value products?",
+        "options": ["Promotional strategy", "Penetration strategy", "Skimming strategy"],
+        "correctIndex": 2
+      },
+      {
+        "id": 92,
+        "text": "What is the term used to describe agreement between individual centers, departments and divisions which depend upon one another to produce services?",
+        "options": ["Cooperation", "Coordination", "Interdependence"],
+        "correctIndex": 1
+      },
+      {
+        "id": 93,
+        "text": "What term describes a long-term goal for corporate action with which the company‘s strategy and goals are aligned?",
+        "options": ["Mission", "Image", "Model"],
+        "correctIndex": 0
+      },
+      {
+        "id": 94,
+        "text": "The “optimum order volume“ is the procurement volume at which...",
+        "options": [
+          "ordering and warehousing costs are at their lowest.",
+          "goods spend the shortest possible time in storage.",
+          "the productivity of warehouse employees is at its highest."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 95,
+        "text": "The main goal of the European Central Bank is to ensure the stability of monetary value. The reduction of the key interest rate is called...",
+        "options": [
+          "restrictive monetary policy.",
+          "expansionary monetary policy.",
+          "stationary monetary policy."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 96,
+        "text": "In order to conclude an individual employment contract, the following is true:",
+        "options": [
+          "An employment contract has to be laid down in writing before the work can begin.",
+          "Essentially, there are no legal guidelines when writing an employment contract.",
+          "The parties must at least have agreed that fundamental contractual conditions orally."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 97,
+        "text": "A system designed to promote customer loyalty is known as...",
+        "options": [
+          "customer binding management.",
+          "customer relationship management.",
+          "customer finding management."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 98,
+        "text": "Which bodies must a public limited company have?",
+        "options": [
+          "Managing board, supervisory board, shareholders‘ meeting",
+          "Managing board, secretary, employee meeting",
+          "Supervisory board, shareholders‘ meeting, employee meeting"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 99,
+        "text": "What does OEM stand for?",
+        "options": [
+          "Official Equipment Manufacturer",
+          "Original Equipment Manufacturer",
+          "Object Exchange Model"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 100,
+        "text": "How much should greenhouse gas emissions of the industrial countries be reduced by 2050?",
+        "options": ["25%", "50%", "80%"],
+        "correctIndex": 2
+      },
+      {
+        "id": 101,
+        "text": "When determining the human capital return ratios are becoming increasingly important. Which figure is the essential one?",
+        "options": ["Return on Sales", "Human Investment Ratio", "Return of Life Insurance"],
+        "correctIndex": 0
+      },
+      {
+        "id": 102,
+        "text": "You inform yourself about training programs and find a “Doppellehre“ (double trainee position). What does that mean?",
+        "options": [
+          "You‘ll have a trainee position and study programme at the same time.",
+          "You‘ll have two trainee positions at the same time.",
+          "You‘ll have two employers at the same time."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 103,
+        "text": "A company markets its products at lower prices than its competitors. What is the company’s competitive strategy?",
+        "options": ["Cost leadership", "Niche strategy", "Differentiation"],
+        "correctIndex": 0
+      },
+      {
+        "id": 104,
+        "text": "What do we call the widest-reaching power of attorney or ‘proxy’ in a company in Austria?",
+        "options": ["“Handlungsvollmacht”", "“Arbeitsvollmacht”", "“Prokura”"],
+        "correctIndex": 2
+      },
+      {
+        "id": 105,
+        "text": "Which of the following tasks may a “Prokurist” (authorised signatory) not do?",
+        "options": [
+          "Sign the balance sheet",
+          "Represent the company in court",
+          "Borrow from a bank"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 106,
+        "text": "What type of business entity does not need to be entered into the Austrian commercial register?",
+        "options": ["Partnerships", "Corporate entities", "Freelancers"],
+        "correctIndex": 2
+      },
+      {
+        "id": 107,
+        "text": "What kind of terms do Incoterms define?",
+        "options": ["Terms of transport", "Payment terms", "Credit terms"],
+        "correctIndex": 0
+      },
+      {
+        "id": 108,
+        "text": "What is the name for a delivery clause in which the buyer bears the costs and risk of transport?",
+        "options": ["Ex works", "Free carrier", "Carriage paid"],
+        "correctIndex": 0
+      },
+      {
+        "id": 109,
+        "text": "What criteria are used to classify goods in an ABC analysis?",
+        "options": ["Value and quantity", "Machine hours and costs", "Regularity and shelf life"],
+        "correctIndex": 0
+      },
+      {
+        "id": 110,
+        "text": "What is “transit trade”?",
+        "options": [
+          "Overseas trade",
+          "Transit of products through an area, with some processing involved",
+          "Transit of products through an area, with no processing involved"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 111,
+        "text": "These days, all kind of everyday devices are connected via the internet. What is this known as?",
+        "options": ["Internet of People", "Internet of Things", "Internet of Life"],
+        "correctIndex": 1
+      },
+      {
+        "id": 112,
+        "text": "A company offers a product in different flavours. This constitutes...",
+        "options": ["product innovation.", "product variation.", "product differentiation."],
+        "correctIndex": 1
+      },
+      {
+        "id": 113,
+        "text": "What do you call products with a relatively small market share but high market growth?",
+        "options": ["Question marks", "Poor dogs", "Stars"],
+        "correctIndex": 0
+      },
+      {
+        "id": 114,
+        "text": "What action can prevent deflation?",
+        "options": ["Raising interest rates", "Lowering interest rates", "Maintaining the current interest rates"],
+        "correctIndex": 1
+      },
+      {
+        "id": 115,
+        "text": "What constitutes the 3rd pillar in the three-pillar insurance system in Austria?",
+        "options": ["Statutory social security", "Company pensions", "Private pensions"],
+        "correctIndex": 2
+      },
+      {
+        "id": 116,
+        "text": "A positive leverage effect exists if which of the following can be increased by borrowing?",
+        "options": ["Fixed assets", "Working capital", "Return on Equity"],
+        "correctIndex": 2
+      },
+      {
+        "id": 117,
+        "text": "An entrepreneur buys office supplies worth EUR 48 incl. VAT. How does this affect the company’s profit/loss?",
+        "options": ["Minus EUR 40", "Minus EUR 48", "Plus EUR 48"],
+        "correctIndex": 0
+      },
+      {
+        "id": 118,
+        "text": "How is the gearing “ratio” calculated?",
+        "options": ["Debt divided by equity", "Equity divided by debt", "Debt times equity"],
+        "correctIndex": 0
+      },
+      {
+        "id": 119,
+        "text": "Fritz, an entrepreneur, owes Max EUR 10,000. Fritz is in financial difficulties, however, so Max is expecting to receive a payout of 20%. How much does he expect to receive?",
+        "options": ["EUR 2,000", "EUR 8,000", "EUR 10,000"],
+        "correctIndex": 0
+      },
+      {
+        "id": 120,
+        "text": "What is the period between two pension payments called in Austria?",
+        "options": ["“Rentenperiode”", "“Zinsperiode”", "“Annuität”"],
+        "correctIndex": 0
+      }
+    ]
+  }
+}

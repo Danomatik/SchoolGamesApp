@@ -1,0 +1,2410 @@
+{
+  "junior-en": {
+    "gruendung": [
+      {
+        "id": 1,
+        "text": "Around one quarter of all Austrian employees work in the secondary sector. What other name is there for this sector?",
+        "options": ["Producing sector", "Service sector", "Agricultural sector"],
+        "correctIndex": 0
+      },
+      {
+        "id": 2,
+        "text": "In which sector of the economy do most people in Austria work?",
+        "options": ["Primary", "Secondary", "Tertiary"],
+        "correctIndex": 2
+      },
+      {
+        "id": 3,
+        "text": "Which apprenticeship is most commonly chosen by men in Austria?",
+        "options": ["IT specialist", "Metal technician", "Automotive technician"],
+        "correctIndex": 2
+      },
+      {
+        "id": 4,
+        "text": "Which legal type of enterprise is the most common in Austria?",
+        "options": ["Sole proprietorship", "Limited liability company", "Corporation"],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "The Styrian provincial government is located in...",
+        "options": ["Kapfenberg.", "Graz.", "Vienna."],
+        "correctIndex": 1
+      },
+      {
+        "id": 6,
+        "text": "About how many people live in Vienna?",
+        "options": ["1.3 million", "1.5 million", "1.9 million"],
+        "correctIndex": 2
+      },
+      {
+        "id": 7,
+        "text": "Which apprenticeship is most commonly chosen by women in Austria?",
+        "options": ["Hairdresser", "Cook", "Retail trade"],
+        "correctIndex": 2
+      },
+      {
+        "id": 8,
+        "text": "What is the name for other companies active in the same market?",
+        "options": ["Constructors", "Co-workers", "Competitors"],
+        "correctIndex": 2
+      },
+      {
+        "id": 9,
+        "text": "When money is moved from one account to another, we speak of a...",
+        "options": ["donation.", "overbooking.", "transfer."],
+        "correctIndex": 2
+      },
+      {
+        "id": 10,
+        "text": "How many apprenticed trades are currently available in Austria?",
+        "options": ["More than 200", "78", "120"],
+        "correctIndex": 0
+      },
+      {
+        "id": 11,
+        "text": "What does the term B2B mean in businesses?",
+        "options": ["Best-to-best", "Business-to-business", "Buyer-to-buyer"],
+        "correctIndex": 1
+      },
+      {
+        "id": 12,
+        "text": "How high is the percentage of small and medium-sized enterprises in Austria?",
+        "options": ["99.6%", "72.5%", "40.1%"],
+        "correctIndex": 0
+      },
+      {
+        "id": 13,
+        "text": "What is the name given to the reduced price that a regular customer receives for a purchase as a reward for loyalty?",
+        "options": ["Rebate", "Cash discount", "Credit note"],
+        "correctIndex": 0
+      },
+      {
+        "id": 14,
+        "text": "What is the name given to businesses in the retail industry that sell cheap products?",
+        "options": ["Discounters", "Supermarket", "Small retailers"],
+        "correctIndex": 0
+      },
+      {
+        "id": 15,
+        "text": "Mr. Miller, an electrical appliance dealer, records more expenses than income at the end of the year. In this year, he has made...",
+        "options": ["a loss.", "a turnover.", "an asset."],
+        "correctIndex": 0
+      },
+      {
+        "id": 16,
+        "text": "What is the name given to a method of production that is done almost entirely with computer-controlled machines and employs very few people?",
+        "options": ["Automation", "Automotive fabrication", "Automanufacturing"],
+        "correctIndex": 0
+      },
+      {
+        "id": 17,
+        "text": "When a certain number of products of the same kind are manufactured in a company, it is called....",
+        "options": ["mass production.", "a quantity.", "a series."],
+        "correctIndex": 0
+      },
+      {
+        "id": 18,
+        "text": "What is the name given to any place where supply and demand meet?",
+        "options": ["Place of trade", "Market", "Trade fair"],
+        "correctIndex": 1
+      },
+      {
+        "id": 19,
+        "text": "Why are entrepreneurs important?",
+        "options": ["They create jobs", "They promote family planning", "They promote banking"],
+        "correctIndex": 0
+      },
+      {
+        "id": 20,
+        "text": "Mr. Jack S. is working as a manager in a big hotel. Which sector is he active in?",
+        "options": ["Transportation", "Retail", "Tourism"],
+        "correctIndex": 2
+      },
+      {
+        "id": 21,
+        "text": "A vegetable farmer has 12 acres of cultivable land. Which factor of production does this constitute?",
+        "options": ["Capital", "Labour", "Land"],
+        "correctIndex": 2
+      },
+      {
+        "id": 22,
+        "text": "What is the most important requirement for establishing a company?",
+        "options": ["Courage", "Business idea", "Money"],
+        "correctIndex": 1
+      },
+      {
+        "id": 23,
+        "text": "All of us consume goods every day. Therefore, we are all...",
+        "options": ["producers.", "consumers.", "contracting parties."],
+        "correctIndex": 1
+      },
+      {
+        "id": 24,
+        "text": "The majority of Austrians are active in which economic sector?",
+        "options": ["Agriculture and forestry", "Services", "Production"],
+        "correctIndex": 1
+      },
+      {
+        "id": 25,
+        "text": "John walks into a shop and buys new wheels for his skateboard. He uses his money as...",
+        "options": ["a retainer of value.", "an unit of account.", "a means of exchange."],
+        "correctIndex": 2
+      },
+      {
+        "id": 26,
+        "text": "Inge checks how much money she has in her savings account. She uses her money...",
+        "options": ["as an unit of account.", "as a means of barter.", "to store value."],
+        "correctIndex": 2
+      },
+      {
+        "id": 27,
+        "text": "A person who acts economically...",
+        "options": ["achieves the best possible result with the given means.", "creates as much as possible.", "saves a lot."],
+        "correctIndex": 0
+      },
+      {
+        "id": 28,
+        "text": "James V. runs a carpentry unit with 5 employees. He is...",
+        "options": ["an employee.", "an employer.", "a labour union."],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Andy K. works as a mason in a construction company. In which sector of the economy is he employed?",
+        "options": ["Primary sector", "Secondary sector", "Tertiary sector"],
+        "correctIndex": 1
+      },
+      {
+        "id": 30,
+        "text": "What is the name given to sources of energy that are continually replenished or never decline?",
+        "options": ["New energies", "Endless energies", "Renewable energies"],
+        "correctIndex": 2
+      },
+      {
+        "id": 31,
+        "text": "Which term summarises the physical and organisational structures needed to operate a company?",
+        "options": ["Facilities structure", "Infrastructure", "Space constraints"],
+        "correctIndex": 1
+      },
+      {
+        "id": 32,
+        "text": "Customers who keep making purchases at the same business are known as...",
+        "options": ["regular customers.", "super customers.", "fixed customers."],
+        "correctIndex": 0
+      },
+      {
+        "id": 33,
+        "text": "The small grocery store around the corner or in the center of town is meant for...",
+        "options": ["cheap bulk purchases.", "the local supply.", "supplying everything that is needed in a household."],
+        "correctIndex": 1
+      },
+      {
+        "id": 34,
+        "text": "What is the name for importing goods from abroad and exporting goods to foreign countries?",
+        "options": ["Domestic trade", "Non-domestic trade", "Foreign trade"],
+        "correctIndex": 2
+      },
+      {
+        "id": 35,
+        "text": "A person who has completed a manual apprenticeship with an examination is called...",
+        "options": ["a scholar.", "a journeyman.", "a companion."],
+        "correctIndex": 1
+      },
+      {
+        "id": 36,
+        "text": "The skill for a specific profession or task is called...",
+        "options": ["flexibility.", "reasonableness.", "qualification."],
+        "correctIndex": 2
+      },
+      {
+        "id": 37,
+        "text": "Good advice but only a limited choice of products are available...",
+        "options": ["at the super market.", "in the specialist shop.", "in the shopping centre."],
+        "correctIndex": 1
+      },
+      {
+        "id": 38,
+        "text": "Which person is depicted on the front side of the Austrian 1 euro coin?",
+        "options": ["Ludwig van Beethoven", "Joseph Haydn", "Wolfgang Amadeus Mozart"],
+        "correctIndex": 1
+      },
+      {
+        "id": 39,
+        "text": "What is the word used to describe the manufacture of goods?",
+        "options": ["Organisation", "Production", "Intervention"],
+        "correctIndex": 1
+      },
+      {
+        "id": 40,
+        "text": "Mr. Jones, a grocer, has more income than expenses at the end of the month. He has made a...",
+        "options": ["turnover.", "profit.", "sale."],
+        "correctIndex": 1
+      },
+      {
+        "id": 41,
+        "text": "If the account balance at a bank drops into the minus range, then the account is...",
+        "options": ["overdrawn.", "overextended.", "taken over."],
+        "correctIndex": 0
+      },
+      {
+        "id": 42,
+        "text": "If expenses are greater than income, there is...",
+        "options": ["competition.", "a surplus.", "a deficit."],
+        "correctIndex": 2
+      },
+      {
+        "id": 43,
+        "text": "What is the name given to the fees paid for using certain roads or tunnels?",
+        "options": ["Tax", "Customs", "Toll"],
+        "correctIndex": 2
+      },
+      {
+        "id": 44,
+        "text": "The monetary value of goods and services is called...",
+        "options": ["price.", "value of goods.", "value creation."],
+        "correctIndex": 0
+      },
+      {
+        "id": 45,
+        "text": "If one commodity is paid for with another, it is called...",
+        "options": ["payment in kind.", "barter system.", "merchandise trade."],
+        "correctIndex": 1
+      },
+      {
+        "id": 46,
+        "text": "A person working as an employee for a company and getting paid for it is engaged in...",
+        "options": ["corporate work.", "independent work.", "employment."],
+        "correctIndex": 2
+      },
+      {
+        "id": 47,
+        "text": "The name for working independently for your own company is...",
+        "options": ["employment.", "self-work.", "self-employment."],
+        "correctIndex": 2
+      },
+      {
+        "id": 48,
+        "text": "What is the name given to the industry which manufactures important raw materials or source materials?",
+        "options": ["Indigenous industry (basic industry)", "Primary industry", "Main industry"],
+        "correctIndex": 1
+      },
+      {
+        "id": 49,
+        "text": "Workers who are paid based on the number of units they produce receive...",
+        "options": ["piecework wages.", "hourly wages.", "daily wages."],
+        "correctIndex": 0
+      },
+      {
+        "id": 50,
+        "text": "The price at which a dealer buys goods is called the...",
+        "options": ["purchase price.", "sales price.", "cost price."],
+        "correctIndex": 2
+      },
+      {
+        "id": 51,
+        "text": "Through which type of contract does a person stand in for someone’s debts?",
+        "options": ["Loan", "Assignment", "Surety"],
+        "correctIndex": 2
+      },
+      {
+        "id": 52,
+        "text": "What is a works council responsible for?",
+        "options": ["Representing the company externally", "Supporting the management in labour court", "Representing the interests of the workforce"],
+        "correctIndex": 2
+      },
+      {
+        "id": 53,
+        "text": "Who introduced the manufacturing assembly line in the automotive industry in 1908?",
+        "options": ["Henry Ford", "Carl Friedrich Benz", "Ferdinand Alexander Porsche"],
+        "correctIndex": 0
+      },
+      {
+        "id": 54,
+        "text": "What do you call money that is obtained in return for glass bottles?",
+        "options": ["Return deposit", "Bail", "Fee"],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "What costs do you have to pay if you take out a loan?",
+        "options": ["Interest", "Dividend", "Mortgage"],
+        "correctIndex": 0
+      },
+      {
+        "id": 56,
+        "text": "What do you call the place of production where goods are machine-manufactured?",
+        "options": ["Factory", "Storage facility", "Building center"],
+        "correctIndex": 0
+      },
+      {
+        "id": 57,
+        "text": "What is the primary sector of a national economy?",
+        "options": ["Agriculture", "Industry", "Services"],
+        "correctIndex": 0
+      },
+      {
+        "id": 58,
+        "text": "What is the meaning of the abbreviation SME?",
+        "options": ["Small and medium-sized enterprises", "Credit bureau", "Bank group"],
+        "correctIndex": 0
+      },
+      {
+        "id": 59,
+        "text": "Who receives wages for the work they do?",
+        "options": ["Police officers", "Kindergarten teachers", "Construction workers"],
+        "correctIndex": 2
+      },
+      {
+        "id": 60,
+        "text": "What is the name given to the cost of borrowing money?",
+        "options": ["Rent", "Interest", "Lease"],
+        "correctIndex": 1
+      },
+      {
+        "id": 61,
+        "text": "A person who wants to withdraw their salary from a bank will need...",
+        "options": ["a savings account.", "an advance payment.", "an account."],
+        "correctIndex": 2
+      },
+      {
+        "id": 62,
+        "text": "What does the abbreviation EU stand for?",
+        "options": ["European United", "European Unity", "European Union"],
+        "correctIndex": 2
+      },
+      {
+        "id": 63,
+        "text": "Which source of energy is renewable?",
+        "options": ["Wind", "Coal", "Natural gas"],
+        "correctIndex": 0
+      },
+      {
+        "id": 64,
+        "text": "Which of the following sources of energy is not renewable?",
+        "options": ["Solar energy", "Hydroelectric power", "Petroleum"],
+        "correctIndex": 2
+      },
+      {
+        "id": 65,
+        "text": "Stores where we make our daily purchases are part of...",
+        "options": ["wholesale.", "merchandise trade.", "retail trade."],
+        "correctIndex": 2
+      },
+      {
+        "id": 66,
+        "text": "What is one characteristic of an established trade business?",
+        "options": ["Customised creation of goods for known customers", "Assembly line work", "Mass production"],
+        "correctIndex": 0
+      },
+      {
+        "id": 67,
+        "text": "What is the name given to dealers who supply the retail trade?",
+        "options": ["Delivery trade", "Wholesale", "Retail trade"],
+        "correctIndex": 1
+      },
+      {
+        "id": 68,
+        "text": "If supply is greater than demand,...",
+        "options": ["prices drop.", "prices go up.", "everything becomes more expensive."],
+        "correctIndex": 0
+      },
+      {
+        "id": 69,
+        "text": "Who works in the secondary economic sector?",
+        "options": ["A teacher at a public vocational school", "A taxi driver", "A carpenter"],
+        "correctIndex": 2
+      },
+      {
+        "id": 70,
+        "text": "Who works in the primary economic sector?",
+        "options": ["Travel agents", "Farmers", "Programmers"],
+        "correctIndex": 1
+      },
+      {
+        "id": 71,
+        "text": "Who works in the tertiary economic sector?",
+        "options": ["A nurse", "An IT-consultant", "A tile layer"],
+        "correctIndex": 0
+      },
+      {
+        "id": 72,
+        "text": "Custom-made items are predominant in...",
+        "options": ["small companies.", "industrial companies.", "large companies."],
+        "correctIndex": 0
+      },
+      {
+        "id": 73,
+        "text": "Mass production predominates in...",
+        "options": ["small companies.", "industrial companies.", "handicraft businesses."],
+        "correctIndex": 1
+      },
+      {
+        "id": 74,
+        "text": "A person who is doing an apprenticeship also attends...",
+        "options": ["a secondary modern school.", "a vocational school.", "an apprentice school."],
+        "correctIndex": 1
+      },
+      {
+        "id": 75,
+        "text": "How long is the validity period of a medium-term loan?",
+        "options": ["Up to 1 year", "Over 5 years", "1 to 5 years"],
+        "correctIndex": 2
+      },
+      {
+        "id": 76,
+        "text": "In which kind of market are the prices determined by bargaining?",
+        "options": ["Supermarket", "Flea market", "Job market"],
+        "correctIndex": 1
+      },
+      {
+        "id": 77,
+        "text": "To which economic sector do banks belong?",
+        "options": ["Primary sector", "Secondary sector", "Tertiary sector"],
+        "correctIndex": 2
+      },
+      {
+        "id": 78,
+        "text": "What is the name for the place where a company is located?",
+        "options": ["Standing place", "Location", "Standpoint"],
+        "correctIndex": 1
+      },
+      {
+        "id": 79,
+        "text": "Hairdressers, waiters and electricians provide...",
+        "options": ["public services.", "private services.", "general services."],
+        "correctIndex": 1
+      },
+      {
+        "id": 80,
+        "text": "Who is a consumer, i.e. an end user?",
+        "options": ["Someone who goes for a hike", "Someone who buys something at a supermarket", "Someone who is employed"],
+        "correctIndex": 1
+      },
+      {
+        "id": 81,
+        "text": "What is an indicator of a developing country?",
+        "options": ["60 cars per 100 inhabitants", "1 doctor per 100 inhabitants", "50 out of 100 people cannot read or write"],
+        "correctIndex": 2
+      },
+      {
+        "id": 82,
+        "text": "Anyone who starts a company should also...",
+        "options": ["have a considerably large amount of money.", "have the courage to take risks.", "want to do everything himself/herself."],
+        "correctIndex": 1
+      },
+      {
+        "id": 83,
+        "text": "What is a discount?",
+        "options": ["A placement fee", "Pre-paid interest", "A price reduction"],
+        "correctIndex": 2
+      },
+      {
+        "id": 84,
+        "text": "What does a borrower have to pay?",
+        "options": ["Premium", "Interest", "Dividend"],
+        "correctIndex": 1
+      },
+      {
+        "id": 85,
+        "text": "Which country exports the most coffee?",
+        "options": ["Brazil", "Costa Rica", "Columbia"],
+        "correctIndex": 0
+      },
+      {
+        "id": 86,
+        "text": "What is the British currency?",
+        "options": ["Euro", "Pound Sterling", "Dollar"],
+        "correctIndex": 1
+      },
+      {
+        "id": 87,
+        "text": "What is mobbing?",
+        "options": ["Obsession with cleanliness at the workplace", "A ruinous cutthroat competitor", "Intense harassment from colleagues/classmates"],
+        "correctIndex": 2
+      },
+      {
+        "id": 88,
+        "text": "What is Cuba‘s main export product?",
+        "options": ["Sugar", "Bananas", "Tobacco"],
+        "correctIndex": 2
+      },
+      {
+        "id": 89,
+        "text": "The euro is not legal tender in...",
+        "options": ["Great Britain.", "Ireland.", "Luxembourg."],
+        "correctIndex": 0
+      },
+      {
+        "id": 90,
+        "text": "What do you require to run an economy?",
+        "options": ["Production stages", "Production factors", "Methods of production"],
+        "correctIndex": 1
+      },
+      {
+        "id": 91,
+        "text": "By which means is an inventor protected?",
+        "options": ["Dispensation", "Latency", "Patent"],
+        "correctIndex": 2
+      },
+      {
+        "id": 92,
+        "text": "What does to “cancel“ mean?",
+        "options": ["To reprimand", "To reduce the price", "To call off or revoke"],
+        "correctIndex": 2
+      },
+      {
+        "id": 93,
+        "text": "Who earns EUR 1-2 per day in China?",
+        "options": ["Migrant workers", "Migrant birds", "Migrant politicians"],
+        "correctIndex": 0
+      },
+      {
+        "id": 94,
+        "text": "What is another term for business?",
+        "options": ["The economy", "The ecology", "The ecotopy"],
+        "correctIndex": 0
+      },
+      {
+        "id": 95,
+        "text": "What does the German abbreviation “USt“ stand for?",
+        "options": ["Umsatzsteuer (value added tax)", "Umstandssteuer (conjuncture tax)", "Unternehmenssteuer (corporation tax)"],
+        "correctIndex": 0
+      },
+      {
+        "id": 96,
+        "text": "What is the highest value of a euro note?",
+        "options": ["EUR 250", "EUR 500", "EUR 1,000"],
+        "correctIndex": 1
+      },
+      {
+        "id": 97,
+        "text": "Can you resist a default summons?",
+        "options": ["Yes", "No"],
+        "correctIndex": 0
+      },
+      {
+        "id": 98,
+        "text": "Companies communicate via different channels. Among others they often use facebook, twitter, instagram etc. Which term does not describe these services?",
+        "options": ["Web 2.0", "Social media", "SEO"],
+        "correctIndex": 2
+      },
+      {
+        "id": 99,
+        "text": "What is the term used for selling goods to foreign countries?",
+        "options": ["Import", "Export", "Europort"],
+        "correctIndex": 1
+      },
+      {
+        "id": 100,
+        "text": "A share is...",
+        "options": ["an extinct species of animal.", "an old wind instrument.", "a stock."],
+        "correctIndex": 2
+      },
+      {
+        "id": 101,
+        "text": "Hans runs a hairdressing salon. What is he mainly offering?",
+        "options": ["Tangible goods", "Services", "Free goods"],
+        "correctIndex": 1
+      },
+      {
+        "id": 102,
+        "text": "Which of the following is a basic need according to Maslow’s hierarchy of needs?",
+        "options": ["Food", "Career", "A great car"],
+        "correctIndex": 0
+      },
+      {
+        "id": 103,
+        "text": "What is the standard rate of VAT in Austria?",
+        "options": ["5%", "20%", "25%"],
+        "correctIndex": 1
+      },
+      {
+        "id": 104,
+        "text": "How many employees can a company have in Austria to be classed as a small business?",
+        "options": ["Up to 9 employees", "10- 20 employees", "Up to 30 employees"],
+        "correctIndex": 0
+      },
+      {
+        "id": 105,
+        "text": "A fashion business sells men’s and women’s clothing in a shop. Which industry does the company belong to?",
+        "options": ["Manufacturing", "Retail", "Traffic and transport"],
+        "correctIndex": 1
+      },
+      {
+        "id": 106,
+        "text": "What are the buyer's obligations under a contract of sale?",
+        "options": ["Acceptance of and payment for the goods", "Supply of the goods", "Writing the invoice"],
+        "correctIndex": 0
+      },
+      {
+        "id": 107,
+        "text": "What is meant by the term “payment in advance”?",
+        "options": ["Full payment is made in advance.", "Partial payment is made in advance.", "The price is paid in arrears."],
+        "correctIndex": 1
+      },
+      {
+        "id": 108,
+        "text": "Sara buys herself some new clothing in a shop in Vienna. When she tries it on at home, she no longer likes it and wants to exchange it. Is she allowed to?",
+        "options": ["Yes, within 14 days.", "Yes, within 30 days.", "Not necessarily as there is no legal right to exchange."],
+        "correctIndex": 2
+      },
+      {
+        "id": 109,
+        "text": "Which institution represents the interests of businesses in Austria?",
+        "options": ["Chamber of Commerce", "Chamber of Labour", "Chamber of Food"],
+        "correctIndex": 0
+      },
+      {
+        "id": 110,
+        "text": "Ann buys a bar of chocolate from a kiosk and pays with a 5 euro note. What do we call this method of payment?",
+        "options": ["Cash", "Transfer", "Contactless payment"],
+        "correctIndex": 0
+      },
+      {
+        "id": 111,
+        "text": "What is the temporary storage of products called?",
+        "options": ["Procurement", "Warehousing", "Production"],
+        "correctIndex": 1
+      },
+      {
+        "id": 112,
+        "text": "Which card can you not use to pay for everyday purchases?",
+        "options": ["Credit card", "Postcard", "Debit card"],
+        "correctIndex": 1
+      },
+      {
+        "id": 113,
+        "text": "What is not usually shown on a bank statement?",
+        "options": ["IBAN", "Name of the account holder", "Marital status of the account holder"],
+        "correctIndex": 2
+      },
+      {
+        "id": 114,
+        "text": "Paul goes to a cash machine to withdraw some money. What is the name of the number he needs to enter?",
+        "options": ["PIN code", "Account number", "Dress code"],
+        "correctIndex": 0
+      },
+      {
+        "id": 115,
+        "text": "What is the term used to describe performing banking transactions online?",
+        "options": ["Internet banking", "Online shopping", "E-card"],
+        "correctIndex": 0
+      },
+      {
+        "id": 116,
+        "text": "Which of the following terms describes a type of financial institution?",
+        "options": ["River bank", "Food bank", "Commercial bank"],
+        "correctIndex": 2
+      },
+      {
+        "id": 117,
+        "text": "A company buys a new machine to use in the production of its goods. This constitutes...",
+        "options": ["an injection.", "an infection.", "an investment."],
+        "correctIndex": 2
+      },
+      {
+        "id": 118,
+        "text": "Philip recently moved into a new residential flat. What did he have to sign?",
+        "options": ["Commercial lease", "Rental contract", "Contract of employment"],
+        "correctIndex": 1
+      },
+      {
+        "id": 119,
+        "text": "Salaries and wages represent... to the company.",
+        "options": ["staff costs", "cost of materials", "machinery costs"],
+        "correctIndex": 0
+      },
+      {
+        "id": 120,
+        "text": "What must always be included in a job application?",
+        "options": ["Curriculum vitae (C.V.)", "Bank statement", "Birth certificate"],
+        "correctIndex": 0
+      }
+    ],
+    "investition": [
+      {
+        "id": 1,
+        "text": "In which sector of the economy does the tourism branch belong?",
+        "options": ["Primary", "Secondary", "Tertiary"],
+        "correctIndex": 2
+      },
+      {
+        "id": 2,
+        "text": "Around 240,000 tons of fruit are harvested every year in Austria. The largest percentage is in Styria. How high is this percentage?",
+        "options": ["30%", "50%", "80%"],
+        "correctIndex": 1
+      },
+      {
+        "id": 3,
+        "text": "The construction of the 33 km Koralm Tunnel, which should be completed by 2026, is a promising addition to Styria’s infrastructure. Which cities will be better connected by the Koralm Tunnel?",
+        "options": ["Graz- Linz", "Graz- Vienna", "Graz- Klagenfurt"],
+        "correctIndex": 2
+      },
+      {
+        "id": 4,
+        "text": "What is the raw material iron ore used for?",
+        "options": ["Steel production", "Asphalt production", "Glass production"],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "What is the employment status of temporary workers that are employed at a rental company?",
+        "options": ["Limited term employment", "Unlimited term employment", "Contract for work and services"],
+        "correctIndex": 1
+      },
+      {
+        "id": 6,
+        "text": "Products by Amazon can be easily purchased online via a Smartphone. What is this type of shopping called?",
+        "options": ["Mobile shopping", "Handy shopping", "Teleshopping"],
+        "correctIndex": 0
+      },
+      {
+        "id": 7,
+        "text": "Austrian producers of raw materials successfully work to keep negative environmental impacts as low as possible. When these impacts are analyzed as to their sustainability, the following is determined...",
+        "options": ["Economic handshake.", "Ecodynamic fingerprint.", "Ecological footprint."],
+        "correctIndex": 2
+      },
+      {
+        "id": 8,
+        "text": "What is the difference between a wholesale business and a retail business?",
+        "options": ["The amount of traded goods and services", "The kind of traded goods", "Clientele"],
+        "correctIndex": 2
+      },
+      {
+        "id": 9,
+        "text": "Many retail businesses in the textile sector run an online shop. What is this form of distribution called?",
+        "options": ["E-shopping", "E-commerce", "E-recruiting"],
+        "correctIndex": 1
+      },
+      {
+        "id": 10,
+        "text": "Central Europe’s largest talc deposit is located in...",
+        "options": ["Italy", "Austria", "Norway"],
+        "correctIndex": 1
+      },
+      {
+        "id": 11,
+        "text": "„Sustainable extraction of raw materials“ means to exploit the degradation taking into account the following aspects:",
+        "options": ["Profits", "The environment", "The social environment"],
+        "correctIndex": 1
+      },
+      {
+        "id": 12,
+        "text": "In which market situation are the buyers at an advantage?",
+        "options": ["If there is a monopoly", "If the supply is greater than the demand", "If the demand is greater than the supply"],
+        "correctIndex": 1
+      },
+      {
+        "id": 13,
+        "text": "If the US dollar loses value against the euro,...",
+        "options": [
+          "travelling in the USA is cheaper for a German.",
+          "travelling in Germany is cheaper for an American.",
+          "it will not affect travel in any way."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 14,
+        "text": "The European Union is...",
+        "options": ["a free trade zone.", "a customs union.", "a federal republic."],
+        "correctIndex": 1
+      },
+      {
+        "id": 15,
+        "text": "Which of the following applies to services?",
+        "options": ["Services cannot be stored", "Services are available at all places", "Services are taken for granted today"],
+        "correctIndex": 0
+      },
+      {
+        "id": 16,
+        "text": "The European Parliament has its headquarters in...",
+        "options": ["Luxembourg.", "Frankfurt am Main.", "Strasbourg."],
+        "correctIndex": 2
+      },
+      {
+        "id": 17,
+        "text": "Euro coins and banknotes have been in circulation since...",
+        "options": ["1995.", "2002.", "2004."],
+        "correctIndex": 1
+      },
+      {
+        "id": 18,
+        "text": "When the value of money goes down, we speak of...",
+        "options": ["deflation.", "afflation.", "inflation."],
+        "correctIndex": 2
+      },
+      {
+        "id": 19,
+        "text": "A salary account in a bank is a...",
+        "options": ["savings account.", "points account.", "current account."],
+        "correctIndex": 2
+      },
+      {
+        "id": 20,
+        "text": "A market is the place where...",
+        "options": [
+          "something is created.",
+          "supply and demand meet.",
+          "employers and employees meet."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 21,
+        "text": "What is the correct name for the production of organic vegetables?",
+        "options": ["Bio agriculture", "Organic-biological cultivation", "Organic farming"],
+        "correctIndex": 2
+      },
+      {
+        "id": 22,
+        "text": "What does the German abbreviation KESt stand for?",
+        "options": [
+          "Kapitalerfolgsstatistik (capital success statistics)",
+          "Kapital- und Einkommensteuer (capital and income tax)",
+          "Kapitalertragssteuer (capital gains tax)"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 23,
+        "text": "A current account is mainly suitable for...",
+        "options": ["savings.", "earning high rates of interest.", "current money transactions."],
+        "correctIndex": 2
+      },
+      {
+        "id": 24,
+        "text": "Which of the following is a service provided by a bank?",
+        "options": ["Accepting savings deposits", "Issuing loans", "Currency exchange"],
+        "correctIndex": 2
+      },
+      {
+        "id": 25,
+        "text": "What is the name given to the trade within a country?",
+        "options": ["Domestic trade", "Foreign trade", "Internal trade"],
+        "correctIndex": 0
+      },
+      {
+        "id": 26,
+        "text": "The swap rate between currencies is called...",
+        "options": ["rate of exchange.", "exchange price.", "exchange rate."],
+        "correctIndex": 2
+      },
+      {
+        "id": 27,
+        "text": "A budget is a...",
+        "options": ["business location.", "financial plan.", "financial deficit."],
+        "correctIndex": 1
+      },
+      {
+        "id": 28,
+        "text": "To economise means...",
+        "options": [
+          "to create and consume as much as possible.",
+          "to manage carefully with the given means.",
+          "to trade a lot."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Small businesses have...",
+        "options": ["less than 10 employees.", "less than 50 employees.", "up to 100 employees."],
+        "correctIndex": 0
+      },
+      {
+        "id": 30,
+        "text": "Another word for credit is...",
+        "options": ["banking business.", "borrowed money.", "loan."],
+        "correctIndex": 2
+      },
+      {
+        "id": 31,
+        "text": "In a bank, investment consulting is part of the...",
+        "options": ["deposit business.", "service business.", "credit business."],
+        "correctIndex": 1
+      },
+      {
+        "id": 32,
+        "text": "What is a dividend?",
+        "options": [
+          "Another word for an annuity",
+          "The fees collected by stockbrokers",
+          "The share in the profit paid out by the company to shareholders"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 33,
+        "text": "Which neighboring country of Austria is not a member of the EU?",
+        "options": ["Hungary", "Slovenia", "Switzerland"],
+        "correctIndex": 2
+      },
+      {
+        "id": 34,
+        "text": "The entire economy of a country is called the...",
+        "options": ["business administration.", "national economy.", "national income."],
+        "correctIndex": 1
+      },
+      {
+        "id": 35,
+        "text": "The interest paid by a bank to depositors is called...",
+        "options": ["bank interest.", "debit interest.", "credit interest."],
+        "correctIndex": 2
+      },
+      {
+        "id": 36,
+        "text": "In which type of account does the account balance change very frequently?",
+        "options": ["Savings account", "Current account", "Securities account"],
+        "correctIndex": 1
+      },
+      {
+        "id": 37,
+        "text": "Which company belongs to just one entrepreneur?",
+        "options": ["Partnership", "Capital company (corporation)", "Sole proprietorship"],
+        "correctIndex": 2
+      },
+      {
+        "id": 38,
+        "text": "The inflation rate indicates...",
+        "options": [
+          "how many more goods in terms of percentage one can buy.",
+          "how much more expensive everything has become.",
+          "by what percent certain goods have become cheaper."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 39,
+        "text": "ATM cards and credit cards are...",
+        "options": ["paper money.", "plastic money.", "bank money"],
+        "correctIndex": 1
+      },
+      {
+        "id": 40,
+        "text": "Which of the following is not a feature of a supermarket?",
+        "options": ["Self-service", "Shopping cart", "Personal consulting and services"],
+        "correctIndex": 2
+      },
+      {
+        "id": 41,
+        "text": "What is the name for a reduction in price?",
+        "options": ["Rebate", "Carat", "Hausse"],
+        "correctIndex": 0
+      },
+      {
+        "id": 42,
+        "text": "What is the name for a certificate of insurance?",
+        "options": ["Policy", "Polyp", "Polisher"],
+        "correctIndex": 0
+      },
+      {
+        "id": 43,
+        "text": "What is the universal term for VAT?",
+        "options": ["Sales tax", "Real estate tax", "Income tax"],
+        "correctIndex": 0
+      },
+      {
+        "id": 44,
+        "text": "What is a current account?",
+        "options": [
+          "Business account at a bank",
+          "Lease with a financial service provider",
+          "Shares in a bank deposit"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 45,
+        "text": "What is the name given to costs that will incur in any case, regardless of how much is produced?",
+        "options": ["Variable costs", "Fixed costs", "Main costs"],
+        "correctIndex": 1
+      },
+      {
+        "id": 46,
+        "text": "The increased networking of the world’s economy is called...",
+        "options": ["globalisation.", "financing.", "supranationalisation."],
+        "correctIndex": 0
+      },
+      {
+        "id": 47,
+        "text": "In the language of economics, wishes are called...",
+        "options": ["demand.", "requirement.", "needs."],
+        "correctIndex": 2
+      },
+      {
+        "id": 48,
+        "text": "Maria M. runs a small convenience store at the railroad station. She is...",
+        "options": ["self-employed.", "an employee.", "a dependent."],
+        "correctIndex": 0
+      },
+      {
+        "id": 49,
+        "text": "Walter R. is a civil servant for the tax office. For his work, he receives...",
+        "options": ["wages.", "a salary.", "interest."],
+        "correctIndex": 1
+      },
+      {
+        "id": 50,
+        "text": "The amount of money you possess in order to fulfill your wishes is called...",
+        "options": ["purchasing power.", "requirement.", "money value."],
+        "correctIndex": 0
+      },
+      {
+        "id": 51,
+        "text": "The average development of prices is measured...",
+        "options": [
+          "using a shopping basket.",
+          "based on a sample purchase.",
+          "by means of consumer surveys."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 52,
+        "text": "In the EU, day-to-day business is facilitated by the...",
+        "options": ["four basic freedoms.", "three basic laws.", "seven guidelines."],
+        "correctIndex": 0
+      },
+      {
+        "id": 53,
+        "text": "Where are raw materials extracted and processed insisting on the highest safety standards and the greatest possible conservation of the environment?",
+        "options": ["In China", "In Austria", "In South America"],
+        "correctIndex": 1
+      },
+      {
+        "id": 54,
+        "text": "Fred R. from Vienna wants to open a bank account in Paris. Which freedom in the EU allows him to do so?",
+        "options": [
+          "Free movements of goods",
+          "Freedom movement of persons",
+          "Freedom movement of capital"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 55,
+        "text": "The gross domestic product is calculated from...",
+        "options": [
+          "the value of all products and services.",
+          "the income of all companies.",
+          "the assets of all residents of a country."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 56,
+        "text": "You can see how much money you have in your salary account from the...",
+        "options": ["account ID.", "account balance.", "chart of accounts."],
+        "correctIndex": 1
+      },
+      {
+        "id": 57,
+        "text": "The legally defined means of payment in a country is called...",
+        "options": ["national bank.", "currency.", "cash flow."],
+        "correctIndex": 1
+      },
+      {
+        "id": 58,
+        "text": "Garbage removal, cleaning the sewers and supplying the communities and states with power are...",
+        "options": ["general services.", "public services.", "state services."],
+        "correctIndex": 1
+      },
+      {
+        "id": 59,
+        "text": "All income and expenditures from tourism are included in the...",
+        "options": [
+          "balance of goods transactions.",
+          "foreign exchange balance.",
+          "travel book balance."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 60,
+        "text": "When a currency is converted into another, we speak of...",
+        "options": ["money transfer.", "currency transfer.", "currency exchange."],
+        "correctIndex": 2
+      },
+      {
+        "id": 61,
+        "text": "What is used to transfer a sum of money?",
+        "options": ["Smart-banking", "Paying-in slip", "Posting slip"],
+        "correctIndex": 1
+      },
+      {
+        "id": 62,
+        "text": "When someone pays with an ATM card,...",
+        "options": [
+          "the money will be withdrawn from the account only in the following month.",
+          "the bank gives a certain amount of credit.",
+          "the amount is withdrawn from the account immediately."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 63,
+        "text": "A person who is employed only during a particular season, e.g. summer, is engaged in...",
+        "options": ["seasonal work.", "summer jobs.", "half-year work."],
+        "correctIndex": 0
+      },
+      {
+        "id": 64,
+        "text": "What is the Maastricht limit?",
+        "options": [
+          "The border between France and Germany",
+          "The criteria for limiting state debt of the Eurozone countries",
+          "The deficit of the EU must not be greater than that of the USA"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 65,
+        "text": "Which of the following representation of interests is legally sanctioned in Austria?",
+        "options": [
+          "Official Representation of Employees",
+          "Trade Union federation",
+          "Industrial association"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 66,
+        "text": "What is the name given to the cooperation between employers and employees throughout Austria?",
+        "options": ["Trade partnership", "Social partnership", "Economic partnership"],
+        "correctIndex": 1
+      },
+      {
+        "id": 67,
+        "text": "A person who pays back a sum of money not as a lump sum but in small parts pays in...",
+        "options": ["installments.", "portions.", "partial amounts."],
+        "correctIndex": 0
+      },
+      {
+        "id": 68,
+        "text": "Which word is used to describe the current economic situation of a country?",
+        "options": ["State of the economy", "Confusion of the economy", "Competition of the economy"],
+        "correctIndex": 0
+      },
+      {
+        "id": 69,
+        "text": "If you wish to know the exact cost of repair, you should ask for...",
+        "options": ["an overview of the repairs.", "a cost plan.", "a cost estimate."],
+        "correctIndex": 2
+      },
+      {
+        "id": 70,
+        "text": "What is the term often used in the media to refer to the meeting of the heads of governments of the EU countries?",
+        "options": ["Euroconference", "Summit meeting", "Commission meeting"],
+        "correctIndex": 1
+      },
+      {
+        "id": 71,
+        "text": "What is the name given to all measures to help out poorer countries?",
+        "options": ["Poverty aid", "Social benefits", "Development aid"],
+        "correctIndex": 2
+      },
+      {
+        "id": 72,
+        "text": "What is the name given to areas in which the economic activity of a country is concentrated?",
+        "options": ["Main economic zone", "Economic zone", "Economic centres"],
+        "correctIndex": 2
+      },
+      {
+        "id": 73,
+        "text": "Which of the following countries has been a member of the EU since the beginning?",
+        "options": ["Germany", "Austria", "Romania"],
+        "correctIndex": 0
+      },
+      {
+        "id": 74,
+        "text": "If you wish to exchange cash for travelling abroad, you will buy...",
+        "options": ["foreign currency.", "exchanges.", "currencies."],
+        "correctIndex": 0
+      },
+      {
+        "id": 75,
+        "text": "Developing countries are grouped together under the term...",
+        "options": ["second world.", "third world.", "poor world."],
+        "correctIndex": 1
+      },
+      {
+        "id": 76,
+        "text": "Which branch of economy creates the most jobs in Austria?",
+        "options": ["Industry", "Agriculture", "Tourism"],
+        "correctIndex": 2
+      },
+      {
+        "id": 77,
+        "text": "The interest charged by a bank for loans is called...",
+        "options": ["credit interest.", "bank interest.", "debit interest."],
+        "correctIndex": 2
+      },
+      {
+        "id": 78,
+        "text": "What is the maximum size of SMEs?",
+        "options": ["Up to 150 employees", "Up to 250 employees", "Up to 100 employees"],
+        "correctIndex": 1
+      },
+      {
+        "id": 79,
+        "text": "What insurance policy must car owners in Austria hold?",
+        "options": [
+          "Motor passenger personal accident insurance",
+          "Comprehensive insurance",
+          "Liability insurance"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 80,
+        "text": "What is the identifying symbol of a company called?",
+        "options": ["Logo", "Trademark", "Motto"],
+        "correctIndex": 0
+      },
+      {
+        "id": 81,
+        "text": "What do you call the income you receive after retirement?",
+        "options": ["Pension", "Benefits", "Loan"],
+        "correctIndex": 0
+      },
+      {
+        "id": 82,
+        "text": "What does it mean when a company is in the red?",
+        "options": ["It is running a deficit", "It is making a profit", "It is making more of a profit than in the previous year"],
+        "correctIndex": 0
+      },
+      {
+        "id": 83,
+        "text": "What is the name for the contract through which the EU replaced the EWG?",
+        "options": ["Maastricht Treaty", "Helsinki Final Act", "Treaties of Rome"],
+        "correctIndex": 0
+      },
+      {
+        "id": 84,
+        "text": "Daniela received EUR 50 for her birthday. She wants to use it to buy as many books as possible. She is acting in line with the...",
+        "options": ["principle of maximisation.", "principle of minimisation.", "principle of optimisation."],
+        "correctIndex": 0
+      },
+      {
+        "id": 85,
+        "text": "Emil goes from shop to shop in the hope of buying a particular sports shoe at a good price. He is acting in accordance with the...",
+        "options": ["principle of optimisation.", "principle of maximisation.", "principle of minimisation."],
+        "correctIndex": 2
+      },
+      {
+        "id": 86,
+        "text": "When the telephone bill or electricity bill is paid automatically from one’s bank account, it is a...",
+        "options": ["remittance.", "standing order.", "direct debiting."],
+        "correctIndex": 2
+      },
+      {
+        "id": 87,
+        "text": "What is the name given to a simple form of cultivation in the tropics, where the land under cultivation is constantly rotated?",
+        "options": ["Changing agriculture", "Nomadism", "Shifting cultivation"],
+        "correctIndex": 2
+      },
+      {
+        "id": 88,
+        "text": "What is the name given to all activities related to the transportation of goods from the producer to the consumer?",
+        "options": ["Didactics", "Logistics", "Informatics"],
+        "correctIndex": 1
+      },
+      {
+        "id": 89,
+        "text": "Money is the means of exchange, an arithmetic unit and a store of value. These three characteristics are known collectively as...",
+        "options": ["the functions of money.", "the purchasing power of money.", "monetary value."],
+        "correctIndex": 0
+      },
+      {
+        "id": 90,
+        "text": "How do you call the introduction of a newly developed product on the market?",
+        "options": ["Lounge", "Lobby", "Launch"],
+        "correctIndex": 2
+      },
+      {
+        "id": 91,
+        "text": "What is the growth in value called when, out of raw wood, a table is produced?",
+        "options": ["Value creation", "Gain in value", "Increase in value"],
+        "correctIndex": 0
+      },
+      {
+        "id": 92,
+        "text": "11,031 new inventions were registered worldwide by Austrians in 2021. Where do you apply for protection of new inventions?",
+        "options": ["Standards Office", "Patent Office", "Protection Office"],
+        "correctIndex": 1
+      },
+      {
+        "id": 93,
+        "text": "A country has a higher expenditure than its income, it therefore has...",
+        "options": ["a budget deficit.", "a profit.", "break even."],
+        "correctIndex": 0
+      },
+      {
+        "id": 94,
+        "text": "What does the abbreviation “EEC” stand for?",
+        "options": [
+          "European Economic Community",
+          "Effective Earnings Control",
+          "European Embezzlement Court"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 95,
+        "text": "Which of these countries was not a founding member of the European Union?",
+        "options": ["Italy", "France", "Austria"],
+        "correctIndex": 2
+      },
+      {
+        "id": 96,
+        "text": "Which of these is a non-monetary goal?",
+        "options": ["To make a profit", "Sustainability", "To reduce production costs"],
+        "correctIndex": 1
+      },
+      {
+        "id": 97,
+        "text": "Which currency is used in Switzerland?",
+        "options": ["Euro", "Swiss dollar", "Swiss franc"],
+        "correctIndex": 2
+      },
+      {
+        "id": 98,
+        "text": "Which element of a contract of sale is not legally binding?",
+        "options": ["Quantity", "Price", "Packaging"],
+        "correctIndex": 2
+      },
+      {
+        "id": 99,
+        "text": "Simon buys a large amount of fabric from a company. The discount he receives is known as a...",
+        "options": ["final discount.", "loyalty discount.", "bulk discount."],
+        "correctIndex": 2
+      },
+      {
+        "id": 100,
+        "text": "The main component of a commodity is referred to as...",
+        "options": ["auxiliary material.", "construction material.", "raw material."],
+        "correctIndex": 2
+      },
+      {
+        "id": 101,
+        "text": "Which of of these terms, which you might see on an invoice, means that the price includes VAT?",
+        "options": ["Gross", "Net", "Discounted price"],
+        "correctIndex": 0
+      },
+      {
+        "id": 102,
+        "text": "Which of these tasks are carried out by a company’s Human Resources department?",
+        "options": ["Purchasing of goods", "Stock-keeping", "Negotiating employment contracts"],
+        "correctIndex": 2
+      },
+      {
+        "id": 103,
+        "text": "When was the Brexit referendum held in the United Kingdom?",
+        "options": ["2014", "2016", "2018"],
+        "correctIndex": 1
+      },
+      {
+        "id": 104,
+        "text": "For which branch of industry is Tyrol particularly known?",
+        "options": ["Tourism", "Manufacturing", "Retail"],
+        "correctIndex": 0
+      },
+      {
+        "id": 105,
+        "text": "What is the name of the bank account used for general cash-free transactions?",
+        "options": ["Savings book", "Current account", "Building society savings account"],
+        "correctIndex": 1
+      },
+      {
+        "id": 106,
+        "text": "Lisa receives her pocket money from her Dad on the 15th of every month. It is 50 euros exactly and is transferred automatically into her account. This kind of transaction is a...",
+        "options": ["direct debit.", "standing order.", "bill of exchange."],
+        "correctIndex": 1
+      },
+      {
+        "id": 107,
+        "text": "How are products identified in the supermarket?",
+        "options": ["Barcode", "IBAN", "PIN"],
+        "correctIndex": 0
+      },
+      {
+        "id": 108,
+        "text": "Which of the following terms refers to a source of revenue for the state?",
+        "options": ["Government investments", "Taxes", "Recessions"],
+        "correctIndex": 1
+      },
+      {
+        "id": 109,
+        "text": "What does the abbreviation “ECB” stand for?",
+        "options": ["European Central Bank", "English Central Bank", "European Commercial Branch"],
+        "correctIndex": 0
+      },
+      {
+        "id": 110,
+        "text": "Where is the ECB headquartered?",
+        "options": ["Frankfurt am Main", "Berlin", "Brussels"],
+        "correctIndex": 0
+      },
+      {
+        "id": 111,
+        "text": "A company is actively seeking to increase sales. Which department will drive the business development?",
+        "options": ["Purchasing", "Accounts", "Marketing"],
+        "correctIndex": 2
+      },
+      {
+        "id": 112,
+        "text": "When you apply to join a company, you are often invited to...",
+        "options": ["an interview.", "coffee and cake.", "present your sales pitch."],
+        "correctIndex": 0
+      },
+      {
+        "id": 113,
+        "text": "In economics, what is the term used for the interplay between households, companies and the state?",
+        "options": ["Boom", "Economic cycle", "Gross domestic product"],
+        "correctIndex": 1
+      },
+      {
+        "id": 114,
+        "text": "Which branch of the economy mediates between the producer and the consumer?",
+        "options": ["Tourism", "Banks", "Retail trade"],
+        "correctIndex": 2
+      },
+      {
+        "id": 115,
+        "text": "When money is deposited into a salary account, the account statement will show ...",
+        "options": ["a debit note.", "a credit note.", "an account extract."],
+        "correctIndex": 1
+      },
+      {
+        "id": 116,
+        "text": "If an amount of money is taken out of a salary account, the account statement will show a...",
+        "options": ["credit note.", "savings note.", "debit note."],
+        "correctIndex": 2
+      },
+      {
+        "id": 117,
+        "text": "What is the name given to a written statement of a salary account?",
+        "options": ["Account posting", "Account statement", "Account entry"],
+        "correctIndex": 1
+      },
+      {
+        "id": 118,
+        "text": "When someone pays with an credit card,...",
+        "options": [
+          "the money will be withdrawn from the account only in the following month.",
+          "the bank gives a certain amount of credit.",
+          "the amount is withdrawn from the account immediately."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 119,
+        "text": "What does the abbreviation “EEC” stand for?",
+        "options": [
+          "European Economic Community",
+          "Effective Earnings Control",
+          "European Embezzlement Court"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 120,
+        "text": "What does “duty-free“ mean in terms of customs?",
+        "options": [
+          "No customs duties need to be paid on entry",
+          "The exempted quantity permitted for travel has been exceeded",
+          "The limit of exempted quantity permitted for travel is not applicable"
+        ],
+        "correctIndex": 0
+      }
+    ],
+    "ag": [
+      {
+        "id": 1,
+        "text": "What does „redemption“ mean?",
+        "options": ["Repayment of the loan", "Utilization of the credit", "Wasting the credit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 2,
+        "text": "What is EURIBOR?",
+        "options": ["A payment method", "A type of credit", "The key interest rate of the money market"],
+        "correctIndex": 2
+      },
+      {
+        "id": 3,
+        "text": "More than 194 Billion Euros are made on exports. What country is Austria‘s most important trade partner, to which one third of all exports are sent?",
+        "options": ["U.S.A", "Germany", "Italy"],
+        "correctIndex": 1
+      },
+      {
+        "id": 4,
+        "text": "The oil price changes on a daily basis depending on production volumes and the worldwide need for oil. Which factors mainly determine the price?",
+        "options": ["Supply and demand", "Cost and revenue", "Traffic and weather"],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "The number of sole proprietorships continues to increase. How many of the approximately 576.063 active members of the Economic Chamber are sole proprietorships?",
+        "options": ["One third", "One quarter", "More than two thirds"],
+        "correctIndex": 2
+      },
+      {
+        "id": 6,
+        "text": "Upper Austria is known for its clusters. What is the general meaning of a cluster?",
+        "options": ["Spatial concentration of businesses", "Legal merger of businesses", "Focus on exports"],
+        "correctIndex": 0
+      },
+      {
+        "id": 7,
+        "text": "Who are the shareholders that big companies devote a lot of attention to?",
+        "options": ["Financial Market Authority", "Members of the board of directors", "Owners of shares"],
+        "correctIndex": 2
+      },
+      {
+        "id": 8,
+        "text": "Which statement is correct? A shareholder is...",
+        "options": [
+          "a co-owner of the company.",
+          "liable for the company.",
+          "a member of the supervisory board of a company."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 9,
+        "text": "Which commercial sector does the mining industry belong to?",
+        "options": ["Primary sector", "Secondary sector", "Tertiary sector"],
+        "correctIndex": 0
+      },
+      {
+        "id": 10,
+        "text": "What is the name of the Austrian share index?",
+        "options": ["DAX", "STOXX", "ATX"],
+        "correctIndex": 2
+      },
+      {
+        "id": 11,
+        "text": "Companies which are listed on the stock exchange distribute the following to their shareholders:",
+        "options": ["Dividends", "Bonuses", "Credits"],
+        "correctIndex": 0
+      },
+      {
+        "id": 12,
+        "text": "Which country does not participate in the European currency union?",
+        "options": ["Italy", "Hungary", "Austria"],
+        "correctIndex": 1
+      },
+      {
+        "id": 13,
+        "text": "What is the name given to products which are consumed while they are produced and hence cannot be produced in advance or be stored?",
+        "options": ["Consumer goods", "Services", "Durable goods"],
+        "correctIndex": 1
+      },
+      {
+        "id": 14,
+        "text": "What is the name given to an economic community in which members do not impose customs duties on each other but may levy customs duties on goods and services from non-members?",
+        "options": ["Economic cycle", "Free trade zone", "Trade union"],
+        "correctIndex": 1
+      },
+      {
+        "id": 15,
+        "text": "Why is it that countries like Kuwait or the United Arab Emirates have a high per capita gross domestic product?",
+        "options": [
+          "Only rich people live there.",
+          "A lot of petroleum is extracted and few people live there.",
+          "A number of big companies are based there."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 16,
+        "text": "There is a gas station on either side of the road, each belonging to a different company. What kind of location orientation is this?",
+        "options": ["Competition orientation", "Raw material orientation", "Workforce orientation"],
+        "correctIndex": 0
+      },
+      {
+        "id": 17,
+        "text": "What is the term used for all measures taken to publicise a company and its products?",
+        "options": ["Marketing", "Communication", "Sales promotion"],
+        "correctIndex": 0
+      },
+      {
+        "id": 18,
+        "text": "Mr. Peter G. is an entrepreneur. When he puts money into his business to make improvements, he makes an...",
+        "options": ["intervention.", "investment.", "interaction."],
+        "correctIndex": 1
+      },
+      {
+        "id": 19,
+        "text": "Maria compares the price of a new pair of jeans with the money in her piggy bank. She uses her money...",
+        "options": [
+          "as a means of barter.",
+          "as a unit of account.",
+          "to store value."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 20,
+        "text": "If the exchange rate of one currency remains high compared to other currencies, we speak of a...",
+        "options": ["weak currency.", "good currency.", "hard currency."],
+        "correctIndex": 2
+      },
+      {
+        "id": 21,
+        "text": "What is the name given to a country that attracts tax refugees from other countries through its low taxes?",
+        "options": ["Tax haven", "Tax refuge", "Tax hideout"],
+        "correctIndex": 0
+      },
+      {
+        "id": 22,
+        "text": "What is the name given to areas in which companies are required to pay low taxes and have access to cheap labour so as to produce for export trade?",
+        "options": ["Cheap production zones", "Export-processing zone", "Tax haven"],
+        "correctIndex": 1
+      },
+      {
+        "id": 23,
+        "text": "If two companies combine to form one common company, it is called a...",
+        "options": ["merger.", "accumulation.", "cartel."],
+        "correctIndex": 0
+      },
+      {
+        "id": 24,
+        "text": "The numerous small vertical lines that are used to indicate prices in a supermarket are called...",
+        "options": ["strokes.", "barcode.", "price lines."],
+        "correctIndex": 1
+      },
+      {
+        "id": 25,
+        "text": "How should one conduct business so that natural resources and raw materials will not be exhausted and will continue to be available to future generations?",
+        "options": ["Carefully", "Frugally", "Sustainably"],
+        "correctIndex": 2
+      },
+      {
+        "id": 26,
+        "text": "What is the name given to the cooperation between the rich, industrial countries and the poor countries of the world?",
+        "options": ["Development cooperation", "Economic cooperation", "Trade cooperation"],
+        "correctIndex": 0
+      },
+      {
+        "id": 27,
+        "text": "Which sector studies customer needs and customer satisfaction?",
+        "options": ["Market survey", "Market research", "Requirements survey"],
+        "correctIndex": 1
+      },
+      {
+        "id": 28,
+        "text": "A textile factory is relocating its production to a low wage country. What kind of location orientation is involved here?",
+        "options": ["Transaction orientation", "Workforce orientation", "Competition orientation"],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "The total economic output of a country is abbreviated using the letters...",
+        "options": ["GWL.", "GDP.", "BWL."],
+        "correctIndex": 1
+      },
+      {
+        "id": 30,
+        "text": "What is it that distinguishes a product and gives it a distinctive character?",
+        "options": ["Name", "Shape", "Brand"],
+        "correctIndex": 2
+      },
+      {
+        "id": 31,
+        "text": "What is the name given to goods that are used in the production of other goods?",
+        "options": ["Consumer goods", "Tools", "Investment goods"],
+        "correctIndex": 2
+      },
+      {
+        "id": 32,
+        "text": "With what kind of plastic card do you have to pay, so that the money is drawn from your account at a later point in time?",
+        "options": ["ATM card", "Credit card", "Customer card"],
+        "correctIndex": 1
+      },
+      {
+        "id": 33,
+        "text": "The monetary value of all sold products or services of a company is...",
+        "options": ["the profit.", "the turnover.", "the balance sheet."],
+        "correctIndex": 1
+      },
+      {
+        "id": 34,
+        "text": "Which of the following arose within the EU as a result of introducing the euro?",
+        "options": [
+          "A customs union",
+          "A free trade zone",
+          "An economic and monetary union"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 35,
+        "text": "What regulates the free border traffic in most EU countries?",
+        "options": [
+          "The Maastricht Treaty",
+          "The Schengen Treaty",
+          "The Paris Treaty"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 36,
+        "text": "Which of the following represents the interests of employees in a company?",
+        "options": [
+          "Representative at the company",
+          "Employees‘ council",
+          "Works Council"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 37,
+        "text": "What is the term given to the reuse of used materials such as glass and paper?",
+        "options": ["Recycling", "Reproducing", "Remaking"],
+        "correctIndex": 0
+      },
+      {
+        "id": 38,
+        "text": "If a list of all imported goods and exported goods is drawn up, we get the...",
+        "options": [
+          "balance of transactions.",
+          "balance of payments.",
+          "balance of trade."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 39,
+        "text": "What do companies that discuss the prices of their products among each other constitute?",
+        "options": ["A merger", "A group", "A cartel"],
+        "correctIndex": 2
+      },
+      {
+        "id": 40,
+        "text": "What is the name given to an association of several companies that legally remain separate entities?",
+        "options": ["Group", "Cartel", "Concentrate"],
+        "correctIndex": 0
+      },
+      {
+        "id": 41,
+        "text": "The Organisation of the Petroleum Exporting Countries (OPEC) is...",
+        "options": ["an oil multinational.", "a group.", "a cartel."],
+        "correctIndex": 2
+      },
+      {
+        "id": 42,
+        "text": "Expenses incurred in manufacturing or selling a product are called...",
+        "options": ["purchase costs.", "business expenditure.", "prime costs."],
+        "correctIndex": 2
+      },
+      {
+        "id": 43,
+        "text": "The branch of a bakery at a busy traffic junction is...",
+        "options": ["cost-oriented.", "customer-oriented.", "raw material-oriented."],
+        "correctIndex": 1
+      },
+      {
+        "id": 44,
+        "text": "The location of a dairy in the vicinity of green meadows with many cows is...",
+        "options": ["customer-oriented.", "cost-oriented.", "raw material-oriented."],
+        "correctIndex": 2
+      },
+      {
+        "id": 45,
+        "text": "If the gross domestic product of a country is divided by its population, the following is obtained:",
+        "options": [
+          "The average GDP",
+          "The per capita GDP",
+          "The population GDP"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 46,
+        "text": "On account of their economic progress, countries like India or Brazil are called...",
+        "options": [
+          "developing countries.",
+          "progressive countries.",
+          "newly industrialised countries."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 47,
+        "text": "Companies that are economically active in many countries of the world are called...",
+        "options": ["worldwide concerns.", "global players.", "corporate giants."],
+        "correctIndex": 1
+      },
+      {
+        "id": 48,
+        "text": "Highly developed countries with a high per capita GDP are called...",
+        "options": [
+          "industrialised countries.",
+          "developing countries.",
+          "newly industrialised countries."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 49,
+        "text": "Public hospitals, police stations and community nursery schools are examples of...",
+        "options": ["private services.", "general services.", "public services."],
+        "correctIndex": 2
+      },
+      {
+        "id": 50,
+        "text": "When the exchange rate of a currency is deliberately brought down by the bank of issue, we speak of...",
+        "options": ["devaluation.", "appreciation.", "reduction."],
+        "correctIndex": 0
+      },
+      {
+        "id": 51,
+        "text": "What is the term for interest that you have to pay for overdrawing your bank account?",
+        "options": ["Debit interest", "Credit interest", "Account interest"],
+        "correctIndex": 0
+      },
+      {
+        "id": 52,
+        "text": "What do you call the coins and banknotes of a foreign country?",
+        "options": ["Currencies", "Purrencies", "Securities"],
+        "correctIndex": 0
+      },
+      {
+        "id": 53,
+        "text": "What is the name given to a security paper with which one becomes a co-owner of a large company?",
+        "options": ["Loan", "Share", "Bond"],
+        "correctIndex": 1
+      },
+      {
+        "id": 54,
+        "text": "If a currency appreciates in value with respect to another, this...",
+        "options": [
+          "will make imports easier.",
+          "will make exports easier.",
+          "has no impact on the import and export business."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "If the dollar loses value with respect to the euro,...",
+        "options": [
+          "travelling in the USA will be cheaper.",
+          "there is no impact on travelling.",
+          "travelling in the USA will be more expensive."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 56,
+        "text": "What is the name given to a person who owns shares?",
+        "options": ["Sharehandler", "Shareholder", "Sharehander"],
+        "correctIndex": 1
+      },
+      {
+        "id": 57,
+        "text": "What is known in colloquial terms as a “multinational company“?",
+        "options": [
+          "A big company that is active internationally",
+          "Many small companies",
+          "Many talented managers"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 58,
+        "text": "What is the European Council?",
+        "options": [
+          "A human rights organisation",
+          "The meeting of the EU countries‘ heads of government",
+          "A UN organisation"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 59,
+        "text": "In which of the following areas does the EU have a common policy?",
+        "options": ["Industry", "Agriculture", "Tourism"],
+        "correctIndex": 1
+      },
+      {
+        "id": 60,
+        "text": "People toward whom a particular product is aimed are called...",
+        "options": [
+          "a group of interested persons.",
+          "product buyers.",
+          "the target group."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 61,
+        "text": "Which is the best method of changing the conduct of employees?",
+        "options": ["Regulation", "Motivation", "Autonomy"],
+        "correctIndex": 1
+      },
+      {
+        "id": 62,
+        "text": "What is the task of the management?",
+        "options": [
+          "Paying the employees",
+          "Researching and developing new products",
+          "Planning, organising, making decisions and controlling in a company"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 63,
+        "text": "Which figure shows how a company is structured in terms of organisation?",
+        "options": [
+          "Organisation chart (organogram)",
+          "Operations chart",
+          "Organisation sketch"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 64,
+        "text": "Public hospitals, fire brigade and primary schools are examples of...",
+        "options": ["private services.", "general services.", "public services."],
+        "correctIndex": 2
+      },
+      {
+        "id": 65,
+        "text": "Which institutions protect against unexpected, high costs?",
+        "options": ["Insurance companies", "Banks", "The state"],
+        "correctIndex": 0
+      },
+      {
+        "id": 66,
+        "text": "Trucks, excavators, railroad cars and scaffolding are...",
+        "options": ["consumer goods.", "investment goods.", "perishable goods."],
+        "correctIndex": 1
+      },
+      {
+        "id": 67,
+        "text": "An entrepreneur who sells goods to other countries is...",
+        "options": ["an importer.", "a plunger.", "an exporter."],
+        "correctIndex": 2
+      },
+      {
+        "id": 68,
+        "text": "During an inflation...",
+        "options": ["prices drop.", "money is worth less.", "everyone can buy more."],
+        "correctIndex": 1
+      },
+      {
+        "id": 69,
+        "text": "What is the name given to the growth of the gross domestic product?",
+        "options": ["Inflation", "Economic growth", "Trade balance"],
+        "correctIndex": 1
+      },
+      {
+        "id": 70,
+        "text": "Who loses during inflation?",
+        "options": [
+          "Those who lend money",
+          "Those who borrow money",
+          "Those who buy a lot"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 71,
+        "text": "Economic growth is measured in terms of...",
+        "options": [
+          "the change in the gross domestic product in percentage.",
+          "the economic upswing.",
+          "the standard of living."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 72,
+        "text": "When supply declines with respect to demand...",
+        "options": ["prices drop.", "prices increase.", "goods become cheaper."],
+        "correctIndex": 1
+      },
+      {
+        "id": 73,
+        "text": "Which of the following applies to an industrial plant?",
+        "options": [
+          "Creation on order for known customers",
+          "Production of goods in big series",
+          "Small workforce"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 74,
+        "text": "Who makes a profit during inflation?",
+        "options": [
+          "Those who borrow money from somebody",
+          "Those who save money",
+          "Those who lose money"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 75,
+        "text": "Which of the following countries is not a member of the G8?",
+        "options": ["Germany", "France", "Spain"],
+        "correctIndex": 2
+      },
+      {
+        "id": 76,
+        "text": "Who are the “G8“?",
+        "options": [
+          "The 8 most important national economies of the world",
+          "The 8 largest countries in the EU",
+          "The 8 largest producers of petroleum"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 77,
+        "text": "The biggest organisation in the world is the...",
+        "options": ["EU.", "UN.", "WTO."],
+        "correctIndex": 1
+      },
+      {
+        "id": 78,
+        "text": "Which of the following is at your disposal with an ATM card or a credit card?",
+        "options": ["Cash", "Book money or deposit money", "Paper money"],
+        "correctIndex": 1
+      },
+      {
+        "id": 79,
+        "text": "What is the name given to assets in foreign currency?",
+        "options": ["Assortments", "Valuta", "Foreign exchange"],
+        "correctIndex": 2
+      },
+      {
+        "id": 80,
+        "text": "What is the name of the place where securities are traded?",
+        "options": ["Share house", "Stock market", "Central bank"],
+        "correctIndex": 1
+      },
+      {
+        "id": 81,
+        "text": "What is a business plan?",
+        "options": [
+          "Plan for implementing a business idea",
+          "Business game",
+          "Orientation plan of a plant"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 82,
+        "text": "Which of the following is not a goal of the EU?",
+        "options": [
+          "Peace and security",
+          "Common market",
+          "Uniform wages and salaries"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 83,
+        "text": "Which countries joined the EU at the same time as Austria?",
+        "options": [
+          "Finland and Sweden",
+          "Poland and the Czech Republic",
+          "Belgium and the Netherlands"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 84,
+        "text": "Large companies have...",
+        "options": [
+          "more than 100 employees.",
+          "more than 250 employees.",
+          "more than 1,000 employees."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 85,
+        "text": "Countries in which manufacturing is cheap are called...",
+        "options": ["low economy countries.", "low wage countries.", "low industry countries."],
+        "correctIndex": 1
+      },
+      {
+        "id": 86,
+        "text": "It is possible to travel without border control between...",
+        "options": ["Germany and France.", "Poland and Russia.", "Serbia and Croatia."],
+        "correctIndex": 0
+      },
+      {
+        "id": 87,
+        "text": "Which of the following does not constitute one of the four freedoms in the EU?",
+        "options": [
+          "Free movement of capital",
+          "Free movement of persons",
+          "Free railroad traffic"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 88,
+        "text": "What is the aim of the WTO?",
+        "options": [
+          "To facilitate trade across the world",
+          "To protect human rights",
+          "To conduct the Soccer World Championship"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 89,
+        "text": "Which of the following does the price of a product not depend on?",
+        "options": ["The size of the business", "Its own cost", "Demand"],
+        "correctIndex": 0
+      },
+      {
+        "id": 90,
+        "text": "Which of the following is an example of financing with outside capital?",
+        "options": [
+          "A bank loan",
+          "Payment of foreign employees",
+          "Purchasing a foreign company"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 91,
+        "text": "Who releases coins and banknotes into circulation in Austria?",
+        "options": [
+          "European Central Bank",
+          "Austrian National Bank",
+          "All major banks in Austria"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 92,
+        "text": "What does the organisational structure regulate in a company?",
+        "options": [
+          "Who in the company is responsible for what",
+          "What is to be done and in which sequence",
+          "The parts that make up the products"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 93,
+        "text": "What does a shareholder receive?",
+        "options": ["Interest", "Premium", "Dividend"],
+        "correctIndex": 2
+      },
+      {
+        "id": 94,
+        "text": "When the euro loses value against the US dollar,...",
+        "options": [
+          "petroleum imports become cheaper.",
+          "american computers are more expensive.",
+          "it is cheaper for an Austrian to stay in the USA."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 95,
+        "text": "What is the opposite of “deflation“ in the economy?",
+        "options": ["Inflation", "Revision", "Market invasion"],
+        "correctIndex": 0
+      },
+      {
+        "id": 96,
+        "text": "What does the term unlimited liability mean?",
+        "options": [
+          "1 and private assets",
+          "Liability only for liquid assets",
+          "Liability only for company assets"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 97,
+        "text": "What is one possible reaction of employers to a strike?",
+        "options": ["Lock-out", "Lock-in", "Walkout"],
+        "correctIndex": 0
+      },
+      {
+        "id": 98,
+        "text": "Over the long term, the balance of services should...",
+        "options": ["show a surplus.", "be equalized.", "always be positive."],
+        "correctIndex": 1
+      },
+      {
+        "id": 99,
+        "text": "Austria’s most important trading partner is...",
+        "options": ["Slovenia.", "Hungary.", "Germany."],
+        "correctIndex": 2
+      },
+      {
+        "id": 100,
+        "text": "Assets are...",
+        "options": [
+          "the total of a company’s economic resources.",
+          "active employees in a company.",
+          "the various activities in a company."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 101,
+        "text": "What do you call a market with only one supplier?",
+        "options": ["Polypoly", "Oligopoly", "Monopoly"],
+        "correctIndex": 2
+      },
+      {
+        "id": 102,
+        "text": "What is the role of the state in a free market economy?",
+        "options": [
+          "The state should not intervene in market activities.",
+          "The state intervenes to correct any problems.",
+          "The state plans and manages the market very closely."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 103,
+        "text": "What does the term “liquidity” mean?",
+        "options": ["Ability to pay", "Productivity", "Economic viability"],
+        "correctIndex": 0
+      },
+      {
+        "id": 104,
+        "text": "The bank lends Georg 10,000 euros. What is it giving him?",
+        "options": ["Loan", "Contract of sale", "Service contract"],
+        "correctIndex": 0
+      },
+      {
+        "id": 105,
+        "text": "What is the name for the quantity at which supply equals demand?",
+        "options": ["Saturation quantity", "Delivered quantity", "Equilibrium quantity"],
+        "correctIndex": 2
+      },
+      {
+        "id": 106,
+        "text": "A company is listed on the stock exchange, this makes it...",
+        "options": [
+          "a public limited company.",
+          "an association.",
+          "a sole trader."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 107,
+        "text": "How do you describe the weight of packaging?",
+        "options": ["Gross weight", "Tare weight", "Net weight"],
+        "correctIndex": 1
+      },
+      {
+        "id": 108,
+        "text": "What is the abbreviation for the General Terms and Conditions in Austria?",
+        "options": ["ABGB", "AGB", "AG"],
+        "correctIndex": 1
+      },
+      {
+        "id": 109,
+        "text": "2004 saw the biggest enlargement of the EU. How many countries joined?",
+        "options": ["8", "10", "12"],
+        "correctIndex": 2
+      },
+      {
+        "id": 110,
+        "text": "What does the term “e-commerce” mean?",
+        "options": [
+          "Employment agency services",
+          "Electronic trade",
+          "Entrepreneurial business"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 111,
+        "text": "What exactly does the term “Firma” mean in Austria?",
+        "options": [
+          "A company’s legally protected name",
+          "Place of manufacture",
+          "Business entity"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 112,
+        "text": "What does the abbreviation “BIC” stand for?",
+        "options": [
+          "Bank Identifier Code",
+          "Bank International Centre",
+          "Business International Corporation"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 113,
+        "text": "For what kind of transactions is the BIC particularly important?",
+        "options": ["Domestic transfers", "Foreign payments", "Cash payments"],
+        "correctIndex": 1
+      },
+      {
+        "id": 114,
+        "text": "What does the abbreviation “PIN” stand for?",
+        "options": [
+          "Personal Investment Number",
+          "Personal Innovation Number",
+          "Personal Identification Number"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 115,
+        "text": "Where are the European Court of Justice headquarters?",
+        "options": ["Luxembourg", "Strasbourg", "Berlin"],
+        "correctIndex": 0
+      },
+      {
+        "id": 116,
+        "text": "What is the term for an economic high?",
+        "options": ["Boom", "Recession", "Depression"],
+        "correctIndex": 0
+      },
+      {
+        "id": 117,
+        "text": "Globalisation refers to...",
+        "options": [
+          "worldwide networking.",
+          "the national economy.",
+          "intra-European networking."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 118,
+        "text": "Which tax is deducted from your gross salary and paid to the tax office?",
+        "options": ["VAT", "Stamp duty", "Income tax"],
+        "correctIndex": 2
+      },
+      {
+        "id": 119,
+        "text": "Which of the following countries is an emerging market?",
+        "options": ["Brazil", "Austria", "France"],
+        "correctIndex": 0
+      },
+      {
+        "id": 120,
+        "text": "Thomas sells some furniture to his friend Alex. This kind of transaction is classed as...",
+        "options": ["B2B", "B2C", "C2C"],
+        "correctIndex": 2
+      }
+    ]
+  }
+}
