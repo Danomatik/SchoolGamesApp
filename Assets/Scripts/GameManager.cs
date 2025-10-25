@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] private QuestionManager questionManager;
+    [SerializeField]
+    private BankCardManager bankCardManager;
 
     [Header("Camera")]
     public CinemachineCamera cam;
@@ -67,16 +69,16 @@ public class GameManager : MonoBehaviour
 
     private void InitializeBoardLayout()
     {
-        // Set all fields to Company by default
+        // Set all fields to Bank by default
         for (int i = 0; i < boardLayout.Length; i++)
         {
-            boardLayout[i] = FieldType.Company;
+            boardLayout[i] = FieldType.Bank;
         }
         
         // Set specific fields to other types
         boardLayout[0] = FieldType.Start; // Starting field
         // You can add more specific fields here if needed
-        // boardLayout[10] = FieldType.Bank; // Example bank field
+        // boardLayout[10] = FieldType.Company; // Example company field
     }
 
     // ============================================================
@@ -172,7 +174,6 @@ public class GameManager : MonoBehaviour
                     
                 case FieldType.Company:
                     Debug.Log("Player landed on Company field!");
-                    // Show random question from JSON for company field
                     if (questionManager != null)
                     {
                         questionManager.PrintRandomQuestion();
@@ -181,6 +182,10 @@ public class GameManager : MonoBehaviour
                     
                 case FieldType.Bank:
                     Debug.Log("Player landed on Bank field!");
+                    if (bankCardManager != null)
+                    {
+                        bankCardManager.PrintRandomBankCard();
+                    }
                     break;
             }
         }
