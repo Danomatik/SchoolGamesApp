@@ -51,11 +51,11 @@ public class GameManager : MonoBehaviour
         InitializeBoardLayout();
 
         // Spieler 1
-        PlayerData humanPlayer = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
+        PlayerData humanPlayer = new PlayerData { PlayerID = 1, Money = 2600, BoardPosition = 0 };
         CurrentGame.AllPlayers.Add(humanPlayer);
 
         // Spieler 2
-        PlayerData botPlayer1 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0 };
+        PlayerData botPlayer1 = new PlayerData { PlayerID = 2, Money = 2600, BoardPosition = 0 };
         CurrentGame.AllPlayers.Add(botPlayer1);
 
         Debug.Log("Neues Spiel mit 2 Spielern gestartet!");
@@ -67,16 +67,16 @@ public class GameManager : MonoBehaviour
 
     private void InitializeBoardLayout()
     {
-        // Set all fields to Company by default
+        // Set all fields to Bank by default
         for (int i = 0; i < boardLayout.Length; i++)
         {
             boardLayout[i] = FieldType.Company;
         }
-        
+
         // Set specific fields to other types
         boardLayout[0] = FieldType.Start; // Starting field
         // You can add more specific fields here if needed
-        // boardLayout[10] = FieldType.Bank; // Example bank field
+        // boardLayout[10] = FieldType.Company; // Example company field
     }
 
     // ============================================================
@@ -176,6 +176,11 @@ public class GameManager : MonoBehaviour
                     if (questionManager != null)
                     {
                         questionManager.PrintRandomQuestion();
+                        questionManager.ShowQuestionInUI();
+                    }
+                    else
+                    {
+                        Debug.LogWarning("QuestionManager ist im GameManager nicht zugewiesen!");
                     }
                     break;
                     
