@@ -1,16 +1,24 @@
 using System;
-using UnityEngine;
 
 public static class JsonHelper
 {
-    // Erwartet: JSON ist ein Array auf Root-Ebene: [ {...}, {...} ]
-    public static T[] FromJson<T>(string json)
+    /// <summary>
+    /// Ersetzt problematische Keys mit Bindestrich in Varianten,
+    /// die JsonUtility verarbeiten kann (Unterstrich).
+    /// </summary>
+    public static string FixMinusKeysForJsonUtility(string json)
     {
-        string newJson = $"{{\"items\":{json}}}";
-        var wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
-        return wrapper.items ?? Array.Empty<T>();
+        if (string.IsNullOrEmpty(json)) return json;
+        return json
+            .Replace("\"junior-de\"", "\"junior_de\"")
+            .Replace("\"junior-en\"", "\"junior_en\"")
+            .Replace("\"senior-de\"", "\"senior_de\"")
+            .Replace("\"senior-en\"", "\"senior_en\"");
     }
 
-    [Serializable]
-    private class Wrapper<T> { public T[] items; }
+    /// <summary>
+    /// Hilfsfunktion: sichere Null-Listen.
+    /// </summary>
+    public static System.Collections.Generic.List<T> OrEmpty<T>(this System.Collections.Generic.List<T> list)
+        => list ?? new System.Collections.Generic.List<T>();
 }
