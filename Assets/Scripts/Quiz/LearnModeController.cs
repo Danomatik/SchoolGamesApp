@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class LearnModeController : MonoBehaviour
 {
-    [Header("Data")]
-    public JsonQuestionProviderNewtonsoft provider;
+   [Header("Data")]
+    public SimpleJsonQuestionProvider provider;   // <— HIER den Typ ändern!
 
     [Header("UI")]
-    public TMP_Text categoryLabel; // optional (z.B. "Gründung")
+    public TMP_Text categoryLabel;
     public TMP_Text questionText;
 
     public AnswerButton answerBtn0;
@@ -21,7 +21,6 @@ public class LearnModeController : MonoBehaviour
     private List<Question> _pool = new();
     private int _currentIndex = -1;
     private Question _current;
-
     void Start()
     {
         if (categoryLabel) categoryLabel.text = provider != null ? provider.categoryKey : "";

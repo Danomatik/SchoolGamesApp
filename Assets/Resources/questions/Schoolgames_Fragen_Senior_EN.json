@@ -886,7 +886,7 @@
         "correctIndex": 1
       }
     ],
-    "investment": [
+    "investition": [
       {
         "id": 1,
         "text": "When stock analysts issue “hold“ recommendations, they...",
@@ -1784,7 +1784,7 @@
         "correctIndex": 2
       }
     ],
-    "plc": [
+    "ag": [
       {
         "id": 1,
         "text": "Economic growth is measured by the...",

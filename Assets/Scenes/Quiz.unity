@@ -772,7 +772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000061035156, y: -622}
+  m_AnchoredPosition: {x: 0.00012207031, y: -622}
   m_SizeDelta: {x: -153.7, y: 383.9764}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &586980373
@@ -1971,7 +1971,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0.000030517578}
   m_SizeDelta: {x: -62.543, y: -24.3223}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1430274257
@@ -2294,8 +2294,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1777300153}
-  - component: {fileID: 1777300152}
   - component: {fileID: 1777300151}
+  - component: {fileID: 1777300154}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -2315,28 +2315,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47960846fdb5d854a98b2d57d8b7c69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  provider: {fileID: 1777300152}
+  provider: {fileID: 1777300154}
   categoryLabel: {fileID: 0}
   questionText: {fileID: 1430274257}
   answerBtn0: {fileID: 1330603099}
   answerBtn1: {fileID: 767138664}
   answerBtn2: {fileID: 1406753306}
   nextButton: {fileID: 2011887756}
---- !u!114 &1777300152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1777300150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58bd49f062d1aff4aa723dd9df29b59a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resourcePath: Data/Schoolgames_Fragen_Senior_DE
-  levelKey: senior-de
-  categoryKey: gruendung
 --- !u!4 &1777300153
 Transform:
   m_ObjectHideFlags: 0
@@ -2352,6 +2337,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1777300154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777300150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc5a9ab6391af47418edc19d414c9a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  file: 3
+  customResourcePath: 
+  shuffleQuestions: 1
 --- !u!1 &2011887754
 GameObject:
   m_ObjectHideFlags: 0
