@@ -18,6 +18,7 @@ public class QuizField : MonoBehaviour
         if (questionManager != null)
         {
             questionManager.PrintRandomQuestion();
+            questionManager.ShowQuestionInUI();
         }
         else
         {
