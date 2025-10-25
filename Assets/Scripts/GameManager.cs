@@ -17,6 +17,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] private QuestionManager questionManager;
+<<<<<<< Updated upstream
+=======
+    
+    [SerializeField]
+    private BankCardManager bankCardManager;
+>>>>>>> Stashed changes
 
     [Header("Camera")]
     public CinemachineCamera cam;
