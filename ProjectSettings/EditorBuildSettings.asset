@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu Ipad.unity
+    path: Assets/Scenes/Menu.unity
     guid: e0e8a55f31e50df429e8d80eaa434418
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
@@ -14,6 +14,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MenuScene.unity
+    guid: 1aca58bfd9830c04790e232c5cc5a675
+  - enabled: 1
+    path: Assets/Scenes/Quiz.unity
+    guid: 2586e8a145c101a418bb899d246da9f9
+  - enabled: 1
+    path: Assets/Scenes/MenuMockUps/QuizMenuDemo.unity
+    guid: 6ca563b014ad774458f5fcbb0a0bc373
+  - enabled: 1
+    path: Assets/Scenes/MenuMockUps/MainMenuDemo.unity
+    guid: 42ba31bb2735f114783a05122503a783
   m_configObjects:
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 5c3ae823362f2ec4080f47cde7af6d57, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
