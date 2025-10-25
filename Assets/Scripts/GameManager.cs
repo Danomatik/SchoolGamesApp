@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -6,64 +5,37 @@ using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
-    // ============================================================
-    // 🟩 GAME MANAGER SETTINGS
-    // ============================================================
-    [Header("Game Settings")]
     public GameState CurrentGame;
     public List<PlayerCTRL> players;
-    public FieldType[] boardLayout = new FieldType[40];
     private bool isTurnInProgress = false;
+    public FieldType[] boardLayout = new FieldType[40];
 
-    [Header("Managers")]
-    [SerializeField] private QuestionManager questionManager;
+    [SerializeField]
+    private QuestionManager questionManager;
 
-    [Header("Camera")]
+    [SerializeField]
+    private DiceRoller diceRoller;
+
     public CinemachineCamera cam;
-    public float defaultLens = 3.55f;
 
-    // ============================================================
-    // 🎲 DICE ROLLER SETTINGS
-    // ============================================================
-    [Header("Dice Roller Settings")]
-    [SerializeField] private Rigidbody dice1;
-    [SerializeField] private Rigidbody dice2;
-
-    [SerializeField] private Transform spawnPos1;
-    [SerializeField] private Transform spawnPos2;
-
-    [SerializeField] public CinemachineTargetGroup diceTargetGroup;
-    [SerializeField] public float diceLensSize;
-
-    [SerializeField] private float throwForce = 8f;
-    [SerializeField] private float torqueForce = 10f;
-
-    private bool rolling = false;
-
-    // ============================================================
-    // 🏁 UNITY METHODS
-    // ============================================================
     void Start()
     {
         CurrentGame = new GameState();
 
-        // Spieler 1
+        // SPieler 1
         PlayerData humanPlayer = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
         CurrentGame.AllPlayers.Add(humanPlayer);
 
-        // Spieler 2
+        //Spieler 2
         PlayerData botPlayer1 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0 };
         CurrentGame.AllPlayers.Add(botPlayer1);
 
         Debug.Log("Neues Spiel mit 2 Spielern gestartet!");
-        Debug.Log($"Spieler 1 hat {humanPlayer.Money} € Startgeld");
+        Debug.Log($"Neues Spiel gestartet! Spieler 1 hat {humanPlayer.Money} €");
 
         TestCurrencySystem();
     }
 
-    // ============================================================
-    // 💰 MONEY SYSTEM
-    // ============================================================
     public void AddMoney(int amount)
     {
         PlayerData currentPlayer = GetCurrentPlayer();
@@ -105,16 +77,26 @@ public class GameManager : MonoBehaviour
     public void EndTurn()
     {
         CurrentGame.CurrentPlayerTurnID++;
+
         if (CurrentGame.CurrentPlayerTurnID >= CurrentGame.AllPlayers.Count)
+        {
             CurrentGame.CurrentPlayerTurnID = 0;
+        }
 
         UpdateAgentPriorities();
         Debug.Log($"Zug beendet. Spieler {GetCurrentPlayer().PlayerID} ist jetzt an der Reihe.");
+
     }
 
-    // ============================================================
-    // 👣 PLAYER MOVEMENT & CAMERA
-    // ============================================================
+    // ---------------------------------------------------------------------------------------------
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //TakeTurn();
+        }
+    }
+
     public void TakeTurn()
     {
         if (isTurnInProgress) return;
@@ -122,18 +104,25 @@ public class GameManager : MonoBehaviour
 
         UpdateAgentPriorities();
 
-        int diceRoll = GetAddedValue();
+        int diceRoll = diceRoller.GetAddedValue();
         Debug.Log($"Player {GetCurrentPlayer().PlayerID} rolled a {diceRoll}!");
 
+        //Find the Correct player in the scene
         PlayerCTRL activePlayer = players.Find(p => p.PlayerID == GetCurrentPlayer().PlayerID);
+
         if (activePlayer != null)
         {
-            Transform playerChild = activePlayer.transform.childCount > 0
-                ? activePlayer.transform.GetChild(0)
-                : activePlayer.transform;
-
-            cam.Lens.OrthographicSize = defaultLens;
-            cam.Follow = playerChild;
+            // Get the first child transform of the player
+            if (activePlayer.transform.childCount > 0)
+            {
+                Transform playerChild = activePlayer.transform.GetChild(0);
+                cam.Follow = playerChild;
+            }
+            else
+            {
+                // Fallback to the player's own transform if no children exist
+                cam.Follow = activePlayer.transform;
+            }
 
             activePlayer.StartMove(diceRoll);
         }
@@ -141,124 +130,83 @@ public class GameManager : MonoBehaviour
 
     public void PlayerFinishedMoving(int finalPosition)
     {
-        if (questionManager != null)
-            questionManager.CheckForQuizField(finalPosition);
+        // Check field type from board layout
+        if (finalPosition < boardLayout.Length)
+        {
+            FieldType fieldType = boardLayout[finalPosition];
+            
+            switch (fieldType)
+            {
+                case FieldType.Start:
+                    Debug.Log("Player landed on Start field!");
+                    // Add start field logic here (like giving money)
+                    break;
+                    
+                case FieldType.Company:
+                    Debug.Log("Player landed on Company field!");
+                    // Add company field logic here (like buying/selling)
+                    break;
+                    
+                case FieldType.Bank:
+                    Debug.Log("Player landed on Bank field!");
+                    // Add bank field logic here (like taxes, fees, bonuses)
+                    break;
+                    
+                case FieldType.Action:
+                    Debug.Log("Player landed on Action field!");
+                    // Add action field logic here (like chance cards)
+                    break;
+                    
+                case FieldType.Quiz:
+                    Debug.Log("Player landed on Quiz field!");
+                    // Show random question from JSON
+                    if (questionManager != null)
+                    {
+                        questionManager.PrintRandomQuestion();
+                    }
+                    break;
+            }
+        }
 
         EndTurn();
         isTurnInProgress = false;
     }
 
+    // ---------------------------------------------------------------------------------------------
     public void UpdateAgentPriorities()
     {
         PlayerData currentPlayer = GetCurrentPlayer();
+
         foreach (PlayerCTRL player in players)
         {
             NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
             if (agent != null)
-                agent.avoidancePriority = (player.PlayerID == currentPlayer.PlayerID) ? 50 : 51;
-        }
-    }
-
-    // ============================================================
-    // 🎲 DICE ROLLING SYSTEM
-    // ============================================================
-    public void RollDice()
-    {
-        if (rolling) return;
-        StartCoroutine(RollRoutine());
-    }
-
-    private IEnumerator RollRoutine()
-    {
-        rolling = true;
-
-        // Reset dice positions
-        ResetDice(dice1, spawnPos1);
-        ResetDice(dice2, spawnPos2);
-
-        // Apply force & torque
-        ThrowDice(dice1);
-        ThrowDice(dice2);
-
-        // Focus camera on dice
-        cam.Follow = diceTargetGroup.transform;
-        cam.Lens.OrthographicSize = diceLensSize;
-
-
-        // Wait until both dice stop moving
-        yield return new WaitUntil(() => dice1.IsSleeping() && dice2.IsSleeping());
-        yield return new WaitForSeconds(1f);
-
-        int rollValue = GetAddedValue();
-        Debug.Log($"Dice rolled: {rollValue}");
-
-        // Return camera to player
-
-        TakeTurn();
-
-        rolling = false;
-    }
-
-    void ResetDice(Rigidbody rb, Transform startPos)
-    {
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.transform.position = startPos.position;
-        rb.transform.rotation = Random.rotation;
-    }
-
-    void ThrowDice(Rigidbody rb)
-    {
-        rb.AddForce(Vector3.down * throwForce, ForceMode.Impulse);
-        rb.AddTorque(Random.insideUnitSphere * torqueForce, ForceMode.Impulse);
-    }
-
-    int GetDiceValue(Rigidbody dice)
-    {
-        Vector3[] directions = {
-            dice.transform.up,
-            -dice.transform.up,
-            dice.transform.right,
-            -dice.transform.right,
-            dice.transform.forward,
-            -dice.transform.forward
-        };
-
-        int[] faceValues = { 1, 6, 3, 4, 2, 5 };
-
-        float maxDot = -1f;
-        int bestIndex = 0;
-
-        for (int i = 0; i < directions.Length; i++)
-        {
-            float dot = Vector3.Dot(Vector3.up, directions[i]);
-            if (dot > maxDot)
             {
-                maxDot = dot;
-                bestIndex = i;
+                if (player.PlayerID == currentPlayer.PlayerID)
+                {
+                    agent.avoidancePriority = 50;
+                }
+                else
+                {
+                    agent.avoidancePriority = 51;
+                }
             }
         }
-
-        return faceValues[bestIndex];
     }
 
-    public int GetAddedValue()
-    {
-        int val1 = GetDiceValue(dice1);
-        int val2 = GetDiceValue(dice2);
-        return val1 + val2;
-    }
 
-    // ============================================================
-    // 🧪 DEBUG & TESTING
-    // ============================================================
     public void TestCurrencySystem()
     {
         Debug.Log("--- STARTE WÄHRUNGSSYSTEM-TEST ---");
         Debug.Log($"Anfangsgeld: {GetCurrentPlayer().Money}€");
 
+        // Test 1: Geld hinzufügen
         AddMoney(400);
+
+        // Test 2: Erfolgreich Geld abziehen
         RemoveMoney(400);
+
+        // Test 3: Fehlgeschlagenes Abziehen
         RemoveMoney(5000);
 
         Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
