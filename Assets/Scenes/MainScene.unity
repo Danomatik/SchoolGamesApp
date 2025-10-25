@@ -1470,8 +1470,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.4321, y: -305}
-  m_SizeDelta: {x: 736.1249, y: 84.0852}
+  m_AnchoredPosition: {x: 14.4321, y: -152.0901}
+  m_SizeDelta: {x: 736.1249, y: 163.4314}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &373035972
 MonoBehaviour:
@@ -3859,8 +3859,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -3940,8 +3940,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.4321, y: -189}
-  m_SizeDelta: {x: 736.1249, y: 84.0852}
+  m_AnchoredPosition: {x: 14.4321, y: 73.37216}
+  m_SizeDelta: {x: 736.1249, y: 163.4314}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1026059034
 MonoBehaviour:
@@ -4169,8 +4169,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.4321, y: -425}
-  m_SizeDelta: {x: 736.1249, y: 84.0852}
+  m_AnchoredPosition: {x: 14.4321, y: -385.3269}
+  m_SizeDelta: {x: 736.1249, y: 163.4314}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1148345419
 MonoBehaviour:
@@ -5922,7 +5922,7 @@ Transform:
   m_GameObject: {fileID: 1577003626}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: 0}
+  m_LocalPosition: {x: -6, y: -136, z: 0}
   m_LocalScale: {x: 1.25, y: 1.2820513, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7682,6 +7682,7 @@ MonoBehaviour:
   - {fileID: 1016822634}
   - {fileID: 2044313264}
   - {fileID: 1981656740}
+  moveButton: {fileID: 1440145764}
 --- !u!114 &1871652810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8320,8 +8321,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -8821,8 +8822,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

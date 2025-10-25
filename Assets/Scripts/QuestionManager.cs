@@ -34,6 +34,9 @@ public class QuestionManager : MonoBehaviour
 
     private int currentCorrectIndex = -1; // NEU: Merkt sich den korrekten Index
 
+    [SerializeField]
+    private GameObject moveButton;
+
     void Start()
     {
         LoadQuestions();
@@ -164,7 +167,7 @@ public class QuestionManager : MonoBehaviour
 
         currentCorrectIndex = question.correctIndex; // Korrekten Index speichern
 
-        if (quizPanel != null) quizPanel.SetActive(true);
+        if (quizPanel != null) quizPanel.SetActive(true); moveButton.SetActive(false);
         if (questionText != null) questionText.text = question.text;
         if (questionID != null) questionID.text = question.id.ToString();
 
