@@ -1,0 +1,365 @@
+{
+    "name": "bankkarten_de",
+    "karten": [
+      {
+        "id": 1,
+        "text": "Du hast ein Praktikum in der Volksbank absolviert und hast so einen guten Eindruck hinterlassen, das man mit dir in Kontakt bleiben will.\nSo bist du einem Berufseinstieg in Volksbank einen Schritt näher.\nRücke 3 Felder vor."
+      },
+      {
+        "id": 2,
+        "text": "Im Rahmen der Lehrlingsausbildung in der Volksbank hast du eine Top-Präsentation über deinen Lehrbetrieb in der Schule abgehalten.\nWeiter so! Springe zu einem Unternehmen deiner Wahl."
+      },
+      {
+        "id": 3,
+        "text": "Du hast nach der Schule mit der Kundenberaterausbildung in der Volksbank an der Volksbank Akademie begonnen und mit ausgezeichnetem Erfolg abgeschlossen. Jetzt kannst du deine Erfolgsgeschichte mit der Spezialisierung im Wohnbau, Kommerz- und Anlageberatung fortsetzen.\nNimm dir Zeit darüber nachzudenken in welchem Bereich du dich spezialisierst.\nSetze dafür eine Runde aus."
+      },
+      {
+        "id": 4,
+        "text": "Die Volksbank ist ein attraktiver Arbeitgeber, das weißt du spätestens nach dem Praktikum.\nDafür, dass du das deinen FreundInnen und SchulkollegInnen weitererzählt hast, darfst du noch einmal würfeln."
+      },
+      {
+        "id": 5,
+        "text": "Du hast das Mitarbeitersommerfest der Volksbank organisiert und die MitarbeiterInnen waren begeistert.\nDies hat sich sehr positiv auf die Mitarbeiterzufriedenheit ausgewirkt.\nDu darfst noch einmal würfeln."
+      },
+      {
+        "id": 6,
+        "text": "Die Volksbank unterstützt heimische Unternehmen auf der Suche nach der passenden Förderung.\nEine Mitspielerin/ein Mitspieler deiner Wahl darf sich Dank deinem Engagement EUR 200 als Bonus auszahlen lassen."
+      },
+      {
+        "id": 7,
+        "text": "Du hattest eine tolle Idee für die nächste Social Media Kampagne der Volksbank, die bei den Kunden super ankommt.\nAls Dankeschön darfst du zu einem Feld deiner Wahl (ausgenommen Start) springen."
+      },
+      {
+        "id": 8,
+        "text": "Die Gesundheit der MitarbeiterInnen ist für die Volksbank sehr wichtig.\nSportangebote werden deshalb gefördert.\nMache 10 Kniebeugen oder zahle deinen MitspielerInnen je EUR 100."
+      },
+      {
+        "id": 9,
+        "text": "Vor dem Bau einer neuen Volksbank Filiale führst du eine Standortanalyse durch und wählst dann den optimalen Standort aus.\nNimm dir dafür ausreichend Zeit und setze eine Runde aus."
+      },
+      {
+        "id": 10,
+        "text": "Bei deiner Lehre bei der Volksbank bringt dich dein Wissen voran!\nDir werden 3 Fragen einer Fragekarte gestellt.\nBei einer richtigen Antwort erhältst du EUR 100, bei 2 Antworten EUR 200 und bei 3 korrekten Antworten EUR 500."
+      },
+      {
+        "id": 11,
+        "text": "Du hast dich entschlossen bei Takeda zu arbeiten. Mit deiner Arbeit trägst du dazu bei, Menschen mit lebenswichtigen Medikamenten zu versorgen.\nWürfle noch einmal."
+      },
+      {
+        "id": 12,
+        "text": "Du hast während einer Job Rotation sechs Monate Erfahrung in einer anderen Abteilung von Takeda gesammelt. Das neue Wissen und die neuen Kontakte bringen dich in deiner Karriere voran.\nSpringe zu einem Unternehmen deiner Wahl."
+      },
+      {
+        "id": 13,
+        "text": "Deine innovative Idee hat zu einer wichtigen Prozessverbesserung beigetragen. Ideen von Mitarbeiter*innen werden bei Takeda auf allen Ebenen und bei verschiedensten Themen umgesetzt.\nDu erhältst EUR 200."
+      },
+      {
+        "id": 14,
+        "text": "Du hast dich nach deiner Matura dazu entschlossen, eine Lehre bei Takeda zu beginnen. Du erhältst eine umfassende Ausbildung in einem von zwölf Lehrberufen und deine Lehrzeit verkürzt sich um ein Jahr.\nWürfle noch einmal."
+      },
+      {
+        "id": 15,
+        "text": "Takeda bietet viele Weiterbildungs-und Entwicklungsmöglichkeiten.\nDu hast eine wichtige Weiterbildungsmöglichkeit nicht in Anspruch genommen.\nSetze eine Runde aus."
+      },
+      {
+        "id": 16,
+        "text": "Als Mitarbeiter:in der REWE Group Österreich besuchst du laufend Weiterbildungsseminare, um deine Kenntnisse und Fähigkeiten zu verbessern. Das bringt dir im Berufsalltag einen Vorsprung!\nWürfle noch einmal."
+      },
+      {
+        "id": 17,
+        "text": "Als Lehrling der REWE Group Österreich hast du in der Berufsschule besonders gute Leistungen erbracht und erhältst eine Erfolgsprämie von EUR 200. Weiter so!"
+      },
+      {
+        "id": 18,
+        "text": "Yippie! Du hast deinen Job perfekt umgesetzt und unserem Kunden genau das verkauft, was er für sein Projekt mit HORNBACH benötigt.\nAls Belohnung erhältst du eine Prämie von EUR 150."
+      },
+      {
+        "id": 19,
+        "text": "Super! Du hast alle Lerninhalte deiner HORNBACH Ausbildung im Einzelhandel erfolgreich abgeschlossen.\nHerzlichen Glückwunsch!\nDafür bekommst du von HORNBACH einen E-Roller und kannst 4 Felder weiterfahren."
+      },
+      {
+        "id": 20,
+        "text": "Du bist HORNBACH Finanzkaufprofi.\nDu hast die Finanzierung für das Kundenprojekt „Poolkauf“ fehlerfrei und schnell abgewickelt.\nDeine Kunden sind zufrieden und haben ein Lob an das Marktmanagement gesendet.\nHierfür erhältst du eine Prämie von EUR 100. Herzlichen Glückwunsch!"
+      },
+      {
+        "id": 21,
+        "text": "Eine Dame, der du vor ein paar Wochen Bücher für den Urlaub empfohlen hast, kommt zu dir in die Thalia-Buchhandlung. Sie bedankt sich für deine Empfehlungen und verspricht, sich in Zukunft nur noch von dir beraten zu lassen.\nGratuliere, du hast deine erste Stammkundin! Würfle noch einmal."
+      },
+      {
+        "id": 22,
+        "text": "Du hast dich bereit erklärt an einem Filmdreh über den „Alltag in einer Thalia-Buchhandlung“ mitzumachen.\nZusätzlich nimmst du gemeinsam mit anderen Mitarbeitenden an einem TikTok-Dreh zum Thema „Mein Lieblingsbuch“ teil.\nFür deine Mühen erhältst du eine Prämie von EUR 50."
+      },
+      {
+        "id": 23,
+        "text": "Du hast diesen Monat bereits 10 Bücher ausgelesen und Bewertungen dazu online auf www.thalia.at veröffentlicht.\nSehr fleißig! Du darfst ein Feld vorrücken."
+      },
+      {
+        "id": 24,
+        "text": "Herzlichen Glückwunsch!\nDu hast heute im Zuge deiner Ausbildung bei McDonald‘s den Barista-Kurs erfolgreich abgeschlossen.\nWeiter so!\nDu darfst 2 Felder vorrücken."
+      },
+      {
+        "id": 25,
+        "text": "Initiator, Assembler und Finisher – Super, du bist nun ein vollwertiger Küchenmitarbeiter bei McDonald‘s.\nDu darfst noch einmal würfeln."
+      },
+      {
+        "id": 26,
+        "text": "Du hast bei McDonald‘s die Küche, das McCafè und den Service gemeistert und bist nun zum Crew Trainer aufgestiegen.\nZur Belohnung erhältst du einen Zuschuss von EUR 200."
+      },
+      {
+        "id": 27,
+        "text": "Du hast die Fachausbildung zum/zur Pensionsversicherungsexpert*in erfolgreich abgeschlossen und begleitest ab sofort Versicherte und Pensionist*innen in Fragen rund um Pension und Pflegegeld.\nFür den perfekten Start darfst du noch einmal würfeln."
+      },
+      {
+        "id": 28,
+        "text": "Im Rahmen deiner Lehrlingsausbildung in der PVA hast du deinen Lehrberuf vor mehr als 100 Schüler*innen einer neuen Mittelschule vorgestellt.\nDu erhältst 150 EUR als Bonus."
+      },
+      {
+        "id": 29,
+        "text": "Deine Praktikums-Bewerbung war erfolgreich! Ab sofort bist du eine/r von 150 Mitarbeiter*innen der Softwareentwicklung der PVA.\nSpringe dafür zum Spielfeld der PVA."
+      },
+      {
+        "id": 30,
+        "text": "Bei der jährlichen ACP Lehrlingsakademie hast du viel lernen können, um dich beruflich und privat weiterzuentwickeln.\nNutzen diesen Vorteil und springe zu einem Unternehmen deiner Wahl."
+      },
+      {
+        "id": 31,
+        "text": "Im Rahmen deiner IT Lehre bei ACP machst du ein vierwöchiges Auslandspraktikum in Spanien.\nFür deine Reise erhältst du eine finanzielle Unterstützung von EUR 200."
+      },
+      {
+        "id": 32,
+        "text": "Als Lehrling bei ACP konntest du im Rotationsprinzip alle Teams und Berufe kennenlernen und hast jetzt das gefunden, was dich am meisten begeistert!\nVoll Motivation springst du 3 Felder vor."
+      },
+      {
+        "id": 33,
+        "text": "Herzlichen Glückwunsch!\nMit dem smarten, dezentralen Microgrid-System von Siemens hast du erfolgreich zur stabilen Wärme-und Stromversorgung in vielen Ländern der Welt beigetragen.\nDu erhältst dafür 2 Wochen Sonderurlaub und EUR 200 Urlaubsgeld."
+      },
+      {
+        "id": 34,
+        "text": "Du reichst einen internen Verbesserungsvorschlag ein, der dabei hilft, einen Fertigungsablauf schneller und damit für Siemens günstiger zu machen.\nAls Prämie erhältst du EUR 100."
+      },
+      {
+        "id": 35,
+        "text": "Du erhältst einen großen Auftrag, nämlich das Krankenhaus in deiner Stadt mit modernsten Brand- und Sicherheitssystemen von Siemens auszustatten.\nSpringe dafür zum Spielfeld von Siemens."
+      },
+      {
+        "id": 36,
+        "text": "Du hast eine Photovoltaik-Anlage von der Salzburg AG auf deinem Dach installieren lassen.\nAls Förderung erhältst du EUR 250."
+      },
+      {
+        "id": 37,
+        "text": "Du besitzt ein E-Auto und die passende Ladelösung von der Salzburg AG.\nDas bringt dich schnell voran- du darfst noch einmal würfeln."
+      },
+      {
+        "id": 38,
+        "text": "Du hast den Lehrberuf Mechatronik bei KNAPP erfolgreich mit der LAP abgeschlossen. Nun hast du dir ein weiteres Ziel gesetzt: Du möchtest studieren und deine Karriere so richtig in Schwung bringen. Viel Erfolg!\nBeantworte eine Frage und rücke 3 Felder vor."
+      },
+      {
+        "id": 39,
+        "text": "Du hast die Matura erfolgreich bestanden und startest deine Karriere als Inbetriebnehmer bei KNAPP. In deinem neuen Job bringst du die modernen Anlagensysteme von KNAPP weltweit zum Laufen.\nViel Erfolg bei deiner neuen beruflichen Herausforderung!\nFür den perfekten Start darfst du noch einmal würfeln."
+      },
+      {
+        "id": 40,
+        "text": "Du fliegst als Bauleiter/in bei der PORR dienstlich zu einer wichtigen Baubesprechung aufgrund eines neuen Bauprojekts nach Katar.\nLeider hat dein Flug Verspätung.\nSetze daher eine Runde aus!"
+      },
+      {
+        "id": 41,
+        "text": "Du bist im Sommer einen Monat lang als Praktikant/in bei der PORR im Einsatz und unterstützt die Bauleitung vor Ort auf der Baustelle.\nDafür kassierst du eine Prämie in der Höhe von EUR 100."
+      },
+      {
+        "id": 42,
+        "text": "Als Lehrling bei PORR glänzt du, durch deine Ausdauer und deine hervorragende Leistung.\nMache 10 Sit-ups und du erhältst als Prämie EUR 100."
+      },
+      {
+        "id": 43,
+        "text": "Als Mitarbeiter:in bei Pankl hast du Getriebekomponenten für das offizielle Moto-GP-Bike von KTM hergestellt.\nDurch deine Arbeit hat KTM die diesjährige Meisterschaft gewonnen.\nWürfle noch einmal."
+      },
+      {
+        "id": 44,
+        "text": "Du hast dich dazu entschlossen, nach deiner Lehre als Zerspanungstechniker:in die Meisterschule zu machen und zu absolvieren. Pankl unterstützt dich dabei.\nDu darfst zum Spielfeld von Pankl springen."
+      },
+      {
+        "id": 45,
+        "text": "Dein Store hat den monatlichen JYSK Store-Wettbewerb gewonnen und damit überholt ihr die anderen Stores in der Gesamtwertung.\nDu darfst 2 Felder vorrücken."
+      },
+      {
+        "id": 46,
+        "text": "Dein Kunde verlässt freudestrahlend den JYSK Store. Er freut sich schon sehr auf seine ergonomische Matratze, die du ihm im Beratungsgespräch empfohlen hast.\nWürfel noch einmal."
+      },
+      {
+        "id": 47,
+        "text": "Du hast das 3. Lehrjahr erfolgreich abgeschlossen und auch ein tolles Feedback von deinem Store Manager erhalten.\nDu bekommst dafür EUR 300 als Führerscheinprämie von JYSK."
+      },
+      {
+        "id": 48,
+        "text": "Du hast dich durch die Teilnahme an einem IGO Academy-Seminar erfolgreich weitergebildet.\nZusätzlich zu deinem Zertifikat erhältst du eine Erfolgsprämie über EUR 300."
+      },
+      {
+        "id": 49,
+        "text": "Du hast dein erstes Großprojekt (Auftragssumme 20 Mio EUR) bei IGO Industries erfolgreich umgesetzt.\nMach weiter so und würfle nochmal."
+      },
+      {
+        "id": 50,
+        "text": "Das Outsourcing deiner Logistik an Gebrüder Weiss macht sich bezahlt. Du sparst Kapazitäten und kannst dich mehr auf dein eigenes Kerngeschäft konzentrieren.\nDu erhältst EUR 500 und darfst noch einmal würfeln."
+      },
+      {
+        "id": 51,
+        "text": "Deine Ware aus Georgien hängt an der Grenze fest, da du dich für die Zollabwicklung nicht an einen erfahrenen Experten wie Gebrüder Weiss gewandt hast.\nSetze einmal aus."
+      },
+      {
+        "id": 52,
+        "text": "Du hast deine Ausbildung zum/zur SpeditionslogistikerIn bei Gebrüder Weiss absolviert.\nDie Abschlussprüfung hast du mit Auszeichnung bestanden.\nDu kannst stolz auf dich sein und du hast dir eine Belohnung verdient.\nRücke vor auf das Feld von Gebrüder Weiss und hole dir eine Prämie von EUR 450 ab."
+      },
+      {
+        "id": 53,
+        "text": "Du nutzt noch nicht die Post APP mit der du deine Pakete immer im Blick hast?\nLaufe 30 Sekunden am Stand."
+      },
+      {
+        "id": 54,
+        "text": "Mit AllesPost hast du deine Sendungen voll unter Kontrolle.\nDafür erhältst du einen tosenden Applaus von allen Mitspielenden."
+      },
+      {
+        "id": 55,
+        "text": "Dein Flugblatt wurde durch die Österreichische Post AG genau in dem für dich passenden Umkreis verteilt.\nDeine Verkaufszahlen steigen dadurch deutlich und du erhältst EUR 200."
+      },
+      {
+        "id": 56,
+        "text": "Nach deiner Schulausbildung wirst du Trainee bei THALES. Dabei durchläufst du drei Stationen, in denen du dein Wissen in die Praxis umsetzen kannst.\nRücke 3 Felder vor."
+      },
+      {
+        "id": 57,
+        "text": "Ein Schulausflug führt dich zu THALES. Viele MitarbeiterInnen nehmen sich für deine Klasse Zeit und beantworten eure Fragen. Im Eifer des Gefechts überseht ihr dabei die Zeit.\nSetze eine Runde aus."
+      },
+      {
+        "id": 58,
+        "text": "Für ein Referat über Frauen in MINT Berufen befragst du eine Mitarbeiterin von THALES. Du erfährst über ihre Karriereschritte von der Sport Managerin zur Projekt Managerin und nun System Ingenieurin. Du erkennst, dass du alles erreichen kannst.\nWürfle noch einmal."
+      },
+      {
+        "id": 59,
+        "text": "Als Lagermitarbeiter/in bei der Frauenthal Handel Gruppe hast du eine Idee eingebracht, um die Lieferkette für deine Kunden weiter zu optimieren.\nDu erhältst eine Prämie von EUR 150."
+      },
+      {
+        "id": 60,
+        "text": "Deine Abwasserleitungen sind nicht von der Frauenthal Handel Gruppe.\nDurch einen Wasserrohrbruch ist dein Verwaltungsgebäude überschwemmt und du kannst einen Auftrag nicht annehmen.\nSetze eine Runde aus und bezahle EUR 100 für die Reparatur."
+      },
+      {
+        "id": 61,
+        "text": "Dein Installateur arbeitet mit Produkten der Frauental Handel Gruppe, was zu einer vorzeitigen Fertigstellung der Sanierung aller Sanitärräume in deiner Betriebsstätte führt.\nDu kannst rasch wieder in Betrieb gehen und darfst zu einem deiner Unternehmen springen."
+      },
+      {
+        "id": 62,
+        "text": "Du hast deine Lehre bei den ÖBB abgeschlossen und startest jetzt deine Ausbildung zur/zum Lokführer:in.\nWürfle noch einmal."
+      },
+      {
+        "id": 63,
+        "text": "Du fährst mit den ÖBB in den Ferien durch Österreich und erkundest dabei neue Plätze.\nSpringe zu einem Unternehmen deiner Wahl."
+      },
+      {
+        "id": 64,
+        "text": "Du fährst mit dem ÖBB Nightjet nach Amsterdam anstatt mit dem Flugzeug zu fliegen.\nFür dein umweltbewusstes Verhalten erhältst du EUR 100."
+      },
+      {
+        "id": 65,
+        "text": "Du bist als Ärztin/Arzt in der Steiermärkischen Krankenanstalten-gesellschaft m.b.H.(KAGes) tätig und erhältst für deine medizinischen Leistungen mit deinem Team eine europaweite Auszeichnung.\nAls Prämie erhältst du EUR 250."
+      },
+      {
+        "id": 66,
+        "text": "In der Steiermärkischen Kranken-anstaltengesellschaft m.b.H.(KAGes) spezialisierst du dich im Bereich Intensivpflege. Du übernimmst nun die komplexe Überwachung von lebensbedrohlich erkrankten PatientInnen.\nDu darfst erneut würfeln."
+      },
+      {
+        "id": 67,
+        "text": "Du hast ein Profil bei Lehrstellenportal angelegt und wurdest von einem attraktiven Lehrbetrieb für ein Duales Studium angesprochen.\nDas motiviert dich und du darfst noch einmal würfeln."
+      },
+      {
+        "id": 68,
+        "text": "Bei Lehrstellenportal hast du mit dem Matching eine Lehre gefunden, die perfekt zu dir passt.\nDas feierst du mit FreundInnen und zahlst EUR 100."
+      },
+      {
+        "id": 69,
+        "text": "Du hast mit den Tipps auf Lehrstellenportal eine Bewerbung geschrieben und wurdest zu einem Vorstellungsgespräch eingeladen.\nHerzlichen Glückwunsch!\nWürfel noch einmal."
+      },
+      {
+        "id": 70,
+        "text": "Du hast als Lehrling in deiner Abteilung eine gute Idee gehabt, die nun umgesetzt wird. Damit leistest du einen wertvollen Beitrag, damit sich die Stadt Graz zum modernsten Stadtmanagement Europas entwickelt.\nRücke 4 Felder vor."
+      },
+      {
+        "id": 71,
+        "text": "Mit deinem Unternehmen hast du in Oberösterreich eine Bildungsinitative gestartet. Die Oberösterreichische Landesregierung fördert dieses Engagement.\nDu erhältst EUR 250 als Förderung für das Projekt."
+      },
+      {
+        "id": 72,
+        "text": "Du willst die Cyber Security in deinem Umspannwerk verbessern und beauftragst OMICRON das perfekte Sicherheitssystem dafür zu entwickeln.\nSpringe dafür auf das Feld von OMICRON."
+      },
+      {
+        "id": 73,
+        "text": "Du planst mit Unterstützung des Österreichischen Städtebundes einen neuen Radweg und Radabstellanlagen in deiner Stadt.\nDafür bekommst du einen Umweltpreis in der Höhe von EUR 100."
+      },
+      {
+        "id": 74,
+        "text": "Du organisierst mit Unterstützung des Österreichischen Städtebundes eine öffentliche Aktion zum Equal Pay Day, um auf die Einkommensunterschiede zwischen Frauen und Männern aufmerksam zu machen.\nRücke zum Städtebund-Feld vor."
+      },
+      {
+        "id": 75,
+        "text": "Du hast deine Lehre bei BIPA erfolgreich absolviert und bist nun bestens gerüstet für deine Karriere im Vertrieb.\nDas bringt dir einen Bonus von EUR 150."
+      },
+      {
+        "id": 76,
+        "text": "Du hast dich dazu entschlossen, neben deiner Lehre auch die Matura zu machen. BIPA unterstützt dich dabei. Damit gibst du deiner Karriere einen Extraschub.\nWürfle noch einmal."
+      },
+      {
+        "id": 77,
+        "text": "Du erweiterst deine Firma um weitere Niederlassungen. Zur Entlastung überträgst du das komplette Abfallmanagement an die FCC Austria Abfall Service AG.\nRücke auf ein beliebiges Feld vor(ausgenommen Start)."
+      },
+      {
+        "id": 78,
+        "text": "Gemeinsam mit deinem Team arbeitest du bei der FCC Austria Abfall Service AG an einer KI-gestützten Methode zur verbesserten Abfallsortierung.\nIhr gewinnt damit einen Nachwuchspreis und du erhältst einen Bonus von EUR 150."
+      },
+      {
+        "id": 79,
+        "text": "Auf deinem Arbeitsweg zur FCC Austria Abfall Service AG holst du dir einen „Coffee-to-go“.\nDu verwendest dafür deinen eigenen, wiederverwendbaren Thermobecher.\nDu verzichtest auf Einwegbecher und trägst damit zum Umweltschutz bei.\nRücke 2 Felder vor."
+      },
+      {
+        "id": 80,
+        "text": "Durch Missachtung von Sicherheitsvorschriften erhöht sich zwar kurzfristig dein Gewinn, langfristig fallen deine MitarbeiterInnen aber unfall-/ krankheitsbedingt aus.\nEs kommt dadurch zu einem Produktionsengpass.\nSetze eine Runde aus."
+      },
+      {
+        "id": 81,
+        "text": "Durch langjähriges, konsequentes Weiterentwickeln von Maßnahmen zur Erhöhung der Arbeitssicherheit und Gesundheit deiner MitarbeiterInnen, in Zusammenarbeit mit der AUVA, wird dein Unternehmen im Rahmen einer Enquete ausgezeichnet.\nDu erhältst EUR 500."
+      },
+      {
+        "id": 82,
+        "text": "Durch den Rückgang von Unfällen in deinem Betrieb erhöht sich gleichzeitig die Sicherheit und Gesundheit deiner MitarbeiterInnen.\nFür deine Initiative erhältst du EUR 100 Prämie."
+      },
+      {
+        "id": 83,
+        "text": "TRUMPF hat als Innovationsgarant eine neue Blechbearbeitungsmaschine erfolgreich in den Markt eingeführt.\nFür deine Mithilfe erhältst du EUR 100 und darfst noch einmal würfeln."
+      },
+      {
+        "id": 84,
+        "text": "Du fällst auf die Cyberattacke eines Betrügers herein. Informationen aus deinem Unternehmen gehen verloren.\nUm dies in Zukunft zu verhindern, beauftragst du BearingPoint damit, die beste Lösung für Datensicherheit zu finden.\nBezahle EUR 100 an BearingPoint.\n(Ist das Unternehmen noch nicht verkauft, bezahle an die Bank.)"
+      },
+      {
+        "id": 85,
+        "text": "Dank der Beratung durch Equans, bringst du die Haustechnik in deinem Firmengebäude auf den modernsten Stand der Technik und steigerst deine Energieeffizienz.\nRücke zu deinem nächsten Unternehmen vor."
+      },
+      {
+        "id": 86,
+        "text": "Du investierst in eine neue Geschäftsidee. Ob du damit Gewinn oder Verlust machst, liegt nun nicht mehr in deiner Hand.\nWürfelst du eine gerade Zahl, gewinnst du EUR 200; würfelst du eine ungerade Zahl verlierst du EUR 100."
+      },
+      {
+        "id": 87,
+        "text": "Soziale Gerechtigkeit!\nDer/die SpielerIn mit den meisten Unternehmen muss ein Unternehmen seiner/ihrer Wahl an den/die SpielerIn mit den wenigsten Unternehmen kostenlos abgeben.\nBei Gleichstand wird gewürfelt."
+      },
+      {
+        "id": 88,
+        "text": "Behalte diese Karte!\nWenn du eine Frage falsch beantwortest, darfst du gegen Rückgabe dieser Karte trotzdem gründen, investieren oder in eine AG umwandeln."
+      },
+      {
+        "id": 89,
+        "text": "Hüpfe auf einem Bein um den Tisch herum oder zahle allen Mitspielenden je EUR 100."
+      },
+      {
+        "id": 90,
+        "text": "Es kommt zu Lieferverzögerungen. Du kannst deinen Auftrag nicht rechtzeitig fertigstellen und musst dem Auftraggeber die Kosten erlassen.\nZahle dem/der letzten MitspielerIn, der/die auf deinem Unternehmen gelandet ist, die Auftragskosten zurück."
+      }
+    ]
+  }

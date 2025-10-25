@@ -7,4 +7,9 @@ public class JoinMultiplayer : MonoBehaviour
 	{
 		SceneManager.LoadScene("MainScene");
 	}
+
+	public void LoadMenu()
+	{
+		SceneManager.LoadScene("MenuScene");
+	}
 }
