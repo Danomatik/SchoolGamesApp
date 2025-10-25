@@ -436,7 +436,7 @@ public class GameManager : MonoBehaviour
                 ? activePlayer.transform.GetChild(0)
                 : activePlayer.transform;
 
-            cam.Lens.OrthographicSize = defaultLens;
+            SetTargetSize(defaultLens);
             cam.Follow = playerChild;
             if (camBrain.IsBlending && camBrain.ActiveBlend != null)
             {
@@ -560,7 +560,7 @@ public class GameManager : MonoBehaviour
 
         // Focus camera on dice
         cam.Follow = diceTargetGroup.transform;
-        cam.Lens.OrthographicSize = diceLensSize;
+        SetTargetSize(diceLensSize);
 
 
         // Wait until both dice stop moving
