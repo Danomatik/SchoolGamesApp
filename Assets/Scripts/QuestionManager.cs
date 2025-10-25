@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -20,6 +21,14 @@ public class QuestionManager : MonoBehaviour
     private QuestionDatabase questionDatabase;
     private List<QuestionData> allQuestions = new List<QuestionData>();
     private QuizField[] quizFields;
+
+    [Header("UI Elements")] // NEUER ABSCHNITT
+    public GameObject quizPanel; // Ihr UI-Panel
+    public TextMeshProUGUI questionText; // Das TMP-Feld für die Frage
+    public TextMeshProUGUI questionID; // Array von TMP-Feldern für die Antworten (z.B. 4 Stück)
+    // Optional: Buttons für die Antworten
+    public TextMeshProUGUI[] optionTexts; // Array von TMP-Feldern für die Antworten (z.B. 4 Stück)
+    // Optional: Buttons für die Antworten
 
     void Start()
     {
@@ -112,8 +121,9 @@ public class QuestionManager : MonoBehaviour
                 string marker = (i == question.correctIndex) ? "✓" : " ";
                 optionsText += $"\n  {marker} {i + 1}. {question.options[i]}";
             }
-            
+
             Debug.Log($"Question #{question.id}: {question.text}{optionsText}\nCorrect Answer: {question.correctIndex + 1}");
+
         }
     }
 
@@ -129,7 +139,7 @@ public class QuestionManager : MonoBehaviour
         {
             return;
         }
-        
+
         foreach (QuizField quizField in quizFields)
         {
             if (quizField.fieldIndex == fieldPosition)
@@ -139,4 +149,39 @@ public class QuestionManager : MonoBehaviour
             }
         }
     }
+    
+    // In QuestionManager.cs
+
+public void ShowQuestionInUI()
+{
+    QuestionData question = GetRandomQuestion(); // Holt eine zufällige Frage
+    if (question == null) return; // Wenn keine Frage da ist, hör auf
+
+    // 1. Panel aktivieren
+    if (quizPanel != null) quizPanel.SetActive(true);
+
+        // 2. Fragetext setzen
+        if (questionText != null) questionText.text = question.text;
+
+        if (questionID != null) questionID.text = question.id.ToString();
+
+    // 3. Antwortoptionen setzen
+    if (optionTexts != null)
+    {
+        for (int i = 0; i < optionTexts.Length; i++)
+        {
+            if (i < question.options.Length) // Nur so viele Optionen anzeigen, wie die Frage hat
+            {
+                optionTexts[i].text = $"{i + 1}. {question.options[i]}";
+                optionTexts[i].gameObject.SetActive(true); // Sicherstellen, dass das Textfeld sichtbar ist
+            }
+            else
+            {
+                optionTexts[i].gameObject.SetActive(false); // Übrige Textfelder ausblenden
+            }
+        }
+    }
+
+    // Hier könnten Sie noch die Logik für Antwort-Buttons hinzufügen
+}
 }
