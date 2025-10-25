@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class QuestionManager : MonoBehaviour
 {
@@ -27,8 +29,10 @@ public class QuestionManager : MonoBehaviour
     public TextMeshProUGUI questionText; // Das TMP-Feld für die Frage
     public TextMeshProUGUI questionID; // Array von TMP-Feldern für die Antworten (z.B. 4 Stück)
     // Optional: Buttons für die Antworten
-    public TextMeshProUGUI[] optionTexts; // Array von TMP-Feldern für die Antworten (z.B. 4 Stück)
-    // Optional: Buttons für die Antworten
+    public Button[] optionButtons; // NEU: Array für die Antwort-Buttons
+    public TextMeshProUGUI[] optionButtonTexts; // NEU: Array für die Texte AUF den Buttons
+
+    private int currentCorrectIndex = -1; // NEU: Merkt sich den korrekten Index
 
     void Start()
     {
@@ -149,39 +153,102 @@ public class QuestionManager : MonoBehaviour
             }
         }
     }
-    
+
     // In QuestionManager.cs
 
-public void ShowQuestionInUI()
-{
-    QuestionData question = GetRandomQuestion(); // Holt eine zufällige Frage
-    if (question == null) return; // Wenn keine Frage da ist, hör auf
+    // In QuestionManager.cs
+    public void ShowQuestionInUI()
+    {
+        QuestionData question = GetRandomQuestion();
+        if (question == null) return;
 
-    // 1. Panel aktivieren
-    if (quizPanel != null) quizPanel.SetActive(true);
+        currentCorrectIndex = question.correctIndex; // Korrekten Index speichern
 
-        // 2. Fragetext setzen
+        if (quizPanel != null) quizPanel.SetActive(true);
         if (questionText != null) questionText.text = question.text;
-
         if (questionID != null) questionID.text = question.id.ToString();
 
-    // 3. Antwortoptionen setzen
-    if (optionTexts != null)
-    {
-        for (int i = 0; i < optionTexts.Length; i++)
+        if (optionButtons != null && optionButtonTexts != null)
         {
-            if (i < question.options.Length) // Nur so viele Optionen anzeigen, wie die Frage hat
+            for (int i = 0; i < optionButtons.Length; i++)
             {
-                optionTexts[i].text = $"{i + 1}. {question.options[i]}";
-                optionTexts[i].gameObject.SetActive(true); // Sicherstellen, dass das Textfeld sichtbar ist
-            }
-            else
-            {
-                optionTexts[i].gameObject.SetActive(false); // Übrige Textfelder ausblenden
+                if (i < question.options.Length)
+                {
+                    optionButtonTexts[i].text = question.options[i]; // Text auf dem Button setzen
+                    optionButtons[i].gameObject.SetActive(true);
+
+                    // --- Button-Logik hinzufügen ---
+                    int buttonIndex = i; // Wichtig: Index in lokaler Variable speichern für den Listener
+                    optionButtons[i].onClick.RemoveAllListeners(); // Alte Listener entfernen (wichtig!)
+                    optionButtons[i].onClick.AddListener(() => HandleAnswer(buttonIndex)); // Neuen Listener hinzufügen
+
+                    // Button-Farbe zurücksetzen (falls vorher falsch/richtig)
+                    optionButtons[i].GetComponent<Image>().color = Color.white; // Oder Ihre Standardfarbe
+                }
+                else
+                {
+                    optionButtons[i].gameObject.SetActive(false);
+                }
             }
         }
     }
 
-    // Hier könnten Sie noch die Logik für Antwort-Buttons hinzufügen
-}
+    // In QuestionManager.cs
+    public void HandleAnswer(int selectedIndex)
+    {
+        Debug.Log($"Antwort {selectedIndex + 1} ausgewählt.");
+
+        // Alle Buttons vorübergehend deaktivieren, um Mehrfachklicks zu verhindern
+        foreach (Button btn in optionButtons)
+        {
+            btn.interactable = false;
+        }
+
+        // Prüfen, ob die Antwort korrekt ist
+        if (selectedIndex == currentCorrectIndex)
+        {
+            Debug.Log("RICHTIG!");
+            // Visuelles Feedback für richtige Antwort (z.B. Button grün färben)
+            if (optionButtons[selectedIndex] != null)
+                optionButtons[selectedIndex].GetComponent<Image>().color = Color.green;
+
+            // Hier Logik einfügen, was bei richtiger Antwort passieren soll
+            // z.B. GameManager.Instance.AwardBonus(); 
+        }
+        else
+        {
+            Debug.Log("FALSCH!");
+            // Visuelles Feedback für falsche Antwort (z.B. geklickten Button rot färben)
+            if (optionButtons[selectedIndex] != null)
+                optionButtons[selectedIndex].GetComponent<Image>().color = Color.red;
+
+            // Optional: Den richtigen Button grün hervorheben
+            if (currentCorrectIndex >= 0 && currentCorrectIndex < optionButtons.Length && optionButtons[currentCorrectIndex] != null)
+                optionButtons[currentCorrectIndex].GetComponent<Image>().color = Color.green;
+
+            // Hier Logik einfügen, was bei falscher Antwort passieren soll
+            // z.B. GameManager.Instance.ApplyPenalty();
+        }
+
+        // Nach kurzer Pause das Panel schließen und Buttons reaktivieren
+        StartCoroutine(ClosePanelAfterDelay(2.0f)); // Schließt nach 2 Sekunden
+    }
+    
+    // In QuestionManager.cs (braucht oben: using System.Collections;)
+    private IEnumerator ClosePanelAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay); // Wartezeit
+
+        if (quizPanel != null) quizPanel.SetActive(false); // Panel ausblenden
+
+        // Buttons wieder aktivieren für die nächste Frage
+        foreach (Button btn in optionButtons)
+        {
+            btn.interactable = true; 
+        }
+
+        // Optional: Hier den GameManager informieren, dass die Quiz-Interaktion beendet ist,
+        // damit der Zug fortgesetzt/beendet werden kann.
+        // GameManager.Instance.QuizCompleted(); 
+    }
 }
