@@ -5499,7 +5499,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.06666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 1684c0c306695864cb5c28a99599ea82, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2c0a4fbcd8bea3c4c8404788e2751067, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1535729227
 GameObject:
@@ -7272,7 +7272,7 @@ MonoBehaviour:
   cam: {fileID: 1211106364}
   smoothSpeed: 5
   defaultLens: 3.55
-  targetOrthoSize: 0
+  targetOrthoSize: 3.55
   dice1: {fileID: 1832168576}
   dice2: {fileID: 1348870187}
   spawnPos1: {fileID: 1497075296}
