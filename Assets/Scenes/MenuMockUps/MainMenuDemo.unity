@@ -298,6 +298,7 @@ GameObject:
   m_Component:
   - component: {fileID: 303546599}
   - component: {fileID: 303546600}
+  - component: {fileID: 303546601}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -322,11 +323,11 @@ RectTransform:
   - {fileID: 313508610}
   m_Father: {fileID: 293521047}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13.957214, y: 0}
-  m_SizeDelta: {x: 400, y: 460}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1170, y: 460}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &303546600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +354,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &303546601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303546598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c33d1bcd566a8e4aad5137acaafe342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &313508609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -431,7 +444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7632850610912603390, guid: cf0f180180a4fa5438812eb72c873f07, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 585
       objectReference: {fileID: 0}
     - target: {fileID: 7632850610912603390, guid: cf0f180180a4fa5438812eb72c873f07, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -537,7 +550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7632850610912603390, guid: cf0f180180a4fa5438812eb72c873f07, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 585
       objectReference: {fileID: 0}
     - target: {fileID: 7632850610912603390, guid: cf0f180180a4fa5438812eb72c873f07, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1078,7 +1091,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7632850610912603390, guid: cf0f180180a4fa5438812eb72c873f07, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 585
       objectReference: {fileID: 0}
     - target: {fileID: 7632850610912603390, guid: cf0f180180a4fa5438812eb72c873f07, type: 3}
       propertyPath: m_AnchoredPosition.y
