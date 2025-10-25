@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq; // Für .First() benötigt
 
 public class GameManager : MonoBehaviour
 {
@@ -17,8 +18,12 @@ public class GameManager : MonoBehaviour
 
     [Header("Managers")]
     [SerializeField] private QuestionManager questionManager;
-    [SerializeField]
-    private BankCardManager bankCardManager;
+    [SerializeField] private BankCardManager bankCardManager;
+    [SerializeField] private UIManager uiManager;
+
+    private CompanyConfigCollection companyConfigs;
+    public List<CompanyField> companyFields = new List<CompanyField>();
+
 
     [Header("Camera")]
     public CinemachineCamera cam;
@@ -42,15 +47,38 @@ public class GameManager : MonoBehaviour
 
     private bool rolling = false;
 
+    // Pending für Quiz-Kauf/Upgrade
+    private struct PendingPurchase
+    {
+        public CompanyConfigData company;
+        public CompanyField field;
+        public PlayerData player;
+        public CompanyLevel targetLevel;
+        public bool isActive;
+    }
+    private PendingPurchase pending;
+
+
     // ============================================================
     // 🏁 UNITY METHODS
     // ============================================================
+    void Awake()
+    {
+        if (!questionManager) questionManager = GetComponent<QuestionManager>();
+        if (!bankCardManager) bankCardManager = GetComponent<BankCardManager>();
+        if (!uiManager) uiManager = GetComponent<UIManager>();
+    }
+
     void Start()
     {
+        LoadCompanyConfigs();
+
         CurrentGame = new GameState();
 
         // Initialize board layout - all fields are Company by default
-        InitializeBoardLayout();
+        InitializeBoardLayout();     // <-- ZUERST das Layout setzen
+        InitializeCompanyFields();   // <-- DANN die companyFields daraus bauen
+
 
         // Spieler 1
         PlayerData humanPlayer = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
@@ -66,6 +94,171 @@ public class GameManager : MonoBehaviour
         TestCurrencySystem();
     }
 
+    void LoadCompanyConfigs()
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>("Data/Schoolgames_Companies");
+        if (jsonFile == null)
+        {
+            Debug.LogError("Schoolgames_Companies.json nicht in Assets/Resources/Data/ gefunden!");
+            companyConfigs = new CompanyConfigCollection { companies = new List<CompanyConfigData>() };
+            return;
+        }
+        companyConfigs = JsonUtility.FromJson<CompanyConfigCollection>(jsonFile.text);
+        if (companyConfigs?.companies == null)
+            companyConfigs = new CompanyConfigCollection { companies = new List<CompanyConfigData>() };
+
+        Debug.Log($"Companies geladen: {companyConfigs.companies.Count}");
+    }
+
+    void InitializeCompanyFields()
+    {
+        companyFields.Clear();
+
+        var takeda = companyConfigs?.companies?.FirstOrDefault();
+        if (takeda == null)
+        {
+            Debug.LogError("Kein Unternehmen in JSON gefunden!");
+            return;
+        }
+
+        for (int i = 0; i < boardLayout.Length; i++)
+        {
+            if (boardLayout[i] == FieldType.Company)
+            {
+                companyFields.Add(new CompanyField
+                {
+                    fieldIndex = i,
+                    companyID = takeda.companyID,
+                    ownerID = -1,
+                    level = CompanyLevel.None
+                });
+            }
+        }
+    }
+
+    CompanyConfigData GetCompanyConfig(int id)
+    {
+        return companyConfigs?.companies?.FirstOrDefault(c => c.companyID == id)
+            ?? companyConfigs?.companies?.FirstOrDefault();
+    }
+
+    void HandleCompanyField(CompanyField field)
+    {
+        var current = GetCurrentPlayer();
+        var company = GetCompanyConfig(field.companyID);
+
+        if (field.ownerID == -1)
+        {
+            // frei -> Kauf anbieten
+            uiManager.ShowCompanyPurchase(company, field, current);
+            // Zug NICHT beenden – OnQuizResult übernimmt das
+        }
+        else if (field.ownerID == current.PlayerID)
+        {
+            // eigenes Feld -> Upgrades anbieten (falls nicht max)
+            if (field.level == CompanyLevel.None || field.level == CompanyLevel.Founded || field.level == CompanyLevel.Invested)
+                uiManager.ShowUpgradeOptions(company, field, current);
+            else
+                EndTurn(); // schon AG
+        }
+        else
+        {
+            // fremdes Feld -> Miete zahlen
+            var owner = CurrentGame.AllPlayers.FirstOrDefault(p => p.PlayerID == field.ownerID);
+            PayRent(current, owner, company, field);
+            EndTurn();
+        }
+    }
+
+    void PayRent(PlayerData payer, PlayerData owner, CompanyConfigData company, CompanyField field)
+    {
+        int rent = 0;
+        switch (field.level)
+        {
+            case CompanyLevel.Founded:  rent = company.revenueFound;  break;
+            case CompanyLevel.Invested: rent = company.revenueInvest; break;
+            case CompanyLevel.AG:       rent = company.revenueAG;     break;
+        }
+        if (rent <= 0) return;
+
+        if (payer.Money >= rent)
+        {
+            payer.Money -= rent;
+            owner.Money += rent;
+            Debug.Log($"Spieler {payer.PlayerID} zahlt {rent}€ an Spieler {owner.PlayerID}");
+        }
+        else
+        {
+            Debug.LogWarning($"Spieler {payer.PlayerID} kann Miete {rent}€ nicht zahlen.");
+        }
+    }
+
+    public void StartQuizForCompany(CompanyConfigData company, CompanyField field, PlayerData player, CompanyLevel targetLevel)
+    {
+        pending = new PendingPurchase
+        {
+            company = company,
+            field = field,
+            player = player,
+            targetLevel = targetLevel,
+            isActive = true
+        };
+
+        if (questionManager != null)
+        {
+            questionManager.PrintRandomQuestion();
+            questionManager.ShowQuestionInUI();
+        }
+        else
+        {
+            Debug.LogWarning("QuestionManager fehlt – simuliere Erfolg.");
+            OnQuizResult(true);
+        }
+    }
+
+    public void OnQuizResult(bool correct)
+    {
+        if (!pending.isActive)
+        {
+            EndTurn();
+            return;
+        }
+
+        if (!correct)
+        {
+            Debug.Log("Quiz nicht bestanden. Kauf/Upgrade abgelehnt.");
+            pending = default;
+            EndTurn();
+            return;
+        }
+
+        int cost = 0;
+        switch (pending.targetLevel)
+        {
+            case CompanyLevel.Founded:  cost = pending.company.costFound;  break;
+            case CompanyLevel.Invested: cost = pending.company.costInvest; break;
+            case CompanyLevel.AG:       cost = pending.company.costAG;     break;
+        }
+
+        if (pending.player.Money < cost)
+        {
+            Debug.Log("Nicht genug Geld für Kauf/Upgrade.");
+            pending = default;
+            EndTurn();
+            return;
+        }
+
+        pending.player.Money -= cost;
+        pending.field.ownerID = pending.player.PlayerID;
+        pending.field.level   = pending.targetLevel;
+
+        Debug.Log($"Spieler {pending.player.PlayerID} hat {pending.company.companyName} → {pending.targetLevel} gekauft/aufgerüstet (−{cost}€).");
+        pending = default;
+        EndTurn();
+    }
+
+
+
     private void InitializeBoardLayout()
     {
         // Set all fields to Bank by default
@@ -73,7 +266,7 @@ public class GameManager : MonoBehaviour
         {
             boardLayout[i] = FieldType.Company;
         }
-        
+
         // Set specific fields to other types
         boardLayout[0] = FieldType.Start; // Starting field
         // You can add more specific fields here if needed
@@ -142,13 +335,11 @@ public class GameManager : MonoBehaviour
         UpdateAgentPriorities();
         PlayerData nextPlayer = GetCurrentPlayer();
         if (nextPlayer != null)
-        {
             Debug.Log($"Zug beendet. Spieler {nextPlayer.PlayerID} ist jetzt an der Reihe.");
-        }
         else
-        {
             Debug.LogError("EndTurn: Could not get next player!");
-        }
+
+        isTurnInProgress = false;   // <-- WICHTIG: Flag zurücksetzen
     }
 
     // ============================================================
@@ -190,15 +381,21 @@ public class GameManager : MonoBehaviour
                 case FieldType.Start:
                     Debug.Log("Player landed on Start field!");
                     break;
-                    
+
                 case FieldType.Company:
+                {
                     Debug.Log("Player landed on Company field!");
-                    if (questionManager != null)
+                    var field = companyFields.FirstOrDefault(f => f.fieldIndex == finalPosition);
+                    if (field == null)
                     {
-                        questionManager.PrintRandomQuestion();
-                        questionManager.ShowQuestionInUI();
+                        Debug.LogError($"Kein CompanyField für Position {finalPosition} gefunden.");
+                        EndTurn();
+                        return;
                     }
-                    break;
+                    HandleCompanyField(field);
+                    return; // wichtig: kein EndTurn() hier; Flow entscheidet
+                }
+
                     
                 case FieldType.Bank:
                     Debug.Log("Player landed on Bank field!");
