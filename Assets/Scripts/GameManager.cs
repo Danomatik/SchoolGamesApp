@@ -95,18 +95,61 @@ public class GameManager : MonoBehaviour
         if (boardVisuals != null) boardVisuals.RefreshAll(companyFields);
 
         // Spieler 1
-        PlayerData humanPlayer = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(humanPlayer);
+        PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
+        CurrentGame.AllPlayers.Add(Player1);
 
         // Spieler 2
-        PlayerData botPlayer1 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(botPlayer1);
+        PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0 };
+        CurrentGame.AllPlayers.Add(Player2);
 
-        Debug.Log("Neues Spiel mit 2 Spielern gestartet!");
-        Debug.Log($"Spieler 1 hat {humanPlayer.Money} € Startgeld");
+        // Spieler 3
+        PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0 };
+        CurrentGame.AllPlayers.Add(Player3);
 
+        // Spieler 4
+        PlayerData Player4 = new PlayerData { PlayerID = 4, Money = 2500, BoardPosition = 0 };
+        CurrentGame.AllPlayers.Add(Player4);
+
+        // Spieler 5
+        PlayerData Player5 = new PlayerData { PlayerID = 5, Money = 2500, BoardPosition = 0 };
+        CurrentGame.AllPlayers.Add(Player5);
+
+        // Spieler 6
+        PlayerData Player6 = new PlayerData { PlayerID = 6, Money = 2500, BoardPosition = 0 };
+        CurrentGame.AllPlayers.Add(Player6);
+
+        Debug.Log("Neues Spiel gestartet!");
+
+        ValidatePlayersSetup();
         TestCurrencySystem();
     }
+
+
+    private void ValidatePlayersSetup()
+    {
+        // 1) IDs einzigartig?
+        var dupes = CurrentGame.AllPlayers
+            .GroupBy(p => p.PlayerID)
+            .Where(g => g.Count() > 1)
+            .Select(g => g.Key)
+            .ToList();
+
+        if (dupes.Count > 0)
+            Debug.LogError("Duplicate PlayerIDs: " + string.Join(", ", dupes));
+
+        // 2) Hat jede ID einen PlayerCTRL?
+        var ctrlIds = new HashSet<int>(players.Where(p=>p!=null).Select(p => p.PlayerID));
+        var dataIds = new HashSet<int>(CurrentGame.AllPlayers.Select(p => p.PlayerID));
+
+        var missingCtrl = dataIds.Except(ctrlIds).ToList();
+        if (missingCtrl.Count > 0)
+            Debug.LogError("No PlayerCTRL found for PlayerIDs: " + string.Join(", ", missingCtrl));
+
+        var extraCtrl = ctrlIds.Except(dataIds).ToList();
+        if (extraCtrl.Count > 0)
+            Debug.LogWarning("PlayerCTRL exists without PlayerData for IDs: " + string.Join(", ", extraCtrl));
+    }
+
 
     void LoadCompanyConfigs()
     {
@@ -128,26 +171,48 @@ public class GameManager : MonoBehaviour
     {
         companyFields.Clear();
 
-        var takeda = companyConfigs?.companies?.FirstOrDefault();
-        if (takeda == null)
+        if (companyConfigs?.companies == null || companyConfigs.companies.Count == 0)
         {
             Debug.LogError("Kein Unternehmen in JSON gefunden!");
             return;
         }
 
+        // Create a dictionary to quickly lookup companies by ID
+        var companyDict = companyConfigs.companies.ToDictionary(c => c.companyID);
+        Debug.Log($"Companies in JSON: {string.Join(", ", companyConfigs.companies.Select(c => $"ID:{c.companyID}"))}");
+
+        // Iterate through board layout
         for (int i = 0; i < boardLayout.Length; i++)
         {
+            // Only process Company fields (skip Start, Bank, etc.)
             if (boardLayout[i] == FieldType.Company)
             {
-                companyFields.Add(new CompanyField
+                // Check if there's a company for this field index
+                if (companyDict.ContainsKey(i))
                 {
-                    fieldIndex = i,
-                    companyID = takeda.companyID,
-                    ownerID = -1,
-                    level = CompanyLevel.None
-                });
+                    var company = companyDict[i];
+                    companyFields.Add(new CompanyField
+                    {
+                        fieldIndex = i,
+                        companyID = company.companyID,
+                        ownerID = -1,
+                        level = CompanyLevel.None
+                    });
+                    Debug.Log($"Company '{company.companyName}' (ID: {company.companyID}) assigned to field {i}");
+                }
+                else
+                {
+                    // This is a Company field but no company assigned
+                    Debug.LogWarning($"Field {i} is Company type but no company found in JSON for ID {i}");
+                }
+            }
+            else
+            {
+                Debug.Log($"Field {i} is {boardLayout[i]} (not Company)");
             }
         }
+
+        Debug.Log($"Total company fields created: {companyFields.Count}");
     }
 
     CompanyConfigData GetCompanyConfig(int id)
