@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
 public class BankCard
 {
@@ -19,6 +20,10 @@ public class BankCardManager : MonoBehaviour
 {
     private List<BankCard> cards = new List<BankCard>();
     private GameManager gameManager;
+
+    [SerializeField] private BankCardPopup popup;  // im Inspector setzen
+    private BankCard pendingCard;
+
     private bool lastCardWasRollAgain = false;
 
     void Awake()
@@ -54,13 +59,13 @@ public class BankCardManager : MonoBehaviour
             Debug.LogWarning("No bank cards loaded.");
             return;
         }
-        
+
         BankCard picked = cards[Random.Range(0, cards.Count)];
         Debug.Log($"[Bank Card #{picked.id}]: {picked.text}");
-        
+
         // Reset roll again flag
         lastCardWasRollAgain = false;
-        
+
         // Execute action based on card ID
         ExecuteBankCardAction(picked.id);
     }
@@ -100,6 +105,9 @@ public class BankCardManager : MonoBehaviour
                 break;
             case 24: // "Du darfst 2 Felder vorrücken"
                 gameManager.MovePlayer(2);
+                break;
+            case 29: // "Du darfst 2 Felder vorrücken"
+                gameManager.MovePlayerToField(2);
                 break;
             case 30: // "Springe zu einem Unternehmen deiner Wahl"
                 gameManager.MovePlayerToField(0); // Go to start for now
@@ -242,4 +250,58 @@ public class BankCardManager : MonoBehaviour
     {
         return lastCardWasRollAgain;
     }
+
+    public void ShowRandomBankCard()
+    {
+        if (cards == null || cards.Count == 0)
+        {
+            Debug.LogWarning("No bank cards loaded.");
+            // Falls keine Karten: Turn normal beenden
+            gameManager.EndTurn();
+            return;
+        }
+
+        pendingCard = cards[Random.Range(0, cards.Count)];
+        // Debug.Log($"[Bank Card #{pendingCard.id}]: {pendingCard.text}");
+
+        lastCardWasRollAgain = false;
+
+        // WICHTIG: hier klar loggen, ob Popup-Ref fehlt
+        if (popup == null)
+        {
+            Debug.LogWarning("[BankCardManager] popup is NULL -> executing immediately (no UI).");
+            ResolvePendingCard();
+            return;
+        }
+
+        // Debug: ob das Root aktiv wird
+        popup.Show(pendingCard.id, pendingCard.text, ResolvePendingCard);
+    }
+
+    private void ResolvePendingCard()
+    {
+        if (pendingCard == null)
+        {
+            gameManager.EndTurn();
+            return;
+        }
+
+        // Karte ausführen
+        ExecuteBankCardAction(pendingCard.id);
+
+        // Turn-Fortsetzung abhängig von der Karte:
+        if (lastCardWasRollAgain)
+        {
+            // Der Spieler darf nochmal würfeln; Turn NICHT beenden
+            gameManager.RollAgain();
+        }
+        else
+        {
+            // Normales Ende des Bankfelds
+            gameManager.EndTurn();
+        }
+
+        pendingCard = null;
+    }
+
 }
