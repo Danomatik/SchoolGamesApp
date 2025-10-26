@@ -537,6 +537,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator RollRoutine()
     {
+        moveButton.SetActive(false);
         rolling = true;
 
         // Reset dice positions
