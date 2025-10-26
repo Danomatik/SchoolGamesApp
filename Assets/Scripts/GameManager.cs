@@ -331,7 +331,7 @@ public class GameManager : MonoBehaviour
         // Set all fields to Bank by default
         for (int i = 0; i < boardLayout.Length; i++)
         {
-            boardLayout[i] = FieldType.Bank;
+            boardLayout[i] = FieldType.Company;
         }
 
         // Corner fields (Start)
@@ -466,7 +466,7 @@ public class GameManager : MonoBehaviour
                 ? activePlayer.transform.GetChild(0)
                 : activePlayer.transform;
 
-            SetTargetSize(defaultLens);
+            cam.Lens.OrthographicSize = defaultLens;
             cam.Follow = playerChild;
             if (camBrain.IsBlending && camBrain.ActiveBlend != null)
             {
@@ -580,7 +580,7 @@ public class GameManager : MonoBehaviour
 
         // Focus camera on dice
         cam.Follow = diceTargetGroup.transform;
-        SetTargetSize(diceLensSize);
+        cam.Lens.OrthographicSize = diceLensSize;
 
 
         // Wait until both dice stop moving
