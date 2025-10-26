@@ -128,26 +128,48 @@ public class GameManager : MonoBehaviour
     {
         companyFields.Clear();
 
-        var takeda = companyConfigs?.companies?.FirstOrDefault();
-        if (takeda == null)
+        if (companyConfigs?.companies == null || companyConfigs.companies.Count == 0)
         {
             Debug.LogError("Kein Unternehmen in JSON gefunden!");
             return;
         }
 
+        // Create a dictionary to quickly lookup companies by ID
+        var companyDict = companyConfigs.companies.ToDictionary(c => c.companyID);
+        Debug.Log($"Companies in JSON: {string.Join(", ", companyConfigs.companies.Select(c => $"ID:{c.companyID}"))}");
+
+        // Iterate through board layout
         for (int i = 0; i < boardLayout.Length; i++)
         {
+            // Only process Company fields (skip Start, Bank, etc.)
             if (boardLayout[i] == FieldType.Company)
             {
-                companyFields.Add(new CompanyField
+                // Check if there's a company for this field index
+                if (companyDict.ContainsKey(i))
                 {
-                    fieldIndex = i,
-                    companyID = takeda.companyID,
-                    ownerID = -1,
-                    level = CompanyLevel.None
-                });
+                    var company = companyDict[i];
+                    companyFields.Add(new CompanyField
+                    {
+                        fieldIndex = i,
+                        companyID = company.companyID,
+                        ownerID = -1,
+                        level = CompanyLevel.None
+                    });
+                    Debug.Log($"Company '{company.companyName}' (ID: {company.companyID}) assigned to field {i}");
+                }
+                else
+                {
+                    // This is a Company field but no company assigned
+                    Debug.LogWarning($"Field {i} is Company type but no company found in JSON for ID {i}");
+                }
+            }
+            else
+            {
+                Debug.Log($"Field {i} is {boardLayout[i]} (not Company)");
             }
         }
+
+        Debug.Log($"Total company fields created: {companyFields.Count}");
     }
 
     CompanyConfigData GetCompanyConfig(int id)
@@ -301,16 +323,25 @@ public class GameManager : MonoBehaviour
 
     private void InitializeBoardLayout()
     {
-        // Set all fields to Bank by default
+        // Set all fields to Company by default
         for (int i = 0; i < boardLayout.Length; i++)
         {
             boardLayout[i] = FieldType.Company;
         }
 
-        // Set specific fields to other types
-        boardLayout[0] = FieldType.Start; // Starting field
-        // You can add more specific fields here if needed
-        // boardLayout[10] = FieldType.Company; // Example company field
+        // Corner fields (Start)
+        boardLayout[0] = FieldType.Start;
+        boardLayout[10] = FieldType.Start;
+        boardLayout[20] = FieldType.Start;
+        boardLayout[30] = FieldType.Start;
+        
+        // Bank fields (fields without companies in JSON): 5, 7, 13, 23, 27, 37
+        boardLayout[5] = FieldType.Bank;
+        boardLayout[7] = FieldType.Bank;
+        boardLayout[13] = FieldType.Bank;
+        boardLayout[23] = FieldType.Bank;
+        boardLayout[27] = FieldType.Bank;
+        boardLayout[37] = FieldType.Bank;
     }
 
     // ============================================================
@@ -438,11 +469,14 @@ public class GameManager : MonoBehaviour
 
                 case FieldType.Company:
                 {
-                    Debug.Log("Player landed on Company field!");
+                    Debug.Log($"Player landed on Company field! Field {finalPosition}");
+                    Debug.Log($"BoardLayout[{finalPosition}] = {boardLayout[finalPosition]}");
+                    Debug.Log($"Total companyFields: {companyFields.Count}");
                     var field = companyFields.FirstOrDefault(f => f.fieldIndex == finalPosition);
                     if (field == null)
                     {
                         Debug.LogError($"Kein CompanyField für Position {finalPosition} gefunden.");
+                        Debug.Log($"Company fields available: {string.Join(", ", companyFields.Select(f => f.fieldIndex))}");
                         EndTurn();
                         return;
                     }
