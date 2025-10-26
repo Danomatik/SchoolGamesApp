@@ -32,7 +32,11 @@ public class QuestionManager : MonoBehaviour
     public Button[] optionButtons; // NEU: Array für die Antwort-Buttons
     public TextMeshProUGUI[] optionButtonTexts; // NEU: Array für die Texte AUF den Buttons
 
+    [SerializeField]
+    private GameObject moveButton;
     private int currentCorrectIndex = -1; // NEU: Merkt sich den korrekten Index
+    private bool answerLocked = false;
+
 
     void Start()
     {
@@ -156,99 +160,86 @@ public class QuestionManager : MonoBehaviour
 
     // In QuestionManager.cs
 
-    // In QuestionManager.cs
-    public void ShowQuestionInUI()
+   public void ShowQuestionInUI()
     {
-        QuestionData question = GetRandomQuestion();
-        if (question == null) return;
+        // Hole eine Frage wie bisher (dein Code)
+        QuestionData q = GetRandomQuestion();
+        if (q == null) return;
 
-        currentCorrectIndex = question.correctIndex; // Korrekten Index speichern
+        answerLocked = false;
+        currentCorrectIndex = q.correctIndex;
 
         if (quizPanel != null) quizPanel.SetActive(true);
-        if (questionText != null) questionText.text = question.text;
-        if (questionID != null) questionID.text = question.id.ToString();
+        if (moveButton != null) moveButton.SetActive(false); // Würfeln blockieren solange Quiz offen
 
-        if (optionButtons != null && optionButtonTexts != null)
+        if (questionText != null) questionText.text = q.text;
+        if (questionID != null) questionID.text = q.id.ToString();
+
+        // Optionen setzen + Farben zurückstellen
+        for (int i = 0; i < optionButtons.Length; i++)
         {
-            for (int i = 0; i < optionButtons.Length; i++)
-            {
-                if (i < question.options.Length)
-                {
-                    optionButtonTexts[i].text = question.options[i]; // Text auf dem Button setzen
-                    optionButtons[i].gameObject.SetActive(true);
+            bool active = (i < q.options.Length);
+            optionButtons[i].gameObject.SetActive(active);
+            optionButtons[i].interactable = active;
 
-                    // --- Button-Logik hinzufügen ---
-                    int buttonIndex = i; // Wichtig: Index in lokaler Variable speichern für den Listener
-                    optionButtons[i].onClick.RemoveAllListeners(); // Alte Listener entfernen (wichtig!)
-                    optionButtons[i].onClick.AddListener(() => HandleAnswer(buttonIndex)); // Neuen Listener hinzufügen
+            if (active && optionButtonTexts != null && i < optionButtonTexts.Length)
+                optionButtonTexts[i].text = q.options[i];
 
-                    // Button-Farbe zurücksetzen (falls vorher falsch/richtig)
-                    optionButtons[i].GetComponent<Image>().color = Color.white; // Oder Ihre Standardfarbe
-                }
-                else
-                {
-                    optionButtons[i].gameObject.SetActive(false);
-                }
-            }
+            // Farbe zurück auf weiß
+            var img = optionButtons[i].GetComponent<UnityEngine.UI.Image>();
+            if (img) img.color = Color.white;
+
+            // Click-Handler
+            int idx = i;
+            optionButtons[i].onClick.RemoveAllListeners();
+            optionButtons[i].onClick.AddListener(() => HandleAnswer(idx));
         }
     }
 
-    // In QuestionManager.cs
+
     public void HandleAnswer(int selectedIndex)
     {
-        Debug.Log($"Antwort {selectedIndex + 1} ausgewählt.");
+        if (answerLocked) return;
+        answerLocked = true;
 
-        // Alle Buttons vorübergehend deaktivieren, um Mehrfachklicks zu verhindern
-        foreach (Button btn in optionButtons)
+        foreach (var btn in optionButtons) btn.interactable = false;
+
+        bool isCorrect = (selectedIndex == currentCorrectIndex);
+
+        var selectedImg = optionButtons[selectedIndex].GetComponent<UnityEngine.UI.Image>();
+        if (selectedImg) selectedImg.color = isCorrect ? Color.green : Color.red;
+
+        if (!isCorrect && currentCorrectIndex >= 0 && currentCorrectIndex < optionButtons.Length)
         {
-            btn.interactable = false;
+            var correctImg = optionButtons[currentCorrectIndex].GetComponent<UnityEngine.UI.Image>();
+            if (correctImg) correctImg.color = Color.green;
         }
 
-        // Prüfen, ob die Antwort korrekt ist
-        if (selectedIndex == currentCorrectIndex)
-        {
-            Debug.Log("RICHTIG!");
-            // Visuelles Feedback für richtige Antwort (z.B. Button grün färben)
-            if (optionButtons[selectedIndex] != null)
-                optionButtons[selectedIndex].GetComponent<Image>().color = Color.green;
-
-            // Hier Logik einfügen, was bei richtiger Antwort passieren soll
-            // z.B. GameManager.Instance.AwardBonus(); 
-        }
-        else
-        {
-            Debug.Log("FALSCH!");
-            // Visuelles Feedback für falsche Antwort (z.B. geklickten Button rot färben)
-            if (optionButtons[selectedIndex] != null)
-                optionButtons[selectedIndex].GetComponent<Image>().color = Color.red;
-
-            // Optional: Den richtigen Button grün hervorheben
-            if (currentCorrectIndex >= 0 && currentCorrectIndex < optionButtons.Length && optionButtons[currentCorrectIndex] != null)
-                optionButtons[currentCorrectIndex].GetComponent<Image>().color = Color.green;
-
-            // Hier Logik einfügen, was bei falscher Antwort passieren soll
-            // z.B. GameManager.Instance.ApplyPenalty();
-        }
-
-        // Nach kurzer Pause das Panel schließen und Buttons reaktivieren
-        StartCoroutine(ClosePanelAfterDelay(2.0f)); // Schließt nach 2 Sekunden
+        StartCoroutine(FinishQuizAfterDelay(isCorrect, 0.9f));
     }
-    
-    // In QuestionManager.cs (braucht oben: using System.Collections;)
-    private IEnumerator ClosePanelAfterDelay(float delay)
+
+
+    private IEnumerator FinishQuizAfterDelay(bool isCorrect, float delaySeconds)
     {
-        yield return new WaitForSeconds(delay); // Wartezeit
+        yield return new WaitForSeconds(delaySeconds);
 
-        if (quizPanel != null) quizPanel.SetActive(false); // Panel ausblenden
+        // Alle Manager hängen am gleichen GameObject -> direkter Zugriff
+        var gm = GetComponent<GameManager>();
+        if (gm == null) gm = FindObjectOfType<GameManager>(); // Fallback
 
-        // Buttons wieder aktivieren für die nächste Frage
-        foreach (Button btn in optionButtons)
-        {
-            btn.interactable = true; 
-        }
+        // GameManager führt Kauf/Upgrade aus und ruft IMMER EndTurn() (auch bei falscher Antwort)
+        gm?.OnQuizResult(isCorrect);
 
-        // Optional: Hier den GameManager informieren, dass die Quiz-Interaktion beendet ist,
-        // damit der Zug fortgesetzt/beendet werden kann.
-        // GameManager.Instance.QuizCompleted(); 
+        // Panel schließen
+        if (quizPanel != null)
+            quizPanel.SetActive(false);
+
+        // 👉 WICHTIG: Move-Button wieder aktivieren, damit der NÄCHSTE Spieler würfeln kann
+        // (EndTurn() hat isTurnInProgress bereits auf false gesetzt)
+        if (moveButton != null)
+            moveButton.SetActive(true);
     }
+
+
+
 }

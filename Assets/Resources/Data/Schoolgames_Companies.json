@@ -1,0 +1,14 @@
+{
+  "companies": [
+    {
+      "companyID": 9,
+      "companyName": "Takeda",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    }
+  ]
+}
