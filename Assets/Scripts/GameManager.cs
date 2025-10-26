@@ -382,6 +382,29 @@ public class GameManager : MonoBehaviour
         else
             Debug.LogError("EndTurn: Could not get next player!");
 
+        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == GetCurrentPlayer().PlayerID);
+        if (activePlayer != null)
+        {
+            Transform playerChild = activePlayer.transform.childCount > 0
+                ? activePlayer.transform.GetChild(0)
+                : activePlayer.transform;
+
+            cam.Lens.OrthographicSize = defaultLens;
+            cam.Follow = playerChild;
+            if (camBrain.IsBlending && camBrain.ActiveBlend != null)
+            {
+                moveButton.SetActive(false);
+                moneyDisplay.SetActive(false);
+            }
+            else
+            {
+                uiManager.UpdateMoneyDisplay();
+                moveButton.SetActive(true);
+                moneyDisplay.SetActive(true);
+            }
+
+            moveButton.SetActive(true);
+        }
         isTurnInProgress = false;   // <-- WICHTIG: Flag zurücksetzen
     }
 
@@ -539,7 +562,7 @@ public class GameManager : MonoBehaviour
         // Return camera to player
 
         TakeTurn();
-
+        moveButton.SetActive(false);
         rolling = false;
     }
 
