@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private QuestionManager questionManager;
     [SerializeField] private BankCardManager bankCardManager;
     [SerializeField] private UIManager uiManager;
+    [SerializeField] private BoardVisualsManager boardVisuals;
+
 
     private CompanyConfigCollection companyConfigs;
     public List<CompanyField> companyFields = new List<CompanyField>();
@@ -67,6 +69,7 @@ public class GameManager : MonoBehaviour
         if (!questionManager) questionManager = GetComponent<QuestionManager>();
         if (!bankCardManager) bankCardManager = GetComponent<BankCardManager>();
         if (!uiManager) uiManager = GetComponent<UIManager>();
+        if (!boardVisuals) boardVisuals = GetComponent<BoardVisualsManager>();
     }
 
     void Start()
@@ -78,7 +81,8 @@ public class GameManager : MonoBehaviour
         // Initialize board layout - all fields are Company by default
         InitializeBoardLayout();     // <-- ZUERST das Layout setzen
         InitializeCompanyFields();   // <-- DANN die companyFields daraus bauen
-
+        
+        if (boardVisuals != null) boardVisuals.RefreshAll(companyFields);
 
         // Spieler 1
         PlayerData humanPlayer = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
@@ -271,6 +275,10 @@ public class GameManager : MonoBehaviour
         pending.player.Money -= cost;
         pending.field.ownerID = pending.player.PlayerID;
         pending.field.level   = pending.targetLevel;
+
+        // NEU: Visuals
+        if (boardVisuals != null)
+            boardVisuals.UpdateFieldVisual(pending.field);
 
         Debug.Log($"Spieler {pending.player.PlayerID} hat {pending.company.companyName} → {pending.targetLevel} gekauft/aufgerüstet (−{cost}€).");
         pending = default;
