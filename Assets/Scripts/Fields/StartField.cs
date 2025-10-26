@@ -12,5 +12,7 @@ public class StartField : MonoBehaviour
         if (triggeredPiece == null) return;
 
         gameManager.AddMoney(triggeredPiece.PlayerID, 400); 
+        
+        Debug.Log($"Spieler {triggeredPiece.PlayerID} überquert das Startfeld und erhält Geld.");
     }
 }
