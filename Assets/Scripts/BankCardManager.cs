@@ -158,14 +158,12 @@ public class BankCardManager : MonoBehaviour
             case 43: // "Würfle noch einmal"
             case 46: // "Würfel noch einmal"
             case 49: // "Würfle nochmal"
-            case 50: // "Du darfst noch einmal würfeln"
             case 58: // "Würfle noch einmal"
             case 62: // "Würfle noch einmal"
             case 66: // "Du darfst erneut würfeln"
             case 67: // "Du darfst noch einmal würfeln"
             case 69: // "Würfel noch einmal"
             case 76: // "Würfle noch einmal"
-            case 83: // "Du darfst noch einmal würfeln"
                 lastCardWasRollAgain = true;
                 gameManager.RollAgain();
                 break;
@@ -182,10 +180,61 @@ public class BankCardManager : MonoBehaviour
                 gameManager.SkipTurn();
                 break;
 
+            // Money rewards - player gets money directly
+            case 13: // "Du erhältst EUR 200"
+            case 17: // "Du erhältst eine Erfolgsprämie von EUR 200"
+            case 18: // "Du erhältst eine Prämie von EUR 150"
+            case 22: // "Du erhältst eine Prämie von EUR 50"
+            case 26: // "Du erhältst einen Zuschuss von EUR 200"
+            case 28: // "Du erhältst 150 EUR als Bonus"
+            case 31: // "Du erhältst eine finanzielle Unterstützung von EUR 200"
+            case 33: // "Du erhältst ... EUR 200 Urlaubsgeld"
+            case 34: // "Als Prämie erhältst du EUR 100"
+            case 36: // "Du erhältst EUR 250"
+            case 41: // "Du kassierst eine Prämie in der Höhe von EUR 100"
+            case 47: // "Du bekommst dafür EUR 300 als Führerscheinprämie"
+            case 48: // "Du erhältst eine Erfolgsprämie über EUR 300"
+            case 55: // "Du erhältst EUR 200"
+            case 59: // "Du erhältst eine Prämie von EUR 150"
+            case 64: // "Du erhältst EUR 100"
+            case 65: // "Als Prämie erhältst du EUR 250"
+            case 71: // "Du erhältst EUR 250 als Förderung"
+            case 73: // "Du bekommst einen Umweltpreis in der Höhe von EUR 100"
+            case 75: // "Das bringt dir einen Bonus von EUR 150"
+            case 78: // "Du erhältst einen Bonus von EUR 150"
+            case 81: // "Du erhältst EUR 500"
+            case 82: // "Du erhältst EUR 100 Prämie"
+                gameManager.AddMoneyFromBankCard(GetCardRewardAmount(cardId));
+                break;
+
+            // Special cases: Money + roll again
+            case 50: // "Du erhältst EUR 500 und darfst noch einmal würfeln"
+            case 83: // "Du erhältst EUR 100 und darfst noch einmal würfeln"
+                lastCardWasRollAgain = true;
+                gameManager.AddMoneyFromBankCard(GetCardRewardAmount(cardId));
+                gameManager.RollAgain();
+                break;
+
             // Default case - no movement action
             default:
                 Debug.Log($"Bank Card #{cardId}: No movement action implemented yet.");
                 break;
+        }
+    }
+
+    private int GetCardRewardAmount(int cardId)
+    {
+        switch (cardId)
+        {
+            case 22: return 50;
+            case 18: case 59: case 75: case 78: return 150;
+            case 17: case 26: case 28: case 31: case 33: case 55: return 200;
+            case 47: case 48: return 300;
+            case 81: return 500;
+            case 50: return 500;
+            case 13: case 34: case 41: case 64: case 73: case 82: case 83: return 100;
+            case 36: case 65: case 71: return 250;
+            default: return 0;
         }
     }
 

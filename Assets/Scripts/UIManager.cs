@@ -16,12 +16,43 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button tertiaryButton;    // Button 3 (ungenuzt im Kauf-Popup)
     [SerializeField] private Button cancelButton;      // Button 4 (ungenuzt im Kauf-/Upgrade-Popup)
 
+    [Header("Money Display")]
+    [SerializeField] private TextMeshProUGUI moneyDisplayText; // Display für Geld
+
     private GameManager gm;
 
     private void Awake()
     {
         gm = GetComponent<GameManager>(); // alle Manager am selben GO
         if (companyPanel != null) companyPanel.SetActive(false);
+    }
+
+    private void Start()
+    {
+        // Initial money display update
+        UpdateMoneyDisplay();
+    }
+
+    private void LateUpdate()
+    {
+        // Update money display at end of frame
+        // This ensures the current player is always correct after turn changes
+        //UpdateMoneyDisplay();
+    }
+
+    public void UpdateMoneyDisplay()
+    {
+        if (moneyDisplayText == null || gm == null) return;
+
+        var currentPlayer = gm.GetCurrentPlayer();
+        if (currentPlayer != null)
+        {
+            moneyDisplayText.text = $"Spieler {currentPlayer.PlayerID}: {currentPlayer.Money}€";
+        }
+        else
+        {
+            moneyDisplayText.text = "--- €";
+        }
     }
 
     // Freies Feld → Kaufen oder Verzichten (Buttons 1/2)
