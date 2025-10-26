@@ -55,7 +55,6 @@ public class UIManager : MonoBehaviour
         if (cancelButton)   cancelButton.gameObject.SetActive(false);
     }
 
-    // Eigenes Feld → Upgrade-Optionen (Buttons 1/2)
     public void ShowUpgradeOptions(CompanyConfigData company, CompanyField field, PlayerData player)
     {
         if (!companyPanel) { Debug.LogError("CompanyPanel fehlt!"); return; }
@@ -68,24 +67,57 @@ public class UIManager : MonoBehaviour
             $"• AG gründen: {company.costAG}€ → Ertrag {company.revenueAG}€\n\n" +
             "Wähle ein Upgrade (Quiz erforderlich):";
 
-        // Button 1 = Investieren
-        Wire(primaryButton, "Investieren", () =>
-        {
-            Close();
-            gm.StartQuizForCompany(company, field, player, CompanyLevel.Invested);
-        });
+        var gm = GetComponent<GameManager>(); // alle Manager am selben GO
 
-        // Button 2 = AG gründen
-        Wire(secondaryButton, "AG gründen", () =>
-        {
-            Close();
-            gm.StartQuizForCompany(company, field, player, CompanyLevel.AG);
-        });
-
-        // Rest ausblenden
+        // Alles ausblenden, dann gezielt einblenden
         if (tertiaryButton) tertiaryButton.gameObject.SetActive(false);
         if (cancelButton)   cancelButton.gameObject.SetActive(false);
+
+        // Reset Button-Listener
+        primaryButton.onClick.RemoveAllListeners();
+        secondaryButton.onClick.RemoveAllListeners();
+
+        switch (field.level)
+        {
+            case CompanyLevel.Founded:
+                // Button 1 = Investieren
+                Wire(primaryButton, "Investieren", () =>
+                {
+                    Close();
+                    gm.StartQuizForCompany(company, field, player, CompanyLevel.Invested);
+                });
+                // Button 2 = Später
+                Wire(secondaryButton, "Später", () =>
+                {
+                    Close();
+                    gm.EndTurn();
+                });
+                break;
+
+            case CompanyLevel.Invested:
+                // Button 1 = AG gründen
+                Wire(primaryButton, "AG gründen", () =>
+                {
+                    Close();
+                    gm.StartQuizForCompany(company, field, player, CompanyLevel.AG);
+                });
+                // Button 2 = Später
+                Wire(secondaryButton, "Später", () =>
+                {
+                    Close();
+                    gm.EndTurn();
+                });
+                break;
+
+            case CompanyLevel.AG:
+            default:
+                // Nichts mehr möglich
+                Close();
+                gm.EndTurn();
+                break;
+        }
     }
+
 
     private void Wire(Button btn, string label, System.Action onClick)
     {

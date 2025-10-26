@@ -155,11 +155,11 @@ public class GameManager : MonoBehaviour
         }
         else if (field.ownerID == current.PlayerID)
         {
-            // eigenes Feld -> Upgrades anbieten (falls nicht max)
-            if (field.level == CompanyLevel.None || field.level == CompanyLevel.Founded || field.level == CompanyLevel.Invested)
+            // Nur zeigen, wenn noch Upgrades offen
+            if (field.level == CompanyLevel.Founded || field.level == CompanyLevel.Invested)
                 uiManager.ShowUpgradeOptions(company, field, current);
             else
-                EndTurn(); // schon AG
+                EndTurn(); // AG -> nichts mehr zu tun
         }
         else
         {
@@ -192,9 +192,28 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning($"Spieler {payer.PlayerID} kann Miete {rent}€ nicht zahlen.");
         }
     }
+    private bool IsUpgradeAllowed(CompanyLevel current, CompanyLevel target)
+    {
+        // Nur stufenweise:
+        // None -> Founded -> Invested -> AG
+        if (target == CompanyLevel.Founded)   return current == CompanyLevel.None;
+        if (target == CompanyLevel.Invested)  return current == CompanyLevel.Founded;
+        if (target == CompanyLevel.AG)        return current == CompanyLevel.Invested;
+        return false;
+    }
 
     public void StartQuizForCompany(CompanyConfigData company, CompanyField field, PlayerData player, CompanyLevel targetLevel)
     {
+        // NEU: Stufen-Check
+        if (!IsUpgradeAllowed(field.level, targetLevel))
+        {
+            Debug.LogWarning($"Upgrade nicht erlaubt: {field.level} -> {targetLevel}");
+            // Optional: sofort beenden oder Upgrade-Panel erneut zeigen:
+            // uiManager.ShowUpgradeOptions(company, field, player);
+            EndTurn();
+            return;
+        }
+
         pending = new PendingPurchase
         {
             company = company,
@@ -215,6 +234,7 @@ public class GameManager : MonoBehaviour
             OnQuizResult(true);
         }
     }
+
 
     public void OnQuizResult(bool correct)
     {
