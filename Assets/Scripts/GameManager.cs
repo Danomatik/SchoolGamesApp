@@ -29,7 +29,17 @@ public class GameManager : MonoBehaviour
 
     [Header("Camera")]
     public CinemachineCamera cam;
+
+    public CinemachineBrain camBrain;
     public float defaultLens = 3.55f;
+
+    [Header("UI")]
+
+    [SerializeField]
+    private GameObject moveButton;
+
+    [SerializeField]
+    private GameObject moneyDisplay;
 
     // ============================================================
     // 🎲 DICE ROLLER SETTINGS
@@ -189,6 +199,7 @@ public class GameManager : MonoBehaviour
         {
             payer.Money -= rent;
             owner.Money += rent;
+            uiManager.UpdateMoneyDisplay();
             Debug.Log($"Spieler {payer.PlayerID} zahlt {rent}€ an Spieler {owner.PlayerID}");
         }
         else
@@ -274,7 +285,8 @@ public class GameManager : MonoBehaviour
 
         pending.player.Money -= cost;
         pending.field.ownerID = pending.player.PlayerID;
-        pending.field.level   = pending.targetLevel;
+        pending.field.level = pending.targetLevel;
+        uiManager.UpdateMoneyDisplay();
 
         // NEU: Visuals
         if (boardVisuals != null)
@@ -310,6 +322,7 @@ public class GameManager : MonoBehaviour
         if (currentPlayer != null)
         {
             currentPlayer.Money += amount;
+            uiManager.UpdateMoneyDisplay();
             Debug.Log($"Spieler {currentPlayer.PlayerID} erhält {amount}€. Neuer Stand: {currentPlayer.Money}€");
         }
     }
@@ -320,6 +333,7 @@ public class GameManager : MonoBehaviour
         if (currentPlayer != null)
         {
             currentPlayer.Money += amount;
+            uiManager.UpdateMoneyDisplay();
             Debug.Log($"Spieler {currentPlayer.PlayerID} erhält {amount}€. Neuer Stand: {currentPlayer.Money}€");
         }
     }
@@ -330,6 +344,7 @@ public class GameManager : MonoBehaviour
         if (currentPlayer != null && currentPlayer.Money >= amount)
         {
             currentPlayer.Money -= amount;
+            uiManager.UpdateMoneyDisplay();
             Debug.Log($"Spieler {currentPlayer.PlayerID} bezahlt {amount}€. Neuer Stand: {currentPlayer.Money}€");
             return true;
         }
@@ -392,6 +407,17 @@ public class GameManager : MonoBehaviour
 
             cam.Lens.OrthographicSize = defaultLens;
             cam.Follow = playerChild;
+            if (camBrain.IsBlending && camBrain.ActiveBlend != null)
+            {
+                moveButton.SetActive(false);
+                moneyDisplay.SetActive(false);
+            }
+            else
+            {
+                uiManager.UpdateMoneyDisplay();
+                moveButton.SetActive(true);
+                moneyDisplay.SetActive(true);
+            }
 
             activePlayer.StartMove(diceRoll);
         }

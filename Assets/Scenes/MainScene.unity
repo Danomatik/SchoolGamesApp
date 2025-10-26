@@ -11033,10 +11033,13 @@ MonoBehaviour:
   questionManager: {fileID: 1871652809}
   bankCardManager: {fileID: 1871652812}
   uiManager: {fileID: 1871652813}
-  boardVisuals: {fileID: 0}
+  boardVisuals: {fileID: 1871652814}
   companyFields: []
   cam: {fileID: 1211106364}
+  camBrain: {fileID: 330585548}
   defaultLens: 3.55
+  moveButton: {fileID: 1440145764}
+  moneyDisplay: {fileID: 458497979}
   dice1: {fileID: 1832168576}
   dice2: {fileID: 1348870187}
   spawnPos1: {fileID: 1497075296}
@@ -13283,11 +13286,11 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 330585546}
+  - {fileID: 1211106368}
+  - {fileID: 1329458868}
+  - {fileID: 1164569295}
   - {fileID: 1340544241}
   - {fileID: 1871652811}
-  - {fileID: 1164569295}
-  - {fileID: 1329458868}
-  - {fileID: 1211106368}
   - {fileID: 2031918326}
   - {fileID: 660008646}
   - {fileID: 3899100}

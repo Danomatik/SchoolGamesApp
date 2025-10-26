@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
     {
         // Update money display at end of frame
         // This ensures the current player is always correct after turn changes
-        UpdateMoneyDisplay();
+        //UpdateMoneyDisplay();
     }
 
     public void UpdateMoneyDisplay()
