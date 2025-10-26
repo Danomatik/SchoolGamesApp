@@ -635,4 +635,18 @@ public class GameManager : MonoBehaviour
         // The player can now roll again by pressing Space or using the dice system
         Debug.Log("Player can now roll again!");
     }
+
+    public void AddMoneyFromBankCard(int amount)
+    {
+        PlayerData currentPlayer = GetCurrentPlayer();
+        if (currentPlayer != null)
+        {
+            currentPlayer.Money += amount;
+            Debug.Log($"Bank Card Action: Player {currentPlayer.PlayerID} receives {amount}€");
+        }
+        else
+        {
+            Debug.LogError("AddMoneyFromBankCard: Current player is null!");
+        }
+    }
 }
