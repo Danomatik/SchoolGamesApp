@@ -70,10 +70,6 @@ public class GameManager : MonoBehaviour
     }
     private PendingPurchase pending;
 
-    // Spieler -> wie viele kommende Züge noch aussetzen
-    private readonly Dictionary<int, int> _skipCounters = new Dictionary<int, int>();
-
-
 
     // ============================================================
     // 🏁 UNITY METHODS
@@ -121,7 +117,6 @@ public class GameManager : MonoBehaviour
             companyConfigs = new CompanyConfigCollection { companies = new List<CompanyConfigData>() };
             return;
         }
-        
         companyConfigs = JsonUtility.FromJson<CompanyConfigCollection>(jsonFile.text);
         if (companyConfigs?.companies == null)
             companyConfigs = new CompanyConfigCollection { companies = new List<CompanyConfigData>() };
@@ -133,48 +128,26 @@ public class GameManager : MonoBehaviour
     {
         companyFields.Clear();
 
-        if (companyConfigs?.companies == null || companyConfigs.companies.Count == 0)
+        var takeda = companyConfigs?.companies?.FirstOrDefault();
+        if (takeda == null)
         {
             Debug.LogError("Kein Unternehmen in JSON gefunden!");
             return;
         }
 
-        // Create a dictionary to quickly lookup companies by ID
-        var companyDict = companyConfigs.companies.ToDictionary(c => c.companyID);
-        Debug.Log($"Companies in JSON: {string.Join(", ", companyConfigs.companies.Select(c => $"ID:{c.companyID}"))}");
-
-        // Iterate through board layout
         for (int i = 0; i < boardLayout.Length; i++)
         {
-            // Only process Company fields (skip Start, Bank, etc.)
             if (boardLayout[i] == FieldType.Company)
             {
-                // Check if there's a company for this field index
-                if (companyDict.ContainsKey(i))
+                companyFields.Add(new CompanyField
                 {
-                    var company = companyDict[i];
-                    companyFields.Add(new CompanyField
-                    {
-                        fieldIndex = i,
-                        companyID = company.companyID,
-                        ownerID = -1,
-                        level = CompanyLevel.None
-                    });
-                    Debug.Log($"Company '{company.companyName}' (ID: {company.companyID}) assigned to field {i}");
-                }
-                else
-                {
-                    // This is a Company field but no company assigned
-                    Debug.LogWarning($"Field {i} is Company type but no company found in JSON for ID {i}");
-                }
-            }
-            else
-            {
-                Debug.Log($"Field {i} is {boardLayout[i]} (not Company)");
+                    fieldIndex = i,
+                    companyID = takeda.companyID,
+                    ownerID = -1,
+                    level = CompanyLevel.None
+                });
             }
         }
-
-        Debug.Log($"Total company fields created: {companyFields.Count}");
     }
 
     CompanyConfigData GetCompanyConfig(int id)
@@ -334,19 +307,10 @@ public class GameManager : MonoBehaviour
             boardLayout[i] = FieldType.Company;
         }
 
-        // Corner fields (Start)
-        boardLayout[0] = FieldType.Start;
-        boardLayout[10] = FieldType.Start;
-        boardLayout[20] = FieldType.Start;
-        boardLayout[30] = FieldType.Start;
-        
-        // Bank fields (fields without companies in JSON): 5, 7, 13, 23, 27, 37
-        boardLayout[5] = FieldType.Bank;
-        boardLayout[7] = FieldType.Bank;
-        boardLayout[13] = FieldType.Bank;
-        boardLayout[23] = FieldType.Bank;
-        boardLayout[27] = FieldType.Bank;
-        boardLayout[37] = FieldType.Bank;
+        // Set specific fields to other types
+        boardLayout[0] = FieldType.Start; // Starting field
+        // You can add more specific fields here if needed
+        // boardLayout[10] = FieldType.Company; // Example company field
     }
 
     // ============================================================
@@ -407,39 +371,14 @@ public class GameManager : MonoBehaviour
 
     public void EndTurn()
     {
-        // zum nächsten Index
         CurrentGame.CurrentPlayerTurnID++;
         if (CurrentGame.CurrentPlayerTurnID >= CurrentGame.AllPlayers.Count)
             CurrentGame.CurrentPlayerTurnID = 0;
 
-        // Suche den nächsten, der NICHT aussetzt
-        int safety = 0;
-        while (safety < CurrentGame.AllPlayers.Count)
-        {
-            var candidate = GetCurrentPlayer();
-            if (candidate == null) break;
-
-            bool mustSkip = _skipCounters.TryGetValue(candidate.PlayerID, out int cnt) && cnt > 0;
-            if (!mustSkip)
-                break; // dieser Spieler darf ziehen
-
-            // Spieler setzt aus → Zähler dekrementieren, Log ausgeben
-            _skipCounters[candidate.PlayerID] = cnt - 1;
-            Debug.Log($"Player {candidate.PlayerID} skips this turn (remaining skips: {_skipCounters[candidate.PlayerID]}).");
-
-            // gleich weiter zum nächsten Spieler
-            CurrentGame.CurrentPlayerTurnID++;
-            if (CurrentGame.CurrentPlayerTurnID >= CurrentGame.AllPlayers.Count)
-                CurrentGame.CurrentPlayerTurnID = 0;
-
-            safety++;
-        }
-
         UpdateAgentPriorities();
-
-        var next = GetCurrentPlayer();
-        if (next != null)
-            Debug.Log($"Zug beendet. Spieler {next.PlayerID} ist jetzt an der Reihe.");
+        PlayerData nextPlayer = GetCurrentPlayer();
+        if (nextPlayer != null)
+            Debug.Log($"Zug beendet. Spieler {nextPlayer.PlayerID} ist jetzt an der Reihe.");
         else
             Debug.LogError("EndTurn: Could not get next player!");
 
@@ -522,14 +461,11 @@ public class GameManager : MonoBehaviour
 
                 case FieldType.Company:
                 {
-                    Debug.Log($"Player landed on Company field! Field {finalPosition}");
-                    Debug.Log($"BoardLayout[{finalPosition}] = {boardLayout[finalPosition]}");
-                    Debug.Log($"Total companyFields: {companyFields.Count}");
+                    Debug.Log("Player landed on Company field!");
                     var field = companyFields.FirstOrDefault(f => f.fieldIndex == finalPosition);
                     if (field == null)
                     {
                         Debug.LogError($"Kein CompanyField für Position {finalPosition} gefunden.");
-                        Debug.Log($"Company fields available: {string.Join(", ", companyFields.Select(f => f.fieldIndex))}");
                         EndTurn();
                         return;
                     }
@@ -539,23 +475,33 @@ public class GameManager : MonoBehaviour
 
                     
                 case FieldType.Bank:
-                {
                     Debug.Log("Player landed on Bank field!");
-                    var currentPlayer = GetCurrentPlayer();
-                    if (currentPlayer != null && bankCardManager != null)
+                    PlayerData currentPlayer = GetCurrentPlayer();
+                    if (currentPlayer != null)
                     {
-                        bankCardManager.ShowRandomBankCard();
-
-                        // WICHTIG: Wir warten jetzt auf den Klick im Popup (BankCardManager beendet/fortsetzt den Turn)
-                        return;
+                        Debug.Log($"Current player before bank card: {currentPlayer.PlayerID}");
+                        if (bankCardManager != null)
+                        {
+                            bankCardManager.ExecuteRandomBankCard();
+                            PlayerData playerAfter = GetCurrentPlayer();
+                            if (playerAfter != null)
+                            {
+                                Debug.Log($"Current player after bank card: {playerAfter.PlayerID}");
+                            }
+                            // Check if the bank card action allows rolling again
+                            if (bankCardManager.ShouldRollAgain())
+                            {
+                                // Don't end turn, player can roll again
+                                isTurnInProgress = false;
+                                return;
+                            }
+                        }
                     }
                     else
                     {
-                        Debug.LogError("Bank field: Current player or BankCardManager is null!");
+                        Debug.LogError("Bank field: Current player is null!");
                     }
                     break;
-                }
-
             }
         }
 
@@ -612,7 +558,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         int rollValue = GetAddedValue();
-        // Debug.Log($"Dice rolled: {rollValue}");
+        Debug.Log($"Dice rolled: {rollValue}");
 
         // Return camera to player
 
@@ -725,40 +671,17 @@ public class GameManager : MonoBehaviour
 
     public void SkipTurn()
     {
-        var current = GetCurrentPlayer();
-        if (current == null)
-        {
-            Debug.LogError("SkipTurn: no current player!");
-            EndTurn();
-            return;
-        }
-
-        // NÄCHSTEN eigenen Zug aussetzen (nicht den aktuellen)
-        ScheduleSkipNextTurn(current.PlayerID, 1);
-
-        Debug.Log($"Bank Card Action: Player {current.PlayerID} will skip their next turn.");
-        EndTurn(); // aktueller Zug endet, nächster Spieler kommt dran
+        Debug.Log($"Bank Card Action: Player {GetCurrentPlayer().PlayerID} skips their turn");
+        EndTurn();
     }
-
-    public void ScheduleSkipNextTurn(int playerId, int rounds = 1)
-    {
-        if (rounds <= 0) return;
-        if (_skipCounters.TryGetValue(playerId, out var cnt))
-            _skipCounters[playerId] = cnt + rounds;
-        else
-            _skipCounters[playerId] = rounds;
-
-        Debug.Log($"Player {playerId} will skip the next {rounds} turn(s).");
-    }
-
 
     public void RollAgain()
     {
         Debug.Log($"Bank Card Action: Player {GetCurrentPlayer().PlayerID} gets to roll again!");
-
+        
         // Don't end the turn, let the player roll again
         isTurnInProgress = false;
-
+        
         // The player can now roll again by pressing Space or using the dice system
         Debug.Log("Player can now roll again!");
     }
