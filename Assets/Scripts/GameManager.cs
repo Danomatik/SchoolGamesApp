@@ -366,16 +366,25 @@ public class GameManager : MonoBehaviour
 
     private void InitializeBoardLayout()
     {
-        // Set all fields to Bank by default
+        // Set all fields to Company by default
         for (int i = 0; i < boardLayout.Length; i++)
         {
             boardLayout[i] = FieldType.Company;
         }
 
-        // Set specific fields to other types
-        boardLayout[0] = FieldType.Start; // Starting field
-        // You can add more specific fields here if needed
-        // boardLayout[10] = FieldType.Company; // Example company field
+        // Corner fields (Start)
+        boardLayout[0] = FieldType.Start;
+        boardLayout[10] = FieldType.Start;
+        boardLayout[20] = FieldType.Start;
+        boardLayout[30] = FieldType.Start;
+        
+        // Bank fields (fields without companies in JSON): 5, 7, 13, 23, 27, 37
+        boardLayout[5] = FieldType.Bank;
+        boardLayout[7] = FieldType.Bank;
+        boardLayout[13] = FieldType.Bank;
+        boardLayout[23] = FieldType.Bank;
+        boardLayout[27] = FieldType.Bank;
+        boardLayout[37] = FieldType.Bank;
     }
 
     // ============================================================

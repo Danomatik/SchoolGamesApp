@@ -1,8 +1,300 @@
 {
   "companies": [
+   
+    {
+      "companyID": 1,
+      "companyName": "Pankl",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    
+    {
+      "companyID": 2,
+      "companyName": "PV",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 3,
+      "companyName": "IGO",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 4,
+      "companyName": "Thalia",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 6,
+      "companyName": "Trumpf",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+     {
+      "companyID": 8,
+      "companyName": "Takeda",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
     {
       "companyID": 9,
-      "companyName": "Takeda",
+      "companyName": "Omicron",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 11,
+      "companyName": "OBB",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 12,
+      "companyName": "Karriere-Forever",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 14,
+      "companyName": "ACP",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 15,
+      "companyName": "JMP",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 16,
+      "companyName": "McDonald's",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 17,
+      "companyName": "Lehrstellenportal",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 18,
+      "companyName": "Develop",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 19,
+      "companyName": "Handel",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 21,
+      "companyName": "Salzburg-AG",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 22,
+      "companyName": "AUVA",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 24,
+      "companyName": "PORR",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 25,
+      "companyName": "Standard",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 26,
+      "companyName": "KNAPP",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 28,
+      "companyName": "HELP",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 29,
+      "companyName": "JYSK",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 31,
+      "companyName": "GW",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 32,
+      "companyName": "FCC",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 33,
+      "companyName": "BIPA",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 34,
+      "companyName": "HORNBACH",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 35,
+      "companyName": "Lehrlingpower",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 36,
+      "companyName": "post",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 38,
+      "companyName": "equans",
+      "costFound": 500,
+      "costInvest": 600,
+      "costAG": 700,
+      "revenueFound": 180,
+      "revenueInvest": 600,
+      "revenueAG": 1680
+    },
+    {
+      "companyID": 39,
+      "companyName": "SIEMENS",
       "costFound": 500,
       "costInvest": 600,
       "costAG": 700,
