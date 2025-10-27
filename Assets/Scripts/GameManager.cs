@@ -450,6 +450,7 @@ public class GameManager : MonoBehaviour
             safety++;
         }
 
+        uiManager.UpdateMoneyDisplay();
         UpdateAgentPriorities();
 
         var next = GetCurrentPlayer();
@@ -458,7 +459,31 @@ public class GameManager : MonoBehaviour
         else
             Debug.LogError("EndTurn: Could not get next player!");
 
-        isTurnInProgress = false;   // wichtig
+        isTurnInProgress = false;  // wichtig
+        
+        // Kamera auf nächsten Spieler setzen
+        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == next.PlayerID);
+        if (activePlayer != null)
+        {
+            Transform playerChild = activePlayer.transform.childCount > 0
+                ? activePlayer.transform.GetChild(0)
+                : activePlayer.transform;
+
+            cam.Lens.OrthographicSize = defaultLens;
+            cam.Follow = playerChild;
+        }
+
+        if (camBrain.IsBlending && camBrain.ActiveBlend != null)
+            {
+                moveButton.SetActive(false);
+                moneyDisplay.SetActive(false);
+            }
+            else
+            {
+                uiManager.UpdateMoneyDisplay();
+                moveButton.SetActive(true);
+                moneyDisplay.SetActive(true);
+            }
     }
 
     // ============================================================
@@ -582,7 +607,8 @@ public class GameManager : MonoBehaviour
     }
 
     private IEnumerator RollRoutine()
-    {
+    {   
+        moveButton.SetActive(false);
         rolling = true;
 
         // Reset dice positions
@@ -608,7 +634,7 @@ public class GameManager : MonoBehaviour
         // Return camera to player
 
         TakeTurn();
-
+        moveButton.SetActive(false);
         rolling = false;
     }
 
@@ -749,6 +775,8 @@ public class GameManager : MonoBehaviour
 
         // Don't end the turn, let the player roll again
         isTurnInProgress = false;
+        moveButton.SetActive(true);
+        uiManager.UpdateMoneyDisplay();
 
         // The player can now roll again by pressing Space or using the dice system
         Debug.Log("Player can now roll again!");

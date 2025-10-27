@@ -10,19 +10,20 @@ public class FieldUpgradeView : MonoBehaviour
     private GameObject current;
 
     public void SetLevel(CompanyLevel level)
+{
+    if (current) { Destroy(current); current = null; }
+
+    GameObject prefab = null;
+    switch (level)
     {
-        if (current) { Destroy(current); current = null; }
-
-        GameObject prefab = null;
-        switch (level)
-        {
-            case CompanyLevel.Founded:  prefab = foundedPrefab;  break;
-            case CompanyLevel.Invested: prefab = investedPrefab; break;
-            case CompanyLevel.AG:       prefab = agPrefab;       break;
-        }
-        if (!prefab) return;
-
-        var anchor = upgradeAnchor ? upgradeAnchor : transform;
-        current = Instantiate(prefab, anchor.position, anchor.rotation, anchor.transform);
+        case CompanyLevel.Founded:  prefab = foundedPrefab;  break;
+        case CompanyLevel.Invested: prefab = investedPrefab; break;
+        case CompanyLevel.AG:       prefab = agPrefab;       break;
     }
+    if (!prefab) return;
+
+    current = Instantiate(prefab, upgradeAnchor.position, upgradeAnchor.rotation);
+
+    current.transform.SetParent(null, true);
+}
 }
