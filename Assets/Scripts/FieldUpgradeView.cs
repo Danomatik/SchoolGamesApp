@@ -23,6 +23,6 @@ public class FieldUpgradeView : MonoBehaviour
         if (!prefab) return;
 
         var anchor = upgradeAnchor ? upgradeAnchor : transform;
-        current = Instantiate(prefab, anchor.position, anchor.rotation, anchor);
+        current = Instantiate(prefab, anchor.position, anchor.rotation, anchor.transform);
     }
 }
