@@ -11,9 +11,9 @@ public class GameManager : MonoBehaviour
     // 🟩 GAME MANAGER SETTINGS
     // ============================================================
     [Header("Game Settings")]
-    public GameState CurrentGame;
+    public GameInitiator gameInitiator;
     public List<PlayerCTRL> players;
-    public FieldType[] boardLayout = new FieldType[40];
+
     private bool isTurnInProgress = false;
 
     [Header("Managers")]
@@ -21,10 +21,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BankCardManager bankCardManager;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private BoardVisualsManager boardVisuals;
-
-
-    private CompanyConfigCollection companyConfigs;
-    public List<CompanyField> companyFields = new List<CompanyField>();
 
 
     [Header("Camera")]
@@ -88,116 +84,52 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        LoadCompanyConfigs();
+        // LoadCompanyConfigs();
 
-        CurrentGame = new GameState();
+        // CurrentGame = new GameState();
 
         // Initialize board layout - all fields are Company by default
-        InitializeBoardLayout();     // <-- ZUERST das Layout setzen
-        InitializeCompanyFields();   // <-- DANN die companyFields daraus bauen
+        // InitializeBoardLayout();     // <-- ZUERST das Layout setzen
+        // InitializeCompanyFields();   // <-- DANN die companyFields daraus bauen
         
-        if (boardVisuals != null) boardVisuals.RefreshAll(companyFields);
+        if (boardVisuals != null) boardVisuals.RefreshAll(gameInitiator.GetCompanyFields());
 
-        // Spieler 1
-        PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(Player1);
+        // // Spieler 1
+        // PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
+        // CurrentGame.AllPlayers.Add(Player1);
 
-        // Spieler 2
-        PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(Player2);
+        // // Spieler 2
+        // PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0 };
+        // CurrentGame.AllPlayers.Add(Player2);
 
-        // Spieler 3
-        PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(Player3);
+        // // Spieler 3
+        // PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0 };
+        // CurrentGame.AllPlayers.Add(Player3);
 
-        // Spieler 4
-        PlayerData Player4 = new PlayerData { PlayerID = 4, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(Player4);
+        // // Spieler 4
+        // PlayerData Player4 = new PlayerData { PlayerID = 4, Money = 2500, BoardPosition = 0 };
+        // CurrentGame.AllPlayers.Add(Player4);
 
-        // Spieler 5
-        PlayerData Player5 = new PlayerData { PlayerID = 5, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(Player5);
+        // // Spieler 5
+        // PlayerData Player5 = new PlayerData { PlayerID = 5, Money = 2500, BoardPosition = 0 };
+        // CurrentGame.AllPlayers.Add(Player5);
 
-        // Spieler 6
-        PlayerData Player6 = new PlayerData { PlayerID = 6, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(Player6);
+        // // Spieler 6
+        // PlayerData Player6 = new PlayerData { PlayerID = 6, Money = 2500, BoardPosition = 0 };
+        // CurrentGame.AllPlayers.Add(Player6);
 
         Debug.Log("Neues Spiel gestartet!");
 
         TestCurrencySystem();
     }
 
-    void LoadCompanyConfigs()
-    {
-        TextAsset jsonFile = Resources.Load<TextAsset>("Data/Schoolgames_Companies");
-        if (jsonFile == null)
-        {
-            Debug.LogError("Schoolgames_Companies.json nicht in Assets/Resources/Data/ gefunden!");
-            companyConfigs = new CompanyConfigCollection { companies = new List<CompanyConfigData>() };
-            return;
-        }
-        
-        companyConfigs = JsonUtility.FromJson<CompanyConfigCollection>(jsonFile.text);
-        if (companyConfigs?.companies == null)
-            companyConfigs = new CompanyConfigCollection { companies = new List<CompanyConfigData>() };
-
-        Debug.Log($"Companies geladen: {companyConfigs.companies.Count}");
-    }
-
-    void InitializeCompanyFields()
-    {
-        companyFields.Clear();
-
-        if (companyConfigs?.companies == null || companyConfigs.companies.Count == 0)
-        {
-            Debug.LogError("Kein Unternehmen in JSON gefunden!");
-            return;
-        }
-
-        // Create a dictionary to quickly lookup companies by ID
-        var companyDict = companyConfigs.companies.ToDictionary(c => c.companyID);
-        Debug.Log($"Companies in JSON: {string.Join(", ", companyConfigs.companies.Select(c => $"ID:{c.companyID}"))}");
-
-        // Iterate through board layout
-        for (int i = 0; i < boardLayout.Length; i++)
-        {
-            // Only process Company fields (skip Start, Bank, etc.)
-            if (boardLayout[i] == FieldType.Company)
-            {
-                // Check if there's a company for this field index
-                if (companyDict.ContainsKey(i))
-                {
-                    var company = companyDict[i];
-                    companyFields.Add(new CompanyField
-                    {
-                        fieldIndex = i,
-                        companyID = company.companyID,
-                        ownerID = -1,
-                        level = CompanyLevel.None
-                    });
-                    Debug.Log($"Company '{company.companyName}' (ID: {company.companyID}) assigned to field {i}");
-                }
-                else
-                {
-                    // This is a Company field but no company assigned
-                    Debug.LogWarning($"Field {i} is Company type but no company found in JSON for ID {i}");
-                }
-            }
-            else
-            {
-                Debug.Log($"Field {i} is {boardLayout[i]} (not Company)");
-            }
-        }
-
-        Debug.Log($"Total company fields created: {companyFields.Count}");
-    }
 
     CompanyConfigData GetCompanyConfig(int id)
     {
-        return companyConfigs?.companies?.FirstOrDefault(c => c.companyID == id)
-            ?? companyConfigs?.companies?.FirstOrDefault();
+        return gameInitiator.companyConfigs?.companies?.FirstOrDefault(c => c.companyID == id)
+            ?? gameInitiator.companyConfigs?.companies?.FirstOrDefault();
     }
-
+    
     void HandleCompanyField(CompanyField field)
     {
         var current = GetCurrentPlayer();
@@ -220,7 +152,7 @@ public class GameManager : MonoBehaviour
         else
         {
             // fremdes Feld -> Miete zahlen
-            var owner = CurrentGame.AllPlayers.FirstOrDefault(p => p.PlayerID == field.ownerID);
+            var owner = gameInitiator.CurrentGame.AllPlayers.FirstOrDefault(p => p.PlayerID == field.ownerID);
             PayRent(current, owner, company, field);
             EndTurn();
         }
@@ -341,28 +273,6 @@ public class GameManager : MonoBehaviour
 
 
 
-    private void InitializeBoardLayout()
-    {
-        // Set all fields to Bank by default
-        for (int i = 0; i < boardLayout.Length; i++)
-        {
-            boardLayout[i] = FieldType.Bank;
-        }
-
-        // Corner fields (Start)
-        // boardLayout[0] = FieldType.Start;
-        // boardLayout[10] = FieldType.Start;
-        // boardLayout[20] = FieldType.Start;
-        // boardLayout[30] = FieldType.Start;
-        
-        // Bank fields (fields without companies in JSON): 5, 7, 13, 23, 27, 37
-        boardLayout[5] = FieldType.Bank;
-        boardLayout[7] = FieldType.Bank;
-        boardLayout[13] = FieldType.Bank;
-        boardLayout[23] = FieldType.Bank;
-        boardLayout[27] = FieldType.Bank;
-        boardLayout[37] = FieldType.Bank;
-    }
 
     // ============================================================
     // 💰 MONEY SYSTEM
@@ -380,7 +290,7 @@ public class GameManager : MonoBehaviour
 
     public void AddMoney(int playerID, int amount)
     {
-        PlayerData currentPlayer = CurrentGame.AllPlayers.Find(p => p.PlayerID == playerID);
+        PlayerData currentPlayer = gameInitiator.CurrentGame.AllPlayers.Find(p => p.PlayerID == playerID);
         if (currentPlayer != null)
         {
             currentPlayer.Money += amount;
@@ -405,31 +315,31 @@ public class GameManager : MonoBehaviour
 
     public PlayerData GetCurrentPlayer()
     {
-        if (CurrentGame.AllPlayers == null || CurrentGame.AllPlayers.Count == 0)
+        if (gameInitiator.CurrentGame.AllPlayers == null || gameInitiator.CurrentGame.AllPlayers.Count == 0)
         {
             Debug.LogError("GetCurrentPlayer: AllPlayers is null or empty!");
             return null;
         }
         
-        if (CurrentGame.CurrentPlayerTurnID < 0 || CurrentGame.CurrentPlayerTurnID >= CurrentGame.AllPlayers.Count)
+        if (gameInitiator.CurrentGame.CurrentPlayerTurnID < 0 || gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
         {
-            Debug.LogError($"GetCurrentPlayer: currentPlayerIndex {CurrentGame.CurrentPlayerTurnID} is out of bounds! AllPlayers count: {CurrentGame.AllPlayers.Count}");
+            Debug.LogError($"GetCurrentPlayer: currentPlayerIndex {gameInitiator.CurrentGame.CurrentPlayerTurnID} is out of bounds! AllPlayers count: {gameInitiator.CurrentGame.AllPlayers.Count}");
             return null;
         }
         
-        return CurrentGame.AllPlayers[CurrentGame.CurrentPlayerTurnID];
+        return gameInitiator.CurrentGame.AllPlayers[gameInitiator.CurrentGame.CurrentPlayerTurnID];
     }
 
     public void EndTurn()
     {
         // zum nächsten Index
-        CurrentGame.CurrentPlayerTurnID++;
-        if (CurrentGame.CurrentPlayerTurnID >= CurrentGame.AllPlayers.Count)
-            CurrentGame.CurrentPlayerTurnID = 0;
+        gameInitiator.CurrentGame.CurrentPlayerTurnID++;
+        if (gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
+            gameInitiator.CurrentGame.CurrentPlayerTurnID = 0;
 
         // Suche den nächsten, der NICHT aussetzt
         int safety = 0;
-        while (safety < CurrentGame.AllPlayers.Count)
+        while (safety < gameInitiator.CurrentGame.AllPlayers.Count)
         {
             var candidate = GetCurrentPlayer();
             if (candidate == null) break;
@@ -443,9 +353,9 @@ public class GameManager : MonoBehaviour
             Debug.Log($"Player {candidate.PlayerID} skips this turn (remaining skips: {_skipCounters[candidate.PlayerID]}).");
 
             // gleich weiter zum nächsten Spieler
-            CurrentGame.CurrentPlayerTurnID++;
-            if (CurrentGame.CurrentPlayerTurnID >= CurrentGame.AllPlayers.Count)
-                CurrentGame.CurrentPlayerTurnID = 0;
+            gameInitiator.CurrentGame.CurrentPlayerTurnID++;
+            if (gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
+                gameInitiator.CurrentGame.CurrentPlayerTurnID = 0;
 
             safety++;
         }
@@ -527,9 +437,9 @@ public class GameManager : MonoBehaviour
     public void PlayerFinishedMoving(int finalPosition)
     {
         // Check field type from board layout
-        if (finalPosition < boardLayout.Length)
+        if (finalPosition < gameInitiator.boardLayout.Length) 
         {
-            FieldType fieldType = boardLayout[finalPosition];
+            FieldType fieldType = gameInitiator.boardLayout[finalPosition];
             
             switch (fieldType)
             {
@@ -542,13 +452,13 @@ public class GameManager : MonoBehaviour
                     Debug.Log($"Player landed on Company field! Field {finalPosition}");
                     // Debug.Log($"BoardLayout[{finalPosition}] = {boardLayout[finalPosition]}");
                     // Debug.Log($"Total companyFields: {companyFields.Count}");
-                    var field = companyFields.FirstOrDefault(f => f.fieldIndex == finalPosition);
+                    var field = gameInitiator.GetCompanyFields().FirstOrDefault(f => f.fieldIndex == finalPosition);
                     if (field == null)
                     {
                         Debug.LogError($"Kein CompanyField für Position {finalPosition} gefunden.");
-                        Debug.Log($"Company fields available: {string.Join(", ", companyFields.Select(f => f.fieldIndex))}");
+                        Debug.Log($"Company fields available: {string.Join(", ", gameInitiator.GetCompanyFields().Select(f => f.fieldIndex))}");
                         EndTurn();
-                        return;
+                        return; 
                     }
                     HandleCompanyField(field);
                     return; // wichtig: kein EndTurn() hier; Flow entscheidet
