@@ -11205,7 +11205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364da14871d8441f6b19d628a1c11e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInitiator: {fileID: 1871652815}
+  gameInitiator: {fileID: 0}
   players:
   - {fileID: 736362893}
   - {fileID: 327502422}
@@ -11250,6 +11250,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 977201816}
+  testMode: 3
+  enableTestMode: 1
 --- !u!114 &1871652813
 MonoBehaviour:
   m_ObjectHideFlags: 0

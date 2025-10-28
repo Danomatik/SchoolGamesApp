@@ -164,15 +164,6 @@ public class BankCardManager : MonoBehaviour
         }
 
         ExecuteBankCardAction(pendingCard.id);
-
-        if (lastCardWasRollAgain)
-        {
-            RollAgain();
-        }
-        else
-        {
-            gameManager.EndTurn();
-        }
         pendingCard = null;
     }
 
@@ -189,7 +180,7 @@ public class BankCardManager : MonoBehaviour
 
         switch (cardId)
         {
-            // Movement cases
+            // Movement cases - NO EndTurn()
             case 1: MovePlayer(3); break;
             case 2: MovePlayerToField(0); break;
             case 7: MovePlayerToField(5); break;
@@ -213,35 +204,34 @@ public class BankCardManager : MonoBehaviour
             case 79: MovePlayer(2); break;
             case 85: MovePlayerToField(0); break;
 
-            // Roll again cases
+            // Roll again cases - NO EndTurn()
             case 4: case 5: case 11: case 14: case 16: case 21: case 25: case 27:
             case 37: case 39: case 43: case 46: case 49: case 58: case 62: case 66:
             case 67: case 69: case 76:
-                lastCardWasRollAgain = true;
                 RollAgain();
                 break;
 
-            // Skip turn cases
+            // Skip turn cases - CALLS EndTurn()
             case 3: case 9: case 15: case 40: case 57: case 60: case 80: case 207:
                 SkipTurn();
                 break;
 
-            // Money rewards
+            // Money rewards - CALLS EndTurn()
             case 13: case 17: case 18: case 22: case 26: case 28: case 31: case 33:
             case 34: case 36: case 41: case 47: case 48: case 55: case 59: case 64:
             case 65: case 71: case 73: case 75: case 78: case 81: case 82:
                 AddMoneyFromBankCard(GetCardRewardAmount(cardId));
                 break;
 
-            // Special: Money + roll again
+            // Special: Money + roll again - NO EndTurn() (roll again takes precedence)
             case 50: case 83:
-                lastCardWasRollAgain = true;
-                AddMoneyFromBankCard(GetCardRewardAmount(cardId));
+                AddMoneyFromBankCardAndMove(GetCardRewardAmount(cardId));
                 RollAgain();
                 break;
 
             default:
                 Debug.Log($"Bank Card #{cardId}: No action implemented.");
+                gameManager.EndTurn();
                 break;
         }
     }
@@ -334,7 +324,7 @@ public class BankCardManager : MonoBehaviour
         Debug.Log("Player can now roll again!");
     }
 
-    public void AddMoneyFromBankCard(int amount)
+    public void AddMoneyFromBankCardAndMove(int amount)
     {
         PlayerData currentPlayer = gameManager.GetCurrentPlayer();
         if (currentPlayer != null)
@@ -346,6 +336,24 @@ public class BankCardManager : MonoBehaviour
         else
         {
             Debug.LogError("AddMoneyFromBankCard: Current player is null!");
+            gameManager.EndTurn();
+        }
+    }
+
+    public void AddMoneyFromBankCard(int amount)
+    {
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
+        if (currentPlayer != null)
+        {
+            currentPlayer.Money += amount;
+            gameManager.uiManager.UpdateMoneyDisplay();
+            Debug.Log($"Bank Card Action: Player {currentPlayer.PlayerID} receives {amount}€");
+            gameManager.EndTurn();
+        }
+        else
+        {
+            Debug.LogError("AddMoneyFromBankCard: Current player is null!");
+            gameManager.EndTurn();
         }
     }
 }
