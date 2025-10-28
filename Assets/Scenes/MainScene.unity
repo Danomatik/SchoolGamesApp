@@ -1392,6 +1392,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1871652810}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1871652817}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
       objectReference: {fileID: 0}
@@ -2190,6 +2194,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1871652810}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
@@ -3031,6 +3039,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1871652810}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
@@ -8019,6 +8031,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1871652810}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1871652817}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
       objectReference: {fileID: 0}
@@ -8258,8 +8274,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1871652810}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+      - m_Target: {fileID: 1871652816}
+        m_TargetAssemblyTypeName: DiceManager, Assembly-CSharp
         m_MethodName: RollDice
         m_Mode: 1
         m_Arguments:
@@ -11144,6 +11160,8 @@ GameObject:
   - component: {fileID: 1871652814}
   - component: {fileID: 1871652817}
   - component: {fileID: 1871652816}
+  - component: {fileID: 1871652818}
+  - component: {fileID: 1871652819}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11324,6 +11342,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveButton: {fileID: 1440145764}
+--- !u!114 &1871652818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871652808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd81a68796534ac290df0323b6eabbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1211106364}
+  camBrain: {fileID: 330585548}
+  defaultLens: 5
+--- !u!114 &1871652819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871652808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ee8364f9f0b96419fdcb8cc07f4e0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1882057160
 GameObject:
   m_ObjectHideFlags: 0
@@ -11831,6 +11876,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1871652810}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
@@ -13554,6 +13603,10 @@ PrefabInstance:
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1871652810}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793

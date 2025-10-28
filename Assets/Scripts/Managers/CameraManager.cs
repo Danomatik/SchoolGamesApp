@@ -11,5 +11,5 @@ public class CameraManager : MonoBehaviour
     public CinemachineCamera cam;
 
     public CinemachineBrain camBrain;
-    public float defaultLens = 3.55f;
+    public float defaultLens = 5f;
 }

@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
         questionManager = GetComponent<QuestionManager>();
         boardVisuals = GetComponent<BoardVisualsManager>();
         moneyManager = GetComponent<MoneyManager>();
+        playerMovement = GetComponent<PlayerMovement>();
     }
 
     void Start()

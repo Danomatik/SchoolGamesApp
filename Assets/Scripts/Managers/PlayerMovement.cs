@@ -9,11 +9,6 @@ using System.Linq; // Für .First() benötigt
 public class PlayerMovement : MonoBehaviour
 {
     private GameManager gameManager;
-    private DiceManager diceManager;
-    private CameraManager cameraManager;
-    private BankCardManager bankCardManager;
-    private UIManager uiManager;
-    private GameInitiator gameInitiator;
 
     [SerializeField]
     private GameObject moveButton;
@@ -22,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    public void awake()
+    public void Awake()
     {
         gameManager = GetComponent<GameManager>();
     }
@@ -52,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                uiManager.UpdateMoneyDisplay();
+                gameManager.uiManager.UpdateMoneyDisplay();
                 moveButton.SetActive(true);
                 // moneyDisplay.SetActive(true);
             }
@@ -64,9 +59,9 @@ public class PlayerMovement : MonoBehaviour
     public void PlayerFinishedMoving(int finalPosition)
     {
         // Check field type from board layout
-        if (finalPosition < gameInitiator.boardLayout.Length)
+        if (finalPosition < gameManager.gameInitiator.boardLayout.Length)
         {
-            FieldType fieldType = gameInitiator.boardLayout[finalPosition];
+            FieldType fieldType = gameManager.gameInitiator.boardLayout[finalPosition];
 
             switch (fieldType)
             {
@@ -79,11 +74,11 @@ public class PlayerMovement : MonoBehaviour
                         Debug.Log($"Player landed on Company field! Field {finalPosition}");
                         // Debug.Log($"BoardLayout[{finalPosition}] = {boardLayout[finalPosition]}");
                         // Debug.Log($"Total companyFields: {companyFields.Count}");
-                        var field = gameInitiator.GetCompanyFields().FirstOrDefault(f => f.fieldIndex == finalPosition);
+                        var field = gameManager.gameInitiator.GetCompanyFields().FirstOrDefault(f => f.fieldIndex == finalPosition);
                         if (field == null)
                         {
                             Debug.LogError($"Kein CompanyField für Position {finalPosition} gefunden.");
-                            Debug.Log($"Company fields available: {string.Join(", ", gameInitiator.GetCompanyFields().Select(f => f.fieldIndex))}");
+                            Debug.Log($"Company fields available: {string.Join(", ", gameManager.gameInitiator.GetCompanyFields().Select(f => f.fieldIndex))}");
                             gameManager.EndTurn();
                             return;
                         }
