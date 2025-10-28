@@ -77,9 +77,13 @@ public class DiceManager : MonoBehaviour
 
     void ThrowDice(Rigidbody rb)
     {
-        rb.AddForce(Vector3.down * throwForce, ForceMode.Impulse);
+        Vector3 randomForward = (transform.forward + Random.insideUnitSphere * 0.2f).normalized;
+        Vector3 throwDirection = (Vector3.down + randomForward * 0.5f).normalized;
+
+        rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
         rb.AddTorque(Random.insideUnitSphere * torqueForce, ForceMode.Impulse);
     }
+
 
     int GetDiceValue(Rigidbody dice)
     {
