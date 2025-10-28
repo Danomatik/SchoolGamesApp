@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerData
 {
@@ -10,4 +12,5 @@ public class PlayerData
 
     public bool hasToSkip = false;
 
+    public List<int> companies = new List<int>();
 }

@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using System.Linq; // Für .First() benötigt
-
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -182,6 +181,8 @@ public class GameManager : MonoBehaviour
         pending.field.ownerID = pending.player.PlayerID;
         pending.field.level = pending.targetLevel;
         uiManager.UpdateMoneyDisplay();
+        pending.player.companies.Add(pending.field.fieldIndex);
+        Debug.Log("Added Field: " + pending.field.fieldIndex + " to Player: " + pending.player.PlayerID);
 
         // NEU: Visuals
         if (boardVisuals != null)

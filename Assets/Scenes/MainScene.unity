@@ -11251,7 +11251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   popup: {fileID: 977201816}
   testMode: 3
-  enableTestMode: 1
+  enableTestMode: 0
 --- !u!114 &1871652813
 MonoBehaviour:
   m_ObjectHideFlags: 0
