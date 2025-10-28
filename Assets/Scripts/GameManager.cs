@@ -346,14 +346,14 @@ public class GameManager : MonoBehaviour
         // Set all fields to Bank by default
         for (int i = 0; i < boardLayout.Length; i++)
         {
-            boardLayout[i] = FieldType.Company;
+            boardLayout[i] = FieldType.Bank;
         }
 
         // Corner fields (Start)
-        boardLayout[0] = FieldType.Start;
-        boardLayout[10] = FieldType.Start;
-        boardLayout[20] = FieldType.Start;
-        boardLayout[30] = FieldType.Start;
+        // boardLayout[0] = FieldType.Start;
+        // boardLayout[10] = FieldType.Start;
+        // boardLayout[20] = FieldType.Start;
+        // boardLayout[30] = FieldType.Start;
         
         // Bank fields (fields without companies in JSON): 5, 7, 13, 23, 27, 37
         boardLayout[5] = FieldType.Bank;
@@ -540,8 +540,8 @@ public class GameManager : MonoBehaviour
                 case FieldType.Company:
                 {
                     Debug.Log($"Player landed on Company field! Field {finalPosition}");
-                    Debug.Log($"BoardLayout[{finalPosition}] = {boardLayout[finalPosition]}");
-                    Debug.Log($"Total companyFields: {companyFields.Count}");
+                    // Debug.Log($"BoardLayout[{finalPosition}] = {boardLayout[finalPosition]}");
+                    // Debug.Log($"Total companyFields: {companyFields.Count}");
                     var field = companyFields.FirstOrDefault(f => f.fieldIndex == finalPosition);
                     if (field == null)
                     {

@@ -300,8 +300,6 @@ public class BankCardManager : MonoBehaviour
             // Normales Ende des Bankfelds
             gameManager.EndTurn();
         }
-
         pendingCard = null;
     }
-
 }
