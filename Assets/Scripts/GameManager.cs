@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public DiceManager diceManager;
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public CameraManager cameraManager;
+    [HideInInspector] public MoneyManager moneyManager;
 
 
     [Header("UI")]
@@ -54,6 +55,7 @@ public class GameManager : MonoBehaviour
         bankCardManager = GetComponent<BankCardManager>();
         questionManager = GetComponent<QuestionManager>();
         boardVisuals = GetComponent<BoardVisualsManager>();
+        moneyManager = GetComponent<MoneyManager>();
     }
 
     void Start()
@@ -70,7 +72,7 @@ public class GameManager : MonoBehaviour
         return gameInitiator.companyConfigs?.companies?.FirstOrDefault(c => c.companyID == id)
             ?? gameInitiator.companyConfigs?.companies?.FirstOrDefault();
     }
-    
+
     public void HandleCompanyField(CompanyField field)
     {
         var current = GetCurrentPlayer();
@@ -94,34 +96,11 @@ public class GameManager : MonoBehaviour
         {
             // fremdes Feld -> Miete zahlen
             var owner = gameInitiator.CurrentGame.AllPlayers.FirstOrDefault(p => p.PlayerID == field.ownerID);
-            PayRent(current, owner, company, field);
+            moneyManager.PayRent(current, owner, company, field);
             EndTurn();
         }
     }
-
-    void PayRent(PlayerData payer, PlayerData owner, CompanyConfigData company, CompanyField field)
-    {
-        int rent = 0;
-        switch (field.level)
-        {
-            case CompanyLevel.Founded:  rent = company.revenueFound;  break;
-            case CompanyLevel.Invested: rent = company.revenueInvest; break;
-            case CompanyLevel.AG:       rent = company.revenueAG;     break;
-        }
-        if (rent <= 0) return;
-
-        if (payer.Money >= rent)
-        {
-            payer.Money -= rent;
-            owner.Money += rent;
-            uiManager.UpdateMoneyDisplay();
-            Debug.Log($"Spieler {payer.PlayerID} zahlt {rent}€ an Spieler {owner.PlayerID}");
-        }
-        else
-        {
-            Debug.LogWarning($"Spieler {payer.PlayerID} kann Miete {rent}€ nicht zahlen.");
-        }
-    }
+    
     private bool IsUpgradeAllowed(CompanyLevel current, CompanyLevel target)
     {
         // Nur stufenweise:
@@ -210,46 +189,6 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Spieler {pending.player.PlayerID} hat {pending.company.companyName} → {pending.targetLevel} gekauft/aufgerüstet (−{cost}€).");
         pending = default;
         EndTurn();
-    }
-
-
-    // ============================================================
-    // 💰 MONEY SYSTEM
-    // ============================================================
-    public void AddMoney(int amount)
-    {
-        PlayerData currentPlayer = GetCurrentPlayer();
-        if (currentPlayer != null)
-        {
-            currentPlayer.Money += amount;
-            uiManager.UpdateMoneyDisplay();
-            Debug.Log($"Spieler {currentPlayer.PlayerID} erhält {amount}€. Neuer Stand: {currentPlayer.Money}€");
-        }
-    }
-
-    public void AddMoney(int playerID, int amount)
-    {
-        PlayerData currentPlayer = gameInitiator.CurrentGame.AllPlayers.Find(p => p.PlayerID == playerID);
-        if (currentPlayer != null)
-        {
-            currentPlayer.Money += amount;
-            uiManager.UpdateMoneyDisplay();
-            Debug.Log($"Spieler {currentPlayer.PlayerID} erhält {amount}€. Neuer Stand: {currentPlayer.Money}€");
-        }
-    }
-
-    public bool RemoveMoney(int amount)
-    {
-        PlayerData currentPlayer = GetCurrentPlayer();
-        if (currentPlayer != null && currentPlayer.Money >= amount)
-        {
-            currentPlayer.Money -= amount;
-            uiManager.UpdateMoneyDisplay();
-            Debug.Log($"Spieler {currentPlayer.PlayerID} bezahlt {amount}€. Neuer Stand: {currentPlayer.Money}€");
-            return true;
-        }
-        Debug.LogWarning($"Spieler {currentPlayer.PlayerID} hat zu wenig Geld, um {amount}€ zu bezahlen!");
-        return false;
     }
 
     public PlayerData GetCurrentPlayer()
@@ -344,9 +283,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("--- STARTE WÄHRUNGSSYSTEM-TEST ---");
         Debug.Log($"Anfangsgeld: {GetCurrentPlayer().Money}€");
 
-        AddMoney(400);
-        RemoveMoney(400);
-        RemoveMoney(5000);
+        moneyManager.AddMoney(400);
+        moneyManager.RemoveMoney(400);
+        moneyManager.RemoveMoney(5000);
 
         Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
     }
