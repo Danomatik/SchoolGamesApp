@@ -216,29 +216,6 @@ public class GameManager : MonoBehaviour
         if (gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
             gameInitiator.CurrentGame.CurrentPlayerTurnID = 0;
 
-        // Suche den nächsten, der NICHT aussetzt
-        int safety = 0;
-        while (safety < gameInitiator.CurrentGame.AllPlayers.Count)
-        {
-            var candidate = GetCurrentPlayer();
-            if (candidate == null) break;
-
-            bool mustSkip = bankCardManager._skipCounters.TryGetValue(candidate.PlayerID, out int cnt) && cnt > 0;
-            if (!mustSkip)
-                break; // dieser Spieler darf ziehen
-
-            // Spieler setzt aus → Zähler dekrementieren, Log ausgeben
-            bankCardManager._skipCounters[candidate.PlayerID] = cnt - 1;
-            Debug.Log($"Player {candidate.PlayerID} skips this turn (remaining skips: {bankCardManager._skipCounters[candidate.PlayerID]}).");
-
-            // gleich weiter zum nächsten Spieler
-            gameInitiator.CurrentGame.CurrentPlayerTurnID++;
-            if (gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
-                gameInitiator.CurrentGame.CurrentPlayerTurnID = 0;
-
-            safety++;
-        }
-
         uiManager.UpdateMoneyDisplay(); 
 
         var next = GetCurrentPlayer();

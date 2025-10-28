@@ -33,27 +33,27 @@ public class GameInitiator : MonoBehaviour
 
 
         // Spieler 1
-        PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
+        PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0, PlayerName = "Hanx", hasToSkip = false};
         CurrentGame.AllPlayers.Add(Player1);
 
         // Spieler 2
-        PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0 };
+        PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0, PlayerName = "Momo", hasToSkip = false };
         CurrentGame.AllPlayers.Add(Player2);
 
         // Spieler 3
-        PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0 };
+        PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0, PlayerName = "Simoan", hasToSkip = false };
         CurrentGame.AllPlayers.Add(Player3);
 
         // Spieler 4
-        PlayerData Player4 = new PlayerData { PlayerID = 4, Money = 2500, BoardPosition = 0 };
+        PlayerData Player4 = new PlayerData { PlayerID = 4, Money = 2500, BoardPosition = 0, PlayerName = "Chidi", hasToSkip = false };
         CurrentGame.AllPlayers.Add(Player4);
 
         // Spieler 5
-        PlayerData Player5 = new PlayerData { PlayerID = 5, Money = 2500, BoardPosition = 0 };
+        PlayerData Player5 = new PlayerData { PlayerID = 5, Money = 2500, BoardPosition = 0, PlayerName = "Dan", hasToSkip = false };
         CurrentGame.AllPlayers.Add(Player5);
 
         // Spieler 6
-        PlayerData Player6 = new PlayerData { PlayerID = 6, Money = 2500, BoardPosition = 0 };
+        PlayerData Player6 = new PlayerData { PlayerID = 6, Money = 2500, BoardPosition = 0, PlayerName = "Mußbacher", hasToSkip = false };
         CurrentGame.AllPlayers.Add(Player6);
 
         Debug.Log("Neues Spiel gestartet!");
