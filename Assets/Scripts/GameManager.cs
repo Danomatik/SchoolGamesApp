@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private BankCardManager bankCardManager;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private BoardVisualsManager boardVisuals;
+    [SerializeField] private DiceManager diceManager;
 
 
     [Header("Camera")]
@@ -84,41 +85,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // LoadCompanyConfigs();
 
-        // CurrentGame = new GameState();
-
-        // Initialize board layout - all fields are Company by default
-        // InitializeBoardLayout();     // <-- ZUERST das Layout setzen
-        // InitializeCompanyFields();   // <-- DANN die companyFields daraus bauen
-        
         if (boardVisuals != null) boardVisuals.RefreshAll(gameInitiator.GetCompanyFields());
-
-        // // Spieler 1
-        // PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
-        // CurrentGame.AllPlayers.Add(Player1);
-
-        // // Spieler 2
-        // PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0 };
-        // CurrentGame.AllPlayers.Add(Player2);
-
-        // // Spieler 3
-        // PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0 };
-        // CurrentGame.AllPlayers.Add(Player3);
-
-        // // Spieler 4
-        // PlayerData Player4 = new PlayerData { PlayerID = 4, Money = 2500, BoardPosition = 0 };
-        // CurrentGame.AllPlayers.Add(Player4);
-
-        // // Spieler 5
-        // PlayerData Player5 = new PlayerData { PlayerID = 5, Money = 2500, BoardPosition = 0 };
-        // CurrentGame.AllPlayers.Add(Player5);
-
-        // // Spieler 6
-        // PlayerData Player6 = new PlayerData { PlayerID = 6, Money = 2500, BoardPosition = 0 };
-        // CurrentGame.AllPlayers.Add(Player6);
-
-        Debug.Log("Neues Spiel gestartet!");
 
         TestCurrencySystem();
     }
@@ -272,8 +240,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-
-
     // ============================================================
     // 💰 MONEY SYSTEM
     // ============================================================
@@ -406,7 +372,7 @@ public class GameManager : MonoBehaviour
 
         UpdateAgentPriorities();
 
-        int diceRoll = GetAddedValue();
+        int diceRoll = diceManager.GetAddedValue();
         Debug.Log($"Player {GetCurrentPlayer().PlayerID} rolled a {diceRoll}!");
 
         PlayerCTRL activePlayer = players.Find(p => p.PlayerID == GetCurrentPlayer().PlayerID);
@@ -505,97 +471,6 @@ public class GameManager : MonoBehaviour
             if (agent != null)
                 agent.avoidancePriority = (player.PlayerID == currentPlayer.PlayerID) ? 50 : 51;
         }
-    }
-
-    // ============================================================
-    // 🎲 DICE ROLLING SYSTEM
-    // ============================================================
-    public void RollDice()
-    {
-        if (rolling) return;
-        StartCoroutine(RollRoutine());
-    }
-
-    private IEnumerator RollRoutine()
-    {   
-        moveButton.SetActive(false);
-        rolling = true;
-
-        // Reset dice positions
-        ResetDice(dice1, spawnPos1);
-        ResetDice(dice2, spawnPos2);
-
-        // Apply force & torque
-        ThrowDice(dice1);
-        ThrowDice(dice2);
-
-        // Focus camera on dice
-        cam.Follow = diceTargetGroup.transform;
-        cam.Lens.OrthographicSize = diceLensSize;
-
-
-        // Wait until both dice stop moving
-        yield return new WaitUntil(() => dice1.IsSleeping() && dice2.IsSleeping());
-        yield return new WaitForSeconds(1f);
-
-        int rollValue = GetAddedValue();
-        // Debug.Log($"Dice rolled: {rollValue}");
-
-        // Return camera to player
-
-        TakeTurn();
-        moveButton.SetActive(false);
-        rolling = false;
-    }
-
-    void ResetDice(Rigidbody rb, Transform startPos)
-    {
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.transform.position = startPos.position;
-        rb.transform.rotation = Random.rotation;
-    }
-
-    void ThrowDice(Rigidbody rb)
-    {
-        rb.AddForce(Vector3.down * throwForce, ForceMode.Impulse);
-        rb.AddTorque(Random.insideUnitSphere * torqueForce, ForceMode.Impulse);
-    }
-
-    int GetDiceValue(Rigidbody dice)
-    {
-        Vector3[] directions = {
-            dice.transform.up,
-            -dice.transform.up,
-            dice.transform.right,
-            -dice.transform.right,
-            dice.transform.forward,
-            -dice.transform.forward
-        };
-
-        int[] faceValues = { 1, 6, 3, 4, 2, 5 };
-
-        float maxDot = -1f;
-        int bestIndex = 0;
-
-        for (int i = 0; i < directions.Length; i++)
-        {
-            float dot = Vector3.Dot(Vector3.up, directions[i]);
-            if (dot > maxDot)
-            {
-                maxDot = dot;
-                bestIndex = i;
-            }
-        }
-
-        return faceValues[bestIndex];
-    }
-
-    public int GetAddedValue()
-    {
-        int val1 = GetDiceValue(dice1);
-        int val2 = GetDiceValue(dice2);
-        return val1 + val2;
     }
 
     // ============================================================
