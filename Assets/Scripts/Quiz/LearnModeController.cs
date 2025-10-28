@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class LearnModeController : MonoBehaviour
@@ -15,6 +16,7 @@ public class LearnModeController : MonoBehaviour
     public Button btnJunior;
     public Button btnSenior;
     public GameObject quizPanel;
+    public Button backToMenuButton;          // Zurück zur MenuScene
 
     [Header("UI - Quiz")]
     public TMP_Text categoryLabel;               // z.B. "DE • Junior • gruendung"
@@ -51,6 +53,9 @@ public class LearnModeController : MonoBehaviour
         // Level-Auswahl
         if (btnJunior) btnJunior.onClick.AddListener(() => StartLevel(LearnLevel.Junior));
         if (btnSenior) btnSenior.onClick.AddListener(() => StartLevel(LearnLevel.Senior));
+
+        // Zurück zur MenuScene
+        if (backToMenuButton) backToMenuButton.onClick.AddListener(BackToMenu);
 
         // Answer-Button Listener (fixe 3 Buttons)
         for (int i = 0; i < answerButtons.Length; i++)
@@ -90,6 +95,14 @@ public class LearnModeController : MonoBehaviour
 
         _currentIndex = -1;
         NextQuestion();
+    }
+
+    /// <summary>
+    /// Zurück zum Anfang - Quiz Scene neu laden
+    /// </summary>
+    private void BackToMenu()
+    {
+        SceneManager.LoadScene("Quiz");
     }
 
     private void ShowQuestion(Question q)
