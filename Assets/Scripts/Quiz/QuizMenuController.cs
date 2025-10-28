@@ -18,6 +18,7 @@ public class QuizMenuController : MonoBehaviour
 
     [Header("Controllers")]
     public LearnModeController learnModeController;
+    public ScoreModeController scoreModeController;
 
     private void Awake()
     {
@@ -28,7 +29,7 @@ public class QuizMenuController : MonoBehaviour
         if (scoreModeButton)
         {
             scoreModeButton.onClick.AddListener(OnScoreModeClicked);
-            scoreModeButton.interactable = false; // Deaktivieren, da noch nicht implementiert
+            scoreModeButton.interactable = true; // Aktiviert!
         }
         
         if (examModeButton)
@@ -63,8 +64,8 @@ public class QuizMenuController : MonoBehaviour
 
     private void OnScoreModeClicked()
     {
-        // Noch nicht implementiert
-        Debug.Log("ScoreMode noch nicht verfügbar");
+        if (modeSelectPanel) modeSelectPanel.SetActive(false);
+        if (scoreModePanel) scoreModePanel.SetActive(true);
     }
 
     private void OnExamModeClicked()
