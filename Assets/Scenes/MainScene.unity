@@ -11142,6 +11142,8 @@ GameObject:
   - component: {fileID: 1871652812}
   - component: {fileID: 1871652813}
   - component: {fileID: 1871652814}
+  - component: {fileID: 1871652817}
+  - component: {fileID: 1871652816}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11198,19 +11200,10 @@ MonoBehaviour:
   uiManager: {fileID: 1871652813}
   boardVisuals: {fileID: 1871652814}
   diceManager: {fileID: 0}
-  cam: {fileID: 1211106364}
-  camBrain: {fileID: 330585548}
-  defaultLens: 5
-  moveButton: {fileID: 1440145764}
+  playerMovement: {fileID: 0}
+  cameraManager: {fileID: 0}
+  moneyManager: {fileID: 0}
   moneyDisplay: {fileID: 458497979}
-  dice1: {fileID: 1832168576}
-  dice2: {fileID: 1348870187}
-  spawnPos1: {fileID: 1497075296}
-  spawnPos2: {fileID: 951950849}
-  diceTargetGroup: {fileID: 287610435}
-  diceLensSize: 10
-  throwForce: 8
-  torqueForce: 10
 --- !u!4 &1871652811
 Transform:
   m_ObjectHideFlags: 0
@@ -11294,6 +11287,43 @@ MonoBehaviour:
   companyConfigs:
     companies: []
   boardLayout: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+--- !u!114 &1871652816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871652808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa7a4eb9185124cd49eba9d76de96ca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dice1: {fileID: 1832168576}
+  dice2: {fileID: 1348870187}
+  spawnPos1: {fileID: 1497075296}
+  spawnPos2: {fileID: 951950849}
+  diceTargetGroup: {fileID: 287610435}
+  diceLensSize: 10
+  throwForce: 8
+  torqueForce: 10
+  moveButton: {fileID: 1440145764}
+  gm: {fileID: 1871652810}
+  cam: {fileID: 1211106364}
+  playerMovement: {fileID: 1871652817}
+--- !u!114 &1871652817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871652808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dafd19a6448184e6787c05a834f8c76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveButton: {fileID: 1440145764}
 --- !u!1 &1882057160
 GameObject:
   m_ObjectHideFlags: 0
