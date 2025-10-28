@@ -26,6 +26,9 @@ public class DiceManager : MonoBehaviour
 
     private bool rolling = false;
 
+    [SerializeField] private PlayerMovement playerMovement;
+
+
     public void RollDice()
     {
         if (rolling) return;
@@ -59,7 +62,7 @@ public class DiceManager : MonoBehaviour
 
         // Return camera to player
 
-        gm.TakeTurn();
+        playerMovement.TakeTurn();
         moveButton.SetActive(false);
         rolling = false;
     }

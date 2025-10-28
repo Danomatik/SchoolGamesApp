@@ -6,6 +6,7 @@ using DG.Tweening; // make sure DOTween is installed and imported
 public class PlayerCTRL : MonoBehaviour
 {
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private PlayerMovement playerMovement;
     public int PlayerID;
     public Route route;
     public int currentPos = 0;
@@ -82,7 +83,7 @@ public class PlayerCTRL : MonoBehaviour
         if (anim) anim.SetBool("IsWalking", false);
 
         isMoving = false;
-        gameManager.PlayerFinishedMoving(currentPos);
+        playerMovement.PlayerFinishedMoving(currentPos);
     }
 
     private Vector3 GetTargetPositionForTile(int tileIndex)

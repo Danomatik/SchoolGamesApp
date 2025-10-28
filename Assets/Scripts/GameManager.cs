@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq; // Für .First() benötigt
+
 
 public class GameManager : MonoBehaviour
 {
@@ -14,26 +14,17 @@ public class GameManager : MonoBehaviour
     public GameInitiator gameInitiator;
     public List<PlayerCTRL> players;
 
-    private bool isTurnInProgress = false;
+    private QuestionManager questionManager;
+    private BankCardManager bankCardManager;
+    private UIManager uiManager;
+    private BoardVisualsManager boardVisuals;
+    private DiceManager diceManager;
+    private PlayerMovement playerMovement;
+    private CameraManager cameraManager;
 
-    [Header("Managers")]
-    [SerializeField] private QuestionManager questionManager;
-    [SerializeField] private BankCardManager bankCardManager;
-    [SerializeField] private UIManager uiManager;
-    [SerializeField] private BoardVisualsManager boardVisuals;
-    [SerializeField] private DiceManager diceManager;
 
-
-    [Header("Camera")]
-    public CinemachineCamera cam;
-
-    public CinemachineBrain camBrain;
-    public float defaultLens = 3.55f;
 
     [Header("UI")]
-
-    [SerializeField]
-    private GameObject moveButton;
 
     [SerializeField]
     private GameObject moneyDisplay;
@@ -57,12 +48,16 @@ public class GameManager : MonoBehaviour
     // ============================================================
     // 🏁 UNITY METHODS
     // ============================================================
-    void Awake()
+    public void awake()
     {
-        if (!questionManager) questionManager = GetComponent<QuestionManager>();
-        if (!bankCardManager) bankCardManager = GetComponent<BankCardManager>();
-        if (!uiManager) uiManager = GetComponent<UIManager>();
-        if (!boardVisuals) boardVisuals = GetComponent<BoardVisualsManager>();
+        uiManager = GetComponent<UIManager>();
+        // gameManager = GetComponent<GameManager>();
+        diceManager = GetComponent<DiceManager>();
+        cameraManager = GetComponent<CameraManager>();
+        gameInitiator = GetComponent<GameInitiator>();
+        bankCardManager = GetComponent<BankCardManager>();
+        questionManager = GetComponent<QuestionManager>();
+        boardVisuals = GetComponent<BoardVisualsManager>();
     }
 
     void Start()
@@ -80,7 +75,7 @@ public class GameManager : MonoBehaviour
             ?? gameInitiator.companyConfigs?.companies?.FirstOrDefault();
     }
     
-    void HandleCompanyField(CompanyField field)
+    public void HandleCompanyField(CompanyField field)
     {
         var current = GetCurrentPlayer();
         var company = GetCompanyConfig(field.companyID);
@@ -279,7 +274,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void EndTurn()
-    {
+    {             
         // zum nächsten Index
         gameInitiator.CurrentGame.CurrentPlayerTurnID++;
         if (gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
@@ -308,8 +303,7 @@ public class GameManager : MonoBehaviour
             safety++;
         }
 
-        uiManager.UpdateMoneyDisplay();
-        UpdateAgentPriorities();
+        uiManager.UpdateMoneyDisplay(); 
 
         var next = GetCurrentPlayer();
         if (next != null)
@@ -317,8 +311,8 @@ public class GameManager : MonoBehaviour
         else
             Debug.LogError("EndTurn: Could not get next player!");
 
-        isTurnInProgress = false;  // wichtig
-        
+        playerMovement.setIsTurnInProgress(false);  // wichtig
+           
         // Kamera auf nächsten Spieler setzen
         PlayerCTRL activePlayer = players.Find(p => p.PlayerID == next.PlayerID);
         if (activePlayer != null)
@@ -327,132 +321,23 @@ public class GameManager : MonoBehaviour
                 ? activePlayer.transform.GetChild(0)
                 : activePlayer.transform;
 
-            cam.Lens.OrthographicSize = defaultLens;
-            cam.Follow = playerChild;
+            cameraManager.cam.Lens.OrthographicSize = cameraManager.defaultLens;
+            cameraManager.cam.Follow = playerChild;
         }
 
-        if (camBrain.IsBlending && camBrain.ActiveBlend != null)
+        if (cameraManager.camBrain.IsBlending && cameraManager.camBrain.ActiveBlend != null)
             {
-                moveButton.SetActive(false);
+                GameObject moveButton = playerMovement.getMoveButton();
+                moveButton.SetActive(true);
                 moneyDisplay.SetActive(false);
             }
             else
             {
                 uiManager.UpdateMoneyDisplay();
+                GameObject moveButton = playerMovement.getMoveButton();
                 moveButton.SetActive(true);
                 moneyDisplay.SetActive(true);
             }
-    }
-
-    // ============================================================
-    // 👣 PLAYER MOVEMENT & CAMERA
-    // ============================================================
-    public void TakeTurn()
-    {
-        if (isTurnInProgress) return;
-        isTurnInProgress = true;
-
-        UpdateAgentPriorities();
-
-        int diceRoll = diceManager.GetAddedValue();
-        Debug.Log($"Player {GetCurrentPlayer().PlayerID} rolled a {diceRoll}!");
-
-        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == GetCurrentPlayer().PlayerID);
-        if (activePlayer != null)
-        {
-            Transform playerChild = activePlayer.transform.childCount > 0
-                ? activePlayer.transform.GetChild(0)
-                : activePlayer.transform;
-
-            cam.Lens.OrthographicSize = defaultLens;
-            cam.Follow = playerChild;
-            if (camBrain.IsBlending && camBrain.ActiveBlend != null)
-            {
-                moveButton.SetActive(false);
-                moneyDisplay.SetActive(false);
-            }
-            else
-            {
-                uiManager.UpdateMoneyDisplay();
-                moveButton.SetActive(true);
-                moneyDisplay.SetActive(true);
-            }
-
-            activePlayer.StartMove(diceRoll);
-        }
-    }
-
-    public void PlayerFinishedMoving(int finalPosition)
-    {
-        // Check field type from board layout
-        if (finalPosition < gameInitiator.boardLayout.Length) 
-        {
-            FieldType fieldType = gameInitiator.boardLayout[finalPosition];
-            
-            switch (fieldType)
-            {
-                case FieldType.Start:
-                    Debug.Log("Player landed on Start field!");
-                    break;
-
-                case FieldType.Company:
-                {
-                    Debug.Log($"Player landed on Company field! Field {finalPosition}");
-                    // Debug.Log($"BoardLayout[{finalPosition}] = {boardLayout[finalPosition]}");
-                    // Debug.Log($"Total companyFields: {companyFields.Count}");
-                    var field = gameInitiator.GetCompanyFields().FirstOrDefault(f => f.fieldIndex == finalPosition);
-                    if (field == null)
-                    {
-                        Debug.LogError($"Kein CompanyField für Position {finalPosition} gefunden.");
-                        Debug.Log($"Company fields available: {string.Join(", ", gameInitiator.GetCompanyFields().Select(f => f.fieldIndex))}");
-                        EndTurn();
-                        return; 
-                    }
-                    HandleCompanyField(field);
-                    return; // wichtig: kein EndTurn() hier; Flow entscheidet
-                }
-
-                    
-                case FieldType.Bank:
-                {
-                    Debug.Log("Player landed on Bank field!");
-                    var currentPlayer = GetCurrentPlayer();
-                    if (currentPlayer != null && bankCardManager != null)
-                    {
-                        bankCardManager.ShowRandomBankCard();
-
-                        // WICHTIG: Wir warten jetzt auf den Klick im Popup (BankCardManager beendet/fortsetzt den Turn)
-                        return;
-                    }
-                    else
-                    {
-                        Debug.LogError("Bank field: Current player or BankCardManager is null!");
-                    }
-                    break;
-                }
-
-            }
-        }
-
-        EndTurn();
-        isTurnInProgress = false;
-    }
-
-    public void UpdateAgentPriorities()
-    {
-        PlayerData currentPlayer = GetCurrentPlayer();
-        if (currentPlayer == null)
-        {
-            Debug.LogError("UpdateAgentPriorities: Current player is null!");
-            return;
-        }
-        
-        foreach (PlayerCTRL player in players)
-        {
-            NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
-            if (agent != null)
-                agent.avoidancePriority = (player.PlayerID == currentPlayer.PlayerID) ? 50 : 51;
-        }
     }
 
     // ============================================================
@@ -541,7 +426,8 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Bank Card Action: Player {GetCurrentPlayer().PlayerID} gets to roll again!");
 
         // Don't end the turn, let the player roll again
-        isTurnInProgress = false;
+        playerMovement.setIsTurnInProgress(false);
+        GameObject moveButton = playerMovement.getMoveButton();
         moveButton.SetActive(true);
         uiManager.UpdateMoneyDisplay();
 
