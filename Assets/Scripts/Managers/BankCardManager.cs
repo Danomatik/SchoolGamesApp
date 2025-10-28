@@ -26,6 +26,11 @@ public class BankCardManager : MonoBehaviour
 
     private bool lastCardWasRollAgain = false;
 
+    [HideInInspector] public Dictionary<int, int> _skipCounters = new Dictionary<int, int>();
+
+
+
+
     void Awake()
     {
         LoadCards();
@@ -86,70 +91,70 @@ public class BankCardManager : MonoBehaviour
         {
             // Movement cases - move forward
             case 1: // "Rücke 3 Felder vor"
-                gameManager.MovePlayer(3);
+                MovePlayer(3);
                 break;
             case 2: // "Springe zu einem Unternehmen deiner Wahl"
-                gameManager.MovePlayerToField(0); // Go to start for now
+                MovePlayerToField(0); // Go to start for now
                 break;
             case 7: // "Springe zu einem Feld deiner Wahl (ausgenommen Start)"
-                gameManager.MovePlayerToField(5); // Go to field 5 for now
+                MovePlayerToField(5); // Go to field 5 for now
                 break;
             case 12: // "Springe zu einem Unternehmen deiner Wahl"
-                gameManager.MovePlayerToField(0); // Go to start for now
+                MovePlayerToField(0); // Go to start for now
                 break;
             case 19: // "Du darfst 4 Felder weiterfahren"
-                gameManager.MovePlayer(4);
+                MovePlayer(4);
                 break;
             case 23: // "Du darfst ein Feld vorrücken"
-                gameManager.MovePlayer(1);
+                MovePlayer(1);
                 break;
             case 24: // "Du darfst 2 Felder vorrücken"
-                gameManager.MovePlayer(2);
+                MovePlayer(2);
                 break;
             case 29: // "Du darfst 2 Felder vorrücken"
-                gameManager.MovePlayerToField(2);
+                MovePlayerToField(2);
                 break;
             case 30: // "Springe zu einem Unternehmen deiner Wahl"
-                gameManager.MovePlayerToField(0); // Go to start for now
+                MovePlayerToField(0); // Go to start for now
                 break;
             case 32: // "Du springst 3 Felder vor"
-                gameManager.MovePlayer(3);
+                MovePlayer(3);
                 break;
             case 35: // "Springe dafür zum Spielfeld von Siemens"
-                gameManager.MovePlayerToField(10); // Go to field 10 for now
+                MovePlayerToField(10); // Go to field 10 for now
                 break;
             case 38: // "Rücke 3 Felder vor"
-                gameManager.MovePlayer(3);
+                MovePlayer(3);
                 break;
             case 44: // "Du darfst zum Spielfeld von Pankl springen"
-                gameManager.MovePlayerToField(15); // Go to field 15 for now
+                MovePlayerToField(15); // Go to field 15 for now
                 break;
             case 45: // "Du darfst 2 Felder vorrücken"
-                gameManager.MovePlayer(2);
+                MovePlayer(2);
                 break;
             case 52: // "Rücke vor auf das Feld von Gebrüder Weiss"
-                gameManager.MovePlayerToField(20); // Go to field 20 for now
+                MovePlayerToField(20); // Go to field 20 for now
                 break;
             case 56: // "Rücke 3 Felder vor"
-                gameManager.MovePlayer(3);
+                MovePlayer(3);
                 break;
             case 70: // "Rücke 4 Felder vor"
-                gameManager.MovePlayer(4);
+                MovePlayer(4);
                 break;
             case 72: // "Springe dafür auf das Feld von OMICRON"
-                gameManager.MovePlayerToField(25); // Go to field 25 for now
+                MovePlayerToField(25); // Go to field 25 for now
                 break;
             case 74: // "Rücke zum Städtebund-Feld vor"
-                gameManager.MovePlayerToField(30); // Go to field 30 for now
+                MovePlayerToField(30); // Go to field 30 for now
                 break;
             case 77: // "Rücke auf ein beliebiges Feld vor(ausgenommen Start)"
-                gameManager.MovePlayerToField(5); // Go to field 5 for now
+                MovePlayerToField(5); // Go to field 5 for now
                 break;
             case 79: // "Rücke 2 Felder vor"
-                gameManager.MovePlayer(2);
+                MovePlayer(2);
                 break;
             case 85: // "Rücke zu deinem nächsten Unternehmen vor"
-                gameManager.MovePlayerToField(0); // Go to start for now
+                MovePlayerToField(0); // Go to start for now
                 break;
 
             // Roll again cases
@@ -173,7 +178,7 @@ public class BankCardManager : MonoBehaviour
             case 69: // "Würfel noch einmal"
             case 76: // "Würfle noch einmal"
                 lastCardWasRollAgain = true;
-                gameManager.RollAgain();
+                RollAgain();
                 break;
 
             // Skip turn cases
@@ -185,7 +190,7 @@ public class BankCardManager : MonoBehaviour
             case 60: // "Setze eine Runde aus"
             case 80: // "Setze eine Runde aus"
             case 207: // "Setze einmal aus"
-                gameManager.SkipTurn();
+                SkipTurn();
                 break;
 
             // Money rewards - player gets money directly
@@ -212,15 +217,15 @@ public class BankCardManager : MonoBehaviour
             case 78: // "Du erhältst einen Bonus von EUR 150"
             case 81: // "Du erhältst EUR 500"
             case 82: // "Du erhältst EUR 100 Prämie"
-                gameManager.AddMoneyFromBankCard(GetCardRewardAmount(cardId));
+                AddMoneyFromBankCard(GetCardRewardAmount(cardId));
                 break;
 
             // Special cases: Money + roll again
             case 50: // "Du erhältst EUR 500 und darfst noch einmal würfeln"
             case 83: // "Du erhältst EUR 100 und darfst noch einmal würfeln"
                 lastCardWasRollAgain = true;
-                gameManager.AddMoneyFromBankCard(GetCardRewardAmount(cardId));
-                gameManager.RollAgain();
+                AddMoneyFromBankCard(GetCardRewardAmount(cardId));
+                RollAgain();
                 break;
 
             // Default case - no movement action
@@ -293,7 +298,7 @@ public class BankCardManager : MonoBehaviour
         if (lastCardWasRollAgain)
         {
             // Der Spieler darf nochmal würfeln; Turn NICHT beenden
-            gameManager.RollAgain();
+            RollAgain();
         }
         else
         {
@@ -301,5 +306,97 @@ public class BankCardManager : MonoBehaviour
             gameManager.EndTurn();
         }
         pendingCard = null;
+    }
+
+    public void MovePlayer(int steps)
+    {
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
+        PlayerCTRL activePlayer = gameManager.players.Find(p => p.PlayerID == currentPlayer.PlayerID);
+        
+        Debug.Log($"MovePlayer called: Current player is {currentPlayer.PlayerID}, looking for PlayerCTRL with ID {currentPlayer.PlayerID}");
+        Debug.Log($"Found PlayerCTRL: {(activePlayer != null ? "Yes" : "No")}");
+        
+        if (activePlayer != null)
+        {
+            Debug.Log($"Bank Card Action: Moving player {currentPlayer.PlayerID} {steps} steps forward");
+            activePlayer.StartMove(steps);
+        }
+        else
+        {
+            Debug.LogError($"Could not find PlayerCTRL for player {currentPlayer.PlayerID}");
+        }
+    }
+
+    public void MovePlayerToField(int fieldPosition)
+    {
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
+        PlayerCTRL activePlayer = gameManager.players.Find(p => p.PlayerID == currentPlayer.PlayerID);
+        
+        if (activePlayer != null)
+        {
+            int currentPos = activePlayer.currentPos;
+            int stepsNeeded = (fieldPosition - currentPos + 40) % 40; // Handle wrap-around
+            
+            Debug.Log($"Bank Card Action: Moving player {currentPlayer.PlayerID} to field {fieldPosition} ({stepsNeeded} steps)");
+            activePlayer.StartMove(stepsNeeded);
+        }
+    }
+
+    public void SkipTurn()
+    {
+        var current = gameManager.GetCurrentPlayer();
+        if (current == null)
+        {
+            Debug.LogError("SkipTurn: no current player!");
+            gameManager.EndTurn();
+            return;
+        }
+
+        // NÄCHSTEN eigenen Zug aussetzen (nicht den aktuellen)
+        ScheduleSkipNextTurn(current.PlayerID, 1);
+
+        Debug.Log($"Bank Card Action: Player {current.PlayerID} will skip their next turn.");
+        gameManager.EndTurn(); // aktueller Zug endet, nächster Spieler kommt dran
+    }
+
+    public void ScheduleSkipNextTurn(int playerId, int rounds = 1)
+    {
+        if (rounds <= 0) return;
+        if (_skipCounters.TryGetValue(playerId, out var cnt))
+            _skipCounters[playerId] = cnt + rounds;
+        else
+            _skipCounters[playerId] = rounds;
+
+        Debug.Log($"Player {playerId} will skip the next {rounds} turn(s).");
+    }
+
+
+    public void RollAgain()
+    {
+        Debug.Log($"Bank Card Action: Player {gameManager.GetCurrentPlayer().PlayerID} gets to roll again!");
+
+        // Don't end the turn, let the player roll again
+        gameManager.playerMovement.setIsTurnInProgress(false);
+        GameObject moveButton = gameManager.playerMovement.getMoveButton();
+        moveButton.SetActive(true);
+        gameManager.uiManager.UpdateMoneyDisplay();
+
+        // The player can now roll again by pressing Space or using the dice system
+        Debug.Log("Player can now roll again!");
+    }
+
+    public void AddMoneyFromBankCard(int amount)
+    {
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
+        if (currentPlayer != null)
+        {
+            currentPlayer.Money += amount;
+            gameManager.uiManager.UpdateMoneyDisplay();
+            Debug.Log($"Bank Card Action: Player {currentPlayer.PlayerID} receives {amount}€");
+        }
+        else
+        {
+            Debug.LogError("AddMoneyFromBankCard: Current player is null!");
+        }
     }
 }

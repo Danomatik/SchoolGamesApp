@@ -225,7 +225,7 @@ public class QuestionManager : MonoBehaviour
 
         // Alle Manager hängen am gleichen GameObject -> direkter Zugriff
         var gm = GetComponent<GameManager>();
-        if (gm == null) gm = FindObjectOfType<GameManager>(); // Fallback
+        if (gm == null) gm = Object.FindFirstObjectByType<GameManager>(); // Fallback
 
         // GameManager führt Kauf/Upgrade aus und ruft IMMER EndTurn() (auch bei falscher Antwort)
         gm?.OnQuizResult(isCorrect);

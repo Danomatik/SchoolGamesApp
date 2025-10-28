@@ -13,14 +13,13 @@ public class GameManager : MonoBehaviour
     public GameInitiator gameInitiator;
     public List<PlayerCTRL> players;
 
-    private QuestionManager questionManager;
-    private BankCardManager bankCardManager;
-    private UIManager uiManager;
-    private BoardVisualsManager boardVisuals;
-    private DiceManager diceManager;
-    private PlayerMovement playerMovement;
-    private CameraManager cameraManager;
-
+    [HideInInspector] public QuestionManager questionManager;
+    [HideInInspector] public BankCardManager bankCardManager;
+    [HideInInspector] public UIManager uiManager;
+    [HideInInspector] public BoardVisualsManager boardVisuals;
+    [HideInInspector] public DiceManager diceManager;
+    [HideInInspector] public PlayerMovement playerMovement;
+    [HideInInspector] public CameraManager cameraManager;
 
 
     [Header("UI")]
@@ -40,8 +39,6 @@ public class GameManager : MonoBehaviour
     private PendingPurchase pending;
 
     // Spieler -> wie viele kommende Züge noch aussetzen
-    private readonly Dictionary<int, int> _skipCounters = new Dictionary<int, int>();
-
 
 
     // ============================================================
@@ -286,13 +283,13 @@ public class GameManager : MonoBehaviour
             var candidate = GetCurrentPlayer();
             if (candidate == null) break;
 
-            bool mustSkip = _skipCounters.TryGetValue(candidate.PlayerID, out int cnt) && cnt > 0;
+            bool mustSkip = bankCardManager._skipCounters.TryGetValue(candidate.PlayerID, out int cnt) && cnt > 0;
             if (!mustSkip)
                 break; // dieser Spieler darf ziehen
 
             // Spieler setzt aus → Zähler dekrementieren, Log ausgeben
-            _skipCounters[candidate.PlayerID] = cnt - 1;
-            Debug.Log($"Player {candidate.PlayerID} skips this turn (remaining skips: {_skipCounters[candidate.PlayerID]}).");
+            bankCardManager._skipCounters[candidate.PlayerID] = cnt - 1;
+            Debug.Log($"Player {candidate.PlayerID} skips this turn (remaining skips: {bankCardManager._skipCounters[candidate.PlayerID]}).");
 
             // gleich weiter zum nächsten Spieler
             gameInitiator.CurrentGame.CurrentPlayerTurnID++;
@@ -352,99 +349,5 @@ public class GameManager : MonoBehaviour
         RemoveMoney(5000);
 
         Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
-    }
-
-    // ============================================================
-    // 🏃 MOVEMENT SYSTEM FOR BANK CARDS
-    // ============================================================
-    public void MovePlayer(int steps)
-    {
-        PlayerData currentPlayer = GetCurrentPlayer();
-        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == currentPlayer.PlayerID);
-        
-        Debug.Log($"MovePlayer called: Current player is {currentPlayer.PlayerID}, looking for PlayerCTRL with ID {currentPlayer.PlayerID}");
-        Debug.Log($"Found PlayerCTRL: {(activePlayer != null ? "Yes" : "No")}");
-        
-        if (activePlayer != null)
-        {
-            Debug.Log($"Bank Card Action: Moving player {currentPlayer.PlayerID} {steps} steps forward");
-            activePlayer.StartMove(steps);
-        }
-        else
-        {
-            Debug.LogError($"Could not find PlayerCTRL for player {currentPlayer.PlayerID}");
-        }
-    }
-
-    public void MovePlayerToField(int fieldPosition)
-    {
-        PlayerData currentPlayer = GetCurrentPlayer();
-        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == currentPlayer.PlayerID);
-        
-        if (activePlayer != null)
-        {
-            int currentPos = activePlayer.currentPos;
-            int stepsNeeded = (fieldPosition - currentPos + 40) % 40; // Handle wrap-around
-            
-            Debug.Log($"Bank Card Action: Moving player {currentPlayer.PlayerID} to field {fieldPosition} ({stepsNeeded} steps)");
-            activePlayer.StartMove(stepsNeeded);
-        }
-    }
-
-    public void SkipTurn()
-    {
-        var current = GetCurrentPlayer();
-        if (current == null)
-        {
-            Debug.LogError("SkipTurn: no current player!");
-            EndTurn();
-            return;
-        }
-
-        // NÄCHSTEN eigenen Zug aussetzen (nicht den aktuellen)
-        ScheduleSkipNextTurn(current.PlayerID, 1);
-
-        Debug.Log($"Bank Card Action: Player {current.PlayerID} will skip their next turn.");
-        EndTurn(); // aktueller Zug endet, nächster Spieler kommt dran
-    }
-
-    public void ScheduleSkipNextTurn(int playerId, int rounds = 1)
-    {
-        if (rounds <= 0) return;
-        if (_skipCounters.TryGetValue(playerId, out var cnt))
-            _skipCounters[playerId] = cnt + rounds;
-        else
-            _skipCounters[playerId] = rounds;
-
-        Debug.Log($"Player {playerId} will skip the next {rounds} turn(s).");
-    }
-
-
-    public void RollAgain()
-    {
-        Debug.Log($"Bank Card Action: Player {GetCurrentPlayer().PlayerID} gets to roll again!");
-
-        // Don't end the turn, let the player roll again
-        playerMovement.setIsTurnInProgress(false);
-        GameObject moveButton = playerMovement.getMoveButton();
-        moveButton.SetActive(true);
-        uiManager.UpdateMoneyDisplay();
-
-        // The player can now roll again by pressing Space or using the dice system
-        Debug.Log("Player can now roll again!");
-    }
-
-    public void AddMoneyFromBankCard(int amount)
-    {
-        PlayerData currentPlayer = GetCurrentPlayer();
-        if (currentPlayer != null)
-        {
-            currentPlayer.Money += amount;
-            Debug.Log($"Bank Card Action: Player {currentPlayer.PlayerID} receives {amount}€");
-        }
-        else
-        {
-            Debug.LogError("AddMoneyFromBankCard: Current player is null!");
-        }
     }
 }

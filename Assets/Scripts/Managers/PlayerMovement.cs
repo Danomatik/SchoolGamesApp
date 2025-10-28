@@ -24,14 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void awake()
     {
-        uiManager = GetComponent<UIManager>();
         gameManager = GetComponent<GameManager>();
-        diceManager = GetComponent<DiceManager>();
-        cameraManager = GetComponent<CameraManager>();
-        gameInitiator = GetComponent<GameInitiator>();
-        bankCardManager = GetComponent<BankCardManager>();
-        // questionManager = GetComponent<QuestionManager>();
-        // boardVisuals = GetComponent<BoardVisualsManager>();
     }
     
 
@@ -40,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         if (isTurnInProgress) return;
         isTurnInProgress = true;
 
-        int diceRoll = diceManager.GetAddedValue();
+        int diceRoll = gameManager.diceManager.GetAddedValue();
         Debug.Log($"Player {gameManager.GetCurrentPlayer().PlayerID} rolled a {diceRoll}!");
 
         PlayerCTRL activePlayer = gameManager.players.Find(p => p.PlayerID == gameManager.GetCurrentPlayer().PlayerID);
@@ -50,9 +43,9 @@ public class PlayerMovement : MonoBehaviour
                 ? activePlayer.transform.GetChild(0)
                 : activePlayer.transform;
 
-            cameraManager.cam.Lens.OrthographicSize = cameraManager.defaultLens; 
-            cameraManager.cam.Follow = playerChild;
-            if (cameraManager.camBrain.IsBlending && cameraManager.camBrain.ActiveBlend != null)
+            gameManager.cameraManager.cam.Lens.OrthographicSize = gameManager.cameraManager.defaultLens; 
+            gameManager.cameraManager.cam.Follow = playerChild;
+            if (gameManager.cameraManager.camBrain.IsBlending && gameManager.cameraManager.camBrain.ActiveBlend != null)
             {
                 moveButton.SetActive(false);
                 // moneyDisplay.SetActive(false);
@@ -103,9 +96,9 @@ public class PlayerMovement : MonoBehaviour
                     {
                         Debug.Log("Player landed on Bank field!");
                         var currentPlayer = gameManager.GetCurrentPlayer();
-                        if (currentPlayer != null && bankCardManager != null)
+                        if (currentPlayer != null && gameManager.bankCardManager != null)
                         {
-                            bankCardManager.ShowRandomBankCard();
+                            gameManager.bankCardManager.ShowRandomBankCard();
 
                             // WICHTIG: Wir warten jetzt auf den Klick im Popup (BankCardManager beendet/fortsetzt den Turn)
                             return;
