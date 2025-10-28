@@ -16,6 +16,7 @@ public class ScoreModeController : MonoBehaviour
     public GameObject levelSelectPanel;
     public Button btnJunior;
     public Button btnSenior;
+    public Button levelBackButton;           // Zurück-Button im LevelSelectPanel
     public GameObject quizPanel;
     public GameObject gameOverPanel;
     public Button backToMenuButton;
@@ -75,7 +76,8 @@ public class ScoreModeController : MonoBehaviour
         if (btnJunior) btnJunior.onClick.AddListener(() => StartLevel(LearnLevel.Junior));
         if (btnSenior) btnSenior.onClick.AddListener(() => StartLevel(LearnLevel.Senior));
 
-        // Zurück zur Quiz Scene
+        // Zurück-Buttons
+        if (levelBackButton) levelBackButton.onClick.AddListener(BackToMenu);
         if (backToMenuButton) backToMenuButton.onClick.AddListener(BackToMenu);
 
         // Answer-Button Listener

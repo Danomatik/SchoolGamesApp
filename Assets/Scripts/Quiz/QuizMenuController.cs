@@ -19,6 +19,7 @@ public class QuizMenuController : MonoBehaviour
     [Header("Controllers")]
     public LearnModeController learnModeController;
     public ScoreModeController scoreModeController;
+    public ExamModeController examModeController;
 
     private void Awake()
     {
@@ -35,7 +36,7 @@ public class QuizMenuController : MonoBehaviour
         if (examModeButton)
         {
             examModeButton.onClick.AddListener(OnExamModeClicked);
-            examModeButton.interactable = false; // Deaktivieren, da noch nicht implementiert
+            examModeButton.interactable = true; // Aktiviert!
         }
         
         if (backToMenuButton)
@@ -70,8 +71,8 @@ public class QuizMenuController : MonoBehaviour
 
     private void OnExamModeClicked()
     {
-        // Noch nicht implementiert
-        Debug.Log("ExamMode noch nicht verfügbar");
+        if (modeSelectPanel) modeSelectPanel.SetActive(false);
+        if (examModePanel) examModePanel.SetActive(true);
     }
 
     private void OnBackToMenuClicked()
