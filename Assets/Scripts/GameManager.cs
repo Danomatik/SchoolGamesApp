@@ -38,24 +38,6 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject moneyDisplay;
 
-    // ============================================================
-    // 🎲 DICE ROLLER SETTINGS
-    // ============================================================
-    [Header("Dice Roller Settings")]
-    [SerializeField] private Rigidbody dice1;
-    [SerializeField] private Rigidbody dice2;
-
-    [SerializeField] private Transform spawnPos1;
-    [SerializeField] private Transform spawnPos2;
-
-    [SerializeField] public CinemachineTargetGroup diceTargetGroup;
-    [SerializeField] public float diceLensSize;
-
-    [SerializeField] private float throwForce = 8f;
-    [SerializeField] private float torqueForce = 10f;
-
-    private bool rolling = false;
-
     // Pending für Quiz-Kauf/Upgrade
     private struct PendingPurchase
     {
