@@ -1,0 +1,38 @@
+{
+    "name": "aktionskarten_de",  
+      
+    "karten": [
+      {
+        "id": 1,
+        "text": "Possibly gibt dir echte Einblicke in die Arbeitswelt. Lerne Berufe beim Schnuppern hautnah kennen. \nRücke vor zu einem Unternehmen deiner Wahl."
+      },
+      {
+        "id": 2,
+        "text": "Im Rahmen der Lehrlingsausbildung in der Volksbank hast du eine Top-Präsentation über deinen Lehrbetrieb in der Schule abgehalten.\nWeiter so! Springe zu einem Unternehmen deiner Wahl."
+      },
+      {
+        "id": 3,
+        "text": "Du hast mit deiner Idee eine Gruppe von Business Angels überzeugt.\nUm das neue Konzept gleich umzusetzen springe zu deinem nächsten Unternehmen."
+      },
+      {
+        "id": 4,
+        "text": "Das Amt der Oö. Landesregierung unterstützt Jungunternehmer \nDu darfst zu einem deiner Unternehmen springen."
+      },
+      {
+        "id": 5,
+        "text": "Wenn du 3 Fragen einer Fragekarte richtig beantwortest, darfst du ein Unternehmen deiner Wahl kostenlos in eine AG umwandeln.\nDies hat sich sehr positiv auf die Mitarbeiterzufriedenheit ausgewirkt."
+      },
+      {
+        "id": 6,
+        "text": "Du gestaltest deine Stadt\n Dafür bekommst du einen Bonus von EUR 200."
+      },
+      {
+        "id": 7,
+        "text": "Eines deiner Unternehmen erfüllt leider nicht die gesetzlichen Auflagen. Nimm dir Zeit, das in Ordnung zu bringen und setze eine Runde aus."
+      },
+      {
+        "id": 8,
+        "text": "Du hast bei der Stadt Graz ein Praktikum absolviert und interessante Ideen eingebracht.\nDu darfst noch einmal würfeln."
+      }
+    ]
+  }
