@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     // ============================================================
     // 🟩 GAME MANAGER SETTINGS
     // ============================================================
-    [Header("Game Settings")]
     public GameInitiator gameInitiator;
     public List<PlayerCTRL> players;
 
@@ -48,7 +47,7 @@ public class GameManager : MonoBehaviour
     // ============================================================
     // 🏁 UNITY METHODS
     // ============================================================
-    public void awake()
+    public void Awake()
     {
         uiManager = GetComponent<UIManager>();
         // gameManager = GetComponent<GameManager>();
