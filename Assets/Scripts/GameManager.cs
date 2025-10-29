@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
         if (boardVisuals != null) boardVisuals.RefreshAll(gameInitiator.GetCompanyFields());
 
         TestCurrencySystem();
+
+        // Initiative is now started by GameInitiator
     }
 
 
@@ -267,4 +269,7 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
     }
+
+    // Initiative flag (used by DiceManager to block normal rolls during initial roll-off)
+    public bool InitiativeInProgress { get; set; } = false;
 }
