@@ -64,7 +64,7 @@ public class CameraManager : MonoBehaviour
 
     public void SetTopView()
     {
-        if (camBrain.ActiveVirtualCamera == cam)
+        if ((UnityEngine.Object)camBrain.ActiveVirtualCamera == (UnityEngine.Object)cam)
         {
             topCam.Priority = 20;
             cam.Priority = 10;
