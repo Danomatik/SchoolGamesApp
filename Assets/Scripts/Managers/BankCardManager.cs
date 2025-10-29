@@ -56,7 +56,7 @@ public class BankCardManager : MonoBehaviour
     };
 
     private readonly HashSet<int> movementCards = new HashSet<int> {
-        1, 2, 7, 12, 19, 23, 24, 29, 30, 32, 35, 38, 44, 45, 52, 56, 70, 72, 74, 77, 79, 85
+        2, 7
     };
 
     private ActionManager actionManager;

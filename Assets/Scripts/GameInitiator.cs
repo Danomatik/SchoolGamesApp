@@ -16,55 +16,84 @@ public class GameInitiator : MonoBehaviour
     private List<CompanyField> companyFields = new List<CompanyField>();
 
 
+// ✅ Add this
+    [Header("Initiative / Turn Order")]
+    [Tooltip("If enabled, skips the roll-off and uses default order 1,2,3,4,5,6.")]
+    [SerializeField] private bool useDefaultOrder = false;
 
+    // ------------------------------------------------------------
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-
         LoadCompanyConfigs();
         CurrentGame = new GameState();
-        // Initialize board layout - all fields are Company by default
-        InitializeBoardLayout();     // <-- ZUERST das Layout setzen
-        InitializeCompanyFields();   // <-- DANN die companyFields daraus bauen
 
+        InitializeBoardLayout();
+        InitializeCompanyFields();
 
-        // Spieler 1
-        PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0, PlayerName = "Hanx", hasToSkip = false, companies = new List<int>()};
+        // Players (1..6 in default order)
+        PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0, PlayerName = "Hanx", hasToSkip = false, companies = new List<int>() };
         CurrentGame.AllPlayers.Add(Player1);
-
-        // Spieler 2
-        PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0, PlayerName = "Momo", hasToSkip = false, companies = new List<int>()};
+        PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0, PlayerName = "Momo", hasToSkip = false, companies = new List<int>() };
         CurrentGame.AllPlayers.Add(Player2);
-
-        // Spieler 3
-        PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0, PlayerName = "Simoan", hasToSkip = false, companies = new List<int>()};
+        PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0, PlayerName = "Simoan", hasToSkip = false, companies = new List<int>() };
         CurrentGame.AllPlayers.Add(Player3);
-
-        // Spieler 4
-        PlayerData Player4 = new PlayerData { PlayerID = 4, Money = 2500, BoardPosition = 0, PlayerName = "Chidi", hasToSkip = false, companies = new List<int>()};
+        PlayerData Player4 = new PlayerData { PlayerID = 4, Money = 2500, BoardPosition = 0, PlayerName = "Chidi", hasToSkip = false, companies = new List<int>() };
         CurrentGame.AllPlayers.Add(Player4);
-
-        // Spieler 5
         PlayerData Player5 = new PlayerData { PlayerID = 5, Money = 2500, BoardPosition = 0, PlayerName = "Dan", hasToSkip = false, companies = new List<int>() };
         CurrentGame.AllPlayers.Add(Player5);
-
-        // Spieler 6
         PlayerData Player6 = new PlayerData { PlayerID = 6, Money = 2500, BoardPosition = 0, PlayerName = "Mußbacher", hasToSkip = false, companies = new List<int>() };
         CurrentGame.AllPlayers.Add(Player6);
 
         Debug.Log("Neues Spiel gestartet!");
 
-        // Start initiative after setup
         var gm = GetComponent<GameManager>();
         if (gm != null)
         {
-            StartCoroutine(DetermineStartingOrder(gm));
+            if (useDefaultOrder)
+            {
+                ApplyDefaultStartingOrder(gm);
+            }
+            else
+            {
+                StartCoroutine(DetermineStartingOrder(gm));
+            }
         }
-
     }
 
+    // ✅ New helper: apply default order 1..6 and start game immediately
+    private void ApplyDefaultStartingOrder(GameManager gm)
+    {
+        // Sort strictly by PlayerID to guarantee 1..6 order
+        CurrentGame.AllPlayers = CurrentGame.AllPlayers
+            .OrderBy(p => p.PlayerID)
+            .ToList();
+
+        CurrentGame.CurrentPlayerTurnID = 0;
+        initiativeDone = true;
+        gm.InitiativeInProgress = false;
+
+        // Point camera to Player 1 (like in your roll coroutine)
+        var currentPlayer = CurrentGame.AllPlayers[0];
+        var activeCtrl = gm.players.Find(p => p.PlayerID == currentPlayer.PlayerID);
+        if (activeCtrl != null)
+        {
+            Transform playerChild = activeCtrl.transform.childCount > 0
+                ? activeCtrl.transform.GetChild(0)
+                : activeCtrl.transform;
+            gm.cameraManager.cam.Lens.OrthographicSize = gm.cameraManager.defaultLens;
+            gm.cameraManager.cam.Follow = playerChild;
+        }
+
+        // Re-enable the move button
+        if (gm.diceManager != null && gm.diceManager.moveButton != null)
+            gm.diceManager.moveButton.SetActive(true);
+
+        Debug.Log($"Initiative skipped. Default order applied: {string.Join(", ", CurrentGame.AllPlayers.Select(p => p.PlayerID))}. Start: Player {CurrentGame.AllPlayers[0].PlayerID}");
+    }
+
+
+    
     void LoadCompanyConfigs()
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("Data/Schoolgames_Companies");
@@ -134,8 +163,15 @@ public class GameInitiator : MonoBehaviour
     // 🎲 INITIATIVE SEQUENCE (RUNS ONCE AT GAME START)
     // ============================================================
     private bool initiativeDone = false;
-    private IEnumerator DetermineStartingOrder(GameManager gm)
+   private IEnumerator DetermineStartingOrder(GameManager gm)
     {
+        // ✅ Early-out if inspector checkbox is turned on (safety if called accidentally)
+        if (useDefaultOrder)
+        {
+            ApplyDefaultStartingOrder(gm);
+            yield break;
+        }
+
         if (initiativeDone) yield break;
 
         gm.InitiativeInProgress = true;
@@ -166,7 +202,6 @@ public class GameInitiator : MonoBehaviour
             rolls.Add((currentPlayer.PlayerID, result));
             Debug.Log($"Initiative (Initiator): Player {currentPlayer.PlayerID} rolled {result}");
 
-            // Show popup: "Player X: result"
             if (gm.uiManager != null)
             {
                 var label = string.IsNullOrEmpty(currentPlayer.PlayerName) ? $"Spieler {currentPlayer.PlayerID}" : currentPlayer.PlayerName;
@@ -176,10 +211,7 @@ public class GameInitiator : MonoBehaviour
             }
         }
 
-        var ordered = rolls
-            .OrderByDescending(r => r.roll)
-            .ToList();
-
+        var ordered = rolls.OrderByDescending(r => r.roll).ToList();
         var reordered = new List<PlayerData>();
         foreach (var entry in ordered)
         {
@@ -196,12 +228,13 @@ public class GameInitiator : MonoBehaviour
         if (gm.diceManager != null && gm.diceManager.moveButton != null)
             gm.diceManager.moveButton.SetActive(true);
     }
+
     private void InitializeBoardLayout()
     {
         // Set all fields to Bank by default
         for (int i = 0; i < boardLayout.Length; i++)
         {
-            boardLayout[i] = FieldType.Company;
+            boardLayout[i] = FieldType.Bank;
         }
 
         // Corner fields (Start)

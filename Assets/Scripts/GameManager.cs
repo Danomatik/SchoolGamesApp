@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public MoneyManager moneyManager;
     [HideInInspector] public ActionCardManager actionCardManager;
     [HideInInspector] public ActionManager actionManager;
+    [HideInInspector] public FieldSelector fieldSelector;
         
 
 
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         actionCardManager = GetComponent<ActionCardManager>();
         actionManager = GetComponent<ActionManager>();
+        fieldSelector = GetComponent<FieldSelector>();
     }
 
     void Start()
@@ -231,6 +233,61 @@ public class GameManager : MonoBehaviour
         }
 
         return gameInitiator.CurrentGame.AllPlayers[gameInitiator.CurrentGame.CurrentPlayerTurnID];
+    }
+
+    // ============================================================
+    // 🏢 COMPANY FIELD METHODS
+    // ============================================================
+
+    // PUBLIC METHOD: Get all unowned company fields
+    public List<CompanyField> GetUnownedCompanyFields()
+    {
+        List<CompanyField> unownedFields = new List<CompanyField>();
+        
+        if (gameInitiator == null || gameInitiator.CurrentGame == null)
+        {
+            Debug.LogWarning("GetUnownedCompanyFields: gameInitiator or CurrentGame is null");
+            return unownedFields;
+        }
+
+        List<CompanyField> allFields = gameInitiator.GetCompanyFields();
+        
+        if (allFields == null || allFields.Count == 0)
+        {
+            Debug.LogWarning("GetUnownedCompanyFields: No company fields found");
+            return unownedFields;
+        }
+
+        foreach (CompanyField field in allFields)
+        {
+            if (field.ownerID == -1)
+            {
+                unownedFields.Add(field);
+            }
+        }
+
+        Debug.Log($"Found {unownedFields.Count} unowned company fields out of {allFields.Count} total fields");
+        return unownedFields;
+    }
+
+    // PUBLIC METHOD: Get field indices of unowned fields
+    public List<int> GetUnownedFieldIndices()
+    {
+        List<int> indices = new List<int>();
+        List<CompanyField> unownedFields = GetUnownedCompanyFields();
+        
+        foreach (CompanyField field in unownedFields)
+        {
+            indices.Add(field.fieldIndex);
+        }
+        
+        return indices;
+    }
+
+    public List<int> GetBankAndActionFieldIndices()
+    {
+        List<int> bankAndActionFields = new List<int>{5, 7, 10, 13, 20, 23, 27, 30, 37};
+        return bankAndActionFields;
     }
 
     public void EndTurn()

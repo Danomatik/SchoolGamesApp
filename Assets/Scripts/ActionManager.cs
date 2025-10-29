@@ -151,12 +151,71 @@ public class ActionManager : MonoBehaviour
     }
 
     public void MoveToChosenCompanyField()
-    {
+    {   
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
         gameManager.cameraManager.SetTopView();
+        FieldSelector selector = gameManager.fieldSelector;
+
+        if (selector != null)
+        {
+            selector.EnableSelection();
+        }
+        else
+        {
+            Debug.LogError("MoveToChosenCompanyField: FieldSelector not found!");
+        }
+
+        if (selector.IsSelectionEnabled())
+        {   
+            Debug.Log("Selecting company field to move to...");
+
+            List<int> allowedCompanies = new List<int>();
+            allowedCompanies.AddRange(currentPlayer.companies);
+            allowedCompanies.AddRange(gameManager.GetUnownedFieldIndices());
+
+            selector.SetAllowedFields(allowedCompanies);
+            if (selector.HasConfirmedSelection())
+            {
+                Debug.Log("Company field selected.");
+                int selectedFieldId = selector.GetSelectedFieldId();
+                selector.DisableSelection();
+                gameManager.cameraManager.SetTopView();
+                MovePlayerToField(selectedFieldId);
+            }
+        }
+        
     }
 
     public void MoveToChosenField()
     {
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
         gameManager.cameraManager.SetTopView();
+        FieldSelector selector = gameManager.fieldSelector;
+
+        if (selector != null)
+        {
+            selector.EnableSelection();
+        }
+        else
+        {
+            Debug.LogError("MoveToChosenField: FieldSelector not found!");
+        }
+
+        if (selector.IsSelectionEnabled())
+        {
+            List<int> allowedCompanies = new List<int>();
+            allowedCompanies.AddRange(currentPlayer.companies);
+            allowedCompanies.AddRange(gameManager.GetBankAndActionFieldIndices());
+            allowedCompanies.AddRange(gameManager.GetUnownedFieldIndices());
+
+            selector.SetAllowedFields(allowedCompanies);
+            if (selector.HasConfirmedSelection())
+            {
+                int selectedFieldId = selector.GetSelectedFieldId();
+                selector.DisableSelection();
+                gameManager.cameraManager.SetTopView();
+                MovePlayerToField(selectedFieldId);
+            }
+        }
     }
 }
