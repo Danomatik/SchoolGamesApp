@@ -254,7 +254,15 @@ public class ScoreModeController : MonoBehaviour
             UpdateLivesUI();
         }
 
-        if (nextButton) nextButton.gameObject.SetActive(true);
+        // Next Button nur anzeigen wenn noch Leben übrig
+        if (_livesRemaining > 0)
+        {
+            if (nextButton) nextButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (nextButton) nextButton.gameObject.SetActive(false);
+        }
 
         // Prüfen ob Game Over
         if (_livesRemaining <= 0)
@@ -293,16 +301,22 @@ public class ScoreModeController : MonoBehaviour
 
         _answered = true;
 
+        // Next Button nur anzeigen wenn noch Leben übrig
+        if (_livesRemaining > 0)
+        {
+            if (nextButton) nextButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            if (nextButton) nextButton.gameObject.SetActive(false);
+        }
+
         if (_livesRemaining <= 0)
         {
             if (isActiveAndEnabled)
                 StartCoroutine(ShowGameOverDelayed());
             else
                 ShowGameOver();
-        }
-        else
-        {
-            if (nextButton) nextButton.gameObject.SetActive(true);
         }
     }
 

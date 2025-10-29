@@ -635,7 +635,7 @@ MonoBehaviour:
   backToMenuButton: {fileID: 471540441}
   learnModeController: {fileID: 35440225}
   scoreModeController: {fileID: 35440226}
-  examModeController: {fileID: 0}
+  examModeController: {fileID: 35440227}
 --- !u!114 &35440224
 MonoBehaviour:
   m_ObjectHideFlags: 0
