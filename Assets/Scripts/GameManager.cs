@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public CameraManager cameraManager;
     [HideInInspector] public MoneyManager moneyManager;
     [HideInInspector] public ActionCardManager actionCardManager;
+    [HideInInspector] public ActionManager actionManager;
         
 
 
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
         moneyManager = GetComponent<MoneyManager>();
         playerMovement = GetComponent<PlayerMovement>();
         actionCardManager = GetComponent<ActionCardManager>();
+        actionManager = GetComponent<ActionManager>();
     }
 
     void Start()

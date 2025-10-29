@@ -159,7 +159,7 @@ public class ActionCardManager : MonoBehaviour
 
         if (lastCardWasRollAgain)
         {
-            RollAgain();
+            gameManager.actionManager.RollAgain();
         }
         else
         {
@@ -190,22 +190,22 @@ public class ActionCardManager : MonoBehaviour
         {
             case 1: // Possibly - Rücke vor zu einem Unternehmen deiner Wahl
                 Debug.Log("Action Card 1: Player can move to any company (not implemented yet - going to field 0)");
-                MovePlayerToField(0); // TODO: Implement company selection UI
+                gameManager.actionManager.MovePlayerToField(0); // TODO: Implement company selection UI
                 break;
 
             case 2: // Volksbank Präsentation - Springe zu einem Unternehmen deiner Wahl
                 Debug.Log("Action Card 2: Player can jump to any company (not implemented yet - going to field 0)");
-                MovePlayerToField(0); // TODO: Implement company selection UI
+                gameManager.actionManager.MovePlayerToField(0); // TODO: Implement company selection UI
                 break;
 
             case 3: // Business Angels - Springe zu deinem nächsten Unternehmen
                 Debug.Log("Action Card 3: Jump to player's next owned company");
-                JumpToNextOwnedCompany();
+                gameManager.actionManager.MoveToNextCompanyField();
                 break;
 
             case 4: // Landesregierung - Springe zu einem deiner Unternehmen
                 Debug.Log("Action Card 4: Jump to one of player's companies (not implemented yet)");
-                JumpToNextOwnedCompany(); // TODO: Implement owned company selection UI
+                gameManager.actionManager.MoveToNextCompanyField(); // TODO: Implement owned company selection UI
                 break;
 
             case 5: // Quiz für kostenloses AG-Upgrade
@@ -216,18 +216,18 @@ public class ActionCardManager : MonoBehaviour
 
             case 6: // Stadt gestalten - EUR 200 Bonus
                 Debug.Log("Action Card 6: Player receives 200€");
-                AddMoneyFromActionCard(200);
+                gameManager.actionManager.AddMoney(200);
                 break;
 
             case 7: // Gesetzliche Auflagen - Setze eine Runde aus
                 Debug.Log("Action Card 7: Player skips next turn");
-                SkipTurn();
+                gameManager.actionManager.SkipTurn();
                 break;
 
             case 8: // Stadt Graz Praktikum - Noch einmal würfeln
                 Debug.Log("Action Card 8: Player can roll again");
                 lastCardWasRollAgain = true;
-                RollAgain();
+                gameManager.actionManager.RollAgain();
                 break;
 
             default:
@@ -236,121 +236,4 @@ public class ActionCardManager : MonoBehaviour
         }
     }
 
-    public void MovePlayerToField(int fieldPosition)
-    {
-        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
-        PlayerCTRL activePlayer = gameManager.players.Find(p => p.PlayerID == currentPlayer.PlayerID);
-
-        if (activePlayer != null)
-        {
-            int currentPos = activePlayer.currentPos;
-            int stepsNeeded = (fieldPosition - currentPos + 40) % 40;
-
-            Debug.Log($"Action Card: Moving player {currentPlayer.PlayerID} to field {fieldPosition} ({stepsNeeded} steps)");
-            activePlayer.StartMove(stepsNeeded);
-        }
-        else
-        {
-            Debug.LogError($"Could not find PlayerCTRL for player {currentPlayer.PlayerID}");
-        }
-    }
-
-    private void JumpToNextOwnedCompany()
-    {
-        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
-        
-        if (currentPlayer.companies == null || currentPlayer.companies.Count == 0)
-        {
-            Debug.Log("Player has no companies to jump to!");
-            gameManager.EndTurn();
-            return;
-        }
-
-        PlayerCTRL activePlayer = gameManager.players.Find(p => p.PlayerID == currentPlayer.PlayerID);
-        if (activePlayer == null)
-        {
-            Debug.LogError($"Could not find PlayerCTRL for player {currentPlayer.PlayerID}");
-            return;
-        }
-
-        int currentPos = activePlayer.currentPos;
-        
-        // Find next owned company (clockwise from current position)
-        int targetField = -1;
-        int minDistance = 40;
-
-        foreach (int companyField in currentPlayer.companies)
-        {
-            int distance = (companyField - currentPos + 40) % 40;
-            if (distance > 0 && distance < minDistance)
-            {
-                minDistance = distance;
-                targetField = companyField;
-            }
-        }
-
-        // If no company ahead, take the first one (wrap around)
-        if (targetField == -1 && currentPlayer.companies.Count > 0)
-        {
-            targetField = currentPlayer.companies[0];
-        }
-
-        if (targetField != -1)
-        {
-            Debug.Log($"Action Card: Player {currentPlayer.PlayerID} jumps to their company at field {targetField}");
-            MovePlayerToField(targetField);
-        }
-        else
-        {
-            Debug.LogError("Could not find a valid company to jump to!");
-            gameManager.EndTurn();
-        }
-    }
-
-    public void SkipTurn()
-    {
-        var current = gameManager.GetCurrentPlayer();
-        if (current == null)
-        {
-            Debug.LogError("SkipTurn: no current player!");
-            gameManager.EndTurn();
-            return;
-        }
-
-        current.hasToSkip = true;
-        Debug.Log($"Action Card: Player {current.PlayerID} will skip their next turn.");
-        gameManager.EndTurn();
-    }
-
-    public void RollAgain()
-    {
-        Debug.Log($"Action Card: Player {gameManager.GetCurrentPlayer().PlayerID} gets to roll again!");
-
-        gameManager.playerMovement.setIsTurnInProgress(false);
-        GameObject moveButton = gameManager.playerMovement.getMoveButton();
-        moveButton.SetActive(true);
-        gameManager.uiManager.UpdateMoneyDisplay();
-
-        Debug.Log("Player can now roll again!");
-    }
-
-    public void AddMoneyFromActionCard(int amount)
-    {
-        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
-        if (currentPlayer != null)
-        {
-            currentPlayer.Money += amount;
-            gameManager.uiManager.UpdateMoneyDisplay();
-            Debug.Log($"Action Card: Player {currentPlayer.PlayerID} receives {amount}€");
-        }
-        else
-        {
-            Debug.LogError("AddMoneyFromActionCard: Current player is null!");
-        }
-    }
-
-    public bool ShouldRollAgain()
-    {
-        return lastCardWasRollAgain;
-    }
 }
