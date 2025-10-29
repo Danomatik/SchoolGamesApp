@@ -104,6 +104,24 @@ public class PlayerMovement : MonoBehaviour
                         }
                         break;
                     }
+                case FieldType.Action:
+                    {
+                        Debug.Log("Player landed on Action field!");
+                        var currentPlayer = gameManager.GetCurrentPlayer();
+                        if (currentPlayer != null && gameManager.actionCardManager != null)
+                        {
+                            gameManager.actionCardManager.ShowRandomActionCard();
+
+                            // WICHTIG: Wir warten jetzt auf den Klick im Popup (ActionCardManager beendet/fortsetzt den Turn)
+                            return;
+                        }
+                        else
+                        {
+                            Debug.LogError("Action field: Current player or BankCardManager is null!");
+                        }
+                        break;
+                    }
+
 
             }
         }
