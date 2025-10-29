@@ -12589,6 +12589,7 @@ MonoBehaviour:
   actionManager: {fileID: 0}
   fieldSelector: {fileID: 0}
   moneyDisplay: {fileID: 458497979}
+  agCardSkipsPrerequisites: 1
 --- !u!4 &1871652811
 Transform:
   m_ObjectHideFlags: 0
@@ -12764,8 +12765,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 1021593882}
-  testMode: 0
-  enableTestMode: 0
+  testMode: 5
+  enableTestMode: 1
 --- !u!114 &1871652821
 MonoBehaviour:
   m_ObjectHideFlags: 0
