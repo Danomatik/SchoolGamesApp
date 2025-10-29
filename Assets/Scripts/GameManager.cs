@@ -305,4 +305,6 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
     }
+
+    public bool InitiativeInProgress { get; set; } = false;
 }

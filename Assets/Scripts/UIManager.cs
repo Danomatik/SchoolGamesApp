@@ -19,12 +19,16 @@ public class UIManager : MonoBehaviour
     [Header("Money Display")]
     [SerializeField] private TextMeshProUGUI moneyDisplayText; // Display für Geld
 
+    [Header("Initiative Popup")]
+    [SerializeField] private GameObject initiativePanel;
+    [SerializeField] private TextMeshProUGUI initiativeText;
     private GameManager gm;
 
     private void Awake()
     {
         gm = GetComponent<GameManager>(); // alle Manager am selben GO
         if (companyPanel != null) companyPanel.SetActive(false);
+        if (initiativePanel != null) initiativePanel.SetActive(false);
     }
 
     private void Start()
@@ -54,6 +58,20 @@ public class UIManager : MonoBehaviour
             moneyDisplayText.text = "--- €";
         }
     }
+
+    public void ShowInitiativeRoll(string playerLabel, int roll)
+    {
+        if (!initiativePanel || !initiativeText) return;
+        initiativePanel.SetActive(true);
+        initiativeText.text = $"{playerLabel}: {roll}";
+    }
+
+    public void HideInitiative()
+    {
+        if (!initiativePanel) return;
+        initiativePanel.SetActive(false);
+    }
+
 
     // Freies Feld → Kaufen oder Verzichten (Buttons 1/2)
     public void ShowCompanyPurchase(CompanyConfigData company, CompanyField field, PlayerData player)

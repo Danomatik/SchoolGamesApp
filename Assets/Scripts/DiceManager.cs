@@ -121,4 +121,30 @@ public class DiceManager : MonoBehaviour
         return val1 + val2;
     }
 
+    public IEnumerator RollForInitiative(System.Action<int> onRolled)
+    {
+        if (rolling) yield break;
+        moveButton.SetActive(false);
+        rolling = true;
+
+        ResetDice(dice1, spawnPos1);
+        ResetDice(dice2, spawnPos2);
+
+        ThrowDice(dice1);
+        ThrowDice(dice2);
+
+        // Focus camera on dice
+        cam.Follow = diceTargetGroup.transform;
+        cam.Lens.OrthographicSize = diceLensSize;
+
+        yield return new WaitUntil(() => dice1.IsSleeping() && dice2.IsSleeping());
+        yield return new WaitForSeconds(1f);
+
+        int rollValue = GetAddedValue();
+        Debug.Log($"Dice (initiative) result: {rollValue}");
+        onRolled?.Invoke(rollValue);
+
+        rolling = false;
+    }
+
 }
