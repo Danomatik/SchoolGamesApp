@@ -2,13 +2,13 @@
 - Project name: SchoolGamesApp
 - Unity version: Unity 6000.0.51f1
 - Active scene:
-  - Name: Demo 1
+  - Name: Demo 2
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI
 - Active game object:
-  - Name: Quizmodus
+  - Name: MainMenu
   - Tag: Untagged
   - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
