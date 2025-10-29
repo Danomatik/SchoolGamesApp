@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public ActionCardManager actionCardManager;
     [HideInInspector] public ActionManager actionManager;
     [HideInInspector] public FieldSelector fieldSelector;
-        
+
 
 
     [Header("UI")]
@@ -109,14 +109,14 @@ public class GameManager : MonoBehaviour
             EndTurn();
         }
     }
-    
+
     private bool IsUpgradeAllowed(CompanyLevel current, CompanyLevel target)
     {
         // Nur stufenweise:
         // None -> Founded -> Invested -> AG
-        if (target == CompanyLevel.Founded)   return current == CompanyLevel.None;
-        if (target == CompanyLevel.Invested)  return current == CompanyLevel.Founded;
-        if (target == CompanyLevel.AG)        return current == CompanyLevel.Invested;
+        if (target == CompanyLevel.Founded) return current == CompanyLevel.None;
+        if (target == CompanyLevel.Invested) return current == CompanyLevel.Founded;
+        if (target == CompanyLevel.AG) return current == CompanyLevel.Invested;
         return false;
     }
 
@@ -153,44 +153,52 @@ public class GameManager : MonoBehaviour
         }
     }
 
-        public void StartQuizForAG()
+    public void StartQuizForAG()
     {
-        if (questionManager == null)
+        var player = GetCurrentPlayer();
+        if (player == null)
         {
-            Debug.LogWarning("StartQuizForAG: QuestionManager missing → skipping quiz.");
+            Debug.LogWarning("StartQuizForAG: No current player.");
             EndTurn();
             return;
         }
 
-        // Ask 3 questions; require all 3 correct (adjust 'requiredCorrect' if you want 2/3)
-        int totalQuestions = 3;
-        int requiredCorrect = 3;
+        if (!TryGetEligibleCompaniesForAG(player, out var eligible))
+        {
+            Debug.Log("StartQuizForAG: Player has no eligible companies → skipping AG quiz.");
+            // Optional: show a small popup/toast in your UI here.
+            EndTurn();
+            return;
+        }
 
-        // Disable rolling during the series
+        // If you reach here, player owns at least one eligible company.
+        // Start your 3-question series (from earlier message):
         if (diceManager != null && diceManager.moveButton != null)
             diceManager.moveButton.SetActive(false);
+
+        // total=3, require all 3 correct (or set to 2 if you prefer 2/3)
+        int totalQuestions = 3;
+        int requiredCorrect = 3;
 
         questionManager.StartQuizSeries(totalQuestions, requiredCorrect, success =>
         {
             if (success)
             {
-                Debug.Log("AG Upgrade Quiz PASSED. TODO: Let player choose a company to upgrade to AG for free.");
-                // TODO: show company selection UI here and perform free upgrade
-                // e.g., uiManager.ShowAgUpgradeSelection(currentPlayer, onCompanyChosen: ...);
+                Debug.Log("AG Upgrade Quiz PASSED. Show selection UI to pick which owned company to upgrade to AG for free.");
+                // TODO: uiManager.ShowAgUpgradeSelection(player, eligible, (chosenField) => { chosenField.level = CompanyLevel.AG; boardVisuals.UpdateFieldVisual(chosenField); ... });
             }
             else
             {
                 Debug.Log("AG Upgrade Quiz FAILED.");
             }
 
-            // Close out and resume the turn flow
             if (diceManager != null && diceManager.moveButton != null)
                 diceManager.moveButton.SetActive(true);
 
             EndTurn();
         });
-
     }
+
 
 
     public void OnQuizResult(bool correct)
@@ -243,7 +251,7 @@ public class GameManager : MonoBehaviour
 
     public PlayerData GetCurrentPlayer()
     {
-    // 1. Check: Ist gameInitiator überhaupt da?
+        // 1. Check: Ist gameInitiator überhaupt da?
         if (gameInitiator == null)
         {
             Debug.LogError("GetCurrentPlayer: gameInitiator is NULL!");
@@ -258,7 +266,7 @@ public class GameManager : MonoBehaviour
         }
 
         // 3. Check: Ist AllPlayers da?
-        if (gameInitiator.CurrentGame.AllPlayers == null || 
+        if (gameInitiator.CurrentGame.AllPlayers == null ||
             gameInitiator.CurrentGame.AllPlayers.Count == 0)
         {
             Debug.LogError("GetCurrentPlayer: AllPlayers is null or empty!");
@@ -282,7 +290,7 @@ public class GameManager : MonoBehaviour
     public List<CompanyField> GetUnownedCompanyFields()
     {
         List<CompanyField> unownedFields = new List<CompanyField>();
-        
+
         if (gameInitiator == null || gameInitiator.CurrentGame == null)
         {
             Debug.LogWarning("GetUnownedCompanyFields: gameInitiator or CurrentGame is null");
@@ -290,7 +298,7 @@ public class GameManager : MonoBehaviour
         }
 
         List<CompanyField> allFields = gameInitiator.GetCompanyFields();
-        
+
         if (allFields == null || allFields.Count == 0)
         {
             Debug.LogWarning("GetUnownedCompanyFields: No company fields found");
@@ -309,23 +317,69 @@ public class GameManager : MonoBehaviour
         return unownedFields;
     }
 
+    //-------------------------------------------------------------
+    // Optional rule: allow skipping prerequisites (Invested -> AG)
+    [Header("Rules")]
+    [SerializeField] private bool agCardSkipsPrerequisites = true;
+
+    // Returns a list of CompanyField objects owned by the player (by fieldIndex)
+    private List<CompanyField> GetOwnedCompanyFields(PlayerData player)
+    {
+        var result = new List<CompanyField>();
+        var all = gameInitiator?.GetCompanyFields();
+        if (player == null || all == null) return result;
+
+        // Player.companies stores field indices
+        foreach (var fieldIndex in player.companies)
+        {
+            var cf = all.FirstOrDefault(f => f.fieldIndex == fieldIndex);
+            if (cf != null && cf.ownerID == player.PlayerID)
+                result.Add(cf);
+        }
+        return result;
+    }
+
+
+    // Filters owned companies for AG-eligibility
+    private bool TryGetEligibleCompaniesForAG(PlayerData player, out List<CompanyField> eligible)
+    {
+        eligible = new List<CompanyField>();
+        var owned = GetOwnedCompanyFields(player);
+        if (owned.Count == 0) return false;
+
+        foreach (var f in owned)
+        {
+            if (f.level == CompanyLevel.AG) continue; // already maxed
+
+            // If you want strict ladder: only Invested -> AG
+            // Otherwise (default) allow Founded/Invested -> AG (free upgrade card)
+            bool ok = agCardSkipsPrerequisites ? true : (f.level == CompanyLevel.Invested);
+            if (ok) eligible.Add(f);
+        }
+        return eligible.Count > 0;
+    }
+    //-------------------------------------------------------------
+
+
+
+
     // PUBLIC METHOD: Get field indices of unowned fields
     public List<int> GetUnownedFieldIndices()
     {
         List<int> indices = new List<int>();
         List<CompanyField> unownedFields = GetUnownedCompanyFields();
-        
+
         foreach (CompanyField field in unownedFields)
         {
             indices.Add(field.fieldIndex);
         }
-        
+
         return indices;
     }
 
     public List<int> GetBankAndActionFieldIndices()
     {
-        List<int> bankAndActionFields = new List<int>{5, 7, 10, 13, 20, 23, 27, 30, 37};
+        List<int> bankAndActionFields = new List<int> { 5, 7, 10, 13, 20, 23, 27, 30, 37 };
         return bankAndActionFields;
     }
 
@@ -381,7 +435,7 @@ public class GameManager : MonoBehaviour
             moneyDisplay.SetActive(true);
         }
     }
-    
+
     private IEnumerator SkipTurnDelay()
     {
         yield return new WaitForSeconds(1f); // kurze Pause, damit der Spieler den Text lesen kann
@@ -404,3 +458,5 @@ public class GameManager : MonoBehaviour
 
     public bool InitiativeInProgress { get; set; } = false;
 }
+
+

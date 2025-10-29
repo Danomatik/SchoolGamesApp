@@ -209,10 +209,19 @@ public class ActionCardManager : MonoBehaviour
                 break;
 
             case 5: // Quiz für kostenloses AG-Upgrade
-                Debug.Log("Action Card 5: Free AG upgrade if quiz passed (not fully implemented)");
-                // TODO: Implement special quiz + free AG upgrade logic
-                upgradeToAg();
-                break;
+                {
+                    var player = gameManager.GetCurrentPlayer();
+                    if (player == null) { Debug.LogWarning("No current player."); break; }
+
+                    // reuse the GameManager check
+                    var ok = typeof(GameManager)
+                        .GetMethod("TryGetEligibleCompaniesForAG", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                        ?.Invoke(gameManager, new object[] { player, null });
+
+                    // simpler: just let GameManager decide (recommended)
+                    gameManager.StartQuizForAG();
+                    break;
+                }
 
             case 6: // Stadt gestalten - EUR 200 Bonus
                 Debug.Log("Action Card 6: Player receives 200€");
@@ -235,10 +244,4 @@ public class ActionCardManager : MonoBehaviour
                 break;
         }
     }
-
-    public void upgradeToAg()
-    {
-        gameManager.StartQuizForAG();
-    }
-
 }
