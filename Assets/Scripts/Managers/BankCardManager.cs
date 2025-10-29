@@ -191,15 +191,18 @@ public class BankCardManager : MonoBehaviour
             case 29: MovePlayerToField(2); break;
             case 30: MoveToChosenCompanyField(); break;
             case 32: MovePlayer(3); break;
-            case 35: MovePlayerToField(10); break;
+            case 35: MovePlayerToField(39); break;
+            
+            // ToDo Frage Beantworten hinzufügen
             case 38: MovePlayer(3); break;
+
             case 44: MovePlayerToField(1); break;
             case 45: MovePlayer(2); break;
-            case 52: MovePlayerToField(20); break;
+            case 52: MovePlayerToField(31); break;
             case 56: MovePlayer(3); break;
             case 70: MovePlayer(4); break;
             case 72: MovePlayerToField(9); break;
-            case 74: MovePlayerToField(30); break;
+            case 74: MovePlayerToField(27); break;
             case 77: MoveToChosenField(); break;
             case 79: MovePlayer(2); break;
             case 85: MoveToNextCompanyField(); break;

@@ -1397,7 +1397,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -1770,10 +1770,10 @@ MonoBehaviour:
   UpdateMethod: 1
   Targets:
   - Object: {fileID: 1832168574}
-    Weight: 4
+    Weight: 12
     Radius: 0
   - Object: {fileID: 1348870185}
-    Weight: 4
+    Weight: 12
     Radius: 0
   m_LegacyTargets: []
 --- !u!1 &292442965
@@ -2204,7 +2204,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -3053,7 +3053,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -8278,7 +8278,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -12535,7 +12535,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -14435,7 +14435,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
