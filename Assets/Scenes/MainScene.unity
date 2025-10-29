@@ -12311,6 +12311,7 @@ MonoBehaviour:
   cameraManager: {fileID: 0}
   moneyManager: {fileID: 0}
   actionCardManager: {fileID: 0}
+  actionManager: {fileID: 0}
   moneyDisplay: {fileID: 458497979}
 --- !u!4 &1871652811
 Transform:
@@ -12500,6 +12501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44f7c5e762778480fb93b408d2a30e95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lastCardWasRollAgain: 0
 --- !u!1 &1882057160
 GameObject:
   m_ObjectHideFlags: 0
@@ -13186,8 +13188,8 @@ Transform:
   m_GameObject: {fileID: 1924452152}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.26236877, y: 0, z: 0.2778454}
-  m_LocalScale: {x: 1.2264446, y: 1, z: 1.225502}
+  m_LocalPosition: {x: -1.4, y: -0.000000055879, z: 1.78}
+  m_LocalScale: {x: 0.82603115, y: 1.5, z: 0.93375}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 742042753}
@@ -13898,6 +13900,7 @@ RectTransform:
   - {fileID: 458497980}
   - {fileID: 1896093988}
   - {fileID: 803559260}
+  - {fileID: 678387563}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
