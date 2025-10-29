@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class ActionManager : MonoBehaviour
 {
@@ -152,70 +153,71 @@ public class ActionManager : MonoBehaviour
 
     public void MoveToChosenCompanyField()
     {   
-        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
-        gameManager.cameraManager.SetTopView();
-        FieldSelector selector = gameManager.fieldSelector;
-
-        if (selector != null)
-        {
-            selector.EnableSelection();
-        }
-        else
-        {
-            Debug.LogError("MoveToChosenCompanyField: FieldSelector not found!");
-        }
-
-        if (selector.IsSelectionEnabled())
-        {   
-            Debug.Log("Selecting company field to move to...");
-
-            List<int> allowedCompanies = new List<int>();
-            allowedCompanies.AddRange(currentPlayer.companies);
-            allowedCompanies.AddRange(gameManager.GetUnownedFieldIndices());
-
-            selector.SetAllowedFields(allowedCompanies);
-            if (selector.HasConfirmedSelection())
-            {
-                Debug.Log("Company field selected.");
-                int selectedFieldId = selector.GetSelectedFieldId();
-                selector.DisableSelection();
-                gameManager.cameraManager.SetTopView();
-                MovePlayerToField(selectedFieldId);
-            }
-        }
-        
+        StartCoroutine(MoveToChosenCompanyFieldCoroutine());
     }
 
-    public void MoveToChosenField()
+    private IEnumerator MoveToChosenCompanyFieldCoroutine()
     {
         PlayerData currentPlayer = gameManager.GetCurrentPlayer();
         gameManager.cameraManager.SetTopView();
         FieldSelector selector = gameManager.fieldSelector;
 
-        if (selector != null)
+        if (selector == null)
         {
-            selector.EnableSelection();
+            Debug.LogError("MoveToChosenCompanyField: FieldSelector not found!");
+            yield break;
         }
-        else
+
+        List<int> allowedCompanies = new List<int>();
+        allowedCompanies.AddRange(currentPlayer.companies);
+        allowedCompanies.AddRange(gameManager.GetUnownedFieldIndices());
+
+        selector.SetAllowedFields(allowedCompanies);
+        selector.EnableSelection();
+        
+        Debug.Log("Selecting company field to move to...");
+
+        // Wait until the player confirms their selection
+        yield return new WaitUntil(() => selector.HasConfirmedSelection());
+        
+        Debug.Log("Company field selected.");
+        int selectedFieldId = selector.GetSelectedFieldId();
+        selector.DisableSelection();
+        gameManager.cameraManager.SetTopView();
+        MovePlayerToField(selectedFieldId);
+    }
+
+    public void MoveToChosenField()
+    {
+        StartCoroutine(MoveToChosenFieldCoroutine());
+    }
+
+    private IEnumerator MoveToChosenFieldCoroutine()
+    {
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
+        gameManager.cameraManager.SetTopView();
+        FieldSelector selector = gameManager.fieldSelector;
+
+        if (selector == null)
         {
             Debug.LogError("MoveToChosenField: FieldSelector not found!");
+            yield break;
         }
 
-        if (selector.IsSelectionEnabled())
-        {
-            List<int> allowedCompanies = new List<int>();
-            allowedCompanies.AddRange(currentPlayer.companies);
-            allowedCompanies.AddRange(gameManager.GetBankAndActionFieldIndices());
-            allowedCompanies.AddRange(gameManager.GetUnownedFieldIndices());
+        List<int> allowedCompanies = new List<int>();
+        allowedCompanies.AddRange(currentPlayer.companies);
+        allowedCompanies.AddRange(gameManager.GetBankAndActionFieldIndices());
+        allowedCompanies.AddRange(gameManager.GetUnownedFieldIndices());
 
-            selector.SetAllowedFields(allowedCompanies);
-            if (selector.HasConfirmedSelection())
-            {
-                int selectedFieldId = selector.GetSelectedFieldId();
-                selector.DisableSelection();
-                gameManager.cameraManager.SetTopView();
-                MovePlayerToField(selectedFieldId);
-            }
-        }
+        selector.SetAllowedFields(allowedCompanies);
+        selector.EnableSelection();
+
+        // Wait until the player confirms their selection
+        yield return new WaitUntil(() => selector.HasConfirmedSelection());
+
+        int selectedFieldId = selector.GetSelectedFieldId();
+        selector.DisableSelection();
+        gameManager.cameraManager.SetTopView();
+        MovePlayerToField(selectedFieldId);
     }
 }
