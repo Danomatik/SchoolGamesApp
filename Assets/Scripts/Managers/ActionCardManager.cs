@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 [System.Serializable]
@@ -211,7 +212,7 @@ public class ActionCardManager : MonoBehaviour
             case 5: // Quiz für kostenloses AG-Upgrade
                 Debug.Log("Action Card 5: Free AG upgrade if quiz passed (not fully implemented)");
                 // TODO: Implement special quiz + free AG upgrade logic
-                gameManager.EndTurn();
+                upgradeToAg();
                 break;
 
             case 6: // Stadt gestalten - EUR 200 Bonus
@@ -234,6 +235,12 @@ public class ActionCardManager : MonoBehaviour
                 Debug.LogWarning($"Action Card #{cardId}: No action implemented yet.");
                 break;
         }
+    }
+ 
+    public void upgradeToAg()
+    {
+        gameManager.StartQuizForAG();
+
     }
 
 }
