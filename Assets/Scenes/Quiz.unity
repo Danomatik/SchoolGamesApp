@@ -771,7 +771,7 @@ MonoBehaviour:
   historyJuniorButton: {fileID: 797768279}
   historySeniorButton: {fileID: 1833157715}
   examQuestionCount: 20
-  examTotalTime: 1200
+  examTotalTime: 300
   passingPercentage: 60
   neutralColor: {r: 0.16470589, g: 0.4862745, b: 0.6509804, a: 1}
   selectedColor: {r: 0.2901961, g: 0.6117647, b: 0.7764706, a: 1}
