@@ -1396,6 +1396,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: moveDurationPerTile
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
       objectReference: {fileID: 0}
@@ -2198,6 +2202,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1871652817}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: moveDurationPerTile
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
@@ -3043,6 +3051,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1871652817}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: moveDurationPerTile
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
@@ -8265,6 +8277,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: moveDurationPerTile
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
       objectReference: {fileID: 0}
@@ -11697,7 +11713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 364da14871d8441f6b19d628a1c11e94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInitiator: {fileID: 1871652815}
   players:
   - {fileID: 736362893}
   - {fileID: 327502422}
@@ -11705,6 +11720,7 @@ MonoBehaviour:
   - {fileID: 1591927447}
   - {fileID: 407202909}
   - {fileID: 915944202}
+  gameInitiator: {fileID: 1871652815}
   questionManager: {fileID: 1871652809}
   bankCardManager: {fileID: 1871652812}
   uiManager: {fileID: 1871652813}
@@ -11742,7 +11758,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 977201816}
-  testMode: 2
+  testMode: 4
   enableTestMode: 1
 --- !u!114 &1871652813
 MonoBehaviour:
@@ -12517,6 +12533,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1871652817}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: moveDurationPerTile
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793
@@ -14413,6 +14433,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1871652817}
+    - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
+      propertyPath: moveDurationPerTile
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
       value: 0.049987793

@@ -9,9 +9,11 @@ public class GameManager : MonoBehaviour
     // ============================================================
     // 🟩 GAME MANAGER SETTINGS
     // ============================================================
-    public GameInitiator gameInitiator;
+
+    [Header("GAME")]
     public List<PlayerCTRL> players;
 
+    [HideInInspector] public GameInitiator gameInitiator;
     [HideInInspector] public QuestionManager questionManager;
     [HideInInspector] public BankCardManager bankCardManager;
     [HideInInspector] public UIManager uiManager;
@@ -195,7 +197,23 @@ public class GameManager : MonoBehaviour
 
     public PlayerData GetCurrentPlayer()
     {
-        if (gameInitiator.CurrentGame.AllPlayers == null || gameInitiator.CurrentGame.AllPlayers.Count == 0)
+    // 1. Check: Ist gameInitiator überhaupt da?
+        if (gameInitiator == null)
+        {
+            Debug.LogError("GetCurrentPlayer: gameInitiator is NULL!");
+            return null;
+        }
+
+        // 2. Check: Ist CurrentGame initialisiert?
+        if (gameInitiator.CurrentGame == null)
+        {
+            Debug.LogError("GetCurrentPlayer: CurrentGame is NULL!");
+            return null;
+        }
+
+        // 3. Check: Ist AllPlayers da?
+        if (gameInitiator.CurrentGame.AllPlayers == null || 
+            gameInitiator.CurrentGame.AllPlayers.Count == 0)
         {
             Debug.LogError("GetCurrentPlayer: AllPlayers is null or empty!");
             return null;

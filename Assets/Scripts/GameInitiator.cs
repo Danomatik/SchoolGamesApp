@@ -20,13 +20,11 @@ public class GameInitiator : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
 
         LoadCompanyConfigs();
-
         CurrentGame = new GameState();
-
         // Initialize board layout - all fields are Company by default
         InitializeBoardLayout();     // <-- ZUERST das Layout setzen
         InitializeCompanyFields();   // <-- DANN die companyFields daraus bauen
