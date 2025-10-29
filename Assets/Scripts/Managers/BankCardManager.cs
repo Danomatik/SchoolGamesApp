@@ -182,14 +182,14 @@ public class BankCardManager : MonoBehaviour
         {
             // Movement cases - NO EndTurn()
             case 1: MovePlayer(3); break;
-            case 2: MovePlayerToField(0); break;
-            case 7: MovePlayerToField(5); break;
-            case 12: MovePlayerToField(0); break;
+            case 2: MoveToChosenCompanyField(); break;
+            case 7: MoveToChosenField(); break;
+            case 12: MoveToChosenCompanyField(); break;
             case 19: MovePlayer(4); break;
             case 23: MovePlayer(1); break;
             case 24: MovePlayer(2); break;
             case 29: MovePlayerToField(2); break;
-            case 30: MovePlayerToField(0); break;
+            case 30: MoveToChosenCompanyField(); break;
             case 32: MovePlayer(3); break;
             case 35: MovePlayerToField(10); break;
             case 38: MovePlayer(3); break;
@@ -200,9 +200,9 @@ public class BankCardManager : MonoBehaviour
             case 70: MovePlayer(4); break;
             case 72: MovePlayerToField(25); break;
             case 74: MovePlayerToField(30); break;
-            case 77: MovePlayerToField(5); break;
+            case 77: MoveToChosenField(); break;
             case 79: MovePlayer(2); break;
-            case 85: MovePlayerToField(0); break;
+            case 85: MoveToNextCompanyField(); break;
 
             // Roll again cases - NO EndTurn()
             case 4: case 5: case 11: case 14: case 16: case 21: case 25: case 27:
@@ -290,7 +290,7 @@ public class BankCardManager : MonoBehaviour
 
     public void SkipTurn()
     {
-        var current = gameManager.GetCurrentPlayer();
+        PlayerData current = gameManager.GetCurrentPlayer();
         if (current == null)
         {
             Debug.LogError("SkipTurn: no current player!");
@@ -298,20 +298,9 @@ public class BankCardManager : MonoBehaviour
             return;
         }
 
-        ScheduleSkipNextTurn(current.PlayerID, 1);
+        current.hasToSkip = true;
         Debug.Log($"Bank Card Action: Player {current.PlayerID} will skip their next turn.");
         gameManager.EndTurn();
-    }
-
-    public void ScheduleSkipNextTurn(int playerId, int rounds = 1)
-    {
-        if (rounds <= 0) return;
-        if (_skipCounters.TryGetValue(playerId, out var cnt))
-            _skipCounters[playerId] = cnt + rounds;
-        else
-            _skipCounters[playerId] = rounds;
-
-        Debug.Log($"Player {playerId} will skip the next {rounds} turn(s).");
     }
 
     public void RollAgain()
@@ -355,5 +344,59 @@ public class BankCardManager : MonoBehaviour
             Debug.LogError("AddMoneyFromBankCard: Current player is null!");
             gameManager.EndTurn();
         }
+    }
+
+    public void MoveToNextCompanyField()
+    {
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
+        if (currentPlayer == null)
+        {
+            Debug.LogError("MoveToNextCompanyField: Current player is null!");
+            gameManager.EndTurn();
+            return;
+        }
+
+        
+        List<int> companyFields = currentPlayer.companies; 
+        if (companyFields == null || companyFields.Count == 0)
+        {
+            Debug.LogError("MoveToNextCompanyField: No company fields owned by Player!");
+            gameManager.EndTurn();
+            return;
+        }
+
+        int nearestCompany = -1;
+        int shortestDistance = 40;
+
+        foreach (int companyField in companyFields)
+        {
+            int distance = (companyField - currentPlayer.BoardPosition + 40) % 40;
+            if (distance > 0 && distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                nearestCompany = companyField;
+            }
+        }
+
+        if (nearestCompany == -1)
+        {
+            Debug.LogWarning("MoveToNextCompanyField: No next company found.");
+            gameManager.EndTurn();
+            return;
+        }
+
+        Debug.Log($"Moving player {currentPlayer.PlayerID} to next company field {nearestCompany} ({shortestDistance} steps ahead)");
+        
+        MovePlayerToField(nearestCompany);
+    }
+
+    public void MoveToChosenCompanyField()
+    {
+        gameManager.cameraManager.SetTopView();
+    }
+    
+    public void MoveToChosenField()
+    {
+        gameManager.cameraManager.SetTopView();
     }
 }

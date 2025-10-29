@@ -37,11 +37,11 @@ public class GameInitiator : MonoBehaviour
         CurrentGame.AllPlayers.Add(Player1);
 
         // Spieler 2
-        PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0, PlayerName = "Momo", hasToSkip = false, companies = new List<int>() };
+        PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0, PlayerName = "Momo", hasToSkip = false, companies = new List<int>()};
         CurrentGame.AllPlayers.Add(Player2);
 
         // Spieler 3
-        PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0, PlayerName = "Simoan", hasToSkip = false, companies = new List<int>() };
+        PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0, PlayerName = "Simoan", hasToSkip = false, companies = new List<int>()};
         CurrentGame.AllPlayers.Add(Player3);
 
         // Spieler 4

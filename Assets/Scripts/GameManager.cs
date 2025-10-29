@@ -200,24 +200,24 @@ public class GameManager : MonoBehaviour
             Debug.LogError("GetCurrentPlayer: AllPlayers is null or empty!");
             return null;
         }
-        
+
         if (gameInitiator.CurrentGame.CurrentPlayerTurnID < 0 || gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
         {
             Debug.LogError($"GetCurrentPlayer: currentPlayerIndex {gameInitiator.CurrentGame.CurrentPlayerTurnID} is out of bounds! AllPlayers count: {gameInitiator.CurrentGame.AllPlayers.Count}");
             return null;
         }
-        
+
         return gameInitiator.CurrentGame.AllPlayers[gameInitiator.CurrentGame.CurrentPlayerTurnID];
     }
 
     public void EndTurn()
-    {             
+    {
         // zum nächsten Index
         gameInitiator.CurrentGame.CurrentPlayerTurnID++;
         if (gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
             gameInitiator.CurrentGame.CurrentPlayerTurnID = 0;
 
-        uiManager.UpdateMoneyDisplay(); 
+        uiManager.UpdateMoneyDisplay();
 
         var next = GetCurrentPlayer();
         if (next != null)
@@ -226,7 +226,16 @@ public class GameManager : MonoBehaviour
             Debug.LogError("EndTurn: Could not get next player!");
 
         playerMovement.setIsTurnInProgress(false);  // wichtig
-           
+
+        if (next.hasToSkip)
+        {
+            Debug.Log($"Player {next.PlayerID} muss diesen Zug aussetzen!");
+            next.hasToSkip = false; // zurücksetzen
+            StartCoroutine(SkipTurnDelay());
+            EndTurn();
+            return;
+        }
+
         // Kamera auf nächsten Spieler setzen
         PlayerCTRL activePlayer = players.Find(p => p.PlayerID == next.PlayerID);
         if (activePlayer != null)
@@ -240,18 +249,23 @@ public class GameManager : MonoBehaviour
         }
 
         if (cameraManager.camBrain.IsBlending && cameraManager.camBrain.ActiveBlend != null)
-            {
-                GameObject moveButton = playerMovement.getMoveButton();
-                moveButton.SetActive(true);
-                moneyDisplay.SetActive(false);
-            }
-            else
-            {
-                uiManager.UpdateMoneyDisplay();
-                GameObject moveButton = playerMovement.getMoveButton();
-                moveButton.SetActive(true);
-                moneyDisplay.SetActive(true);
-            }
+        {
+            GameObject moveButton = playerMovement.getMoveButton();
+            moveButton.SetActive(true);
+            moneyDisplay.SetActive(false);
+        }
+        else
+        {
+            uiManager.UpdateMoneyDisplay();
+            GameObject moveButton = playerMovement.getMoveButton();
+            moveButton.SetActive(true);
+            moneyDisplay.SetActive(true);
+        }
+    }
+    
+    private IEnumerator SkipTurnDelay()
+    {
+        yield return new WaitForSeconds(1f); // kurze Pause, damit der Spieler den Text lesen kann
     }
 
     // ============================================================
