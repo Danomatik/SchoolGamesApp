@@ -32,6 +32,12 @@ public class DiceManager : MonoBehaviour
     public void RollDice()
     {
         if (rolling) return;
+        // Block standard rolls during initiative so players don't move at game start
+        if (gm != null && gm.InitiativeInProgress)
+        {
+            Debug.Log("RollDice blocked: Initiative phase in progress.");
+            return;
+        }
         StartCoroutine(RollRoutine());
     }
 
@@ -64,6 +70,34 @@ public class DiceManager : MonoBehaviour
 
         playerMovement.TakeTurn();
         moveButton.SetActive(false);
+        rolling = false;
+    }
+
+    // Rolls the dice for initiative only and returns the sum via callback.
+    // Does not trigger player movement.
+    public IEnumerator RollForInitiative(System.Action<int> onRolled)
+    {
+        if (rolling) yield break;
+        moveButton.SetActive(false);
+        rolling = true;
+
+        ResetDice(dice1, spawnPos1);
+        ResetDice(dice2, spawnPos2);
+
+        ThrowDice(dice1);
+        ThrowDice(dice2);
+
+        // Focus camera on dice
+        cam.Follow = diceTargetGroup.transform;
+        cam.Lens.OrthographicSize = diceLensSize;
+
+        yield return new WaitUntil(() => dice1.IsSleeping() && dice2.IsSleeping());
+        yield return new WaitForSeconds(1f);
+
+        int rollValue = GetAddedValue();
+        Debug.Log($"Dice (initiative) result: {rollValue}");
+        onRolled?.Invoke(rollValue);
+
         rolling = false;
     }
 
