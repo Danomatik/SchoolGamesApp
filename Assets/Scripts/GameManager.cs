@@ -153,6 +153,45 @@ public class GameManager : MonoBehaviour
         }
     }
 
+        public void StartQuizForAG()
+    {
+        if (questionManager == null)
+        {
+            Debug.LogWarning("StartQuizForAG: QuestionManager missing → skipping quiz.");
+            EndTurn();
+            return;
+        }
+
+        // Ask 3 questions; require all 3 correct (adjust 'requiredCorrect' if you want 2/3)
+        int totalQuestions = 3;
+        int requiredCorrect = 3;
+
+        // Disable rolling during the series
+        if (diceManager != null && diceManager.moveButton != null)
+            diceManager.moveButton.SetActive(false);
+
+        questionManager.StartQuizSeries(totalQuestions, requiredCorrect, success =>
+        {
+            if (success)
+            {
+                Debug.Log("AG Upgrade Quiz PASSED. TODO: Let player choose a company to upgrade to AG for free.");
+                // TODO: show company selection UI here and perform free upgrade
+                // e.g., uiManager.ShowAgUpgradeSelection(currentPlayer, onCompanyChosen: ...);
+            }
+            else
+            {
+                Debug.Log("AG Upgrade Quiz FAILED.");
+            }
+
+            // Close out and resume the turn flow
+            if (diceManager != null && diceManager.moveButton != null)
+                diceManager.moveButton.SetActive(true);
+
+            EndTurn();
+        });
+
+    }
+
 
     public void OnQuizResult(bool correct)
     {
@@ -173,9 +212,9 @@ public class GameManager : MonoBehaviour
         int cost = 0;
         switch (pending.targetLevel)
         {
-            case CompanyLevel.Founded:  cost = pending.company.costFound;  break;
+            case CompanyLevel.Founded: cost = pending.company.costFound; break;
             case CompanyLevel.Invested: cost = pending.company.costInvest; break;
-            case CompanyLevel.AG:       cost = pending.company.costAG;     break;
+            case CompanyLevel.AG: cost = pending.company.costAG; break;
         }
 
         if (pending.player.Money < cost)

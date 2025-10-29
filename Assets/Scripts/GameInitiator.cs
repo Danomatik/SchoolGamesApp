@@ -234,7 +234,7 @@ public class GameInitiator : MonoBehaviour
         // Set all fields to Bank by default
         for (int i = 0; i < boardLayout.Length; i++)
         {
-            boardLayout[i] = FieldType.Bank;
+            boardLayout[i] = FieldType.Action;
         }
 
         // Corner fields (Start)

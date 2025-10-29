@@ -38,6 +38,18 @@ public class QuestionManager : MonoBehaviour
     private bool answerLocked = false;
 
 
+    // --- Series quiz state ---
+    private bool seriesActive = false;
+    private int seriesTotal = 0;
+    private int seriesRequired = 0;
+    private int seriesIndex = 0;
+    private int seriesCorrect = 0;
+    private System.Action<bool> seriesOnDone = null;
+    private HashSet<int> seriesUsedQuestionIds = new HashSet<int>();
+
+
+
+
     void Start()
     {
         LoadQuestions();
@@ -52,7 +64,7 @@ public class QuestionManager : MonoBehaviour
     private void LoadQuestions()
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("Data/Schoolgames_Fragen_Junior_DE");
-        
+
         if (jsonFile == null)
         {
             Debug.LogError("Could not load Schoolgames_Fragen_Junior_DE.json from Resources/Data/");
@@ -62,19 +74,19 @@ public class QuestionManager : MonoBehaviour
         try
         {
             questionDatabase = JsonUtility.FromJson<QuestionDatabase>(jsonFile.text);
-            
+
             if (questionDatabase == null)
             {
                 Debug.LogError("QuestionManager: questionDatabase is null after parsing!");
                 return;
             }
-            
+
             if (questionDatabase.junior_de == null)
             {
                 Debug.LogError("QuestionManager: junior_de is null!");
                 return;
             }
-            
+
             CompileAllQuestions();
         }
         catch (System.Exception e)
@@ -93,12 +105,12 @@ public class QuestionManager : MonoBehaviour
             {
                 allQuestions.AddRange(questionDatabase.junior_de.gruendung);
             }
-            
+
             if (questionDatabase.junior_de.investition != null)
             {
                 allQuestions.AddRange(questionDatabase.junior_de.investition);
             }
-            
+
             if (questionDatabase.junior_de.ag != null)
             {
                 allQuestions.AddRange(questionDatabase.junior_de.ag);
@@ -160,7 +172,7 @@ public class QuestionManager : MonoBehaviour
 
     // In QuestionManager.cs
 
-   public void ShowQuestionInUI()
+    public void ShowQuestionInUI()
     {
         // Hole eine Frage wie bisher (dein Code)
         QuestionData q = GetRandomQuestion();
@@ -215,7 +227,15 @@ public class QuestionManager : MonoBehaviour
             if (correctImg) correctImg.color = Color.green;
         }
 
-        StartCoroutine(FinishQuizAfterDelay(isCorrect, 0.9f));
+        // ✅ If we are in series mode, continue the series; otherwise, keep your old 1-question flow
+        if (seriesActive)
+        {
+            StartCoroutine(ContinueSeriesAfterDelay(isCorrect, 0.9f));
+        }
+        else
+        {
+            StartCoroutine(FinishQuizAfterDelay(isCorrect, 0.9f)); // your existing single-question path
+        }
     }
 
 
@@ -240,6 +260,109 @@ public class QuestionManager : MonoBehaviour
             moveButton.SetActive(true);
     }
 
+    // Starts a multi-question quiz series (e.g., 3 questions for AG upgrade)
+    public void StartQuizSeries(int totalQuestions, int requiredCorrect, System.Action<bool> onDone)
+    {
+        // Guard: need questions and UI
+        if (allQuestions == null || allQuestions.Count == 0)
+        {
+            Debug.LogWarning("StartQuizSeries: No questions available.");
+            onDone?.Invoke(false);
+            return;
+        }
 
+        seriesActive = true;
+        seriesTotal = Mathf.Max(1, totalQuestions);
+        seriesRequired = Mathf.Clamp(requiredCorrect, 1, seriesTotal);
+        seriesIndex = 0;
+        seriesCorrect = 0;
+        seriesOnDone = onDone;
+        seriesUsedQuestionIds.Clear();
+
+        // Show panel + block rolling during the series
+        if (quizPanel != null) quizPanel.SetActive(true);
+        if (moveButton != null) moveButton.SetActive(false);
+
+        ShowNextSeriesQuestion();
+    }
+
+    private void ShowNextSeriesQuestion()
+    {
+        // Fetch a random question not used in this series
+        QuestionData q = GetRandomQuestion();
+        if (q == null)
+        {
+            // Not enough unique questions -> fallback: finish with whatever we have
+            Debug.LogWarning("Not enough unique questions for series. Finishing early.");
+            FinishSeries();
+            return;
+        }
+
+        // Keep track to avoid duplicates
+        seriesUsedQuestionIds.Add(q.id);
+
+        // Reuse your existing single-question UI setup
+        answerLocked = false;
+        currentCorrectIndex = q.correctIndex;
+
+        if (questionText != null) questionText.text = q.text;
+        if (questionID != null) questionID.text = q.id.ToString();
+
+        for (int i = 0; i < optionButtons.Length; i++)
+        {
+            bool active = (i < q.options.Length);
+            optionButtons[i].gameObject.SetActive(active);
+            optionButtons[i].interactable = active;
+
+            if (active && optionButtonTexts != null && i < optionButtonTexts.Length)
+                optionButtonTexts[i].text = q.options[i];
+
+            var img = optionButtons[i].GetComponent<UnityEngine.UI.Image>();
+            if (img) img.color = Color.white;
+
+            int idx = i;
+            optionButtons[i].onClick.RemoveAllListeners();
+            optionButtons[i].onClick.AddListener(() => HandleAnswer(idx));
+        }
+    }
+
+
+    private IEnumerator ContinueSeriesAfterDelay(bool isCorrect, float delaySeconds)
+    {
+        yield return new WaitForSeconds(delaySeconds);
+
+        if (isCorrect) seriesCorrect++;
+        seriesIndex++;
+
+        if (seriesIndex >= seriesTotal)
+        {
+            // series finished
+            FinishSeries();
+            yield break;
+        }
+
+        // Next question
+        foreach (var btn in optionButtons) btn.interactable = true; // reset interactable for next Q
+        ShowNextSeriesQuestion();
+    }
+
+    private void FinishSeries()
+    {
+        bool passed = (seriesCorrect >= seriesRequired);
+
+        // Clean up UI
+        if (quizPanel != null) quizPanel.SetActive(false);
+        if (moveButton != null) moveButton.SetActive(true);
+
+        // Reset series state
+        seriesActive = false;
+        seriesTotal = seriesRequired = seriesIndex = seriesCorrect = 0;
+        seriesUsedQuestionIds.Clear();
+
+        // Notify GameManager
+        var callback = seriesOnDone;
+        seriesOnDone = null;
+        callback?.Invoke(passed);
+    }
 
 }
