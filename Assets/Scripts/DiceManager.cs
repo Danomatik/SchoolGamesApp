@@ -6,6 +6,12 @@ using Unity.Cinemachine;
 public class DiceManager : MonoBehaviour
 {
     [Header("Dice Roller Settings")]
+    
+    [Header("Dice Audio")]
+    [SerializeField] private AudioClip[] diceRollSounds; // assign DiceRoll1/2/3 here
+    [SerializeField] private AudioSource audioSource;    // assign your AudioSource (can be on the same object)
+
+
     [SerializeField] private Rigidbody dice1;
     [SerializeField] private Rigidbody dice2;
 
@@ -82,6 +88,9 @@ public class DiceManager : MonoBehaviour
 
         rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
         rb.AddTorque(Random.insideUnitSphere * torqueForce, ForceMode.Impulse);
+
+        Invoke(nameof(PlayRandomDiceSound), 0.13f);
+
     }
 
 
@@ -145,6 +154,23 @@ public class DiceManager : MonoBehaviour
         onRolled?.Invoke(rollValue);
 
         rolling = false;
+    }
+
+    public void PlayRandomDiceSound()
+    {
+        if (diceRollSounds == null || diceRollSounds.Length == 0)
+        {
+            Debug.LogWarning("No dice roll sounds assigned!");
+            return;
+        }
+
+        int index = Random.Range(0, diceRollSounds.Length);
+        AudioClip clip = diceRollSounds[index];
+
+        if (audioSource != null)
+            audioSource.PlayOneShot(clip);
+        else
+            AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position, 1f);
     }
 
 }
