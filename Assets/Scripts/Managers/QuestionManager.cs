@@ -6,6 +6,12 @@ using System.Collections;
 
 public class QuestionManager : MonoBehaviour
 {
+    public enum QuestionLanguage { English, German }
+public enum QuestionDifficulty { Junior, Senior }
+
+[Header("Question Set Selector")]
+public QuestionLanguage language = QuestionLanguage.English;
+public QuestionDifficulty difficulty = QuestionDifficulty.Junior;
     [System.Serializable]
     public class QuestionCategory
     {
@@ -17,7 +23,10 @@ public class QuestionManager : MonoBehaviour
     [System.Serializable]
     public class QuestionDatabase
     {
-        public QuestionCategory junior_de;
+    public QuestionCategory junior_en;
+    public QuestionCategory junior_de;
+    public QuestionCategory senior_en;
+    public QuestionCategory senior_de;
     }
 
     private QuestionDatabase questionDatabase;
@@ -40,6 +49,7 @@ public class QuestionManager : MonoBehaviour
 
     void Start()
     {
+           Debug.Log($"[QuestionManager] Startup Language: {language}, Difficulty: {difficulty}");
         LoadQuestions();
         FindQuizFields();
     }
@@ -49,32 +59,38 @@ public class QuestionManager : MonoBehaviour
         quizFields = FindObjectsByType<QuizField>(FindObjectsSortMode.None);
     }
 
-    private void LoadQuestions()
+   private void LoadQuestions()
     {
-        TextAsset jsonFile = Resources.Load<TextAsset>("Data/Schoolgames_Fragen_Junior_DE");
-        
+        Debug.Log($"[QuestionManager] Attempting to load: lang={language}, diff={difficulty}");
+        string lang = (language == QuestionLanguage.English) ? "EN" : "DE";
+        string diff = (difficulty == QuestionDifficulty.Junior) ? "Junior" : "Senior";
+        string fileName = $"Data/Schoolgames_Fragen_{diff}_{lang}";
+        Debug.Log($"[QuestionManager] Loading file: {fileName}");
+
+        TextAsset jsonFile = Resources.Load<TextAsset>(fileName);
         if (jsonFile == null)
         {
-            Debug.LogError("Could not load Schoolgames_Fragen_Junior_DE.json from Resources/Data/");
+            Debug.LogError($"Could not load {fileName}.json from Resources/Data/");
             return;
         }
-
         try
         {
             questionDatabase = JsonUtility.FromJson<QuestionDatabase>(jsonFile.text);
-            
             if (questionDatabase == null)
             {
                 Debug.LogError("QuestionManager: questionDatabase is null after parsing!");
                 return;
             }
-            
-            if (questionDatabase.junior_de == null)
+
+            // Dynamic: check for correct QuestionCategory
+            string key = $"{difficulty.ToString().ToLower()}_{(language == QuestionLanguage.English ? "en" : "de")}";
+            var field = typeof(QuestionDatabase).GetField(key);
+            var pickedCategory = field?.GetValue(questionDatabase) as QuestionCategory;
+            if (pickedCategory == null)
             {
-                Debug.LogError("QuestionManager: junior_de is null!");
+                Debug.LogError($"QuestionManager: key '{key}' is null! (Check your JSON file structure and field names)");
                 return;
             }
-            
             CompileAllQuestions();
         }
         catch (System.Exception e)
@@ -84,27 +100,33 @@ public class QuestionManager : MonoBehaviour
     }
 
     private void CompileAllQuestions()
-    {
-        allQuestions.Clear();
+{
+    allQuestions.Clear();
+    // Build key: "junior_en", "senior_en", etc.
+    string key = $"{difficulty.ToString().ToLower()}_{(language == QuestionLanguage.English ? "en" : "de")}";
+    QuestionCategory pickedCategory = null;
 
-        if (questionDatabase?.junior_de != null)
-        {
-            if (questionDatabase.junior_de.gruendung != null)
-            {
-                allQuestions.AddRange(questionDatabase.junior_de.gruendung);
-            }
-            
-            if (questionDatabase.junior_de.investition != null)
-            {
-                allQuestions.AddRange(questionDatabase.junior_de.investition);
-            }
-            
-            if (questionDatabase.junior_de.ag != null)
-            {
-                allQuestions.AddRange(questionDatabase.junior_de.ag);
-            }
-        }
+    // Use reflection to access public fields dynamically:
+    var field = typeof(QuestionDatabase).GetField(key);
+    if (field != null)
+    {
+        pickedCategory = field.GetValue(questionDatabase) as QuestionCategory;
     }
+
+    if (pickedCategory != null)
+    {
+        if (pickedCategory.gruendung != null)
+            allQuestions.AddRange(pickedCategory.gruendung);
+        if (pickedCategory.investition != null)
+            allQuestions.AddRange(pickedCategory.investition);
+        if (pickedCategory.ag != null)
+            allQuestions.AddRange(pickedCategory.ag);
+    }
+    else
+    {
+        Debug.LogError($"No questions found for {key}! Check your JSON structure & language/difficulty setting.");
+    }
+}
 
     public QuestionData GetRandomQuestion()
     {
@@ -134,6 +156,16 @@ public class QuestionManager : MonoBehaviour
 
         }
     }
+    public void SetLanguage(QuestionLanguage l)
+{
+    language = l;
+    LoadQuestions();
+}
+public void SetDifficulty(QuestionDifficulty d)
+{
+    difficulty = d;
+    LoadQuestions();
+}
 
     // Called by GameManager when player lands on a field
     public void CheckForQuizField(int fieldPosition)
