@@ -11,7 +11,7 @@ public class StartField : MonoBehaviour
         PlayerCTRL triggeredPiece = other.GetComponentInParent<PlayerCTRL>();
         if (triggeredPiece == null) return;
 
-        gameManager.AddMoney(triggeredPiece.PlayerID, 400); 
+        gameManager.moneyManager.AddMoney(triggeredPiece.PlayerID, 400); 
         
         Debug.Log($"Spieler {triggeredPiece.PlayerID} überquert das Startfeld und erhält Geld.");
     }

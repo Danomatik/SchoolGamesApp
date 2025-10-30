@@ -1,0 +1,365 @@
+{
+    "name": "aktionskarten_en",
+    "karten": [
+      {
+        "id": 1,
+        "text": "You have completed an internship at Volksbank and made such a good impression that we want to stay in touch with you.\nYou are one step closer to starting a career at the Volksbank.\nMove forward 3 spaces."
+      },
+      {
+        "id": 2,
+        "text": "As part of your apprenticeship training at the Volksbank, you gave a top presentation on your training company at your school.\nKeep it up!\nJump to a company of your choice."
+      },
+      {
+        "id": 3,
+        "text": "After school, you started the customer consultant training at Volksbank Academy which you completed with excellent results.\nNow you can specialize in the areas of mortgages, commercial customers or investment consulting and thus continue your own success story.\nTake the time to decide what area you specialize in. Miss a turn."
+      },
+      {
+        "id": 4,
+        "text": "After your internship you know that the Volksbank is an attractive employer.\nFor telling that to your friends and schoolmates you may roll the dice again."
+      },
+      {
+        "id": 5,
+        "text": "You’ve organized Volksbank‘s employee summer party and the employees were thrilled. This has had a positive effect on employee satisfaction.\nRoll the dice again."
+      },
+      {
+        "id": 6,
+        "text": "Volksbank supports local companies in finding a suitable funding.\nA player of your choice receives EUR 200 as a bonus thanks to your commitment."
+      },
+      {
+        "id": 7,
+        "text": "You had a great idea for Volksbank‘s next social media campaign, which was well received by customers.\nAs a reward, you may jump to a field of your choice (except Start)."
+      },
+      {
+        "id": 8,
+        "text": "The health of the employees has a high priority for Volksbank. Sports offers are therefore supported.\nDo 10 squats or pay EUR 100 to every player."
+      },
+      {
+        "id": 9,
+        "text": "Before building a new Volksbank subsidiary, you carry out a location analysis and then select the optimal location.\nTake your time and miss a turn."
+      },
+      {
+        "id": 10,
+        "text": "In your apprenticeship at Volksbank knowledge will be your advantage!\nYou will be asked 3 questions of a question card.\nWith 1 correct answer you will receive EUR 100, with 2 answers EUR 200 and with 3 correct answers EUR 500."
+      },
+      {
+        "id": 11,
+        "text": "You decided to work at Takeda.\nWith your work, you contribute to providing people with life changing medicines.\nThrow again."
+      },
+      {
+        "id": 12,
+        "text": "You gained six months of experience in another department of Takeda during a job rotation. The new knowledge and the new contacts will advance you in your career.\nMove ahead to a company of your choice."
+      },
+      {
+        "id": 13,
+        "text": "Your innovative idea has contributed to an important process improvement.\nIdeas from employees are implemented at Takeda at all levels and on a wide variety of topics.\nYou get EUR 200."
+      },
+      {
+        "id": 14,
+        "text": "After graduating from school with Matura, you decide to start an apprenticeship at Takeda. You will receive comprehensive training in one of twelve professions and your apprenticeship will be shortened by one year.\nThrow again."
+      },
+      {
+        "id": 15,
+        "text": "Takeda offers many training and development opportunities. You have not taken advantage of an important training opportunity.\nSuspend one round."
+      },
+      {
+        "id": 16,
+        "text": "As an employee of the REWE Group Austria, you will attend frequent training seminars, in order to improve your knowledge and skills. This will put you a step ahead in your professional life!\nRoll the dice again."
+      },
+      {
+        "id": 17,
+        "text": "As an apprentice of the REWE Group Austria, you have performed well in vocational school and receive a bonus of EUR 200. Keep it up!"
+      },
+      {
+        "id": 18,
+        "text": "Yippee! You did your job perfectly and sold our customer exactly what he needed for his project with HORNBACH.\nAs a reward, you will receive a bonus of EUR 150."
+      },
+      {
+        "id": 19,
+        "text": "Excellent! You successfully completed all your learning content of your HORNBACH apprenticeship in retail.\nHORNBACH will provide you an e-scooter as a benefit and you may advance 4 fields."
+      },
+      {
+        "id": 20,
+        "text": "You are a HORNBACH finance purchasing professional. You handled the financing for the “pool purchase“ customer project quickly and without errors. Your customers are satisfied and have sent praise to market management.\nAs recognition you will receive a bonus of EUR 100. Congratulations!"
+      },
+      {
+        "id": 21,
+        "text": "A customer, whom you recommended some books for their upcoming vacation, returns to the Thalia bookshop. She thanks you for your recommendations and promises to make you the only bookseller, she’ll take recommendations from, from now on.\nCongrats, you’ve got your first regular customer! Roll the dice again."
+      },
+      {
+        "id": 22,
+        "text": "You‘ve agreed to take part in a shooting on “the daily routine in a Thalia bookshop“. Together with some of your colleagues, you also take part in a shooting for TikTok, where you talk about your most favorite book.\nIn compensation for your work, you are awarded EUR 50."
+      },
+      {
+        "id": 23,
+        "text": "You’ve already finished your tenth book this month and reviewed all of them on www.thalia.at.\nVery hard-working. You may move to the upcoming field!"
+      },
+      {
+        "id": 24,
+        "text": "Congratulations!\nYou successfully completed the barista course today as part of your training at McDonald‘s.\nKeep it up!\nYou may advance 2 spaces."
+      },
+      {
+        "id": 25,
+        "text": "Initiator, Assembler, and Finisher – Well done, you are a full-fledged kitchen employee at McDonald‘s now.\nRoll the dice again."
+      },
+      {
+        "id": 26,
+        "text": "At McDonald‘s you managed the kitchen, the McCafé, and the service area and just became a crew trainer.\nYou receive a bonus of EUR 200."
+      },
+      {
+        "id": 27,
+        "text": "You have successfully completed the special training as a pension insurance expert and will now be supporting insured persons and retirees in all questions relating to pension and care allowance.\nFor the perfect start you can roll the dice again."
+      },
+      {
+        "id": 28,
+        "text": "As part of your apprenticeship training at the PVA, you presented your profession apprenticeship to more than 100 students at a new middle school.\nYou will receive a bonus of EUR 150."
+      },
+      {
+        "id": 29,
+        "text": "Your internship application was successful! From now on you are one of 150 employees in software development at the PVA.\nMove forward to the field of the PVA."
+      },
+      {
+        "id": 30,
+        "text": "At the annual ACP Apprentice Academy, you learned a lot to help you grow professionally and personally.\nUse this advantage and jump to a company of your choice."
+      },
+      {
+        "id": 31,
+        "text": "As part of your IT apprenticeship at ACP, you are able to do a four-week internship abroad in Spain.\nFor your journey you receive a financial support of EUR 200."
+      },
+      {
+        "id": 32,
+        "text": "As an apprentice at ACP, you were able to get to know all teams and professions through job rotation and have now found what excites you the most!\nLoaded with motivation you move forward 3 spaces."
+      },
+      {
+        "id": 33,
+        "text": "Congratulations! With the smart, decentralised microgrid system, you have successfully contributed to a stable Power and Heat Supply by Siemens in many countries around the world.\nYour receive 2 week’s special vacation and EUR 200 vacation pay."
+      },
+      {
+        "id": 34,
+        "text": "You submit an internal improvement suggestion which will help speed up a production process and hence make it more cost-effective for Siemens.\nAs a bonus you receive EUR 100."
+      },
+      {
+        "id": 35,
+        "text": "You receive a major order, namely to equip the hospital in your city with state-of-the-art fire alarm and security systems from Siemens.\nMove forward to the field of Siemens."
+      },
+      {
+        "id": 36,
+        "text": "You get a photovoltaic system by Salzburg AG installed on your roof.\nAs a funding you will receive EUR 250."
+      },
+      {
+        "id": 37,
+        "text": "You use an e-car and the right charging solution from Salzburg AG.\nThis gets you ahead quickly- you may roll the dice again."
+      },
+      {
+        "id": 38,
+        "text": "You have successfully completed the apprenticeship mechatronics at KNAPP with the LAP. Now you have set another goal: You want to study and really get your career going.\nGood luck!\nAnswer a question and move 3 spaces forward."
+      },
+      {
+        "id": 39,
+        "text": "You have successfully passed your school leaving examination and start your career as a commissioning engineer at KNAPP. In your new job you will get the modern logistic systems from KNAPP up and running worldwide.\nGood luck with your new professional challenge! For your perfect start you may roll again."
+      },
+      {
+        "id": 40,
+        "text": "As a PORR site manager you are travelling to an important meeting for a new construction project in Qatar.\nYour flight is delayed.\nYou miss a turn."
+      },
+      {
+        "id": 41,
+        "text": "As an intern at PORR you are supporting the construction site manager for one month.\nYou get a bonus of EUR 100."
+      },
+      {
+        "id": 42,
+        "text": "As an apprentice at PORR, you shine with your perseverance and outstanding performance.\nDo 10 sit-ups and get EUR 100 as a reward."
+      },
+      {
+        "id": 43,
+        "text": "As an employee at Pankl, you manufactured transmission components for the official KTM-Moto-GP bike. Due to your excellent work, KTM won this year‘s championship.\nRoll the dice again."
+      },
+      {
+        "id": 44,
+        "text": "After your apprenticeship as a machining technician, you have decided to go to the master school and to complete it.\nPankl supports you!\nYou may jump to the field of Pankl."
+      },
+      {
+        "id": 45,
+        "text": "Your store has won the monthly JYSK store competition, overtaking the other stores in the overall standings.\nYou can move up 2 spaces."
+      },
+      {
+        "id": 46,
+        "text": "Your customer leaves the JYSK store beaming with joy.\nHe is already looking forward to use his ergonomic mattress that you recommended to him during the consultation.\nRoll the dice again."
+      },
+      {
+        "id": 47,
+        "text": "You have successfully completed the third year of your apprenticeship and have also received great feedback from your store manager.\nFor this, you receive EUR 300 as a driving licence bonus from JYSK."
+      },
+      {
+        "id": 48,
+        "text": "Great Job! You have gained new skills by participating in the IGO-Academy-seminar.\nIn addition to your certificate, you receive an amount of EUR 300."
+      },
+      {
+        "id": 49,
+        "text": "Amazing! You have managed to complete your first big project within the IGO Industries Group (order amount 20 million euros).\nKeep up the good work and throw the dice again."
+      },
+      {
+        "id": 50,
+        "text": "The outsourcing of your logistics to Gebrüder Weiss is paying off.\nYou are saving capacities and are able to concentrate more on your core business.\nYou receive EUR 500 and may roll the dice again."
+      },
+      {
+        "id": 51,
+        "text": "Your goods from Georgia are stuck at the border because you did not contact an experienced expert like Gebrüder Weiss for customs clearance.\nMiss a turn."
+      },
+      {
+        "id": 52,
+        "text": "You have completed your apprenticeship as a forwarding logistics specialist at Gebrüder Weiss. You passed the final exam with distinction.\nYou can be proud of yourself and you deserve a reward.\nMove forward to the space of Gebrüder Weiss and collect a bonus of EUR 450."
+      },
+      {
+        "id": 53,
+        "text": "You are not yet using the Post APP which helps you to always keep an eye on your parcels?\nRun on the spot for 30 seconds."
+      },
+      {
+        "id": 54,
+        "text": "With AllesPost you have full control over your mail.\nFor this you will receive a thunderous applause from all players."
+      },
+      {
+        "id": 55,
+        "text": "Your leaflet was distributed by the Österreichische Post AG in exactly the right area for you.\nYour sales figures will increase significantly and you will receive EUR 200."
+      },
+      {
+        "id": 56,
+        "text": "After your graduation from school you will become a trainee at THALES. You will go through three stations in which you can transfer your knowledge into practice.\nMove forward 3 spaces."
+      },
+      {
+        "id": 57,
+        "text": "A school trip takes you to THALES.\nMany employees take time for your class and answer your questions.\nIn the heat of the moment you overlook the time.\nMiss a turn."
+      },
+      {
+        "id": 58,
+        "text": "For a project about women in MINT professions, you interview a THALES employee. You will find out about her career steps from sports manager to project manager and now system engineer. You realize that you can achieve anything.\nRoll the dice again."
+      },
+      {
+        "id": 59,
+        "text": "As a warehouse employee at Frauenthal Handel Gruppe, you came up with an idea to optimise the supply chain for your customers.\nYou will receive a bonus of EUR 150."
+      },
+      {
+        "id": 60,
+        "text": "Your sewer pipes are not from Frauenthal Handel Gruppe. Your administration building is flooded due to a burst water pipe and you have to decline an order.\nMiss a turn and pay EUR 100 for the repair."
+      },
+      {
+        "id": 61,
+        "text": "Your plumber works with products from Frauental Handel Gruppe. This leads to the premature completion of the renovation of all sanitary rooms in your business premises.\nYou can quickly get back into operation and jump to one of your companies."
+      },
+      {
+        "id": 62,
+        "text": "You have completed your apprenticeship at ÖBB and are now starting your training to become a train driver.\nRoll the dice again."
+      },
+      {
+        "id": 63,
+        "text": "You travel through Austria with the ÖBB during your holidays and explore new places.\nJump to a company of your choice."
+      },
+      {
+        "id": 64,
+        "text": "You take the ÖBB Nightjet to Amsterdam instead of flying by plane.\nYou will receive EUR 100 for your environmentally conscious behavior."
+      },
+      {
+        "id": 65,
+        "text": "You work as a doctor at Steiermärkische Krankenanstalten-gesellschaft m.b.H. (KAGes) and you and your team receive a pan-European award for your medical achievements.\nAs a prize you receive EUR 250."
+      },
+      {
+        "id": 66,
+        "text": "At Steiermärkische Kranken-anstaltengesellschaft m.b.H. (KAGes) you are specialised in the field of intensive care. You now take over the complex monitoring of patients with life-threatening illnesses.\nYou may throw the dice again."
+      },
+      {
+        "id": 67,
+        "text": "You have created a profile on Lehrstellenportal and have been approached by an attractive employer for a dual study.\nThis motivates you and you may throw the dice again."
+      },
+      {
+        "id": 68,
+        "text": "By using the free Lehrstellenportal matching service you found a training position that suits you perfectly.\nCelebrate this success with your friends and pay EUR 100."
+      },
+      {
+        "id": 69,
+        "text": "You wrote an application by using the tips and tricks you read on Lehrstellenportal and have been invited for a job interview by a suitable employer.\nCongratulations!\nYou may throw the dice again."
+      },
+      {
+        "id": 70,
+        "text": "As an apprentice in your department, you had a good idea that is now being implemented. You are thus making a valuable contribution to helping Graz develop into the most modern municipal management in Europe.\nMove forward 4 spaces."
+      },
+      {
+        "id": 71,
+        "text": "With your company you started an educational initiative in Upper Austria.\nThe Upper Austrian Provincial Government promotes this commitment.\nYou will receive EUR 250 as a grant for the project."
+      },
+      {
+        "id": 72,
+        "text": "To improve the Cyber Security of your digital substation, you work together with OMICRON.\nJump to the field of OMICRON to do so."
+      },
+      {
+        "id": 73,
+        "text": "With the support of the Austrian Association of Cities and Towns, you are planning a new bike path and bicycle parking facilities in your city.\nTherefore, you receive an environmental prize of EUR 100."
+      },
+      {
+        "id": 74,
+        "text": "With the support of Austrian Association of Cities and Towns you organize a public action for Equal Pay Day to raise awareness of the pay gap between women and men.\nMove forward to the playing field of the Austrian Association of Cities and Towns."
+      },
+      {
+        "id": 75,
+        "text": "You have successfully completed your apprenticeship at BIPA. Now you are ready for a career in retail.\nYou gain a bonus of EUR 150."
+      },
+      {
+        "id": 76,
+        "text": "You have decided to do your A levels concurrently to your traineeship.\nBIPA supports your dicision. This will give your career an extra boost.\nRoll the dice again."
+      },
+      {
+        "id": 77,
+        "text": "You expand your company and set up new branches. Due to time-saving and cost-reducing reasons, you put FCC Austria Abfall Service AG in charge of your entire waste management.\nMove forward to any field you choose (except of Start)."
+      },
+      {
+        "id": 78,
+        "text": "Together with your team at FCC Austria Abfall Service AG, you work on an AI-supported method for improved waste sorting.\nYou will win a young talent prize and you receive EUR 150."
+      },
+      {
+        "id": 79,
+        "text": "On your way to work at FCC Austria Abfall Service AG, you get a coffee to-go. You use your own reusable thermo cup.\nYou do not use disposable cups and thus contribute to environmental protection.\nMove forward 2 spaces."
+      },
+      {
+        "id": 80,
+        "text": "Due to a violation of safety regulations, your profit will increase in the short-term. In the long-term, however, your employees will be absent as a result of accidents or sickness. This results in a production bottleneck.\nMiss a turn."
+      },
+      {
+        "id": 81,
+        "text": "Due to many years of consistent further development of measures to increase occupational safety and the health of employees in collaboration with AUVA, your company receives an award based on the result of an investigation.\nYou receive EUR 500."
+      },
+      {
+        "id": 82,
+        "text": "Reducing the number of accidents in your workplace causes the health and safety of your employees to increase.\nFor your initiative you get EUR 100 bonus."
+      },
+      {
+        "id": 83,
+        "text": "As an innovation guarantor, TRUMPF has successfully launched a new machine for forming metals on the market.\nFor your help, you receive EUR 100 and may roll the dice again."
+      },
+      {
+        "id": 84,
+        "text": "You fall for the cyberattack of a scammer. Information of your business gets lost. To prevent this from happening in the future, you hire BearingPoint to find the best solution for data security.\nPay EUR 100 to BearingPoint.\n(If the company is not yet sold, pay to the bank.)"
+      },
+      {
+        "id": 85,
+        "text": "Thanks to the consultation of Equans, you upgrade your building technology to state-of-the-art standards and increase your energy efficiency.\nMove forward to your next company."
+      },
+      {
+        "id": 86,
+        "text": "You invest in a new business idea and after that it‘s no longer up to you whether you make a profit or a loss.\nRoll the dice: If you roll an even number, you make a profit of EUR 200, but if you roll an odd number, you make a loss of EUR 100."
+      },
+      {
+        "id": 87,
+        "text": "Social Justice!\nThe player with the maximum number of companies must give away one company of his choice to the player who has the least number of companies.\nThe die is cast if there is a tie."
+      },
+      {
+        "id": 88,
+        "text": "Keep this card!\nEven if you give the wrong answer to a question, you can still start a company, invest or convert into a plc as long as you return this card."
+      },
+      {
+        "id": 89,
+        "text": "Hop around the table on one leg- or pay all the other players EUR 100."
+      },
+      {
+        "id": 90,
+        "text": "You have completed an internship at Volksbank and made such a good impression that we want to stay in touch with you.\nYou are one step closer to starting a career at the Volksbank.\nMove forward 3 spaces."
+      }
+    ]
+  }

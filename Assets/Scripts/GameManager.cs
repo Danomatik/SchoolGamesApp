@@ -1,297 +1,444 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
     // ============================================================
     // 🟩 GAME MANAGER SETTINGS
     // ============================================================
-    [Header("Game Settings")]
-    public GameState CurrentGame;
+
+    [Header("GAME")]
     public List<PlayerCTRL> players;
-    public FieldType[] boardLayout = new FieldType[40];
-    private bool isTurnInProgress = false;
 
-    [Header("Managers")]
-    [SerializeField] private QuestionManager questionManager;
+    [HideInInspector] public GameInitiator gameInitiator;
+    [HideInInspector] public QuestionManager questionManager;
+    [HideInInspector] public BankCardManager bankCardManager;
+    [HideInInspector] public UIManager uiManager;
+    [HideInInspector] public BoardVisualsManager boardVisuals;
+    [HideInInspector] public DiceManager diceManager;
+    [HideInInspector] public PlayerMovement playerMovement;
+    [HideInInspector] public CameraManager cameraManager;
+    [HideInInspector] public MoneyManager moneyManager;
+    [HideInInspector] public ActionCardManager actionCardManager;
+    [HideInInspector] public ActionManager actionManager;
+    [HideInInspector] public FieldSelector fieldSelector;
+
+
+
+    [Header("UI")]
+
     [SerializeField]
-    private BankCardManager bankCardManager;
+    private GameObject moneyDisplay;
 
-    [Header("Camera")]
-    public CinemachineCamera cam;
-    public float defaultLens = 3.55f;
+    // Pending für Quiz-Kauf/Upgrade
+    private struct PendingPurchase
+    {
+        public CompanyConfigData company;
+        public CompanyField field;
+        public PlayerData player;
+        public CompanyLevel targetLevel;
+        public bool isActive;
+    }
+    private PendingPurchase pending;
 
-    // ============================================================
-    // 🎲 DICE ROLLER SETTINGS
-    // ============================================================
-    [Header("Dice Roller Settings")]
-    [SerializeField] private Rigidbody dice1;
-    [SerializeField] private Rigidbody dice2;
+    // Spieler -> wie viele kommende Züge noch aussetzen
 
-    [SerializeField] private Transform spawnPos1;
-    [SerializeField] private Transform spawnPos2;
-
-    [SerializeField] public CinemachineTargetGroup diceTargetGroup;
-    [SerializeField] public float diceLensSize;
-
-    [SerializeField] private float throwForce = 8f;
-    [SerializeField] private float torqueForce = 10f;
-
-    private bool rolling = false;
 
     // ============================================================
     // 🏁 UNITY METHODS
     // ============================================================
+    public void Awake()
+    {
+        uiManager = GetComponent<UIManager>();
+        // gameManager = GetComponent<GameManager>();
+        diceManager = GetComponent<DiceManager>();
+        cameraManager = GetComponent<CameraManager>();
+        gameInitiator = GetComponent<GameInitiator>();
+        bankCardManager = GetComponent<BankCardManager>();
+        questionManager = GetComponent<QuestionManager>();
+        boardVisuals = GetComponent<BoardVisualsManager>();
+        moneyManager = GetComponent<MoneyManager>();
+        playerMovement = GetComponent<PlayerMovement>();
+        actionCardManager = GetComponent<ActionCardManager>();
+        actionManager = GetComponent<ActionManager>();
+        fieldSelector = GetComponent<FieldSelector>();
+    }
+
     void Start()
     {
-        CurrentGame = new GameState();
 
-        // Initialize board layout - all fields are Company by default
-        InitializeBoardLayout();
-
-        // Spieler 1
-        PlayerData humanPlayer = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(humanPlayer);
-
-        // Spieler 2
-        PlayerData botPlayer1 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0 };
-        CurrentGame.AllPlayers.Add(botPlayer1);
-
-        Debug.Log("Neues Spiel mit 2 Spielern gestartet!");
-        Debug.Log($"Spieler 1 hat {humanPlayer.Money} € Startgeld");
+        if (boardVisuals != null) boardVisuals.RefreshAll(gameInitiator.GetCompanyFields());
 
         TestCurrencySystem();
     }
 
-    private void InitializeBoardLayout()
+
+    CompanyConfigData GetCompanyConfig(int id)
     {
-        // Set all fields to Bank by default
-        for (int i = 0; i < boardLayout.Length; i++)
-        {
-            boardLayout[i] = FieldType.Bank;
-        }
-        
-        // Set specific fields to other types
-        boardLayout[0] = FieldType.Start; // Starting field
-        // You can add more specific fields here if needed
-        // boardLayout[10] = FieldType.Company; // Example company field
+        return gameInitiator.companyConfigs?.companies?.FirstOrDefault(c => c.companyID == id)
+            ?? gameInitiator.companyConfigs?.companies?.FirstOrDefault();
     }
 
-    // ============================================================
-    // 💰 MONEY SYSTEM
-    // ============================================================
-    public void AddMoney(int amount)
+    public void HandleCompanyField(CompanyField field)
     {
-        PlayerData currentPlayer = GetCurrentPlayer();
-        if (currentPlayer != null)
+        var current = GetCurrentPlayer();
+        var company = GetCompanyConfig(field.companyID);
+
+        if (field.ownerID == -1)
         {
-            currentPlayer.Money += amount;
-            Debug.Log($"Spieler {currentPlayer.PlayerID} erhält {amount}€. Neuer Stand: {currentPlayer.Money}€");
+            // frei -> Kauf anbieten
+            uiManager.ShowCompanyPurchase(company, field, current);
+            // Zug NICHT beenden – OnQuizResult übernimmt das
+        }
+        else if (field.ownerID == current.PlayerID)
+        {
+            // Nur zeigen, wenn noch Upgrades offen
+            if (field.level == CompanyLevel.Founded || field.level == CompanyLevel.Invested)
+                uiManager.ShowUpgradeOptions(company, field, current);
+            else
+                EndTurn(); // AG -> nichts mehr zu tun
+        }
+        else
+        {
+            // fremdes Feld -> Miete zahlen
+            var owner = gameInitiator.CurrentGame.AllPlayers.FirstOrDefault(p => p.PlayerID == field.ownerID);
+            moneyManager.PayRent(current, owner, company, field);
+            EndTurn();
         }
     }
 
-    public void AddMoney(int playerID, int amount)
+    private bool IsUpgradeAllowed(CompanyLevel current, CompanyLevel target)
     {
-        PlayerData currentPlayer = CurrentGame.AllPlayers.Find(p => p.PlayerID == playerID);
-        if (currentPlayer != null)
-        {
-            currentPlayer.Money += amount;
-            Debug.Log($"Spieler {currentPlayer.PlayerID} erhält {amount}€. Neuer Stand: {currentPlayer.Money}€");
-        }
-    }
-
-    public bool RemoveMoney(int amount)
-    {
-        PlayerData currentPlayer = GetCurrentPlayer();
-        if (currentPlayer != null && currentPlayer.Money >= amount)
-        {
-            currentPlayer.Money -= amount;
-            Debug.Log($"Spieler {currentPlayer.PlayerID} bezahlt {amount}€. Neuer Stand: {currentPlayer.Money}€");
-            return true;
-        }
-        Debug.LogWarning($"Spieler {currentPlayer.PlayerID} hat zu wenig Geld, um {amount}€ zu bezahlen!");
+        // Nur stufenweise:
+        // None -> Founded -> Invested -> AG
+        if (target == CompanyLevel.Founded) return current == CompanyLevel.None;
+        if (target == CompanyLevel.Invested) return current == CompanyLevel.Founded;
+        if (target == CompanyLevel.AG) return current == CompanyLevel.Invested;
         return false;
+    }
+
+    public void StartQuizForCompany(CompanyConfigData company, CompanyField field, PlayerData player, CompanyLevel targetLevel)
+    {
+        // NEU: Stufen-Check
+        if (!IsUpgradeAllowed(field.level, targetLevel))
+        {
+            Debug.LogWarning($"Upgrade nicht erlaubt: {field.level} -> {targetLevel}");
+            // Optional: sofort beenden oder Upgrade-Panel erneut zeigen:
+            // uiManager.ShowUpgradeOptions(company, field, player);
+            EndTurn();
+            return;
+        }
+
+        pending = new PendingPurchase
+        {
+            company = company,
+            field = field,
+            player = player,
+            targetLevel = targetLevel,
+            isActive = true
+        };
+
+        if (questionManager != null)
+        {
+            questionManager.PrintRandomQuestion();
+            questionManager.ShowQuestionInUI();
+        }
+        else
+        {
+            Debug.LogWarning("QuestionManager fehlt – simuliere Erfolg.");
+            OnQuizResult(true);
+        }
+    }
+
+    public void StartQuizForAG()
+    {
+        var player = GetCurrentPlayer();
+        if (player == null)
+        {
+            Debug.LogWarning("StartQuizForAG: No current player.");
+            EndTurn();
+            return;
+        }
+
+        if (!TryGetEligibleCompaniesForAG(player, out var eligible))
+        {
+            Debug.Log("StartQuizForAG: Player has no eligible companies → skipping AG quiz.");
+            // Optional: show a small popup/toast in your UI here.
+            EndTurn();
+            return;
+        }
+
+        // If you reach here, player owns at least one eligible company.
+        // Start your 3-question series (from earlier message):
+        if (diceManager != null && diceManager.moveButton != null)
+            diceManager.moveButton.SetActive(false);
+
+        // total=3, require all 3 correct (or set to 2 if you prefer 2/3)
+        int totalQuestions = 3;
+        int requiredCorrect = 3;
+
+        questionManager.StartQuizSeries(totalQuestions, requiredCorrect, success =>
+        {
+            if (success)
+            {
+                Debug.Log("AG Upgrade Quiz PASSED. Show selection UI to pick which owned company to upgrade to AG for free.");
+                // TODO: uiManager.ShowAgUpgradeSelection(player, eligible, (chosenField) => { chosenField.level = CompanyLevel.AG; boardVisuals.UpdateFieldVisual(chosenField); ... });
+            }
+            else
+            {
+                Debug.Log("AG Upgrade Quiz FAILED.");
+            }
+
+            if (diceManager != null && diceManager.moveButton != null)
+                diceManager.moveButton.SetActive(true);
+
+            EndTurn();
+        });
+    }
+
+
+
+    public void OnQuizResult(bool correct)
+    {
+        if (!pending.isActive)
+        {
+            EndTurn();
+            return;
+        }
+
+        if (!correct)
+        {
+            Debug.Log("Quiz nicht bestanden. Kauf/Upgrade abgelehnt.");
+            pending = default;
+            EndTurn();
+            return;
+        }
+
+        int cost = 0;
+        switch (pending.targetLevel)
+        {
+            case CompanyLevel.Founded: cost = pending.company.costFound; break;
+            case CompanyLevel.Invested: cost = pending.company.costInvest; break;
+            case CompanyLevel.AG: cost = pending.company.costAG; break;
+        }
+
+        if (pending.player.Money < cost)
+        {
+            Debug.Log("Nicht genug Geld für Kauf/Upgrade.");
+            pending = default;
+            EndTurn();
+            return;
+        }
+
+        pending.player.Money -= cost;
+        pending.field.ownerID = pending.player.PlayerID;
+        pending.field.level = pending.targetLevel;
+        uiManager.UpdateMoneyDisplay();
+        pending.player.companies.Add(pending.field.fieldIndex);
+        Debug.Log("Added Field: " + pending.field.fieldIndex + " to Player: " + pending.player.PlayerID);
+
+        // NEU: Visuals
+        if (boardVisuals != null)
+            boardVisuals.UpdateFieldVisual(pending.field);
+
+        Debug.Log($"Spieler {pending.player.PlayerID} hat {pending.company.companyName} → {pending.targetLevel} gekauft/aufgerüstet (−{cost}€).");
+        pending = default;
+        EndTurn();
     }
 
     public PlayerData GetCurrentPlayer()
     {
-        return CurrentGame.AllPlayers[CurrentGame.CurrentPlayerTurnID];
+        // 1. Check: Ist gameInitiator überhaupt da?
+        if (gameInitiator == null)
+        {
+            Debug.LogError("GetCurrentPlayer: gameInitiator is NULL!");
+            return null;
+        }
+
+        // 2. Check: Ist CurrentGame initialisiert?
+        if (gameInitiator.CurrentGame == null)
+        {
+            Debug.LogError("GetCurrentPlayer: CurrentGame is NULL!");
+            return null;
+        }
+
+        // 3. Check: Ist AllPlayers da?
+        if (gameInitiator.CurrentGame.AllPlayers == null ||
+            gameInitiator.CurrentGame.AllPlayers.Count == 0)
+        {
+            Debug.LogError("GetCurrentPlayer: AllPlayers is null or empty!");
+            return null;
+        }
+
+        if (gameInitiator.CurrentGame.CurrentPlayerTurnID < 0 || gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
+        {
+            Debug.LogError($"GetCurrentPlayer: currentPlayerIndex {gameInitiator.CurrentGame.CurrentPlayerTurnID} is out of bounds! AllPlayers count: {gameInitiator.CurrentGame.AllPlayers.Count}");
+            return null;
+        }
+
+        return gameInitiator.CurrentGame.AllPlayers[gameInitiator.CurrentGame.CurrentPlayerTurnID];
+    }
+
+    // ============================================================
+    // 🏢 COMPANY FIELD METHODS
+    // ============================================================
+
+    // PUBLIC METHOD: Get all unowned company fields
+    public List<CompanyField> GetUnownedCompanyFields()
+    {
+        List<CompanyField> unownedFields = new List<CompanyField>();
+
+        if (gameInitiator == null || gameInitiator.CurrentGame == null)
+        {
+            Debug.LogWarning("GetUnownedCompanyFields: gameInitiator or CurrentGame is null");
+            return unownedFields;
+        }
+
+        List<CompanyField> allFields = gameInitiator.GetCompanyFields();
+
+        if (allFields == null || allFields.Count == 0)
+        {
+            Debug.LogWarning("GetUnownedCompanyFields: No company fields found");
+            return unownedFields;
+        }
+
+        foreach (CompanyField field in allFields)
+        {
+            if (field.ownerID == -1)
+            {
+                unownedFields.Add(field);
+            }
+        }
+
+        Debug.Log($"Found {unownedFields.Count} unowned company fields out of {allFields.Count} total fields");
+        return unownedFields;
+    }
+
+    //-------------------------------------------------------------
+    // Optional rule: allow skipping prerequisites (Invested -> AG)
+    [Header("Rules")]
+    [SerializeField] private bool agCardSkipsPrerequisites = true;
+
+    // Returns a list of CompanyField objects owned by the player (by fieldIndex)
+    private List<CompanyField> GetOwnedCompanyFields(PlayerData player)
+    {
+        var result = new List<CompanyField>();
+        var all = gameInitiator?.GetCompanyFields();
+        if (player == null || all == null) return result;
+
+        // Player.companies stores field indices
+        foreach (var fieldIndex in player.companies)
+        {
+            var cf = all.FirstOrDefault(f => f.fieldIndex == fieldIndex);
+            if (cf != null && cf.ownerID == player.PlayerID)
+                result.Add(cf);
+        }
+        return result;
+    }
+
+
+    // Filters owned companies for AG-eligibility
+    private bool TryGetEligibleCompaniesForAG(PlayerData player, out List<CompanyField> eligible)
+    {
+        eligible = new List<CompanyField>();
+        var owned = GetOwnedCompanyFields(player);
+        if (owned.Count == 0) return false;
+
+        foreach (var f in owned)
+        {
+            if (f.level == CompanyLevel.AG) continue; // already maxed
+
+            // If you want strict ladder: only Invested -> AG
+            // Otherwise (default) allow Founded/Invested -> AG (free upgrade card)
+            bool ok = agCardSkipsPrerequisites ? true : (f.level == CompanyLevel.Invested);
+            if (ok) eligible.Add(f);
+        }
+        return eligible.Count > 0;
+    }
+    //-------------------------------------------------------------
+
+
+
+
+    // PUBLIC METHOD: Get field indices of unowned fields
+    public List<int> GetUnownedFieldIndices()
+    {
+        List<int> indices = new List<int>();
+        List<CompanyField> unownedFields = GetUnownedCompanyFields();
+
+        foreach (CompanyField field in unownedFields)
+        {
+            indices.Add(field.fieldIndex);
+        }
+
+        return indices;
+    }
+
+    public List<int> GetBankAndActionFieldIndices()
+    {
+        List<int> bankAndActionFields = new List<int> { 5, 7, 10, 13, 20, 23, 27, 30, 37 };
+        return bankAndActionFields;
     }
 
     public void EndTurn()
     {
-        CurrentGame.CurrentPlayerTurnID++;
-        if (CurrentGame.CurrentPlayerTurnID >= CurrentGame.AllPlayers.Count)
-            CurrentGame.CurrentPlayerTurnID = 0;
+        // zum nächsten Index
+        gameInitiator.CurrentGame.CurrentPlayerTurnID++;
+        if (gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
+            gameInitiator.CurrentGame.CurrentPlayerTurnID = 0;
 
-        UpdateAgentPriorities();
-        Debug.Log($"Zug beendet. Spieler {GetCurrentPlayer().PlayerID} ist jetzt an der Reihe.");
-    }
+        uiManager.UpdateMoneyDisplay();
 
-    // ============================================================
-    // 👣 PLAYER MOVEMENT & CAMERA
-    // ============================================================
-    public void TakeTurn()
-    {
-        if (isTurnInProgress) return;
-        isTurnInProgress = true;
+        var next = GetCurrentPlayer();
+        if (next != null)
+            Debug.Log($"Zug beendet. Spieler {next.PlayerID} ist jetzt an der Reihe.");
+        else
+            Debug.LogError("EndTurn: Could not get next player!");
 
-        UpdateAgentPriorities();
+        playerMovement.setIsTurnInProgress(false);  // wichtig
 
-        int diceRoll = GetAddedValue();
-        Debug.Log($"Player {GetCurrentPlayer().PlayerID} rolled a {diceRoll}!");
+        if (next.hasToSkip)
+        {
+            Debug.Log($"Player {next.PlayerID} muss diesen Zug aussetzen!");
+            next.hasToSkip = false; // zurücksetzen
+            StartCoroutine(SkipTurnDelay());
+            EndTurn();
+            return;
+        }
 
-        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == GetCurrentPlayer().PlayerID);
+        // Kamera auf nächsten Spieler setzen
+        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == next.PlayerID);
         if (activePlayer != null)
         {
             Transform playerChild = activePlayer.transform.childCount > 0
                 ? activePlayer.transform.GetChild(0)
                 : activePlayer.transform;
 
-            cam.Lens.OrthographicSize = defaultLens;
-            cam.Follow = playerChild;
-
-            activePlayer.StartMove(diceRoll);
+            cameraManager.cam.Lens.OrthographicSize = cameraManager.defaultLens;
+            cameraManager.cam.Follow = playerChild;
         }
-    }
 
-    public void PlayerFinishedMoving(int finalPosition)
-    {
-        // Check field type from board layout
-        if (finalPosition < boardLayout.Length)
+        if (cameraManager.camBrain.IsBlending && cameraManager.camBrain.ActiveBlend != null)
         {
-            FieldType fieldType = boardLayout[finalPosition];
-            
-            switch (fieldType)
-            {
-                case FieldType.Start:
-                    Debug.Log("Player landed on Start field!");
-                    break;
-                    
-                case FieldType.Company:
-                    Debug.Log("Player landed on Company field!");
-                    if (questionManager != null)
-                    {
-                        questionManager.PrintRandomQuestion();
-                    }
-                    break;
-                    
-                case FieldType.Bank:
-                    Debug.Log("Player landed on Bank field!");
-                    if (bankCardManager != null)
-                    {
-                        bankCardManager.PrintRandomBankCard();
-                    }
-                    break;
-            }
+            GameObject moveButton = playerMovement.getMoveButton();
+            moveButton.SetActive(true);
+            moneyDisplay.SetActive(false);
         }
-
-        EndTurn();
-        isTurnInProgress = false;
-    }
-
-    public void UpdateAgentPriorities()
-    {
-        PlayerData currentPlayer = GetCurrentPlayer();
-        foreach (PlayerCTRL player in players)
+        else
         {
-            NavMeshAgent agent = player.GetComponent<NavMeshAgent>();
-            if (agent != null)
-                agent.avoidancePriority = (player.PlayerID == currentPlayer.PlayerID) ? 50 : 51;
+            uiManager.UpdateMoneyDisplay();
+            GameObject moveButton = playerMovement.getMoveButton();
+            moveButton.SetActive(true);
+            moneyDisplay.SetActive(true);
         }
     }
 
-    // ============================================================
-    // 🎲 DICE ROLLING SYSTEM
-    // ============================================================
-    public void RollDice()
+    private IEnumerator SkipTurnDelay()
     {
-        if (rolling) return;
-        StartCoroutine(RollRoutine());
-    }
-
-    private IEnumerator RollRoutine()
-    {
-        rolling = true;
-
-        // Reset dice positions
-        ResetDice(dice1, spawnPos1);
-        ResetDice(dice2, spawnPos2);
-
-        // Apply force & torque
-        ThrowDice(dice1);
-        ThrowDice(dice2);
-
-        // Focus camera on dice
-        cam.Follow = diceTargetGroup.transform;
-        cam.Lens.OrthographicSize = diceLensSize;
-
-
-        // Wait until both dice stop moving
-        yield return new WaitUntil(() => dice1.IsSleeping() && dice2.IsSleeping());
-        yield return new WaitForSeconds(1f);
-
-        int rollValue = GetAddedValue();
-        Debug.Log($"Dice rolled: {rollValue}");
-
-        // Return camera to player
-
-        TakeTurn();
-
-        rolling = false;
-    }
-
-    void ResetDice(Rigidbody rb, Transform startPos)
-    {
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.transform.position = startPos.position;
-        rb.transform.rotation = Random.rotation;
-    }
-
-    void ThrowDice(Rigidbody rb)
-    {
-        rb.AddForce(Vector3.down * throwForce, ForceMode.Impulse);
-        rb.AddTorque(Random.insideUnitSphere * torqueForce, ForceMode.Impulse);
-    }
-
-    int GetDiceValue(Rigidbody dice)
-    {
-        Vector3[] directions = {
-            dice.transform.up,
-            -dice.transform.up,
-            dice.transform.right,
-            -dice.transform.right,
-            dice.transform.forward,
-            -dice.transform.forward
-        };
-
-        int[] faceValues = { 1, 6, 3, 4, 2, 5 };
-
-        float maxDot = -1f;
-        int bestIndex = 0;
-
-        for (int i = 0; i < directions.Length; i++)
-        {
-            float dot = Vector3.Dot(Vector3.up, directions[i]);
-            if (dot > maxDot)
-            {
-                maxDot = dot;
-                bestIndex = i;
-            }
-        }
-
-        return faceValues[bestIndex];
-    }
-
-    public int GetAddedValue()
-    {
-        int val1 = GetDiceValue(dice1);
-        int val2 = GetDiceValue(dice2);
-        return val1 + val2;
+        yield return new WaitForSeconds(1f); // kurze Pause, damit der Spieler den Text lesen kann
     }
 
     // ============================================================
@@ -302,10 +449,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("--- STARTE WÄHRUNGSSYSTEM-TEST ---");
         Debug.Log($"Anfangsgeld: {GetCurrentPlayer().Money}€");
 
-        AddMoney(400);
-        RemoveMoney(400);
-        RemoveMoney(5000);
+        moneyManager.AddMoney(400);
+        moneyManager.RemoveMoney(400);
+        moneyManager.RemoveMoney(5000);
 
         Debug.Log($"--- TEST BEENDET --- Finaler Kontostand: {GetCurrentPlayer().Money}€");
     }
+
+    public bool InitiativeInProgress { get; set; } = false;
 }
