@@ -239,21 +239,15 @@ public class GameInitiator : MonoBehaviour
 
         // Corner fields (Start)
         boardLayout[0] = FieldType.Start;
-        // boardLayout[10] = FieldType.Start;
-        // boardLayout[20] = FieldType.Start;
-        // boardLayout[30] = FieldType.Start;
 
-        // Bank fields (fields without companies in JSON): 5, 7, 13, 23, 27, 37
+        // Bank/Action fields (fields without companies in JSON): 5, 7, 13, 23, 27, 37
         boardLayout[5] = FieldType.Action;
-        boardLayout[7] = FieldType.Action;
         boardLayout[13] = FieldType.Action;
-        boardLayout[23] = FieldType.Action;
-        boardLayout[27] = FieldType.Bank;
-        boardLayout[37] = FieldType.Bank;
+        boardLayout[27] = FieldType.Action;
+        boardLayout[37] = FieldType.Action;
 
-        boardLayout[10] = FieldType.Action;
-        boardLayout[20] = FieldType.Action;
-        boardLayout[30] = FieldType.Action;
+        boardLayout[7] = FieldType.Bank;
+        boardLayout[23] = FieldType.Bank;
     }
     
     

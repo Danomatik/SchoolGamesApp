@@ -12546,6 +12546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c19c95e7ef555f25b4fb7cb159f6a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  language: 0
+  difficulty: 0
   quizPanel: {fileID: 1189273145}
   questionText: {fileID: 962371264}
   questionID: {fileID: 2074334739}
@@ -12771,7 +12773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 1021593882}
-  testMode: 5
+  testMode: 1
   enableTestMode: 1
 --- !u!114 &1871652821
 MonoBehaviour:

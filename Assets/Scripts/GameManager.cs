@@ -458,5 +458,3 @@ public class GameManager : MonoBehaviour
 
     public bool InitiativeInProgress { get; set; } = false;
 }
-
-
