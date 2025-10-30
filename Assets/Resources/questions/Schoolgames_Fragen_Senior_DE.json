@@ -1,0 +1,2442 @@
+{
+  "senior-de": {
+    "gruendung": [
+      {
+        "id": 1,
+        "text": "Welche Grundbucheintragung belastet ein Grundstück?",
+        "options": ["Hypothek", "Darlehen", "Personalkredit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 2,
+        "text": "Was bedeutet „Tilgung“?",
+        "options": ["Rückzahlung des Kredits", "Aufbrauchen des Kredits", "Verschwenden des Kredits"],
+        "correctIndex": 0
+      },
+      {
+        "id": 3,
+        "text": "Welche steirische Institution ist für die Förderungsvergabe an Unternehmen zuständig?",
+        "options": ["Wirtschaftsförderung Steiermark (WFS)", "Fonds für Wirtschaft (FFW)", "Steirische Wirtschaftsförderungsgesellschaft (SFG)"],
+        "correctIndex": 2
+      },
+      {
+        "id": 4,
+        "text": "Auftrag der Wirtschaftsförderungsgesellschaft SFG ist endogene Regionalentwicklung. Was bedeutet das?",
+        "options": ["Wachstum von innen heraus fördern", "Betriebe gezielt ansiedeln", "Förderungen nach dem Gießkannenprinzip"],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "Wie nennt man Anteilsscheine an einem Unternehmen?",
+        "options": ["Kundenkarte", "Aktien", "Kreditkarte"],
+        "correctIndex": 1
+      },
+      {
+        "id": 6,
+        "text": "Die wichtigsten Exportgüter der österreichischen Wirtschaft kommen aus welcher Warengruppe?",
+        "options": ["Maschinenbauerzeugnisse und Fahrzeuge", "Holz und Holzwaren", "Fleisch und Fleischerzeugnisse"],
+        "correctIndex": 0
+      },
+      {
+        "id": 7,
+        "text": "Welcher Wirtschaftsbereich spielt in Österreich eine besonders wichtige Rolle?",
+        "options": ["Landwirtschaft", "Tourismus", "Industrie"],
+        "correctIndex": 1
+      },
+      {
+        "id": 8,
+        "text": "Wodurch ergibt sich die kurzfristige Preisuntergrenze?",
+        "options": ["Die Herstellungskosten", "Die Selbstkosten", "Die variablen Kosten"],
+        "correctIndex": 2
+      },
+      {
+        "id": 9,
+        "text": "In der Automobilzulieferindustrie spielt die Produktivität eine entscheidende Rolle. Was bedeutet Produktivität?",
+        "options": ["Das Design der Produkte zu verbessern", "Mehr Produkte in das Sortiment aufzunehmen", "In der selben Zeit mehr zu produzieren"],
+        "correctIndex": 2
+      },
+      {
+        "id": 10,
+        "text": "Wie viele Studierende gibt es ca. in Österreich?",
+        "options": ["Rund 250.000", "Rund 400.000", "Rund 500.000"],
+        "correctIndex": 2
+      },
+      {
+        "id": 11,
+        "text": "Welcher Titel wird verliehen, wenn das Doktorratsstudium abgeschlossen ist?",
+        "options": ["Bachelor", "Master", "Doktor"],
+        "correctIndex": 2
+      },
+      {
+        "id": 12,
+        "text": "2017 wurde Niederösterreich der Titel „European Entrepreneurial Region“, kurz „EER“ verliehen. Was bedeutet „EER“?",
+        "options": ["Unternehmerische Region", "Landwirtschaftliche Region", "Beschäftigungsintensive Region"],
+        "correctIndex": 0
+      },
+      {
+        "id": 13,
+        "text": "Eine Eigenmarke wird etwa viermal jährlich zu festen Terminen in unterschiedlichen Mengen bestellt. Wie wird dieses Verfahren genannt?",
+        "options": ["Bestellpunktverfahren", "Bestellrhythmusverfahren", "Bestellfixverfahren"],
+        "correctIndex": 1
+      },
+      {
+        "id": 14,
+        "text": "Elektromobilität ist ein zentrales Thema für viele Automobilzulieferer. Was ist dabei eine der größten Herausforderungen?",
+        "options": ["Die Beschleunigung des Autos", "Die Ladekapazität und Reichweite der Batterien", "Die Klimaanlage"],
+        "correctIndex": 1
+      },
+      {
+        "id": 15,
+        "text": "Wer ist für den Inhalt eines Printmediums verantwortlich?",
+        "options": ["ChefIn vom Dienst", "ChefredakteurIn", "JournalistIn"],
+        "correctIndex": 1
+      },
+      {
+        "id": 16,
+        "text": "Die systematische und zielgruppenorientierte Abstimmung aller Marketinginstrumente wird festgelegt im...",
+        "options": ["Absatzplan", "Kommunikationsplan", "Marketingplan"],
+        "correctIndex": 2
+      },
+      {
+        "id": 17,
+        "text": "Wenn man beobachtet, zu welchen Preisen der Mitbewerb seine Produkte anbietet und die eigene Preisgestaltung danach richtet, so spricht man von...",
+        "options": ["nachfrageorientierter Preisgestaltung", "konkurrenzorientierter Preisgestaltung", "kostenorientierter Preisgestaltung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 18,
+        "text": "Eine Vermögensplanung zeigt den Unterschied zwischen Umsatz und Gewinn auf. Warum ist das für UnternehmerInnen wichtig?",
+        "options": ["Sie sichert die finanzielle Existenz des Unternehmens", "Um gute Zinsen von der Bank zu bekommen", "Für die Steuerprüfung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 19,
+        "text": "Wie nennt man die einseitige und sofortige Auflösung des Arbeitsvertrages aus einem wichtigen Grund durch den Arbeitgeber/die Arbeitgeberin?",
+        "options": ["Kündigung", "Entlassung", "Zeitablauf"],
+        "correctIndex": 1
+      },
+      {
+        "id": 20,
+        "text": "Wie nennt man den Plan, der die wirtschaftlichen Erfolgsaussichten einer geplanten Geschäftsidee für die nächsten 1 bis 5 Jahre darstellt?",
+        "options": ["Finanzplan", "Businessplan", "Marketingplan"],
+        "correctIndex": 1
+      },
+      {
+        "id": 21,
+        "text": "Wie nennt man das Erkennen, Schaffen, Nutzen und Durchsetzen von neuen Ideen auf wirtschaftlichem Gebiet?",
+        "options": ["Entrepreneurship", "Beamtentum", "Erwerbstätigkeit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 22,
+        "text": "Die Geschäftsleitung bittet für die Einstellung eines neuen Mitarbeiters um Zustimmung des Betriebsrats. Welche Aussage ist richtig?",
+        "options": [
+          "Der Betriebsrat kann die Zustimmung unter bestimmten Umständen verweigern.",
+          "Auch wenn der Betriebsrat dagegen ist: Das letzte Wort hat immer die Geschäftsleitung.",
+          "Der Betriebsrat kann die Zustimmung ohne Angabe von Gründen verweigern."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 23,
+        "text": "Wie heißt in der Wirtschaft das Gegenteil von Deflation?",
+        "options": ["Inflation", "Revision", "Marktinvasion"],
+        "correctIndex": 0
+      },
+      {
+        "id": 24,
+        "text": "Wenn die OPEC-Staaten ihre Öl-Fördermengen senken und die Nachfrage gleichbleibt, spricht man von...",
+        "options": [
+          "konkurrenzorientierter Preispolitik",
+          "kostenorientierter Preispolitik",
+          "nachfrageorientierter Preispolitik"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 25,
+        "text": "Wie nennt man die Verlagerung der Beschaffung aus den Hochlohnländern Europas in Niedriglohnländer?",
+        "options": ["Insourcing", "Globalsourcing", "Outsourcing"],
+        "correctIndex": 2
+      },
+      {
+        "id": 26,
+        "text": "Was sind die Lohnnebenkosten?",
+        "options": [
+          "Kosten für ArbeitgeberInnen, die zusätzlich zum ausgezahlten Lohn anfallen",
+          "Kosten die ArbeitnehmerInnen von ihrem ausbezahlten Lohn bezahlen müssen",
+          "Kosten des Arbeitsamtes"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 27,
+        "text": "Die Gewinn- und Verlustrechnung...",
+        "options": [
+          "ist eine Gegenüberstellung von Aufwendungen und Erträgen.",
+          "ist eine Gegenüberstellung von Ein- und Auszahlungen in Staffelform.",
+          "dient der Ermittlung des steuerlichen Ergebnisses."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 28,
+        "text": "Im Gegensatz zu Industrie- und Handelsunternehmen erzeugen Dienstleistungsunternehmen ausschließlich...",
+        "options": ["unsichtbare Güter", "immaterielle Güter", "materielle Güter"],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Public Relations, Sales Promotion, Viral- und Guerilla-Marketing sind Begriffe aus dem Bereich der...",
+        "options": ["Distributionspolitik", "Kommunikationspolitik", "Preispolitik"],
+        "correctIndex": 1
+      },
+      {
+        "id": 30,
+        "text": "Ein Absatzhelfer ist ein...",
+        "options": [
+          "Add-on von Microsoft, das einen Fließtext in Word automatisch in Absätze unterteilt.",
+          "höflicher Mann, der Frauen in hohen Schuhen beim Treppensteigen hilft.",
+          "Absatzmittler, z.B. ein Handlungsreisender."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 31,
+        "text": "Handlungsreisende sind...",
+        "options": [
+          "Touristen, die im Urlaub gerne Schnäppchen aushandeln.",
+          "kaufmännische Angestellte, die im Namen und für Rechnung des Arbeitgebers Geschäfte abschließen.",
+          "ManagerInnen, die in ihrem Job oft verreisen müssen."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 32,
+        "text": "Was besagt die Entscheidung für einen direkten Absatz?",
+        "options": [
+          "Hier erfolgt der Absatz direkt an die EinzelhändlerInnen",
+          "Beim direkten Absatz werden keine ZwischenhändlerInnen eingeschaltet",
+          "Beim direkten Absatz werden nur die GroßhändlerInnen, nicht aber die EinzelhändlerInnen eingeschaltet"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 33,
+        "text": "Wenn eine Firma ihre klassische Feinripp-Unterwäsche jetzt auch in „Sport“ und „Modern“ anbietet, dann spricht man von einer...",
+        "options": ["Sortimentsverbreiterung", "Sortimentsvertiefung", "Sortimentsverlängerung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 34,
+        "text": "Was bestimmt die Art des Kredits?",
+        "options": ["Der Verbrauchszweck", "Die Verarbeitungsart", "Der Verwendungszweck"],
+        "correctIndex": 2
+      },
+      {
+        "id": 35,
+        "text": "Kauft eine Person über einen längeren Zeitraum immer beim selben Anbieter, dann spricht man von...",
+        "options": ["Kundenlobby", "Kundentreue", "Kundenliebe"],
+        "correctIndex": 1
+      },
+      {
+        "id": 36,
+        "text": "Wie nennt man einen in der Zukunft liegenden, angestrebten Zustand?",
+        "options": ["Vorstellung", "Ziel", "Traum"],
+        "correctIndex": 1
+      },
+      {
+        "id": 37,
+        "text": "Welcher der folgenden Punkte gehört zu den „quantitativen Bausteinen“ des Businessplans?",
+        "options": ["Geschäftsidee", "Finanzplanung", "Marketingplan"],
+        "correctIndex": 1
+      },
+      {
+        "id": 38,
+        "text": "Unter welchem Titel erscheinen in der Bilanz alle langlebigen Wirtschaftsgüter?",
+        "options": ["Privatvermögen", "Umlaufvermögen", "Anlagevermögen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 39,
+        "text": "In welcher Rechtsform finden die häufigsten „Unternehmensgründungen“ in Österreich statt?",
+        "options": ["Einzelunternehmen", "GmbH", "KG"],
+        "correctIndex": 0
+      },
+      {
+        "id": 40,
+        "text": "Was versteht man unter „Gesamtkosten“ im Unternehmensbereich?",
+        "options": ["Kosten zur Lebensführung", "Fixkosten und variable Kosten", "Endpreis"],
+        "correctIndex": 1
+      },
+      {
+        "id": 41,
+        "text": "Was versteht man unter dem Begriff „Bilanz“ in der Buchhaltung?",
+        "options": ["Summe aller Ausgaben", "Gegenüberstellung von Kapital und Vermögen", "Rückblick auf das letzte Jahr"],
+        "correctIndex": 1
+      },
+      {
+        "id": 42,
+        "text": "Warum ist es für uns alle wichtig, dass es Unternehmer gibt?",
+        "options": ["Sie fördern die Familienplanung", "Sie schaffen Arbeitsplätze", "Sie fördern das Bankenwesen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 43,
+        "text": "Wie nennt man den Vertrieb, der keine HändlerInnen zwischen HerstellerIn und EndabnehmerIn aufweist?",
+        "options": ["Indirektvertrieb", "Großhandel", "Direktvertrieb"],
+        "correctIndex": 2
+      },
+      {
+        "id": 44,
+        "text": "Wie benennt man die tatsächlichen und die potentiellen KundInnen im Marketing?",
+        "options": ["Markt", "Geschäft", "Platz"],
+        "correctIndex": 0
+      },
+      {
+        "id": 45,
+        "text": "Welche der folgenden Maßnahmen zählt zum Kommunikationsinstrument „Werbung“?",
+        "options": [
+          "Produktverkostung im Geschäft",
+          "Radiospot über neues Produkt",
+          "Organisation einer Sportveranstaltung"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 46,
+        "text": "Welche der folgenden Maßnahmen zählt zum Kommunikationsinstrument „Öffentlichkeitsarbeit“?",
+        "options": [
+          "Sonderplatzierung in einem Schüttkorb",
+          "Plakat eines Lebensmittelhändlers",
+          "Artikel über soziales Engagement eines Unternehmens"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 47,
+        "text": "Welcher der folgenden Begriffe hat nichts mit Marketing zu tun?",
+        "options": ["Materialwirtschaft", "Marktforschung", "Produktpolitik"],
+        "correctIndex": 0
+      },
+      {
+        "id": 48,
+        "text": "Welche sind die 3 volkswirtschaftlichen Produktionsfaktoren?",
+        "options": ["Arbeit, Boden, Kapital", "Arbeit, Staat, Unternehmen", "Arbeit, Werkstoffe, Betriebsmittel"],
+        "correctIndex": 0
+      },
+      {
+        "id": 49,
+        "text": "Was ist für die Abschreibung abnutzbarer Wirtschaftsgüter maßgeblich?",
+        "options": ["Der kalkulatorische Gewinn", "Die Lebensdauer", "Die Nutzungsdauer"],
+        "correctIndex": 2
+      },
+      {
+        "id": 50,
+        "text": "Wie viele Personen werden für die Gründung einer GmbH zumindest benötigt?",
+        "options": ["1 Person", "2 Personen", "3 Personen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 51,
+        "text": "Kann ein Gläubiger seine Forderungen von jedem einzelnen Gesellschafter einer OG eintreiben?",
+        "options": ["Ja", "Nein", "Unterschiedlich"],
+        "correctIndex": 0
+      },
+      {
+        "id": 52,
+        "text": "Welcher der nachstehenden Punkte ist Voraussetzung für einen Lieferantenkredit?",
+        "options": ["Bonitätsprüfung", "Schriftlicher Vertrag", "Keine der beiden Antworten ist richtig"],
+        "correctIndex": 2
+      },
+      {
+        "id": 53,
+        "text": "Wie nennt man einen Markt, auf dem das Angebot von Gütern größer ist als die Güternachfrage?",
+        "options": ["Verkäufermarkt", "Käufermarkt", "Großmarkt"],
+        "correctIndex": 1
+      },
+      {
+        "id": 54,
+        "text": "Damit ein Hersteller keine Verluste macht, sollte sein Verkaufspreis mindestens...",
+        "options": [
+          "die Selbstkosten decken.",
+          "die Einkaufskosten decken.",
+          "die Herstellungskosten decken."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "Wie nennt man einen Markt, auf dem die Nachfrage nach Gütern größer ist als das Güterangebot?",
+        "options": ["Verkäufermarkt", "Großmarkt", "Käufermarkt"],
+        "correctIndex": 0
+      },
+      {
+        "id": 56,
+        "text": "Welches ist das vorrangige Sachziel eines Dienstleistungsunternehmens?",
+        "options": [
+          "Verarbeitung (Produktion)",
+          "Kauf und Verkauf von Waren (Distribution)",
+          "Beratung in rechtlichen und wirtschaftlichen Fragen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 57,
+        "text": "Welches Unternehmen gehört nicht zu den Dienstleistungsunternehmen?",
+        "options": [
+          "Volksbank",
+          "BIPA Parfumerien Gesellschaft m.b.H.",
+          "ÖBB"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 58,
+        "text": "Wie nennt man das Gebiet, in welchem Werbemaßnahmen durchgeführt werden?",
+        "options": ["Streugebiet", "Werberegion", "Commercial Sector"],
+        "correctIndex": 0
+      },
+      {
+        "id": 59,
+        "text": "Was sind die Grundfunktionen (Hauptaufgaben) jedes Unternehmens?",
+        "options": [
+          "Leistungserstellung, Vermarktung und Verwaltung",
+          "Beschaffung, Controlling und Vertrieb",
+          "Beschaffung, Leistungserstellung und Absatz"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 60,
+        "text": "Die Entwicklung eines völlig neuen Produkts bezeichnet man als...",
+        "options": ["Produktvariation", "Produktdiversifikation", "Produktinnovation"],
+        "correctIndex": 2
+      },
+      {
+        "id": 61,
+        "text": "In der Regel gilt für das Werbebudget: Sinkt der Umsatz, werden die Ausgaben für Werbung...",
+        "options": ["gestoppt", "verringert", "erhöht"],
+        "correctIndex": 1
+      },
+      {
+        "id": 62,
+        "text": "Was versteht man unter „Brainstorming“?",
+        "options": ["Gedankenanalyse", "Sammeln von Ideen", "Gehirnstromanalyse"],
+        "correctIndex": 1
+      },
+      {
+        "id": 63,
+        "text": "Was versteht man unter einem „Businessplan“?",
+        "options": [
+          "Plan zur Umsetzung einer Geschäftsidee",
+          "Geschäftsspiel",
+          "Orientierungsplan eines Betriebes"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 64,
+        "text": "Wie lange ist die Laufzeit bei einem mittelfristigen Kredit?",
+        "options": ["Bis zu 1 Jahr", "Über 5 Jahre", "1 bis 5 Jahre"],
+        "correctIndex": 2
+      },
+      {
+        "id": 65,
+        "text": "Was versteht man unter dem Begriff „Eigenkapital“?",
+        "options": [
+          "Das Vermögen der MitarbeiterInnen",
+          "Geliehenes Geld",
+          "Selbst erwirtschaftetes Geld"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 66,
+        "text": "Was versteht man unter dem Begriff „Gründungskosten“?",
+        "options": [
+          "Staatliche Abgaben bei Betriebsgründung",
+          "Erstkosten bei Unternehmensaufbau",
+          "Notarkosten"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 67,
+        "text": "Wer führt üblicherweise die Geschäfte bei einer KG?",
+        "options": ["KommanditistInnen", "KomplementärInnen", "Externe GeschäftsführerInnen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 68,
+        "text": "Unter der Positionierung eines Produktes versteht man...",
+        "options": [
+          "die Anzahl der belieferten HändlerInnen",
+          "ein zu erreichendes Vorstellungsbild bei KundInnen",
+          "die Präsentation des Produktes am POP"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 69,
+        "text": "Was gehört nicht zur Produktpolitik?",
+        "options": ["Nimm 3, zahl 2", "Neue Rezeptur einer Bodylotion", "Produktanpassung durch Kundenwünsche"],
+        "correctIndex": 0
+      },
+      {
+        "id": 70,
+        "text": "Was fällt unter den Begriff „Distributionspolitik“?",
+        "options": [
+          "Wahl einer neuen Verkaufsschiene",
+          "Neue Sicherheitseinrichtung beim Auto",
+          "Preissenkung zu Saisonende"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 71,
+        "text": "Was bezeichnet man als Rendite?",
+        "options": [
+          "Die Gewinne der Banken",
+          "Die Erträge aus Sparguthaben",
+          "Den Ertrag eines angelegten Kapitals"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 72,
+        "text": "Was bedeutet es, wenn ein Geschäftsmann liquide ist?",
+        "options": ["Er ist pleite", "Er kann Verträge einhalten", "Er kann bezahlen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 73,
+        "text": "Das gesamte Angebot eines Handelsbetriebes nennt man...",
+        "options": ["Gütermenge", "Warenlager", "Sortiment"],
+        "correctIndex": 2
+      },
+      {
+        "id": 74,
+        "text": "Wie nennt man die Abtretung einer Forderung?",
+        "options": ["Zession", "Hypothek", "Verpfändung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 75,
+        "text": "Was bedeutet insolvent?",
+        "options": ["Unverschämt", "Zahlungsfähig", "Zahlungsunfähig"],
+        "correctIndex": 2
+      },
+      {
+        "id": 76,
+        "text": "Wie nennt man den Rückgang der Wirtschaftstätigkeit?",
+        "options": ["Inflation", "Rezession", "Rezension"],
+        "correctIndex": 1
+      },
+      {
+        "id": 77,
+        "text": "Gewinn geteilt durch Verkaufserlöse x 100% ergibt die...",
+        "options": ["Umsatzrentabilität", "Gesamtkapitalrentabilität", "Eigenkapitalrentabilität"],
+        "correctIndex": 0
+      },
+      {
+        "id": 78,
+        "text": "Wie wird Umsatz definiert?",
+        "options": [
+          "Preise multipliziert mit Absatzmengen",
+          "Gewinn abzüglich Kosten",
+          "Erträge abzüglich Aufwand"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 79,
+        "text": "Welche Rechtsform zählt zu den Personengesellschaften?",
+        "options": ["GmbH", "OG", "AG"],
+        "correctIndex": 1
+      },
+      {
+        "id": 80,
+        "text": "Als EinzelunternehmerIn haftet man...",
+        "options": [
+          "mit dem gesamten Privatvermögen",
+          "mit dem Betriebsvermögen",
+          "ausschließlich für Fremdkapital"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 81,
+        "text": "Was bedeutet OG?",
+        "options": ["Ordentliche Gemeinschaft", "Offene Gesellschaft", "Oberste Genossenschaft"],
+        "correctIndex": 1
+      },
+      {
+        "id": 82,
+        "text": "Was bedeutet KG?",
+        "options": ["Kommanditgesellschaft", "Komplementärgesellschaft", "Klagegemeinschaft"],
+        "correctIndex": 0
+      },
+      {
+        "id": 83,
+        "text": "Bei einer GmbH und Co KG handelt es sich um eine...",
+        "options": [
+          "KG mit GmbH als Kommanditist",
+          "KG mit GmbH als Komplementär",
+          "GmbH mit KG als Gesellschafter"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 84,
+        "text": "Was ist der Hauptvorteil einer GmbH?",
+        "options": ["Geringe Gründungskosten", "Eingeschränkte Haftung", "Einfache Entscheidungsfindung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 85,
+        "text": "Was gilt für den Kommanditisten einer KG?",
+        "options": ["Unbeschränkte Haftung", "Gewinnbeteiligung", "Entscheidungsrecht"],
+        "correctIndex": 1
+      },
+      {
+        "id": 86,
+        "text": "Was versteht man unter dem Begriff „Marktnische“?",
+        "options": [
+          "Ein kleiner Teilmarkt mit wenig Konkurrenz",
+          "Ein großer Markt mit viel Konkurrenz",
+          "Die Aufnahmefähigkeit des Marktes"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 87,
+        "text": "Was versteht man unter einem Monopol?",
+        "options": [
+          "Nur ein Anbieter/eine Anbieterin am Markt",
+          "Einige wenige AnbieterInnen am Markt",
+          "Viele Unternehmen am Markt"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 88,
+        "text": "Was versteht man unter einem Polypol?",
+        "options": [
+          "Nur ein Anbieter/eine Anbieterin am Markt",
+          "Einige wenige AnbieterInnen am Markt",
+          "Viele Unternehmen am Markt"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 89,
+        "text": "Was bedeutet die Kurzform „B2C“?",
+        "options": ["Be-to-Café", "Business-to-control", "Business-to-Consumer"],
+        "correctIndex": 2
+      },
+      {
+        "id": 90,
+        "text": "Was versteht man unter einem Unternehmen?",
+        "options": [
+          "Eine planvoll organisierte Wirtschaftseinheit",
+          "Eine planwirtschaftliche Organisation",
+          "Eine spontane Investition in eine Geschäftsidee"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 91,
+        "text": "Die Bezeichnung „Distributionspolitik“ steht für die...",
+        "options": ["Verteilung von Produkten", "Vermarktung von Produkten", "Herstellung von Produkten"],
+        "correctIndex": 0
+      },
+      {
+        "id": 92,
+        "text": "Was besteht auf einem Käufermarkt?",
+        "options": ["Angebotslücke", "Nachfragelücke", "Nachfrageüberhang"],
+        "correctIndex": 2
+      },
+      {
+        "id": 93,
+        "text": "Was zählt nicht zu den Rohstoffen?",
+        "options": ["Schmiermittel", "Holz", "Kunststofffurniere"],
+        "correctIndex": 0
+      },
+      {
+        "id": 94,
+        "text": "Zu den Lagerhaltungskosten gehören nicht...",
+        "options": [
+          "die Kosten für das Lager-Personal",
+          "die Anschaffungskosten für den Gabelstapler",
+          "die Versicherungskosten für Vorräte und Räume"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 95,
+        "text": "Was besteht auf einem Verkäufermarkt?",
+        "options": ["Angebotsüberhang", "Nachfragelücke", "Nachfrageüberhang"],
+        "correctIndex": 2
+      },
+      {
+        "id": 96,
+        "text": "Sind nur schriftliche Verträge wirksam?",
+        "options": ["Ja", "Nein"],
+        "correctIndex": 1
+      },
+      {
+        "id": 97,
+        "text": "Was versteht man unter Guerilla-Marketing?",
+        "options": [
+          "Durch ungewöhnliche, manchmal sogar illegale Werbeaktionen soll eine große Wirkung erzielt werden.",
+          "Der Begriff stammt von Guerilla-KämpferInnen, die mit ihren Botschaften die Menschen zur Revolution bewegen wollen.",
+          "Ein Begriff aus dem Zoo-Management. Gorillas werden T-Shirts angezogen, um sie zu Werbeträgern zu machen."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 98,
+        "text": "Wofür steht der Buchstabe M in den so genannten „SMART-Kriterien“?",
+        "options": ["Manageable", "Measurable", "Minimized"],
+        "correctIndex": 1
+      },
+      {
+        "id": 99,
+        "text": "MitarbeiterInnen, die am Unternehmenserfolg beteiligt sind, sind auch...",
+        "options": ["AktionärInnen", "AnlegerInnen", "PartnerInnen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 100,
+        "text": "Der ATX zeigt die Kursentwicklung der größten Unternehmen Österreichs. Wie viele Unternehmen sind im ATX gelistet?",
+        "options": ["15", "20", "30"],
+        "correctIndex": 1
+      },
+      {
+        "id": 101,
+        "text": "Ein Unternehmen möchte langfristig seine Wettbewerbsfähigkeit steigern. Welche Maßnahme könnte dazu beitragen (u.a.)?",
+        "options": [
+          "Lange Lieferzeiten",
+          "Hohe Qualität der Produkte",
+          "Geringe Bezahlung der MitarbeiterInnen"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 102,
+        "text": "Ein Unternehmen möchte, dass offene Stellenanzeigen von Suchmaschinen (z.B. Google) leicht gefunden werden. Wie gelingt das?",
+        "options": ["Social-Media-Kampagnen", "Suchmaschinenoptimierung", "Spezielle Werbebanner"],
+        "correctIndex": 1
+      },
+      {
+        "id": 103,
+        "text": "Die... beschreibt den Zweck des Unternehmens und beantwortet die Frage, warum es existiert.",
+        "options": ["Mission", "Vision", "Bilanz"],
+        "correctIndex": 0
+      },
+      {
+        "id": 104,
+        "text": "Was ist die Aufgabe des Topmanagements in einem Unternehmen?",
+        "options": ["Bereichsleitung", "Gruppenleitung", "Unternehmensleitung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 105,
+        "text": "Welchen Zeithorizont umfasst die strategische Planung?",
+        "options": ["Kurzfristiger Horizont", "Mittelfristiger Horizont", "Langfristiger Horizont"],
+        "correctIndex": 2
+      },
+      {
+        "id": 106,
+        "text": "Wie bezeichnet man die kleinste organisatorische Einheit in einem Unternehmen?",
+        "options": ["Abteilung", "Stelle", "Filiale"],
+        "correctIndex": 1
+      },
+      {
+        "id": 107,
+        "text": "Welche Maßnahme setzte die österreichische Regierung zu Beginn der Coronakrise 2020 zur Milderung von wirtschaftlichen Schäden?",
+        "options": ["Kurzarbeit", "Schwarzarbeit", "Steuererhöhung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 108,
+        "text": "Was ist kein marktpsychologisches Ziel?",
+        "options": ["Image", "Bekanntheitsgrad", "Umsatz"],
+        "correctIndex": 2
+      },
+      {
+        "id": 109,
+        "text": "Was ist eines der wichtigsten Gesetze für eine Privatperson bei Geschäften mit Unternehmen?",
+        "options": ["Konsumentenschutzgesetz", "Aktiengesetz", "Unternehmensgesetz"],
+        "correctIndex": 0
+      },
+      {
+        "id": 110,
+        "text": "Welche Einzelhandelsform zählt nicht zum stationären Handel?",
+        "options": ["Supermarkt", "Kaufhaus", "Teleshopping"],
+        "correctIndex": 2
+      },
+      {
+        "id": 111,
+        "text": "Ein Schuhhändler verkauft in einem Geschäft ausschließlich Schuhe und Taschen. Er hat somit ein...",
+        "options": ["enges Sortiment", "breites Sortiment", "hohes Sortiment"],
+        "correctIndex": 1
+      },
+      {
+        "id": 112,
+        "text": "Eine Aufgabe des Controlling ist es,...",
+        "options": [
+          "Personal einzustellen",
+          "Informationen bereitzustellen",
+          "Werbemaßnahmen zu setzen"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 113,
+        "text": "Ein Unternehmen möchte eine psychologische Preisstrategie (Preisschwelle) anwenden und bietet daher sein Produkt um... an.",
+        "options": ["9,99 Euro", "10,00 Euro", "10,05 Euro"],
+        "correctIndex": 0
+      },
+      {
+        "id": 114,
+        "text": "Was ist kein Teil der gewöhnlichen gesetzlichen Sozialversicherung?",
+        "options": ["Krankenversicherung", "Pensionsversicherung", "Lebensversicherung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 115,
+        "text": "Gemäß welchem Prinzip arbeiten Versicherungen?",
+        "options": ["Wirtschaftlichkeitsprinzip", "Solidaritätsprinzip", "Gewinnprinzip"],
+        "correctIndex": 1
+      },
+      {
+        "id": 116,
+        "text": "Was zählt nicht zu den Anschaffungsnebenkosten einer Maschine?",
+        "options": ["Transport", "Kaufpreis", "Montage"],
+        "correctIndex": 1
+      },
+      {
+        "id": 117,
+        "text": "Ein Unternehmen möchte eine neue Anlage erwerben und muss sich für eine von zwei Optionen entscheiden. Wie kann die Entscheidung unterstützt werden?",
+        "options": ["Investitionsrechenverfahren", "Buchungsverfahren", "Finanzrechnungsverfahren"],
+        "correctIndex": 0
+      },
+      {
+        "id": 118,
+        "text": "Nach welchem Prinzip müssen Verbindlichkeiten bewertet werden?",
+        "options": ["Niederstwertprinzip", "Mittelwertprinzip", "Höchstwertprinzip"],
+        "correctIndex": 0
+      },
+      {
+        "id": 119,
+        "text": "Welche Art von Gewinnrücklagen gibt es nicht?",
+        "options": ["Gesetzliche", "Verlustorientierte", "Satzungsmäßige"],
+        "correctIndex": 1
+      },
+      {
+        "id": 120,
+        "text": "Wie lange ist die gesetzliche Gewährleistungsfrist bei beweglichen Gütern?",
+        "options": ["1 Jahr", "2 Jahre", "3 Jahre"],
+        "correctIndex": 1
+      }
+    ],
+    "investition": [
+      {
+        "id": 1,
+        "text": "Eine Börseanalystin gibt mit der Bewertung „Hold“...",
+        "options": ["eine Kaufempfehlung.", "eine Verkaufsempfehlung.", "die Empfehlung, eine Aktie zu behalten."],
+        "correctIndex": 2
+      },
+      {
+        "id": 2,
+        "text": "Für Kreditvergaben wird meist eine Eigenkapitalquote von 30–40% gefordert. Was ist das?",
+        "options": ["Verhältnis Eigenkapital zu Fremdkapital", "Anteil Eigenkapital am gesamten Kapital", "Anteil Eigenkapital am Gewinn"],
+        "correctIndex": 1
+      },
+      {
+        "id": 3,
+        "text": "Was ist ein EURIBOR?",
+        "options": ["Eine Zahlungsart", "Eine Kreditart", "Der Leitzins des Geldmarktes"],
+        "correctIndex": 2
+      },
+      {
+        "id": 4,
+        "text": "Die Steiermark ist Heimat von fünf Clustern. In welchem Bereich sind Unternehmen des AC Styria tätig?",
+        "options": ["Holzbearbeitung und Holzverarbeitung", "Umweltfreundliche Technologien", "Automobilzulieferindustrie und Mobilität"],
+        "correctIndex": 2
+      },
+      {
+        "id": 5,
+        "text": "Die österreichischen Exporte in die BRIC-Länder haben sich in den letzten 20 Jahren verdoppelt. Wofür steht BRIC?",
+        "options": ["Bulgarien, Rumänien, Indien, China", "Balkan, Russland, Italien, China", "Brasilien, Russland, Indien, China"],
+        "correctIndex": 2
+      },
+      {
+        "id": 6,
+        "text": "Du planst einen Handelsbetrieb zu eröffnen. Welche gesetzliche Regelung ist für eine Unternehmensgründung maßgeblich?",
+        "options": ["Arbeitsrecht", "Gewerbeordnung", "Verwaltungsrecht"],
+        "correctIndex": 1
+      },
+      {
+        "id": 7,
+        "text": "Welches Bundesland in Österreich verbucht in Sommer und Winter die meisten Nächtigungen?",
+        "options": ["Salzburg", "Wien", "Steiermark"],
+        "correctIndex": 2
+      },
+      {
+        "id": 8,
+        "text": "Was bedeutet IPO?",
+        "options": ["Börsengang eines Unternehmens (Initial Public Offering)", "Ungültiger Kurs (Invalid Price Offering)", "Initiative Privater Organisationen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 9,
+        "text": "Die OPEC hat ihren Sitz in...",
+        "options": ["Frankfurt.", "Caracas.", "Wien."],
+        "correctIndex": 2
+      },
+      {
+        "id": 10,
+        "text": "Was ist die Sonntagsfrage?",
+        "options": ["Eine Frage, die nur am Sonntag gestellt wird", "Eine Frage, die nur am Sonntag veröffentlicht wird", "„Wen würden Sie am Sonntag wählen?“"],
+        "correctIndex": 2
+      },
+      {
+        "id": 11,
+        "text": "Wie bezeichnet man in der Marktforschung eine Gruppe, die aus der Gesamtheit aller passenden Personen ausgewählt wird?",
+        "options": ["Experimentalgruppe", "Stichprobe", "Auslesegruppe"],
+        "correctIndex": 1
+      },
+      {
+        "id": 12,
+        "text": "Österreich ist bei Erneuerbaren Energien europäischer Spitzenreiter. Wie hoch ist der Anteil der Erneuerbaren Energien am Stromverbrauch in Österreich derzeit?",
+        "options": ["75%", "58%", "37%"],
+        "correctIndex": 1
+      },
+      {
+        "id": 13,
+        "text": "Wie viele (private und öffentliche) Universitäten gibt es in Österreich?",
+        "options": ["25", "39", "42"],
+        "correctIndex": 1
+      },
+      {
+        "id": 14,
+        "text": "Wie nennt man die Maßnahme zur Gewinnung von Daten über die Charakteristika eines Marktes?",
+        "options": ["Unternehmensforschung", "Marktforschung", "Feldforschung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 15,
+        "text": "Welche der folgenden Bedürfnisse sind in der Maslow‘schen Bedürfnispyramide zu finden?",
+        "options": ["Bedürfnis nach Sicherheit", "Körperliche Grundbedürfnisse", "Bedürfnis nach Selbstverwirklichung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 16,
+        "text": "Welche Aussage ist richtig?",
+        "options": [
+          "In Österreich geben ausländische Gäste mehr aus als ÖsterreicherInnen im Ausland.",
+          "ÖsterreicherInnen geben bei Auslandsreisen mehr aus als ausländische Gäste in Österreich.",
+          "ÖsterreicherInnen geben gleich viel im Ausland aus wie AusländerInnen in Österreich."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 17,
+        "text": "Wie nennt sich der Bereich, der sich mit der Verteilung der Waren befasst – vom Transport über die Lagerung bis zum Einschlichten in die Regale?",
+        "options": ["Lagerwesen", "Transport", "Logistik"],
+        "correctIndex": 2
+      },
+      {
+        "id": 18,
+        "text": "Die aufeinander abgestimmte, kundenorientierte Zusammenstellung der angebotenen Produkte, Produktlinien und -gruppen bezeichnet man beim Händler als...",
+        "options": ["Sortiment.", "Angebot.", "Produktmix."],
+        "correctIndex": 0
+      },
+      {
+        "id": 19,
+        "text": "Was versteht man unter „Cash Cow“?",
+        "options": [
+          "Ein Produkt, mit dem hohe Gewinne erwirtschaftet werden.",
+          "Ein auf dem Absatzmarkt stark positioniertes, landwirtschaftliches Produkt.",
+          "Eine Cash Cow ist definiert als Betriebsergebnis + Abschreibungen."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 20,
+        "text": "Frau Himmel legt 1.000 Euro auf ein Sparbuch und erhält dafür 50 Euro Zinsen pro Jahr. Wie hoch ist die Verzinsung des eingesetzten Kapitals?",
+        "options": ["5%", "10%", "15%"],
+        "correctIndex": 0
+      },
+      {
+        "id": 21,
+        "text": "Wenn eine österreichische Schifabrik ihre Produkte nach Japan liefert, dann...",
+        "options": [
+          "verbessert sich die Bilanz des Warenverkehrs zugunsten Österreichs.",
+          "verschlechtert sich die Dienstleistungsbilanz Japans.",
+          "hat das für die Leistungsbilanz gar keine Folge."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 22,
+        "text": "Wenn bei der Marktforschung bereits vorliegende Daten (interne oder externe) herangezogen werden, so spricht man von...",
+        "options": ["einem Experiment.", "Primärforschung.", "Sekundärforschung."],
+        "correctIndex": 2
+      },
+      {
+        "id": 23,
+        "text": "Bei welcher der folgenden Gesellschaftsformen gibt es sowohl beschränkt als auch unbeschränkt haftende GesellschafterInnen?",
+        "options": ["KG", "GmbH", "OHG"],
+        "correctIndex": 0
+      },
+      {
+        "id": 24,
+        "text": "Was war ein Auslöser der weltweiten Finanzkrise 2007/08?",
+        "options": ["Zu wenig Geld im Umlauf", "„Faule“ Wohnungskredite", "Zu viele Leasinggeschäfte"],
+        "correctIndex": 1
+      },
+      {
+        "id": 25,
+        "text": "Wo sollte das Thema Corporate Social Responsibility idealerweise in der Unternehmensstruktur angesiedelt sein?",
+        "options": ["Public Relations", "Geschäftsführung", "Personalleitung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 26,
+        "text": "Wie ist die Preisfestlegung, wenn sich der Preis aus den Entstehungskosten und dem Gewinn errechnet (vor allem bei Dienstleistungen)?",
+        "options": ["Wettbewerbsorientiert", "Kostenorientiert", "Kundennutzenorientiert"],
+        "correctIndex": 1
+      },
+      {
+        "id": 27,
+        "text": "Wie nennt man das gedankliche Vorstellungsbild, das KundInnen von einem Unternehmen oder einer Marke haben?",
+        "options": ["Ideal", "Image", "Ideologie"],
+        "correctIndex": 1
+      },
+      {
+        "id": 28,
+        "text": "Wie nennt man das Management, das ein Produkt den Bedürfnissen der KundInnen und den Marktbedingungen anpasst?",
+        "options": ["Marktmanagement", "Produktmanagement", "Bedürfnismanagement"],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Wie nennt man die Grundeinstellung eines Unternehmens, sich an den Bedürfnissen des Marktes zu orientieren?",
+        "options": ["Clienting", "Marketing", "Pricing"],
+        "correctIndex": 1
+      },
+      {
+        "id": 30,
+        "text": "Wodurch kann man die Entwicklung von Umsatz und Gewinn eines Produktes in einer gewissen Zeit darstellen?",
+        "options": ["Umsatzkurve", "Gewinnzyklus", "Produktlebenszyklus"],
+        "correctIndex": 2
+      },
+      {
+        "id": 31,
+        "text": "Wie heißt der Teil des Businessplans, bei dem sich auf den 1. Blick entscheidet, ob die Geschäftsidee interessant ist?",
+        "options": ["Finanzierung", "Marketingplan", "Executive Summary"],
+        "correctIndex": 2
+      },
+      {
+        "id": 32,
+        "text": "Wie nennt man die gedankliche Vorbereitung und Strukturierung von Entscheidungen und deren Umsetzung?",
+        "options": ["Strategie", "Organisation", "Planung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 33,
+        "text": "Wie nennt sich das „Werkzeug“ zur Verbindung von Unternehmenszielen mit konkreten Maßnahmen und deren späterer Überprüfung?",
+        "options": ["UPS", "CRM", "BSC (Balanced Score Card)"],
+        "correctIndex": 2
+      },
+      {
+        "id": 34,
+        "text": "Wenn neue Ideen in Form von Produkten oder Dienstleistungen umgesetzt werden, dann spricht man von...",
+        "options": ["Franchising.", "Benchmarking.", "Innovationen."],
+        "correctIndex": 2
+      },
+      {
+        "id": 35,
+        "text": "Eine Person, die ein Unternehmen plant und unter persönlichem Risiko erfolgreich gründet, ist ein...",
+        "options": ["Freiberufler.", "Entrepreneur.", "Intrapreneur."],
+        "correctIndex": 1
+      },
+      {
+        "id": 36,
+        "text": "Wovon machen KundInnen die Wahl ihrer Einkaufsstätte hauptsächlich abhängig?",
+        "options": ["Ansprechendes Laden-Layout", "Große Sortimentsvielfalt", "Niedrige Mehrwertsteuer"],
+        "correctIndex": 0
+      },
+      {
+        "id": 37,
+        "text": "Wie nennt man den Zinssatz, den man auf täglich fällige Spareinlagen, also auf ein normales Sparbuch erhält?",
+        "options": ["Basiszinssatz", "Grundzinssatz", "Unterer Zinssatz"],
+        "correctIndex": 1
+      },
+      {
+        "id": 38,
+        "text": "Das Kürzel „Ebit“ steht für...",
+        "options": [
+          "Earnings before interests and taxes (Gewinn vor Zinsen und Steuern).",
+          "Equity before interests and taxes (Eigenkapital vor Zinsen und Steuern).",
+          "Equal balanced interest tax (Steuer für Zinsgewinne)."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 39,
+        "text": "Der Anschaffungswert eines Anlagegutes beträgt 60 Mio. Euro. Wie hoch ist bei einer Nutzungsdauer von 30 Jahren die jährliche Abschreibung?",
+        "options": ["1 Mio. Euro", "2 Mio. Euro", "4 Mio. Euro"],
+        "correctIndex": 1
+      },
+      {
+        "id": 40,
+        "text": "Die freiwillige Interessenvertretung der Industrie in Österreich heißt...",
+        "options": ["Industrieverband.", "Wirtschaftskammer.", "Industriellenvereinigung."],
+        "correctIndex": 2
+      },
+      {
+        "id": 41,
+        "text": "Wenn eine Währung gegenüber anderen Währungen immer mehr an Wert verliert, spricht man von einer...",
+        "options": ["weichen Währung.", "Verlustwährung.", "sanften Währung."],
+        "correctIndex": 0
+      },
+      {
+        "id": 42,
+        "text": "Das Gegenteil von Geldentwertung wird bezeichnet als...",
+        "options": ["Abflation.", "Deflation.", "Proflation."],
+        "correctIndex": 1
+      },
+      {
+        "id": 43,
+        "text": "Mit welcher Kennziffer kann man den Wohlstand der Bevölkerung in verschiedenen Staaten vergleichen?",
+        "options": ["Bruttoreichtumswert", "Bruttoinlandsprodukt", "Bruttoinlandsprodukt pro Kopf"],
+        "correctIndex": 2
+      },
+      {
+        "id": 44,
+        "text": "Was fällt unter den Begriff „Eigenfinanzierung“ in einem Unternehmen?",
+        "options": ["Bankkredite", "Gewinne", "Geldmittel anderer UnternehmerInnen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 45,
+        "text": "Wie bezeichnet man die Verpflichtung, dass man für seine Schulden einstehen muss?",
+        "options": ["Haftung", "Verschuldung", "Schuldverpflichtung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 46,
+        "text": "Wodurch können Aufgaben in sinnvolle Teilaufgaben zerlegt werden?",
+        "options": ["Aufgabensynthese", "Aufgabenanalyse", "Abteilungsbildung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 47,
+        "text": "Was gehört zur internen Marketingumwelt eines Unternehmens?",
+        "options": ["MitarbeiterInnen", "KundInnen", "KreditgeberInnen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 48,
+        "text": "Was ist die Voraussetzung für eine erfolgreiche Umsetzung von „Management by Objectives“?",
+        "options": ["Gutes Verhältnis zum Chef", "Genaue Zieldefinition", "Gute Zusammenarbeit"],
+        "correctIndex": 1
+      },
+      {
+        "id": 49,
+        "text": "Wie kann man den Marktanteil eines Produktes nicht darstellen?",
+        "options": ["Mengenmäßig", "Durch Schätzung", "Wertmäßig"],
+        "correctIndex": 1
+      },
+      {
+        "id": 50,
+        "text": "Wie nennt man die Situation, wenn nur ein Nachfrager vielen Anbietern gegenübersteht?",
+        "options": ["Nachfrageoligopol", "Nachfragepolypol", "Nachfragemonopol"],
+        "correctIndex": 2
+      },
+      {
+        "id": 51,
+        "text": "An welcher Stelle steht laut einer Umfrage das Gehalt bei der Auswahl des Arbeitsplatzes?",
+        "options": ["An 1. Stelle", "An 3. Stelle", "An 5. Stelle"],
+        "correctIndex": 1
+      },
+      {
+        "id": 52,
+        "text": "Zu welchem Marketinginstrument zählt man die Gewährung von Rabatten und Skonti?",
+        "options": ["Produktpolitik", "Distributionspolitik", "Preispolitik"],
+        "correctIndex": 2
+      },
+      {
+        "id": 53,
+        "text": "Wie nennt man einen Markt, auf dem das Angebot von Gütern größer ist als die Güternachfrage?",
+        "options": ["Verkäufermarkt", "Käufermarkt", "Großmarkt"],
+        "correctIndex": 1
+      },
+      {
+        "id": 54,
+        "text": "Welcher der folgenden Faktoren wirkt sich eher nicht auf den Endpreis eines Produktes aus?",
+        "options": ["Farbe der Verpackung", "Nachfrage", "Konkurrenz"],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "Da die Produkte vieler AnbieterInnen heute denselben Kernnutzen erfüllen, benötigen diese einen...",
+        "options": ["Idealnutzen.", "Zusatznutzen.", "Konsumnutzen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 56,
+        "text": "Wie nennt man im Marketing die langfristige Zielorientierung?",
+        "options": ["Vision", "Mission", "Division"],
+        "correctIndex": 0
+      },
+      {
+        "id": 57,
+        "text": "Was gehört nicht zum Kaufentscheidungsprozess von KonsumentInnen?",
+        "options": ["Problemerkennung", "Forschungsansatz", "Informationssuche"],
+        "correctIndex": 1
+      },
+      {
+        "id": 58,
+        "text": "Welche der folgenden Maßnahmen zählt zum Kommunikationsinstrument „Verkaufsförderung“?",
+        "options": ["Spende an das St. Anna Kinderspital", "Plakat eines Lebensmittelhändlers", "Produktverkostung im Geschäft"],
+        "correctIndex": 2
+      },
+      {
+        "id": 59,
+        "text": "Wobei wird geregelt, wie Aufgaben sinnvoll zu Stellen zusammengefasst werden können?",
+        "options": ["Aufbauorganisation", "Businessplan", "Ablauforganisation"],
+        "correctIndex": 0
+      },
+      {
+        "id": 60,
+        "text": "Welche der folgenden Finanzierungen zählt nicht zur „Fremdkapitalfinanzierung“?",
+        "options": ["Lieferantenkredite mit Zahlungsziel", "Aufnahme neuer GesellschafterInnen", "Mezzaninfinanzierung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 61,
+        "text": "Wie nennt man die Preisgestaltung, die sich an Angebot und Nachfrage orientiert?",
+        "options": ["Wettbewerbsorientiert", "Kostenorientiert", "Kundennutzenorientiert"],
+        "correctIndex": 0
+      },
+      {
+        "id": 62,
+        "text": "Wie nennt sich die Phase des Produktlebenszyklus, in der der Umsatz seinen Höhepunkt hat?",
+        "options": ["Abschwung", "Reife", "Wachstum"],
+        "correctIndex": 1
+      },
+      {
+        "id": 63,
+        "text": "Wie nennt man die Bindeglieder zwischen HerstellerIn und EndabnehmerIn beim indirekten Vertrieb?",
+        "options": ["KonsumentInnen", "HändlerInnen", "KundInnen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 64,
+        "text": "Was versteht man unter einer „Unternehmensstrategie“?",
+        "options": [
+          "Die geplante Verhaltensweise eines Unternehmens zur Erreichung seiner Ziele",
+          "Kampfmaßnahme für die Konkurrenz",
+          "Werbemaßnahme"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 65,
+        "text": "Welche der folgenden Gesellschaften ist nicht in erster Linie auf Gewinn ausgerichtet?",
+        "options": ["Genossenschaft", "AG", "GmbH"],
+        "correctIndex": 0
+      },
+      {
+        "id": 66,
+        "text": "Womit haftet eine Einzelunternehmerin im Fall eines Konkurses nicht?",
+        "options": ["Mit dem eigenen Sparguthaben", "Mit dem Vermögen ihrer Eltern", "Mit dem eigenen Haus"],
+        "correctIndex": 1
+      },
+      {
+        "id": 67,
+        "text": "Wie nennt man die Phase der Teamentwicklung, bei der die Spielregeln festgelegt werden?",
+        "options": ["Warm up", "Forming", "Norming"],
+        "correctIndex": 1
+      },
+      {
+        "id": 68,
+        "text": "Wie nennt man die Kontrolle, die dem „Soll-Ist-Vergleich“ dient und Abweichungen feststellt?",
+        "options": ["Verfahrenskontrolle", "Ergebniskontrolle", "Prämissenkontrolle"],
+        "correctIndex": 1
+      },
+      {
+        "id": 69,
+        "text": "Über welche Info sollte man bei der Produktpolitik immer verfügen?",
+        "options": ["Preise der Konkurrenz", "Bedürfnisse der Zielgruppe", "Bedürfnisse des Firmenchefs"],
+        "correctIndex": 1
+      },
+      {
+        "id": 70,
+        "text": "Welcher Markt ist in Österreich und Deutschland ein Polypol?",
+        "options": ["Der Getränkemarkt", "Die Briefbeförderung", "Der öffentliche Personennahverkehr"],
+        "correctIndex": 0
+      },
+      {
+        "id": 71,
+        "text": "Wie bezeichnet man im Wirtschaftsjargon die Schwelle zwischen dem Übergang von Verlust zum Gewinn?",
+        "options": ["Break-Even-Point", "Back-Bone", "Hurra-Schwelle"],
+        "correctIndex": 0
+      },
+      {
+        "id": 72,
+        "text": "Bei der Berechnung der jährlichen Abschreibung gibt es einen Unsicherheitsfaktor. Welcher ist es?",
+        "options": ["Anschaffungswert", "Nutzungsdauer", "Betriebskosten"],
+        "correctIndex": 1
+      },
+      {
+        "id": 73,
+        "text": "Was versteht man unter einem Oligopol?",
+        "options": ["Nur ein Anbieter/eine Anbieterin am Markt", "Einige wenige AnbieterInnen am Markt", "Viele Unternehmen am Markt"],
+        "correctIndex": 1
+      },
+      {
+        "id": 74,
+        "text": "Wie berechnet man die Eigenkapitalrentabilität eines Unternehmens?",
+        "options": ["(Gewinn / Eigenkapital) x 100", "(Eigenkapital / Gewinn) x 100", "(Eigenkapital / Passiva) x 100"],
+        "correctIndex": 0
+      },
+      {
+        "id": 75,
+        "text": "Wie nennt man die optimale Abstimmung der Marketinginstrumente?",
+        "options": ["Marketing-Mix", "Marketing-Max", "Marketing-Fritz"],
+        "correctIndex": 0
+      },
+      {
+        "id": 76,
+        "text": "Welcher der nachfolgenden Ausdrücke ist nicht Teil des Marketing-Mix?",
+        "options": ["Distributionspolitik", "Kontrahierungspolitik", "Drangsalierungspolitik"],
+        "correctIndex": 2
+      },
+      {
+        "id": 77,
+        "text": "Wie nennt man Aktien mit Spitzenwerten auf dem Aktienmarkt?",
+        "options": ["Yellow chips", "Blue chips", "Green chips"],
+        "correctIndex": 1
+      },
+      {
+        "id": 78,
+        "text": "Wie wird der Betrag bezeichnet, wenn man vom Verkaufspreis die variablen Kosten abzieht?",
+        "options": ["Gewinn", "Deckungsbeitrag", "Umsatz"],
+        "correctIndex": 1
+      },
+      {
+        "id": 79,
+        "text": "Welche Faktoren lassen alle Investitionsrechnungsverfahren unberücksichtigt?",
+        "options": ["Hard Facts", "Soft Facts", "Hard Facts und Soft Facts"],
+        "correctIndex": 1
+      },
+      {
+        "id": 80,
+        "text": "Wie lautet die Abkürzung für die Welthandelsorganisation?",
+        "options": ["WTO", "WHO", "WTU"],
+        "correctIndex": 0
+      },
+      {
+        "id": 81,
+        "text": "Das wichtigste Ziel der Europäischen Zentralbank ist...",
+        "options": ["die Stabilität des Geldwertes.", "ein starker Euro.", "ein hohes Zinsniveau."],
+        "correctIndex": 0
+      },
+      {
+        "id": 82,
+        "text": "Österreich ist Mitglied der Europäischen Union seit...",
+        "options": ["1995.", "1998.", "2002."],
+        "correctIndex": 0
+      },
+      {
+        "id": 83,
+        "text": "Wie heißt Chinas Währung?",
+        "options": ["Yen", "Yuan", "Wuan"],
+        "correctIndex": 1
+      },
+      {
+        "id": 84,
+        "text": "Was bedeutet der Begriff „Sekundärforschung“ im Marketing?",
+        "options": ["Erforschung der internen Marketingumwelt", "Verwendung vorhandener Daten", "Erforschung der externen Marketingumwelt"],
+        "correctIndex": 1
+      },
+      {
+        "id": 85,
+        "text": "Klare Ziele erleichtern...",
+        "options": ["die Gehaltsfindung.", "die Ideenfindung.", "die Planung."],
+        "correctIndex": 2
+      },
+      {
+        "id": 86,
+        "text": "Wie berechnet man den Deckungsbeitrag?",
+        "options": ["Umsatz – variable Kosten", "Umsatz – Mieten – Steuern", "Umsatz – Gehälter"],
+        "correctIndex": 0
+      },
+      {
+        "id": 87,
+        "text": "Was versteht man unter dem Begriff „Fremdkapital“?",
+        "options": ["Vermögen der Konkurrenzfirma", "Zurückzuzahlendes Kapital", "Geschenktes Geld"],
+        "correctIndex": 1
+      },
+      {
+        "id": 88,
+        "text": "Was ist der Nachteil der Sekundärforschung?",
+        "options": ["Ungenauigkeit", "Kostenaufwand", "Zeitaufwand"],
+        "correctIndex": 0
+      },
+      {
+        "id": 89,
+        "text": "Wenn ein Unternehmen Insolvenz anmeldet, dann ist es...",
+        "options": ["kreditwürdig.", "zahlungsunfähig.", "dabei, eine anderes Unternehmen zu übernehmen."],
+        "correctIndex": 1
+      },
+      {
+        "id": 90,
+        "text": "Komplementärgüter...",
+        "options": ["ergänzen einander.", "ersetzen sich gegenseitig.", "sind Güter einer KG."],
+        "correctIndex": 0
+      },
+      {
+        "id": 91,
+        "text": "Wie berechnet man den Deckungsbeitrag eines Auftrages?",
+        "options": ["Verkaufserlös + variable Kosten", "Verkaufserlös – variable Kosten", "Verkaufserlös – fixe Kosten"],
+        "correctIndex": 1
+      },
+      {
+        "id": 92,
+        "text": "Welche Eigenschaften treffen auf Fixkosten zu?",
+        "options": ["Sie sind unabhängig von der Auslastung.", "Sie sind abhängig von der Auslastung.", "Sie erhöhen sich mit der Produktion."],
+        "correctIndex": 0
+      },
+      {
+        "id": 93,
+        "text": "Wann ist ein Deckungsbeitrag positiv?",
+        "options": ["Fixkosten > variable Kosten", "Erlöse > variable Kosten", "Fixkosten < variable Kosten"],
+        "correctIndex": 1
+      },
+      {
+        "id": 94,
+        "text": "Was deckt ein positiver Deckungsbeitrag ab?",
+        "options": ["Fixkosten", "Variable Kosten", "Fixe und variable Kosten"],
+        "correctIndex": 0
+      },
+      {
+        "id": 95,
+        "text": "Welche Aussage ist korrekt?",
+        "options": ["Umsatz = Gewinn", "Umsatz > Gewinn", "Gewinn > Umsatz"],
+        "correctIndex": 1
+      },
+      {
+        "id": 96,
+        "text": "Wie lauten die 4 Ps im Zusammenhang mit dem Marketing-Mix?",
+        "options": ["Product, Price, Promotion, Place", "Product, Portfolio, Presence, Place", "Progress, Price, Place, Portfolio"],
+        "correctIndex": 0
+      },
+      {
+        "id": 97,
+        "text": "Kann man eine Forderung abtreten?",
+        "options": ["Ja", "Nein"],
+        "correctIndex": 0
+      },
+      {
+        "id": 98,
+        "text": "Wie oft muss eine Aktiengesellschaft eine Hauptversammlung durchführen?",
+        "options": ["Jedes Quartal", "Einmal im Jahr", "Zweimal im Jahr"],
+        "correctIndex": 1
+      },
+      {
+        "id": 99,
+        "text": "In der Automobilzulieferindustrie wird oft JIS (Just In Sequence) angeliefert. Was bedeutet das?",
+        "options": [
+          "Die richtigen Teile treffen in der richtigen Reihenfolge und zur richtigen Zeit in der Produktionsstätte ein.",
+          "Jede Produktionsstätte ist für einen Teil eines Autos verantwortlich.",
+          "In der Produktionshalle werden alle Autoteile hintereinander aufgereiht und eingebaut."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 100,
+        "text": "Was ist neben der Gewinn- und Verlustrechnung ein weiterer Bestandteil des Jahresabschlusses einer AG?",
+        "options": ["Einnahmenüberschussrechnung", "Bilanz", "Businessplan"],
+        "correctIndex": 1
+      },
+      {
+        "id": 101,
+        "text": "In der Logistik versucht man meist Lagerbestände so gering wie möglich zu halten. Warum?",
+        "options": [
+          "Lagerbestände verursachen Kosten und binden Kapital.",
+          "Bei zu großen Lagerbeständen verlieren die MitarbeiterInnen den Überblick.",
+          "Lagerbestände verschwinden schnell."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 102,
+        "text": "Was muss ein Unternehmen vorlegen, wenn es Risikokapital von einem Privatinvestor möchte?",
+        "options": ["Businessplan", "Kreditantrag", "Kreditsicherheiten"],
+        "correctIndex": 0
+      },
+      {
+        "id": 103,
+        "text": "Welches Instrument zur Analyse stellt die Stärken, Schwächen, Chancen und Risiken eines Unternehmens dar?",
+        "options": ["Szenariotechniken", "Break-even-Analyse", "SWOT-Analyse"],
+        "correctIndex": 2
+      },
+      {
+        "id": 104,
+        "text": "Aufgrund der Coronakrise haben sich die Staatsausgaben in Österreich...",
+        "options": ["erhöht.", "vermindert.", "stabilisiert."],
+        "correctIndex": 0
+      },
+      {
+        "id": 105,
+        "text": "Wie bezeichnet man die letzte Phase im Produktlebenszyklus, bevor ein Produkt vom Markt genommen wird?",
+        "options": ["Wachstum", "Sättigung", "Degeneration"],
+        "correctIndex": 2
+      },
+      {
+        "id": 106,
+        "text": "Welcher Begriff ist kein Bestandteil des PDCA-Zyklus?",
+        "options": ["Plan", "Do", "Communicate"],
+        "correctIndex": 2
+      },
+      {
+        "id": 107,
+        "text": "Wie bezeichnet man den Teilhafter einer KG?",
+        "options": ["Komplementär", "Kommanditist", "Vorstand"],
+        "correctIndex": 1
+      },
+      {
+        "id": 108,
+        "text": "Welche Mindesthöhe muss in Österreich das Grundkapital einer AG aufweisen?",
+        "options": ["50.000 Euro", "70.000 Euro", "80.000 Euro"],
+        "correctIndex": 0
+      },
+      {
+        "id": 109,
+        "text": "Wie bezeichnet man eine Supply Chain noch?",
+        "options": ["Buchungskette", "Wertschöpfungskette", "Entwicklungskette"],
+        "correctIndex": 1
+      },
+      {
+        "id": 110,
+        "text": "Was soll mithilfe von Handelsbarrieren verhindert werden?",
+        "options": ["Import von ausländischer Ware", "Export von inländischer Ware", "Schwarzarbeit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 111,
+        "text": "Was stellt der Finanzplan dar?",
+        "options": ["Gewinne und Verluste", "Vermögens- und Kapitalstrukturen", "Geplante Ein- und Auszahlungen"],
+        "correctIndex": 2
+      },
+      {
+        "id": 112,
+        "text": "Wie bezeichnet man das Organ der Unternehmensleitung bei einer GmbH?",
+        "options": ["Vorstand", "Aufsichtsrat", "Geschäftsführung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 113,
+        "text": "Ein Unternehmen produziert erst bei Eingang der Bestellung. Es handelt sich hierbei um das Prinzip...",
+        "options": ["Make-to-Stock.", "Make-to-Order.", "Make-or-Buy."],
+        "correctIndex": 1
+      },
+      {
+        "id": 114,
+        "text": "Wie werden die Löhne in Österreich meistens bestimmt?",
+        "options": [
+          "Beliebtheit des Mitarbeiters/der Mitarbeiterin im Unternehmen",
+          "Unter vier Augen zwischen ArbeitnehmerIn und ArbeitgeberIn",
+          "Kollektive Lohnverhandlungen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 115,
+        "text": "Ein Getränkehersteller nimmt Flaschen seiner KundInnen zurück und befüllt diese nach der Reinigung wieder. Es handelt sich um...",
+        "options": ["Wiederverwendung", "Weiterverwertung", "Rücknahme und Entsorgung"],
+        "correctIndex": 0
+      },
+      {
+        "id": 116,
+        "text": "Bei einer Anleihe handelt es sich um ein...",
+        "options": ["Forderungswertpapier.", "Beteiligungswertpapier.", "derivatives Wertpapier."],
+        "correctIndex": 0
+      },
+      {
+        "id": 117,
+        "text": "Was sind Opportunitätskosten?",
+        "options": ["Entgangener Gewinn/Nutzen", "Wettbewerbskosten", "Überbestandskosten"],
+        "correctIndex": 0
+      },
+      {
+        "id": 118,
+        "text": "Mit welchem einmaligen Jahresumsatz muss sich ein Einzelunternehmen jedenfalls ins Firmenbuch eintragen lassen?",
+        "options": ["500.000 Euro", "700.000 Euro", "1.000.000 Euro"],
+        "correctIndex": 2
+      },
+      {
+        "id": 119,
+        "text": "Welche Position ist nicht in den Herstellungskosten inkludiert?",
+        "options": ["Verwaltungs- und Vertriebskosten", "Materialkosten", "Fertigungskosten"],
+        "correctIndex": 0
+      },
+      {
+        "id": 120,
+        "text": "Welche Möglichkeit der Kreditfinanzierung ist kurz-/mittelfristig?",
+        "options": ["Darlehen", "Anleihe", "Kontokorrentkredit"],
+        "correctIndex": 2
+      }
+    ],
+    "ag": [
+      {
+        "id": 1,
+        "text": "Das Wirtschaftswachstum wird gemessen am...",
+        "options": ["Bruttoregionalprodukt.", "Bruttomedianeinkommen.", "Lebensstandard."],
+        "correctIndex": 0
+      },
+      {
+        "id": 2,
+        "text": "Wie hoch ist das Arbeitskräftepotential (= unselbständig Beschäftigte und Arbeitslose) in Österreich in etwa?",
+        "options": ["8 Millionen Menschen", "6 Millionen Menschen", "4 Millionen Menschen"],
+        "correctIndex": 1
+      },
+      {
+        "id": 3,
+        "text": "Welcher Teil des Mindeststammkapitals muss bei der Gründung einer GmbH von den GesellschafterInnen sofort in bar eingezahlt werden?",
+        "options": ["50%", "75%", "100%"],
+        "correctIndex": 0
+      },
+      {
+        "id": 4,
+        "text": "Was versteht man unter dem Begriff Gesamtkapitalrentabilität?",
+        "options": [
+          "Erzielter Gewinn im Verhältnis zum eingesetzten Kapital",
+          "Erzielter Umsatz im Verhältnis zur Liquidität",
+          "Kurzfristig verfügbare, liquide Mittel"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 5,
+        "text": "Die Forschungs- und Entwicklungsquote ist der Anteil der F+E-Ausgaben am Bruttoregionalprodukt. Welches österreichische Bundesland hat die höchste F+E-Quote von rund 5,1%?",
+        "options": ["Wien", "Steiermark", "Oberösterreich"],
+        "correctIndex": 1
+      },
+      {
+        "id": 6,
+        "text": "Der unternehmerische Gewinn im Verhältnis zum eingesetzten Gesamtkapital gibt Aufschluss über welche Bilanzkennzahl?",
+        "options": ["Gesamtkapitalrendite", "Umsatzrentabilität", "Gewinnanteil"],
+        "correctIndex": 0
+      },
+      {
+        "id": 7,
+        "text": "Was bedeutet „shareholder value“?",
+        "options": [
+          "Der Wert, den ein Unternehmen für die Aktionäre schafft",
+          "Der Wert, den ein Unternehmen am Kapitalmarkt hat",
+          "Der Preis, für den eine Aktie zu kaufen ist"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 8,
+        "text": "Wie nennt man den rapiden Fall der Börse?",
+        "options": ["Baisier", "Hidown", "Baisse"],
+        "correctIndex": 2
+      },
+      {
+        "id": 9,
+        "text": "Investmentfonds basieren auf dem Prinzip...",
+        "options": ["der Risikostreuung.", "der Gewinnmaximierung.", "der Mindestbesteuerung."],
+        "correctIndex": 0
+      },
+      {
+        "id": 10,
+        "text": "Landesbudget sanieren durch Konsolidierung. Was bedeutet das?",
+        "options": [
+          "Mehr Ausgaben, um die Wirtschaft anzukurbeln",
+          "Budget-Einnahmen senken",
+          "Ausgaben und Einnahmen regulieren, um die Schulden langfristig zu senken"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 11,
+        "text": "Wie wird der Umsatz berechnet?",
+        "options": ["Menge x Verkaufserlös", "Menge x Einkaufspreis", "DB x Verkaufserlös"],
+        "correctIndex": 0
+      },
+      {
+        "id": 12,
+        "text": "Die Bonitätsbeurteilung von KMUs hat sich durch internationale Vorschriften über die erforderlichen Mindest-Eigenkapitalquoten der Banken verschärft. Wie heißt dieses Regelwerk?",
+        "options": ["Bern 2", "Zürich 1", "Basel 3"],
+        "correctIndex": 2
+      },
+      {
+        "id": 13,
+        "text": "Welcher der folgenden Punkte gehört in der Marktforschung nicht zur Datenerhebung?",
+        "options": ["Experiment", "Befragung", "Schätzung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 14,
+        "text": "Welcher der folgenden Begriffe gehört nicht zu den „Elementen des Leitbildes“ eines Unternehmens?",
+        "options": ["Vision", "Werte", "Evaluation"],
+        "correctIndex": 2
+      },
+      {
+        "id": 15,
+        "text": "Die drei Säulen der Nachhaltigkeit sind: Ökonomie, Ökologie und...",
+        "options": ["Soziales.", "Sicherheit.", "Gesundheit."],
+        "correctIndex": 0
+      },
+      {
+        "id": 16,
+        "text": "Was versteht man unter „Management“?",
+        "options": [
+          "Über Geldflüsse entscheiden",
+          "Führen und Gestalten eines Unternehmens",
+          "Führen von MitarbeiterInnen"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 17,
+        "text": "Wie kann man zur „Ablauforganisation“ noch sagen?",
+        "options": ["Aufgabenplanung", "Prozessorganisation", "Rollenzuweisung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 18,
+        "text": "Was bedeutet EBT?",
+        "options": ["Umsatzrendite", "Auftragsvolumen", "Gewinn vor Steuern"],
+        "correctIndex": 2
+      },
+      {
+        "id": 19,
+        "text": "Wodurch wird der Preis eines Produktes nicht beeinflusst?",
+        "options": [
+          "Preise der Konkurrenz",
+          "Vorlieben der KäuferInnen",
+          "Einkaufsgewohnheiten der MitarbeiterInnen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 20,
+        "text": "Was kann man direkt aus der Finanzplanung ableiten?",
+        "options": [
+          "Höhe des Finanzierungsbedarfs",
+          "Höhe der Kreditzinsen",
+          "Benötigte Arbeitszeit"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 21,
+        "text": "Woraus besteht eine Kommanditgesellschaft mindestens?",
+        "options": [
+          "1 GmbH und 1 Kommanditist",
+          "2 Komplementäre",
+          "1 Komplementär und 1 Kommanditist"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 22,
+        "text": "Was bewirkt die Inflation?",
+        "options": ["Die Stagnation der Wirtschaftstätigkeit", "Ein Sinken der Preise", "Eine Geldentwertung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 23,
+        "text": "Wobei wird bei der Marktforschung entschieden, ob man eigens Daten erhebt oder auf bestehende Daten zurückgreift?",
+        "options": ["Bei der Stichprobenauswahl", "Beim Forschungsansatz", "Bei der Marktanalyse"],
+        "correctIndex": 1
+      },
+      {
+        "id": 24,
+        "text": "Wie wird die rechte Seite einer Bilanz genannt?",
+        "options": ["Aktiva", "Passiva", "Mittelverwendung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 25,
+        "text": "Wie wird die linke Seite einer Bilanz genannt?",
+        "options": ["Aktiva", "Passiva", "Mittelherkunft"],
+        "correctIndex": 0
+      },
+      {
+        "id": 26,
+        "text": "Wonach richtet sich die Bestellmenge im Einzelhandel?",
+        "options": ["Nach der erwarteten Nachfrage", "Nach der Lagergröße", "Mengenrabatt"],
+        "correctIndex": 0
+      },
+      {
+        "id": 27,
+        "text": "Wie wird die Eigenkapitalquote noch genannt?",
+        "options": ["Eigenkapitalanteil", "Verschuldungsgrad", "Cash flow"],
+        "correctIndex": 0
+      },
+      {
+        "id": 28,
+        "text": "Was versteht man unter Benchmarking?",
+        "options": [
+          "Konzentration auf eigene Stärken",
+          "Messen an den Besten",
+          "Erhöhung der Umsatzrentabilität"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 29,
+        "text": "Wer führt die Geschäfte einer AG?",
+        "options": ["Hauptversammlung", "Vorstand", "Aufsichtsrat"],
+        "correctIndex": 1
+      },
+      {
+        "id": 30,
+        "text": "Was bezeichnet der Ausdruck USP?",
+        "options": [
+          "Herausragendes Leistungsmerkmal",
+          "Einheitlicher Markenauftritt",
+          "Meilensteine im Projekt"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 31,
+        "text": "Die Überbrückungsfunktion ist ein typisches Merkmal...",
+        "options": ["der Dienstleistung.", "des Handels.", "der Produktion."],
+        "correctIndex": 1
+      },
+      {
+        "id": 32,
+        "text": "Zu den Pflichten der ArbeitgeberInnen gehört nicht die...",
+        "options": ["Fürsorgepflicht.", "Schadensersatzpflicht.", "Informations- und Anhörungspflicht."],
+        "correctIndex": 1
+      },
+      {
+        "id": 33,
+        "text": "Dem Güterstrom fließt grundsätzlich ein... entgegen.",
+        "options": ["Informationsstrom", "elektrischer Strom", "Geldstrom"],
+        "correctIndex": 2
+      },
+      {
+        "id": 34,
+        "text": "Hilfsstoffe sind z.B....",
+        "options": [
+          "Energie, Reinigungsmittel, Kühlmittel.",
+          "Farben, Schrauben, Nägel.",
+          "Spanplatten, Metallbleche, Gummimatten."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 35,
+        "text": "Seit wann kann auch in Österreich eine „Europäische Aktiengesellschaft(SE)“ gegründet werden?",
+        "options": ["Seit 2004", "Seit 2005", "Seit 2006"],
+        "correctIndex": 0
+      },
+      {
+        "id": 36,
+        "text": "Der Wert aller Güter und Dienstleistungen, den die ständigen BewohnerInnen eines Landes im In- und Ausland erzielen, nennt man...",
+        "options": ["Cashflow.", "Bruttosozialprodukt.", "Bruttoinlandsprodukt."],
+        "correctIndex": 1
+      },
+      {
+        "id": 37,
+        "text": "Wodurch wird die Reihenfolge von Teilaufgaben in der Betriebsorganisation geregelt?",
+        "options": ["Aufbauorganisation", "Ablauforganisation", "Organigramm"],
+        "correctIndex": 1
+      },
+      {
+        "id": 38,
+        "text": "Welcher der folgenden Aufgaben ist eine nicht delegierbare Aufgabe von Führungskräften?",
+        "options": ["Planung", "Kontrolle", "Abrechnung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 39,
+        "text": "Wie nennt man im Marketing die Überlegung, wie man ein Produkt am besten an die KundInnen bringt?",
+        "options": ["Produktpolitik", "Distributionspolitik", "Preispolitik"],
+        "correctIndex": 1
+      },
+      {
+        "id": 40,
+        "text": "Welche der folgenden Maßnahmen zählt zum Kommunikationsinstrument „Events und Sponsoring\"?",
+        "options": [
+          "Organisation einer Spendengala für „Licht ins Dunkel“",
+          "Aussendung eines Firmen-Newsletters",
+          "Radiospot über neues Produkt"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 41,
+        "text": "Wann spricht man auf der Angebotsseite von einem „Oligopol“?",
+        "options": ["Bei vielen AnbieterInnen", "Bei wenigen AnbieterInnen", "Bei nur einem Anbieter/einer Anbieterin"],
+        "correctIndex": 1
+      },
+      {
+        "id": 42,
+        "text": "Wie nennt man die bewusste, zielbezogene Einflussnahme auf Menschen?",
+        "options": ["Weisung", "Führung", "Diktatur"],
+        "correctIndex": 1
+      },
+      {
+        "id": 43,
+        "text": "Wann spricht man von einem „Polypol“ auf der Angebotsseite?",
+        "options": ["Bei vielen AnbieterInnen", "Bei wenigen AnbieterInnen", "Bei nur einem Anbieter/einer Anbieterin"],
+        "correctIndex": 0
+      },
+      {
+        "id": 44,
+        "text": "Wie wird die Beschaffungskette von LieferantIn über HerstellerIn zu den EndabnehmerInnen genannt?",
+        "options": ["Absatzlogistik", "Supply Chain Management", "Beschaffungslogistik"],
+        "correctIndex": 1
+      },
+      {
+        "id": 45,
+        "text": "Welche Technologie spielt eine wichtige Rolle bei der Optimierung von Geschäftsprozessen?",
+        "options": ["Unternehmenstechnologie", "Informationstechnologie", "Geschäftstechnologie"],
+        "correctIndex": 1
+      },
+      {
+        "id": 46,
+        "text": "Wie nennt man den Zeitraum zwischen dem Ausspruch der Kündigung und dem Kündigungstermin?",
+        "options": ["Kündigungsfrist", "Ablauffrist", "Schutzfrist"],
+        "correctIndex": 0
+      },
+      {
+        "id": 47,
+        "text": "Bei welcher Gesellschaftsform haftet nur die Gesellschaft selbst für ihre eigenen Schulden?",
+        "options": ["OG", "KG", "AG"],
+        "correctIndex": 2
+      },
+      {
+        "id": 48,
+        "text": "Wie hoch muss das Stammkapital einer GmbH in Österreich sein?",
+        "options": ["20.000 Euro", "35.000 Euro", "50.000 Euro"],
+        "correctIndex": 2
+      },
+      {
+        "id": 49,
+        "text": "Wie nennt man Güter, die zur Produktion von anderen Gütern verwendet werden?",
+        "options": ["Maschinen", "Investitionsgüter", "Konsumgüter"],
+        "correctIndex": 1
+      },
+      {
+        "id": 50,
+        "text": "Wie nennt man die rechnerische Erfassung von Wertminderungen betrieblicher Vermögensgegenstände?",
+        "options": ["Abschreibung", "Vorschreibung", "Verlust"],
+        "correctIndex": 0
+      },
+      {
+        "id": 51,
+        "text": "Wodurch sind „geistige Schöpfungen“ wie Musik, Filmkunst und Literatur geschützt?",
+        "options": ["Patent", "Urheberrecht", "Musterschutz"],
+        "correctIndex": 1
+      },
+      {
+        "id": 52,
+        "text": "Welches Recht regelt das Rechtsverhältnis zwischen ArbeitgeberInnen und ArbeitnehmerInnen?",
+        "options": ["Dienstrecht", "Kündigungsrecht", "Arbeitsrecht"],
+        "correctIndex": 2
+      },
+      {
+        "id": 53,
+        "text": "Mit welcher Straße verbindet man gewöhnlich die bekannteste New Yorker Börse, NYSE?",
+        "options": ["Wall Street", "23rd Street", "Canal Street"],
+        "correctIndex": 0
+      },
+      {
+        "id": 54,
+        "text": "In welcher Stadt befindet sich der Sitz des Internationalen Währungsfonds(IWF)?",
+        "options": ["Washington, D.C.", "Chicago", "New York"],
+        "correctIndex": 0
+      },
+      {
+        "id": 55,
+        "text": "Das Bruttoinlandsprodukt beträgt in Österreich in etwa...",
+        "options": ["130 Mrd. Euro.", "280 Mrd. Euro.", "450 Mrd. Euro."],
+        "correctIndex": 2
+      },
+      {
+        "id": 56,
+        "text": "Welche Position gehört bei einem Sportartikelhändler auf die Aktivseite der Bilanz?",
+        "options": ["Vorrat an Tennisschlägern", "Bankkredit", "Darlehen von Tante Heidi"],
+        "correctIndex": 0
+      },
+      {
+        "id": 57,
+        "text": "Welche Position gehört bei einem Sportartikelhändler auf die Passivseite der Bilanz?",
+        "options": ["Firmenauto", "Verkaufsregale", "Bankkredit"],
+        "correctIndex": 2
+      },
+      {
+        "id": 58,
+        "text": "Welche Position gehört bei einem Sportartikelhändler zum Anlagevermögen?",
+        "options": ["Computerkasse", "Büromaterial", "Badehosen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 59,
+        "text": "Welche Position gehört bei einem Sportartikelhändler zum Umlaufvermögen?",
+        "options": ["Geschäftsräume", "Snowboards", "Beleuchtung"],
+        "correctIndex": 1
+      },
+      {
+        "id": 60,
+        "text": "Wie wird die Kreditwürdigkeit eines Unternehmens noch genannt?",
+        "options": ["Liquidität", "Rentabilität", "Bonität"],
+        "correctIndex": 2
+      },
+      {
+        "id": 61,
+        "text": "Wie nennt man den Anteil des jährlich ausgeschütteten Gewinns einer AG?",
+        "options": ["Nominale", "Kursgewinn", "Dividende"],
+        "correctIndex": 2
+      },
+      {
+        "id": 62,
+        "text": "Welcher der nachstehenden Begriffe benennt eine klassische Kreativitätstechnik?",
+        "options": ["ABC-Analyse", "Brainstorming", "Portfolio-Analyse"],
+        "correctIndex": 1
+      },
+      {
+        "id": 63,
+        "text": "Wofür steht der Buchstabe T in den so genannten „SMART-Kriterien“?",
+        "options": ["Total", "Timed", "Terminated"],
+        "correctIndex": 1
+      },
+      {
+        "id": 64,
+        "text": "Von welchem Substitutionsprodukt wurden Musik-CDs abgelöst?",
+        "options": [
+          "Von Streaming-Diensten und digitalen Angeboten",
+          "Von der Musikkassette",
+          "Von der Schallplatte"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 65,
+        "text": "Ausgereifte Produkte werden meist von welchen Kundentypen gekauft?",
+        "options": ["Early adopters", "Early/late majority", "Laggards"],
+        "correctIndex": 1
+      },
+      {
+        "id": 66,
+        "text": "Bei welcher Finanzierungsform steht die Nutzung des finanzierten Objektes im Vordergrund?",
+        "options": ["Leasing", "Darlehen", "Kredit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 67,
+        "text": "Im Vergleich zum normalen Bankkredit ist beim Kontokorrentkredit die Zinsbelastung normalerweise...",
+        "options": ["höher.", "niedriger.", "gleich hoch."],
+        "correctIndex": 0
+      },
+      {
+        "id": 68,
+        "text": "Wie nennt man bei Aktiengesellschaften die Gewinnausschüttung noch?",
+        "options": ["Dividende", "Flow", "Multiplikat"],
+        "correctIndex": 0
+      },
+      {
+        "id": 69,
+        "text": "Je höher die Lagerumschlagshäufigkeit, desto... die durchschnittliche Lagerdauer.",
+        "options": ["niedriger", "unterproportional höher", "überproportional höher"],
+        "correctIndex": 0
+      },
+      {
+        "id": 70,
+        "text": "Welche mathematische Disziplin ist die wichtigste für Versicherungen?",
+        "options": ["Wahrscheinlichkeitsrechnung", "Lineare Algebra", "Trigonometrie"],
+        "correctIndex": 0
+      },
+      {
+        "id": 71,
+        "text": "Das Scoring-Modell ist ein Controlling-Instrument, welches...",
+        "options": [
+          "Auswahlkriterien gewichtet und vergleicht.",
+          "die Kundenzufriedenheit misst.",
+          "die Absatzquote misst."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 72,
+        "text": "Der Prozentsatz der Werbekosten am Umsatz liegt in der deutschen Wirtschaft zwischen...",
+        "options": ["1 und 5%.", "1 und 20%.", "5 bis 25%."],
+        "correctIndex": 1
+      },
+      {
+        "id": 73,
+        "text": "Woran erkennt man, ob ein Unternehmen im letzten Jahr erfolgreich gewirtschaftet hat?",
+        "options": [
+          "Das Vermögen ist gewachsen",
+          "Das Eigenkapital ist gewachsen",
+          "Keine Antwort ist richtig"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 74,
+        "text": "Die... trifft alle Entscheidungen, die das Leistungsangebot eines Unternehmens bestimmen.",
+        "options": ["Preispolitik", "Produktpolitik", "Kommunikationspolitik"],
+        "correctIndex": 1
+      },
+      {
+        "id": 75,
+        "text": "Welches ist das vorrangige Sachziel eines Industrieunternehmens?",
+        "options": [
+          "Verarbeitung(Produktion)",
+          "Kauf und Verkauf von Waren(Distribution)",
+          "Beratung in rechtlichen und wirtschaftlichen Fragen"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 76,
+        "text": "Das Hauptproblem im Beschaffungsbereich liegt in der Festlegung...",
+        "options": [
+          "der qualitativ hochwertigsten Lieferanten.",
+          "der kürzesten Lagerdauer.",
+          "der kostengünstigsten Bestellmenge."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 77,
+        "text": "Eine genaue Definition von Zielen ermöglicht...",
+        "options": [
+          "eine gute Urlaubsplanung.",
+          "einen schnellen Umsatz.",
+          "eine Orientierung in der Bewältigung der Aufgaben."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 78,
+        "text": "Je niedriger der Lagerkostenanteil, desto... die Lagerumschlagshäufigkeit.",
+        "options": [
+          "unterproportional niedriger",
+          "überproportional niedriger",
+          "höher"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 79,
+        "text": "Wie viel Prozent aller Erfindungen passieren rein zufällig bei der Forschungs- und Entwicklungstätigkeit in Unternehmen?",
+        "options": ["Ca. 5%", "Ca. 25%", "Ca. 30%"],
+        "correctIndex": 0
+      },
+      {
+        "id": 80,
+        "text": "Wodurch kann ein Unternehmen das äußere Erscheinungsbild oder das Design eines Produktes rechtlich schützen lassen?",
+        "options": ["Urheberrecht", "Musterschutz", "Patent"],
+        "correctIndex": 1
+      },
+      {
+        "id": 81,
+        "text": "Wie nennt man die Vereinbarung zwischen der Interessensvereinigung der ArbeitnehmerInnen und der Interessensvereinigung der ArbeitgeberInnen?",
+        "options": ["Arbeitsvertrag", "Kollektivvertrag", "Dienstvertrag"],
+        "correctIndex": 1
+      },
+      {
+        "id": 82,
+        "text": "Wie nennt man die einseitige Auflösung des Arbeitsvertrages durch den Arbeitgeber/die Arbeitgeberin ohne wichtigen Grund?",
+        "options": ["Entlassung", "Auflösung", "Kündigung"],
+        "correctIndex": 2
+      },
+      {
+        "id": 83,
+        "text": "Wodurch versucht man Unternehmergeist, Ideen- und Chancenorientierung in einem bestehenden Unternehmen zu fördern?",
+        "options": [
+          "Corporate Entrepreneurship",
+          "Change Management",
+          "Qualitätsmanagement"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 84,
+        "text": "Wie nennt man im Marketing die Feinabstimmung der Teilbereiche Produkt-, Preis-, Absatz- und Kommunikationspolitik?",
+        "options": ["Politikmix", "Marketingmix", "Businessmix"],
+        "correctIndex": 1
+      },
+      {
+        "id": 85,
+        "text": "Kann ein einzelner Gesellschafter einer OG ohne Rücksprache eine neue Büroeinrichtung bestellen?",
+        "options": ["Ja", "Nein", "Unterschiedlich"],
+        "correctIndex": 1
+      },
+      {
+        "id": 86,
+        "text": "Sofort nach Markteinführung erwirbst du eine technische Innovation. Zu welchem Kundentyp zählst du?",
+        "options": ["Early adopter", "Late majority", "Laggard"],
+        "correctIndex": 0
+      },
+      {
+        "id": 87,
+        "text": "Ein Durstlöscher soll in Schweden zu niedrigeren Preisen verkauft werden als in Dubai. Dies nennt man...",
+        "options": ["Abschöpfungsstrategie.", "Preisdifferenzierung.", "Penetrationsstrategie."],
+        "correctIndex": 1
+      },
+      {
+        "id": 88,
+        "text": "Ein Produkt, das schon lange auf dem Markt ist und nach wie vor viel Umsatz erzielt, wird auch bezeichnet als...",
+        "options": ["Poor Dog.", "Star.", "Cash Cow."],
+        "correctIndex": 2
+      },
+      {
+        "id": 89,
+        "text": "Was ist die Hauptaufgabe des Personalmanagements?",
+        "options": [
+          "Die genaue Abrechnung und pünktliche Überweisung von Lohn und Gehalt.",
+          "Die Verwaltung der Personalakten.",
+          "Die Bereitstellung von qualifiziertem Personal zur rechten Zeit am rechten Ort."
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 90,
+        "text": "Kriterien, wie z.B. die Liefertreue, das Image oder das technische Know-how, werden bezeichnet als...",
+        "options": ["quantitative Kriterien.", "messbare Kriterien.", "qualitative Kriterien."],
+        "correctIndex": 2
+      },
+      {
+        "id": 91,
+        "text": "Welche Preisstrategie wird von Unternehmen zur Einführung innovativer und qualitativ hochwertiger Produkte meistens gewählt?",
+        "options": ["Promotionsstrategie", "Penetrationsstrategie", "Skimming-Strategie"],
+        "correctIndex": 2
+      },
+      {
+        "id": 92,
+        "text": "Mit welchem Begriff benennt man die Abstimmung zwischen einzelnen Stellen, Abteilungen und Bereichen, die bei der Leistungserstellung voneinander abhängig sind?",
+        "options": ["Kooperation", "Koordination", "Interdependenz"],
+        "correctIndex": 1
+      },
+      {
+        "id": 93,
+        "text": "Wie nennt man den Begriff, der dem unternehmerischen Handeln ein langfristiges Ziel vorgibt, an der sich Unternehmensstrategie und -ziele ausrichten?",
+        "options": ["Leitbild", "Abbild", "Vorbild"],
+        "correctIndex": 0
+      },
+      {
+        "id": 94,
+        "text": "Die optimale Bestellmenge ist die Beschaffungsmenge, bei der...",
+        "options": [
+          "die Bestell- und Lagerhaltungskosten am niedrigsten sind.",
+          "die Lagerhaltungsdauer am kürzesten ist.",
+          "die Arbeitsproduktivität der LagermitarbeiterInnen am größten ist."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 95,
+        "text": "Die Steuerung des Leitzinses der Europäischen Zentralbank ist ein geldpolitisches Instrument. Wie nennt man die Senkung des Leitzinses?",
+        "options": ["Restriktive Geldpolitik", "Expansive Geldpolitik", "Stationäre Geldpolitik"],
+        "correctIndex": 1
+      },
+      {
+        "id": 96,
+        "text": "Für den Abschluss eines Einzelarbeitsvertrags gilt:",
+        "options": [
+          "Ein Arbeitsvertrag muss vor dem Arbeitsbeginn schriftlich niedergelegt sein.",
+          "Es bestehen grundsätzlich keine gesetzlichen Formvorschriften.",
+          "Es bedarf mindestens der mündlichen Besprechung der wesentlichen Vertragsbedingungen."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 97,
+        "text": "Ein System zur Kundenbindung nennt man...",
+        "options": [
+          "Customer Binding Management.",
+          "Customer Relationship Management.",
+          "Customer Finding Management."
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 98,
+        "text": "Über welche Organe muss eine Aktiengesellschaft verfügen?",
+        "options": [
+          "Vorstand, Aufsichtsrat, Hauptversammlung",
+          "Vorstand, Sekretär, Betriebsversammlung",
+          "Aufsichtsrat, Hauptversammlung, Betriebsversammlung"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 99,
+        "text": "Was bedeutet der Begriff OEM in der Zulieferindustrie?",
+        "options": [
+          "Official Equipment Manufacturer",
+          "Original Equipment Manufacturer",
+          "Object Exchange Model"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": 100,
+        "text": "Wie stark sollten nach Empfehlungen von KlimaschutzexpertInnen die Kohlendioxidemissionen der Industrieländer bis zum Jahr 2050 gesenkt werden?",
+        "options": ["Um 25%", "Um 50%", "Um 80%"],
+        "correctIndex": 2
+      },
+      {
+        "id": 101,
+        "text": "Bei der Ermittlung des Humankapitals werden Rendite-Kennzahlen immer wichtiger. Welche Kennzahl ist die wesentliche?",
+        "options": ["Umsatzrendite", "Personalinvestitionsquote", "Rendite von Lebensversicherungen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 102,
+        "text": "Du informierst dich über Ausbildungsmöglichkeiten und findest eine Doppellehre. Was bedeutet diese Bezeichnung?",
+        "options": [
+          "Du machst eine Lehre und ein Studium gleichzeitig.",
+          "Du erlernst zwei Lehrberufe gleichzeitig.",
+          "Du hast zwei verschiedene Lehrbetriebe."
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 103,
+        "text": "Ein Unternehmen bietet seine Produkte zu günstigeren Preisen an als die Mitbewerber. Welche Wettbewerbsstrategie verfolgt das Unternehmen?",
+        "options": [
+          "Strategie der Kostenführerschaft",
+          "Nischenstrategie",
+          "Strategie der Differenzierung"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 104,
+        "text": "Wie heißt die weitestgehende Vollmacht in einem Unternehmen?",
+        "options": ["Handlungsvollmacht", "Arbeitsvollmacht", "Prokura"],
+        "correctIndex": 2
+      },
+      {
+        "id": 105,
+        "text": "Welche der folgenden Aufgaben darf ein Prokurist nicht ausführen?",
+        "options": [
+          "Bilanz unterschreiben",
+          "Unternehmen bei Gericht vertreten",
+          "Bankkredite aufnehmen"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 106,
+        "text": "Wer muss nicht ins Firmenbuch eingetragen werden?",
+        "options": ["Personengesellschaften", "Kapitalgesellschaften", "Freie Berufe"],
+        "correctIndex": 2
+      },
+      {
+        "id": 107,
+        "text": "Welche Bedingungen regeln die „Incoterms“?",
+        "options": ["Transportbedingungen", "Zahlungsbedingungen", "Kreditbedingungen"],
+        "correctIndex": 0
+      },
+      {
+        "id": 108,
+        "text": "Wie bezeichnet man die Lieferklausel, bei der der Käufer/die Käuferin die Kosten und das Risiko des Transports trägt?",
+        "options": ["Ab Werk", "Frei Haus", "Frachtfrei"],
+        "correctIndex": 0
+      },
+      {
+        "id": 109,
+        "text": "Anhand welcher Kriterien werden die Güter bei der ABC-Analyse klassifiziert?",
+        "options": ["Wert und Menge", "Maschinenstunden und -kosten", "Regelmäßigkeit und Lagerzeit"],
+        "correctIndex": 0
+      },
+      {
+        "id": 110,
+        "text": "Was versteht man unter einem „Transithandel“?",
+        "options": [
+          "Überseehandel",
+          "Durchfuhr von Produkten durch ein Gebiet mit Bearbeitung",
+          "Durchfuhr von Produkten durch ein Gebiet ohne Bearbeitung"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": 111,
+        "text": "Mittlerweile sind unzählige Geräte des täglichen Gebrauchs mit dem Internet verbunden. Wie bezeichnet man dies?",
+        "options": ["Internet der Menschen", "Internet der Dinge", "Internet of Life"],
+        "correctIndex": 1
+      },
+      {
+        "id": 112,
+        "text": "Ein Unternehmen bietet ein Produkt in verschiedenen Geschmacksrichtungen an. Es handelt sich um eine...",
+        "options": ["Produktinnovation.", "Produktvariation.", "Produktdifferenzierung."],
+        "correctIndex": 1
+      },
+      {
+        "id": 113,
+        "text": "Wie bezeichnet man Produkte mit einem relativ geringen Marktanteil, aber hohem Marktwachstum?",
+        "options": ["Question Marks", "Poor Dogs", "Stars"],
+        "correctIndex": 0
+      },
+      {
+        "id": 114,
+        "text": "Wie kann einer Deflation entgegengewirkt werden?",
+        "options": ["Zinsen erhöhen", "Zinsen senken", "Zinsen auf gleichem Niveau halten"],
+        "correctIndex": 1
+      },
+      {
+        "id": 115,
+        "text": "Was bildet die 3. Säule des Dreisäulenprinzips bei Versicherungen ab?",
+        "options": ["Gesetzliche Sozialversicherung", "Betriebliche Vorsorge", "Private Vorsorge"],
+        "correctIndex": 2
+      },
+      {
+        "id": 116,
+        "text": "Ein positiver Leverage-Effekt liegt vor, wenn durch Fremdkapitalaufnahme schlussendlich... gesteigert werden kann.",
+        "options": ["das Anlagevermögen", "das Umlaufvermögen", "die Eigenkapitalrentabilität"],
+        "correctIndex": 2
+      },
+      {
+        "id": 117,
+        "text": "Ein Unternehmer kauft Büromaterial im Wert von 48 Euro inkl. USt. Wie wirkt sich dies auf den Gewinn/Verlust des Unternehmens aus?",
+        "options": ["Minus 40 Euro", "Minus 48 Euro", "Plus 48 Euro"],
+        "correctIndex": 0
+      },
+      {
+        "id": 118,
+        "text": "Wie berechnet man den Verschuldungsgrad?",
+        "options": [
+          "Fremdkapital geteilt durch Eigenkapital",
+          "Eigenkapital geteilt durch Fremdkapital",
+          "Fremdkapital mal Eigenkapital"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": 119,
+        "text": "Der Unternehmer Fritz schuldet Max 10.000 Euro. Da Fritz in Zahlungsschwierigkeiten steckt, rechnet Max mit einer Quote von 20%. Er erhält voraussichtlich...",
+        "options": ["2.000 Euro.", "8.000 Euro.", "10.000 Euro."],
+        "correctIndex": 0
+      },
+      {
+        "id": 120,
+        "text": "Wie bezeichnet man den Zeitraum zwischen zwei Rentenzahlungen?",
+        "options": ["Rentenperiode", "Zinsperiode", "Annuität"],
+        "correctIndex": 0
+      }
+    ]
+  }
+}

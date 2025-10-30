@@ -1,127 +1,261 @@
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class LearnModeController : MonoBehaviour
 {
-    [Header("Data")]
-    public JsonQuestionProviderNewtonsoft provider;
+    [Header("Data/Provider")]
+    public SimpleJsonQuestionProvider provider;
+    public QuizLang language = QuizLang.DE;            // aus Settings übernehmen, wenn vorhanden
+    private LearnLevel level = LearnLevel.Junior;      // wird über UI gesetzt
 
-    [Header("UI")]
-    public TMP_Text categoryLabel; // optional (z.B. "Gründung")
+    [Header("UI - Panels")]
+    public GameObject levelSelectPanel;
+    public Button btnJunior;
+    public Button btnSenior;
+    public Button levelBackButton;           // Zurück-Button im LevelSelectPanel
+    public GameObject quizPanel;
+    public Button backToMenuButton;          // Zurück zur MenuScene
+
+    [Header("UI - Quiz")]
+    public TMP_Text categoryLabel;               // z.B. "DE • Junior • gruendung"
     public TMP_Text questionText;
-
-    public AnswerButton answerBtn0;
-    public AnswerButton answerBtn1;
-    public AnswerButton answerBtn2;
-
+    public Transform answersContainer;           // optional (nur fürs Layout)
+    public Button[] answerButtons = new Button[3];
     public Button nextButton;
 
+    [Header("UI - Progress")]
+    public Slider progressSlider;
+    public TMP_Text progressText;                // "x / y"
+
+    [Header("Colors")]
+    public Color neutralColor = new Color32(0x2A, 0x7C, 0xA6, 0xFF); // #2A7CA6
+    public Color correctColor = new Color(0.35f, 0.85f, 0.45f);      // dunkleres Grün
+    public Color wrongColor   = new Color(0.85f, 0.30f, 0.30f);      // dunkleres Rot
+
+    // intern
     private List<Question> _pool = new();
     private int _currentIndex = -1;
     private Question _current;
+    private bool _answered = false;
 
-    void Start()
+    private void Awake()
     {
-        if (categoryLabel) categoryLabel.text = provider != null ? provider.categoryKey : "";
+        // Slider nicht vom User bedienbar
+        if (progressSlider) progressSlider.interactable = false;
+
+        // Panels initial
+        if (quizPanel) quizPanel.SetActive(false);
+        if (levelSelectPanel) levelSelectPanel.SetActive(true);
+        if (nextButton) nextButton.gameObject.SetActive(false);
+
+        // Level-Auswahl
+        if (btnJunior) btnJunior.onClick.AddListener(() => StartLevel(LearnLevel.Junior));
+        if (btnSenior) btnSenior.onClick.AddListener(() => StartLevel(LearnLevel.Senior));
+
+        // Zurück-Buttons
+        if (levelBackButton) levelBackButton.onClick.AddListener(BackToMenu);
+        if (backToMenuButton) backToMenuButton.onClick.AddListener(BackToMenu);
+
+        // Answer-Button Listener (fixe 3 Buttons)
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            int captured = i;
+            if (answerButtons[i] != null)
+            {
+                answerButtons[i].onClick.RemoveAllListeners();
+                answerButtons[i].onClick.AddListener(() => OnAnswerClicked(captured));
+            }
+        }
+
         if (nextButton)
         {
             nextButton.onClick.RemoveAllListeners();
             nextButton.onClick.AddListener(NextQuestion);
-            nextButton.gameObject.SetActive(false);
+        }
+    }
+
+    private void StartLevel(LearnLevel selected)
+    {
+        level = selected;
+
+        _pool = provider != null ? provider.LoadQuestionsFlat(language, level) : new List<Question>();
+        if (_pool == null || _pool.Count == 0)
+        {
+            Debug.LogError($"LearnModeController: Keine Fragen gefunden unter {provider?.resourcesFolder}/{provider?.filePattern}"
+                + $" (Level={level}, Lang={language})");
+            return;
         }
 
-        LoadQuestions();
+        // UI umschalten
+        if (levelSelectPanel) levelSelectPanel.SetActive(false);
+        if (quizPanel) quizPanel.SetActive(true);
+
+        UpdateProgressUI();
+
+        _currentIndex = -1;
         NextQuestion();
     }
 
-    void LoadQuestions()
+    /// <summary>
+    /// Zurück zum Anfang - Quiz Scene neu laden
+    /// </summary>
+    private void BackToMenu()
     {
-        if (provider == null)
-        {
-            Debug.LogError("[LearnMode] Kein Provider gesetzt.");
-            return;
-        }
-
-        _pool = provider.LoadQuestions();
-        if (_pool.Count == 0)
-        {
-            Debug.LogWarning("[LearnMode] Keine Fragen geladen.");
-        }
-        Shuffle(_pool); // Fragenreihenfolge mischen (Antwort-Slots bleiben fix)
+        SceneManager.LoadScene("Quiz");
     }
 
-    void NextQuestion()
+    private void ShowQuestion(Question q)
     {
-        _currentIndex++;
-        if (_currentIndex >= _pool.Count)
+        _current = q;
+        _answered = false;
+
+        if (categoryLabel)
         {
-            _currentIndex = 0;
-            Shuffle(_pool);
+            categoryLabel.text = $"{language} • {level} • {q.category}";
+        }
+        if (questionText) questionText.text = q.text ?? "";
+
+        // Alle Buttons zurücksetzen & ausblenden
+        for (int i = 0; i < answerButtons.Length; i++)
+        {
+            var btn = answerButtons[i];
+            if (!btn) continue;
+            btn.gameObject.SetActive(false);
+            btn.interactable = true;
+
+            var img = btn.GetComponent<Image>();
+            if (img) img.color = neutralColor;   // NEUTRAL statt Weiß
+
+            var txt = btn.GetComponentInChildren<TMP_Text>();
+            if (txt) txt.text = "";
         }
 
-        _current = _pool.Count > 0 ? _pool[_currentIndex] : null;
+        // Optionen eintragen
+        var opts = q.options ?? new List<string>();
+        for (int i = 0; i < opts.Count && i < answerButtons.Length; i++)
+        {
+            var btn = answerButtons[i];
+            if (!btn) continue;
+            var txt = btn.GetComponentInChildren<TMP_Text>();
+            if (txt) txt.text = opts[i];
+            btn.gameObject.SetActive(true);
+        }
 
-        // UI reset
         if (nextButton) nextButton.gameObject.SetActive(false);
-
-        if (_current == null)
-        {
-            questionText.text = "Keine Fragen verfügbar.";
-            answerBtn0.SetInteractable(false);
-            answerBtn1.SetInteractable(false);
-            answerBtn2.SetInteractable(false);
-            return;
-        }
-
-        questionText.text = _current.text;
-
-        // Buttons neu initialisieren (Antwort-Slot-Reihenfolge wie in JSON)
-        answerBtn0.Init(_current.options[0], 0, OnAnswerClicked);
-        answerBtn1.Init(_current.options[1], 1, OnAnswerClicked);
-        answerBtn2.Init(_current.options[2], 2, OnAnswerClicked);
     }
 
-    void OnAnswerClicked(int index)
+    private void OnAnswerClicked(int index)
     {
-        // Eingaben sperren
-        answerBtn0.SetInteractable(false);
-        answerBtn1.SetInteractable(false);
-        answerBtn2.SetInteractable(false);
+        if (_answered || _current == null) return;
+        _answered = true;
 
-        // Visualisieren
-        if (index == _current.correctIndex)
+        bool correct = (index == _current.correctIndex);
+
+        // Buttons einfärben & locken
+        for (int i = 0; i < answerButtons.Length; i++)
         {
-            GetBtn(index).SetStateCorrect();
+            var btn = answerButtons[i];
+            if (!btn || !btn.gameObject.activeSelf) continue;
+
+            btn.interactable = false;
+            var img = btn.GetComponent<Image>();
+            if (img == null) continue;
+
+            if (i == _current.correctIndex)
+                img.color = correctColor;             // dunkles Grün
+            else if (i == index)
+                img.color = wrongColor;               // dunkles Rot
+            else
+                img.color = neutralColor;             // neutral bleibt dunkelblau
         }
-        else
+
+        if (correct)
         {
-            GetBtn(index).SetStateWrong();
-            GetBtn(_current.correctIndex).SetStateCorrect();
+            LearnProgressStore.MarkSolved(language, level, _current.storageKey);
+            UpdateProgressUI();
         }
 
         if (nextButton) nextButton.gameObject.SetActive(true);
     }
 
-    AnswerButton GetBtn(int i)
+    private void NextQuestion()
     {
-        switch (i)
+        int nextIdx = GetNextUnsolvedIndex();
+        if (nextIdx < 0)
         {
-            case 0: return answerBtn0;
-            case 1: return answerBtn1;
-            default: return answerBtn2;
+            ShowAllDone();
+            return;
+        }
+
+        _currentIndex = nextIdx;
+        ShowQuestion(_pool[_currentIndex]);
+    }
+
+    private int GetNextUnsolvedIndex()
+    {
+        if (_pool.Count == 0) return -1;
+
+        // Ab aktueller Position vorwärts, dann wrap-around
+        for (int step = 1; step <= _pool.Count; step++)
+        {
+            int idx = (_currentIndex + step) % _pool.Count;
+            var q = _pool[idx];
+            bool solved = LearnProgressStore.IsSolved(language, level, q.storageKey);
+            if (!solved) return idx;
+        }
+        return -1; // alles gelöst
+    }
+
+    private void UpdateProgressUI()
+    {
+        int solved = LearnProgressStore.CountSolved(language, level, _pool);
+        int total = _pool.Count;
+
+        if (progressSlider)
+        {
+            progressSlider.maxValue = total;
+            progressSlider.value = solved;
+            progressSlider.interactable = false; // Benutzer kann nicht sliden
+        }
+        if (progressText)
+        {
+            progressText.text = $"{solved}/{total}";
         }
     }
 
-    // Fisher-Yates
-    void Shuffle<T>(IList<T> list)
+    private void ShowAllDone()
     {
-        var rng = new System.Random();
-        for (int i = list.Count - 1; i > 0; i--)
+        if (questionText) questionText.text = "Super! Du hast alle Fragen richtig beantwortet.";
+        // Buttons weg
+        foreach (var b in answerButtons) if (b) b.gameObject.SetActive(false);
+
+        if (nextButton)
         {
-            int k = rng.Next(i + 1);
-            (list[i], list[k]) = (list[k], list[i]);
+            nextButton.gameObject.SetActive(true);
+            var txt = nextButton.GetComponentInChildren<TMP_Text>();
+            if (txt) txt.text = "Erneut starten";
+            nextButton.onClick.RemoveAllListeners();
+            nextButton.onClick.AddListener(RestartLevel);
         }
+    }
+
+    private void RestartLevel()
+    {
+        LearnProgressStore.Reset(language, level);
+        UpdateProgressUI();
+
+        if (nextButton)
+        {
+            var txt = nextButton.GetComponentInChildren<TMP_Text>();
+            if (txt) txt.text = "Nächste Frage";
+            nextButton.onClick.RemoveAllListeners();
+            nextButton.onClick.AddListener(NextQuestion);
+        }
+
+        _currentIndex = -1;
+        NextQuestion();
     }
 }
