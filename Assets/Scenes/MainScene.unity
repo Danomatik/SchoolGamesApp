@@ -9656,7 +9656,7 @@ GameObject:
   - component: {fileID: 1591734242}
   - component: {fileID: 1591734241}
   m_Layer: 5
-  m_Name: StartPanel
+  m_Name: InitiativePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12560,7 +12560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c19c95e7ef555f25b4fb7cb159f6a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  language: 0
+  language: 1
   difficulty: 0
   quizPanel: {fileID: 1189273145}
   questionText: {fileID: 962371264}
@@ -12657,8 +12657,8 @@ MonoBehaviour:
   tertiaryButton: {fileID: 563222638}
   cancelButton: {fileID: 1441723941}
   moneyDisplayText: {fileID: 458497981}
-  initiativePanel: {fileID: 0}
-  initiativeText: {fileID: 0}
+  initiativePanel: {fileID: 1591734239}
+  initiativeText: {fileID: 736845851}
 --- !u!114 &1871652814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12711,7 +12711,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ae967fe550ed04fe7a1e4d89f48b34b0, type: 3}
   - {fileID: 8300000, guid: 0313665db9ff44e3a9748854d7689fc4, type: 3}
   - {fileID: 8300000, guid: f066caf6a1b3346bbb72049c391f2e66, type: 3}
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 1871652823}
   dice1: {fileID: 1832168576}
   dice2: {fileID: 1348870187}
   spawnPos1: {fileID: 1497075296}
