@@ -7,11 +7,11 @@ using System.Collections;
 public class QuestionManager : MonoBehaviour
 {
     public enum QuestionLanguage { English, German }
-public enum QuestionDifficulty { Junior, Senior }
+    public enum QuestionDifficulty { Junior, Senior }
 
-[Header("Question Set Selector")]
-public QuestionLanguage language = QuestionLanguage.English;
-public QuestionDifficulty difficulty = QuestionDifficulty.Junior;
+    [Header("Question Set Selector")]
+    public QuestionLanguage language = QuestionLanguage.English;
+    public QuestionDifficulty difficulty = QuestionDifficulty.Junior;
     [System.Serializable]
     public class QuestionCategory
     {
@@ -49,7 +49,7 @@ public QuestionDifficulty difficulty = QuestionDifficulty.Junior;
 
     void Start()
     {
-           Debug.Log($"[QuestionManager] Startup Language: {language}, Difficulty: {difficulty}");
+        Debug.Log($"[QuestionManager] Startup Language: {language}, Difficulty: {difficulty}");
         LoadQuestions();
         FindQuizFields();
     }
