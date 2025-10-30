@@ -4270,6 +4270,7 @@ GameObject:
   - component: {fileID: 1127702747}
   - component: {fileID: 1127702746}
   - component: {fileID: 1127702745}
+  - component: {fileID: 1127702748}
   m_Layer: 5
   m_Name: Quizmodus
   m_TagString: Untagged
@@ -4341,22 +4342,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 353678501}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1216938262}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1127702748}
+        m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
+        m_MethodName: LoadTargetScene
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4403,6 +4392,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1127702743}
   m_CullTransparentMesh: 1
+--- !u!114 &1127702748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1127702743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fd10a075aca1c840b38b3257a7f9924, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToLoad: Quiz
 --- !u!1 &1130779348
 GameObject:
   m_ObjectHideFlags: 0
@@ -5421,7 +5423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd10a075aca1c840b38b3257a7f9924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Quiz
+  sceneToLoad: MainScene
 --- !u!224 &1418702457 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2714895085219010091, guid: 2df561e417f0dc642ba40a0ac5ea6baf, type: 3}

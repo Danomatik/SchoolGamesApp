@@ -77,7 +77,7 @@ public class QuizMenuController : MonoBehaviour
 
     private void OnBackToMenuClicked()
     {
-        SceneManager.LoadScene("MenuScene");
+        SceneManager.LoadScene("Demo 2");
     }
 }
 
