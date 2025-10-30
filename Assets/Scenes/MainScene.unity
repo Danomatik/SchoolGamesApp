@@ -12643,8 +12643,8 @@ MonoBehaviour:
   tertiaryButton: {fileID: 563222638}
   cancelButton: {fileID: 1441723941}
   moneyDisplayText: {fileID: 458497981}
-  initiativePanel: {fileID: 1591734239}
-  initiativeText: {fileID: 736845851}
+  initiativePanel: {fileID: 0}
+  initiativeText: {fileID: 0}
 --- !u!114 &1871652814
 MonoBehaviour:
   m_ObjectHideFlags: 0
