@@ -251,8 +251,8 @@ public class GameInitiator : MonoBehaviour
         boardLayout[7] = FieldType.Bank;
         boardLayout[23] = FieldType.Bank;
 
-        boardLayout[7] = FieldType.Action;
-        boardLayout[23] = FieldType.Action;
+        // boardLayout[7] = FieldType.Action;
+        // boardLayout[23] = FieldType.Action;
     }
     
     

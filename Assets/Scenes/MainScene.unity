@@ -1397,7 +1397,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.02
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -2218,7 +2218,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.02
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -3067,7 +3067,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.02
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -8795,7 +8795,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.02
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -12635,8 +12635,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 977201816}
-  testMode: 4
-  enableTestMode: 1
+  testMode: 0
+  enableTestMode: 0
 --- !u!114 &1871652813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12787,8 +12787,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 1021593882}
-  testMode: 1
-  enableTestMode: 1
+  testMode: 0
+  enableTestMode: 0
 --- !u!114 &1871652821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13563,7 +13563,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.02
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
@@ -15587,7 +15587,7 @@ PrefabInstance:
       objectReference: {fileID: 1871652817}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveDurationPerTile
-      value: 0.02
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 9150580617894489394, guid: 1b1095444c6bf48faa0080b537e5d81f, type: 3}
       propertyPath: moveEase.m_Curve.Array.data[1].time
