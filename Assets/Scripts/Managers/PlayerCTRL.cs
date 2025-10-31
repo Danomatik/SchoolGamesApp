@@ -11,6 +11,11 @@ public class PlayerCTRL : MonoBehaviour
     public Route route;
     public int currentPos = 0;
 
+    [Header("Player Audio")]
+    [SerializeField] private AudioSource audioSource; // assign AudioSource here
+    [SerializeField] private AudioClip stepSound;      // assign your single step/dice sound here
+
+
     [Header("Movement Settings")]
     public float moveDurationPerTile = 0.6f;      // time to move one tile
     public float rotationDuration = 0.25f;        // rotation smoothing time
@@ -34,12 +39,17 @@ public class PlayerCTRL : MonoBehaviour
 
     private IEnumerator MoveStepByStep(int stepsToTake)
     {
+        // ✅ play the step sound once at start
+        // PlayStepSound();
         isMoving = true;
 
         if (anim) anim.SetBool("IsWalking", true);
 
         while (stepsToTake > 0)
         {
+            // (optional) play the sound on every tile instead:
+            PlayStepSound();
+
             // Leave old tile
             if (playersOnTile.ContainsKey(currentPos))
                 playersOnTile[currentPos].Remove(this);
@@ -120,4 +130,17 @@ public class PlayerCTRL : MonoBehaviour
                      .SetEase(Ease.OutSine);
         }
     }
+
+
+    private void PlayStepSound()
+    {
+        if (audioSource == null || stepSound == null)
+        {
+            Debug.LogWarning($"PlayerCTRL ({name}): Missing AudioSource or stepSound!");
+            return;
+        }
+
+        audioSource.PlayOneShot(stepSound);
+    }
+
 }
