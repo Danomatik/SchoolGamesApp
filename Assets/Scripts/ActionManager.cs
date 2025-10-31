@@ -242,4 +242,72 @@ public class ActionManager : MonoBehaviour
 
         MovePlayerToField(selectedFieldId);
     }
+
+    public void MoveToOwnedCompanyField()
+    {
+        StartCoroutine(MoveToOwnedCompanyFieldCoroutine());
+    }
+
+    private IEnumerator MoveToOwnedCompanyFieldCoroutine()
+    {
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
+        gameManager.cameraManager.SetTopView();
+        FieldSelector selector = gameManager.fieldSelector;
+
+        if (selector == null)
+        {
+            Debug.LogError("MoveToOwnedCompanyField: FieldSelector not found!");
+            yield break;
+        }
+
+        // 🧹 reset any stale selection from previous players
+        selector.ResetSelection();
+
+        // 🏢 get all owned company fields (field indices)
+        List<int> ownedCompanyFields = new List<int>(currentPlayer.companies);
+
+        // 🚫 check if player even owns any
+        if (ownedCompanyFields == null || ownedCompanyFields.Count == 0)
+        {
+            Debug.Log($"MoveToOwnedCompanyField: Player {currentPlayer.PlayerID} owns no companies. Skipping action.");
+            gameManager.EndTurn();
+            yield break;
+        }
+
+        // ✅ configure selector for owned fields only
+        selector.SetAllowedFields(ownedCompanyFields);
+        selector.EnableSelection();
+
+        Debug.Log($"Player {currentPlayer.PlayerID} is choosing one of their owned companies to jump to...");
+
+        // ⏳ wait until a valid field is confirmed
+        yield return new WaitUntil(() => selector.HasConfirmedSelection());
+
+        int selectedFieldId = selector.GetSelectedFieldId();
+
+        // double-check to avoid weird cases
+        if (selectedFieldId == -1)
+        {
+            Debug.LogWarning($"MoveToOwnedCompanyField: No valid field selected by player {currentPlayer.PlayerID}. Ending turn.");
+            selector.DisableSelection();
+            selector.ResetSelection();
+            gameManager.EndTurn();
+            yield break;
+        }
+
+        Debug.Log($"Player {currentPlayer.PlayerID} selected owned company field {selectedFieldId}");
+
+        // 🧹 cleanup selector for next turn
+        selector.DisableSelection();
+        selector.ResetSelection();
+
+        // 🎥 return camera to normal view
+        gameManager.cameraManager.SetTopView();
+
+        // 🚀 move player there
+        MovePlayerToField(selectedFieldId);
+    }
+
+
+
 }

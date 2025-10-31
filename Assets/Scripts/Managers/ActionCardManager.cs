@@ -190,22 +190,22 @@ public class ActionCardManager : MonoBehaviour
         {
             case 1: // Possibly - Rücke vor zu einem Unternehmen deiner Wahl
                 Debug.Log("Action Card 1: Player can move to any company");
-                gameManager.actionManager.MoveToChosenCompanyField(); 
+                gameManager.actionManager.MoveToOwnedCompanyField(); 
                 break;
 
             case 2: // Volksbank Präsentation - Springe zu einem Unternehmen deiner Wahl
                 Debug.Log("Action Card 2: Player can jump to any company");
-                gameManager.actionManager.MoveToChosenCompanyField(); // TODO: Implement company selection UI
+                gameManager.actionManager.MoveToOwnedCompanyField(); // TODO: Implement company selection UI
                 break;
 
             case 3: // Business Angels - Springe zu deinem nächsten Unternehmen
                 Debug.Log("Action Card 3: Jump to player's next owned company");
-                gameManager.actionManager.MoveToNextCompanyField();
+                gameManager.actionManager.MoveToOwnedCompanyField();
                 break;
 
             case 4: // Landesregierung - Springe zu einem deiner Unternehmen
                 Debug.Log("Action Card 4: Jump to one of player's companies");
-                gameManager.actionManager.MoveToNextCompanyField(); // TODO: Implement owned company selection UI
+                gameManager.actionManager.MoveToOwnedCompanyField(); // TODO: Implement owned company selection UI
                 break;
 
             case 5: // Quiz für kostenloses AG-Upgrade
