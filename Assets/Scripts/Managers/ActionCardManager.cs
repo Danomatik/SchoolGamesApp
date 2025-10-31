@@ -189,13 +189,13 @@ public class ActionCardManager : MonoBehaviour
         switch (cardId)
         {
             case 1: // Possibly - Rücke vor zu einem Unternehmen deiner Wahl
-                Debug.Log("Action Card 1: Player can move to any company (not implemented yet - going to field 0)");
-                gameManager.actionManager.MovePlayerToField(0); // TODO: Implement company selection UI
+                Debug.Log("Action Card 1: Player can move to any company");
+                gameManager.actionManager.MoveToChosenCompanyField(); 
                 break;
 
             case 2: // Volksbank Präsentation - Springe zu einem Unternehmen deiner Wahl
-                Debug.Log("Action Card 2: Player can jump to any company (not implemented yet - going to field 0)");
-                gameManager.actionManager.MovePlayerToField(0); // TODO: Implement company selection UI
+                Debug.Log("Action Card 2: Player can jump to any company");
+                gameManager.actionManager.MoveToChosenCompanyField(); // TODO: Implement company selection UI
                 break;
 
             case 3: // Business Angels - Springe zu deinem nächsten Unternehmen
@@ -204,7 +204,7 @@ public class ActionCardManager : MonoBehaviour
                 break;
 
             case 4: // Landesregierung - Springe zu einem deiner Unternehmen
-                Debug.Log("Action Card 4: Jump to one of player's companies (not implemented yet)");
+                Debug.Log("Action Card 4: Jump to one of player's companies");
                 gameManager.actionManager.MoveToNextCompanyField(); // TODO: Implement owned company selection UI
                 break;
 
