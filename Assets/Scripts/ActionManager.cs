@@ -168,24 +168,35 @@ public class ActionManager : MonoBehaviour
             yield break;
         }
 
+        // 1️⃣ fresh state at the start
+        selector.ResetSelection();
+
+        // allowed fields = player's owned + unowned companies
         List<int> allowedCompanies = new List<int>();
         allowedCompanies.AddRange(currentPlayer.companies);
         allowedCompanies.AddRange(gameManager.GetUnownedFieldIndices());
 
         selector.SetAllowedFields(allowedCompanies);
         selector.EnableSelection();
-        
+
         Debug.Log("Selecting company field to move to...");
 
-        // Wait until the player confirms their selection
+        // 2️⃣ wait until the player actually confirms THIS turn
         yield return new WaitUntil(() => selector.HasConfirmedSelection());
-        
+
         Debug.Log("Company field selected.");
         int selectedFieldId = selector.GetSelectedFieldId();
+
+        // 3️⃣ disable + hard reset so it doesn't leak to next player
         selector.DisableSelection();
+        selector.ResetSelection();
+
+        // back to normal camera
         gameManager.cameraManager.SetTopView();
+
         MovePlayerToField(selectedFieldId);
     }
+
 
     public void MoveToChosenField()
     {
@@ -204,20 +215,31 @@ public class ActionManager : MonoBehaviour
             yield break;
         }
 
-        List<int> allowedCompanies = new List<int>();
-        allowedCompanies.AddRange(currentPlayer.companies);
-        allowedCompanies.AddRange(gameManager.GetBankAndActionFieldIndices());
-        allowedCompanies.AddRange(gameManager.GetUnownedFieldIndices());
+        // 1️⃣ wipe previous choice
+        selector.ResetSelection();
 
-        selector.SetAllowedFields(allowedCompanies);
+        // build allowed list:
+        List<int> allowedTargets = new List<int>();
+        allowedTargets.AddRange(currentPlayer.companies);
+        allowedTargets.AddRange(gameManager.GetBankAndActionFieldIndices());
+        allowedTargets.AddRange(gameManager.GetUnownedFieldIndices());
+
+        selector.SetAllowedFields(allowedTargets);
         selector.EnableSelection();
 
-        // Wait until the player confirms their selection
+        Debug.Log("Selecting ANY allowed field...");
+
+        // 2️⃣ wait fresh
         yield return new WaitUntil(() => selector.HasConfirmedSelection());
 
         int selectedFieldId = selector.GetSelectedFieldId();
+
+        // 3️⃣ cleanup after use
         selector.DisableSelection();
+        selector.ResetSelection();
+
         gameManager.cameraManager.SetTopView();
+
         MovePlayerToField(selectedFieldId);
     }
 }
