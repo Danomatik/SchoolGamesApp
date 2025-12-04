@@ -33,6 +33,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject moneyDisplay;
 
+    [Header("Save System")]
+    [SerializeField]
+    private UnityEngine.UI.Button saveButton; // Assign your Save button in inspector
+    [SerializeField]
+    private string menuSceneName = "MenuScene"; // Scene name to return to (set in inspector)
+
     // Pending für Quiz-Kauf/Upgrade
     private struct PendingPurchase
     {
@@ -69,10 +75,125 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // Refresh board visuals (important for loaded games)
+        if (boardVisuals != null) 
+        {
+            boardVisuals.RefreshAll(gameInitiator.GetCompanyFields());
+        }
 
-        if (boardVisuals != null) boardVisuals.RefreshAll(gameInitiator.GetCompanyFields());
+        // Update UI with current player data
+        if (uiManager != null)
+        {
+            uiManager.UpdateMoneyDisplay();
+        }
+
+        // Setup save button
+        if (saveButton != null)
+        {
+            saveButton.onClick.AddListener(OnSaveButtonClicked);
+        }
 
         TestCurrencySystem();
+    }
+
+    /// <summary>
+    /// Called when Save button is clicked
+    /// This method saves the game and then uses SwitchScene to load the target scene
+    /// </summary>
+    public void OnSaveButtonClicked()
+    {
+        SaveGameAndReturnToMenu();
+    }
+
+    /// <summary>
+    /// Alternative: Save and then call SwitchScene directly
+    /// Use this if your button only has SwitchScene script
+    /// </summary>
+    public void SaveAndSwitchScene()
+    {
+        // First save the game
+        var saveManager = FindFirstObjectByType<GameSaveManager>();
+        if (saveManager == null)
+        {
+            GameObject saveManagerObj = new GameObject("GameSaveManager");
+            saveManager = saveManagerObj.AddComponent<GameSaveManager>();
+        }
+
+        bool saved = saveManager.SaveGame(gameInitiator);
+        if (saved)
+        {
+            Debug.Log("✅ Spiel gespeichert! Wechsle zur nächsten Scene...");
+            
+            // Now find and use SwitchScene
+            SwitchScene switchScene = FindFirstObjectByType<SwitchScene>();
+            if (switchScene != null && !string.IsNullOrEmpty(switchScene.sceneToLoad))
+            {
+                switchScene.LoadTargetScene();
+            }
+            else
+            {
+                Debug.LogError("❌ SwitchScene nicht gefunden oder sceneToLoad ist nicht gesetzt!");
+            }
+        }
+        else
+        {
+            Debug.LogError("❌ Fehler beim Speichern des Spiels!");
+        }
+    }
+
+    /// <summary>
+    /// Saves the current game and returns to menu using SwitchScene script
+    /// </summary>
+    public void SaveGameAndReturnToMenu()
+    {
+        var saveManager = FindFirstObjectByType<GameSaveManager>();
+        if (saveManager == null)
+        {
+            GameObject saveManagerObj = new GameObject("GameSaveManager");
+            saveManager = saveManagerObj.AddComponent<GameSaveManager>();
+        }
+
+        bool saved = saveManager.SaveGame(gameInitiator);
+        if (saved)
+        {
+            Debug.Log("✅ Spiel gespeichert! Kehre zum Menü zurück...");
+            
+            // Try to find SwitchScene script (on save button or anywhere)
+            SwitchScene switchScene = null;
+            if (saveButton != null)
+            {
+                switchScene = saveButton.GetComponent<SwitchScene>();
+            }
+            
+            // If not found on button, search in scene
+            if (switchScene == null)
+            {
+                switchScene = FindFirstObjectByType<SwitchScene>();
+            }
+            
+            if (switchScene != null && !string.IsNullOrEmpty(switchScene.sceneToLoad))
+            {
+                Debug.Log($"✅ Verwende SwitchScene zum Laden von: {switchScene.sceneToLoad}");
+                // Use SwitchScene to load the scene
+                switchScene.LoadTargetScene();
+                return;
+            }
+            
+            // Fallback: Direct scene loading if SwitchScene not found
+            Debug.LogWarning("⚠️ SwitchScene nicht gefunden oder sceneToLoad ist leer. Verwende Fallback.");
+            if (!string.IsNullOrEmpty(menuSceneName))
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene(menuSceneName);
+            }
+            else
+            {
+                Debug.LogError("❌ Menu scene name is not set! Bitte füge SwitchScene-Script zum Save-Button hinzu und setze 'Scene To Load' auf 'Demo 2'.");
+            }
+        }
+        else
+        {
+            Debug.LogError("❌ Fehler beim Speichern des Spiels!");
+        }
     }
 
 

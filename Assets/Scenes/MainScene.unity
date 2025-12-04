@@ -1715,6 +1715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Demo 2
+  saveGameBeforeSwitch: 1
 --- !u!1 &282255646
 GameObject:
   m_ObjectHideFlags: 0
@@ -13058,6 +13059,8 @@ MonoBehaviour:
   actionManager: {fileID: 0}
   fieldSelector: {fileID: 0}
   moneyDisplay: {fileID: 458497979}
+  saveButton: {fileID: 239109082}
+  menuSceneName: MenuScene
   agCardSkipsPrerequisites: 1
 --- !u!4 &1871652811
 Transform:

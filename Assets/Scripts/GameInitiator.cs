@@ -22,15 +22,94 @@ public class GameInitiator : MonoBehaviour
     [SerializeField] private bool useDefaultOrder = false;
 
     // ------------------------------------------------------------
+    private GameSaveManager saveManager;
 
     void Awake()
     {
         LoadCompanyConfigs();
         CurrentGame = new GameState();
+        saveManager = FindFirstObjectByType<GameSaveManager>();
+        if (saveManager == null)
+        {
+            GameObject saveManagerObj = new GameObject("GameSaveManager");
+            saveManager = saveManagerObj.AddComponent<GameSaveManager>();
+        }
 
         InitializeBoardLayout();
         InitializeCompanyFields();
 
+        // Check if we should load saved game (set by LoadSavedGame script)
+        int flagValue = PlayerPrefs.GetInt("LoadSavedGame", 0);
+        bool shouldLoadSaved = flagValue == 1;
+        GameSaveData savedData = null;
+        
+        Debug.Log($"[GameInitiator] LoadSavedGame Flag Wert: {flagValue}, shouldLoadSaved: {shouldLoadSaved}");
+        
+        if (shouldLoadSaved)
+        {
+            Debug.Log("[GameInitiator] 🔄 Versuche gespeichertes Spiel zu laden...");
+            // Try to load saved game
+            savedData = saveManager.LoadGame();
+            if (savedData != null)
+            {
+                Debug.Log("[GameInitiator] ✅ Gespeichertes Spiel gefunden! Lade...");
+                LoadSavedGame(savedData);
+                // Reset the flag
+                PlayerPrefs.SetInt("LoadSavedGame", 0);
+                PlayerPrefs.Save();
+                Debug.Log("[GameInitiator] ✅ Flag zurückgesetzt.");
+            }
+            else
+            {
+                Debug.LogWarning("⚠️ Sollte gespeichertes Spiel laden, aber keine Save-Datei gefunden. Starte neues Spiel.");
+                StartNewGame();
+                // Reset the flag
+                PlayerPrefs.SetInt("LoadSavedGame", 0);
+                PlayerPrefs.Save();
+            }
+        }
+        else
+        {
+            Debug.Log("[GameInitiator] 🆕 Starte neues Spiel (Flag nicht gesetzt).");
+            // Start new game (normal "Spiel starten" button)
+            StartNewGame();
+        }
+
+        var gm = GetComponent<GameManager>();
+        if (gm != null)
+        {
+            // If loaded from save, skip initiative
+            if (savedData != null)
+            {
+                initiativeDone = true;
+                gm.InitiativeInProgress = false;
+                // Set camera to current player
+                var currentPlayer = CurrentGame.AllPlayers[CurrentGame.CurrentPlayerTurnID];
+                var activeCtrl = gm.players.Find(p => p.PlayerID == currentPlayer.PlayerID);
+                if (activeCtrl != null)
+                {
+                    Transform playerChild = activeCtrl.transform.childCount > 0
+                        ? activeCtrl.transform.GetChild(0)
+                        : activeCtrl.transform;
+                    gm.cameraManager.cam.Lens.OrthographicSize = gm.cameraManager.defaultLens;
+                    gm.cameraManager.cam.Follow = playerChild;
+                }
+                if (gm.diceManager != null && gm.diceManager.moveButton != null)
+                    gm.diceManager.moveButton.SetActive(true);
+            }
+            else if (useDefaultOrder)
+            {
+                ApplyDefaultStartingOrder(gm);
+            }
+            else
+            {
+                StartCoroutine(DetermineStartingOrder(gm));
+            }
+        }
+    }
+
+    private void StartNewGame()
+    {
         // Players (1..6 in default order)
         PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0, PlayerName = "Hanx", hasToSkip = false, companies = new List<int>() };
         CurrentGame.AllPlayers.Add(Player1);
@@ -46,17 +125,80 @@ public class GameInitiator : MonoBehaviour
         CurrentGame.AllPlayers.Add(Player6);
 
         Debug.Log("Neues Spiel gestartet!");
+    }
 
-        var gm = GetComponent<GameManager>();
-        if (gm != null)
+    private void LoadSavedGame(GameSaveData saveData)
+    {
+        Debug.Log("🔄 Lade gespeichertes Spiel...");
+
+        // Load players
+        CurrentGame.AllPlayers.Clear();
+        foreach (var playerSave in saveData.players)
         {
-            if (useDefaultOrder)
+            CurrentGame.AllPlayers.Add(new PlayerData
             {
-                ApplyDefaultStartingOrder(gm);
+                PlayerID = playerSave.PlayerID,
+                Money = playerSave.Money,
+                BoardPosition = playerSave.BoardPosition,
+                PlayerName = playerSave.PlayerName,
+                hasToSkip = playerSave.hasToSkip,
+                companies = new List<int>(playerSave.companies)
+            });
+        }
+
+        // Load current turn
+        CurrentGame.CurrentPlayerTurnID = saveData.currentPlayerTurnID;
+
+        // Load company fields
+        companyFields.Clear();
+        companyFields.AddRange(saveData.companyFields);
+
+        Debug.Log($"✅ Spiel geladen! Aktueller Spieler: {CurrentGame.AllPlayers[CurrentGame.CurrentPlayerTurnID].PlayerName}");
+        Debug.Log($"   Gespeichert am: {saveData.saveTimestamp}");
+
+        // Update visual player positions (PlayerCTRL objects)
+        StartCoroutine(UpdatePlayerPositionsAfterLoad());
+    }
+
+    /// <summary>
+    /// Updates the visual positions of PlayerCTRL objects after loading saved game
+    /// </summary>
+    private IEnumerator UpdatePlayerPositionsAfterLoad()
+    {
+        // Wait one frame to ensure GameManager is initialized
+        yield return null;
+
+        GameManager gameManager = GetComponent<GameManager>();
+        if (gameManager == null || gameManager.players == null)
+        {
+            Debug.LogWarning("[GameInitiator] GameManager oder players nicht gefunden. Kann Spieler-Positionen nicht aktualisieren.");
+            yield break;
+        }
+
+        // Update each player's visual position
+        foreach (var playerData in CurrentGame.AllPlayers)
+        {
+            var playerCTRL = gameManager.players.Find(p => p.PlayerID == playerData.PlayerID);
+            if (playerCTRL != null && playerCTRL.route != null && playerCTRL.route.childNodeList != null)
+            {
+                // Set currentPos to match saved BoardPosition
+                playerCTRL.currentPos = playerData.BoardPosition;
+
+                // Move player visually to the correct position
+                if (playerCTRL.currentPos < playerCTRL.route.childNodeList.Count)
+                {
+                    Vector3 targetPosition = playerCTRL.route.childNodeList[playerCTRL.currentPos].position;
+                    playerCTRL.transform.position = targetPosition;
+                    Debug.Log($"✅ Spieler {playerData.PlayerName} (ID: {playerData.PlayerID}) auf Position {playerData.BoardPosition} gesetzt.");
+                }
+                else
+                {
+                    Debug.LogWarning($"⚠️ Spieler {playerData.PlayerName}: Position {playerCTRL.currentPos} außerhalb des Routes ({playerCTRL.route.childNodeList.Count} Felder)!");
+                }
             }
             else
             {
-                StartCoroutine(DetermineStartingOrder(gm));
+                Debug.LogWarning($"⚠️ PlayerCTRL für Spieler {playerData.PlayerName} (ID: {playerData.PlayerID}) nicht gefunden oder Route nicht zugewiesen!");
             }
         }
     }
