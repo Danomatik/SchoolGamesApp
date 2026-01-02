@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public ActionCardManager actionCardManager;
     [HideInInspector] public ActionManager actionManager;
     [HideInInspector] public FieldSelector fieldSelector;
+    [HideInInspector] public GameTimerManager gameTimerManager;
 
 
 
@@ -71,6 +72,14 @@ public class GameManager : MonoBehaviour
         actionCardManager = GetComponent<ActionCardManager>();
         actionManager = GetComponent<ActionManager>();
         fieldSelector = GetComponent<FieldSelector>();
+        gameTimerManager = GetComponent<GameTimerManager>();
+        
+        // Erstelle GameTimerManager falls nicht vorhanden
+        if (gameTimerManager == null)
+        {
+            gameTimerManager = gameObject.AddComponent<GameTimerManager>();
+            Debug.Log("[GameManager] GameTimerManager automatisch hinzugefügt.");
+        }
     }
 
     void Start()
@@ -227,7 +236,8 @@ public class GameManager : MonoBehaviour
             // fremdes Feld -> Miete zahlen
             var owner = gameInitiator.CurrentGame.AllPlayers.FirstOrDefault(p => p.PlayerID == field.ownerID);
             moneyManager.PayRent(current, owner, company, field);
-            EndTurn();
+            // EndTurn() wird von PayRent/Insolvenz-Logik aufgerufen, wenn Zahlung erfolgreich
+            // Wenn Insolvenz ausgelöst wird, wird EndTurn() nach Versteigerung aufgerufen
         }
     }
 
@@ -346,15 +356,15 @@ public class GameManager : MonoBehaviour
             case CompanyLevel.AG: cost = pending.company.costAG; break;
         }
 
-        if (pending.player.Money < cost)
+        // Prüfe Insolvenz vor Kauf/Upgrade
+        if (!moneyManager.TryPayAmount(pending.player, cost, $"Kauf/Upgrade von {pending.company.companyName}"))
         {
-            Debug.Log("Nicht genug Geld für Kauf/Upgrade.");
+            // Insolvenz wird in TryPayAmount behandelt
             pending = default;
-            EndTurn();
-            return;
+            return; // Versteigerung läuft, EndTurn wird später aufgerufen
         }
 
-        pending.player.Money -= cost;
+        // Zahlung erfolgreich - Unternehmen kaufen/upgraden
         pending.field.ownerID = pending.player.PlayerID;
         pending.field.level = pending.targetLevel;
         uiManager.UpdateMoneyDisplay();
@@ -578,4 +588,283 @@ public class GameManager : MonoBehaviour
     }
 
     public bool InitiativeInProgress { get; set; } = false;
+
+    // ============================================================
+    // 🧪 TEST FUNKTIONEN (für Insolvenz-Testing)
+    // ============================================================
+
+    void Update()
+    {
+        // Test-Shortcut: Drücke 'T' um Insolvenz zu testen
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            TestBankruptcy();
+        }
+    }
+
+    /// <summary>
+    /// Test-Funktion: Simuliert eine Insolvenz-Situation
+    /// Drücke 'T' während des Spiels um zu testen
+    /// </summary>
+    [ContextMenu("Test Bankruptcy")]
+    public void TestBankruptcy()
+    {
+        var currentPlayer = GetCurrentPlayer();
+        if (currentPlayer == null)
+        {
+            Debug.LogError("TestBankruptcy: Kein aktueller Spieler!");
+            return;
+        }
+
+        Debug.Log($"🧪 TEST: Simuliere Insolvenz für Spieler {currentPlayer.PlayerID}");
+
+        // Setze Spieler auf wenig Geld
+        currentPlayer.Money = 100;
+        uiManager.UpdateMoneyDisplay();
+
+        // Versuche eine hohe Zahlung (z.B. 1000€)
+        int testAmount = 1000;
+        Debug.Log($"🧪 TEST: Versuche {testAmount}€ Zahlung...");
+
+        // Simuliere eine Miete-Zahlung
+        // Finde ein fremdes Unternehmen oder erstelle eine Test-Situation
+        var allFields = gameInitiator.GetCompanyFields();
+        var ownedByOthers = allFields.Where(f => f.ownerID != -1 && f.ownerID != currentPlayer.PlayerID).FirstOrDefault();
+
+        if (ownedByOthers != null)
+        {
+            var company = GetCompanyConfig(ownedByOthers.companyID);
+            var owner = gameInitiator.CurrentGame.AllPlayers.FirstOrDefault(p => p.PlayerID == ownedByOthers.ownerID);
+            
+            if (company != null && owner != null)
+            {
+                Debug.Log($"🧪 TEST: Zahle Miete für {company.companyName}...");
+                moneyManager.PayRent(currentPlayer, owner, company, ownedByOthers);
+            }
+            else
+            {
+                // Fallback: Direkte Insolvenz auslösen
+                Debug.Log($"🧪 TEST: Direkte Insolvenz auslösen...");
+                HandleBankruptcy(currentPlayer, testAmount, "Test-Insolvenz");
+            }
+        }
+        else
+        {
+            // Kein fremdes Unternehmen gefunden - direkte Insolvenz auslösen
+            Debug.Log($"🧪 TEST: Kein fremdes Unternehmen gefunden. Direkte Insolvenz auslösen...");
+            HandleBankruptcy(currentPlayer, testAmount, "Test-Insolvenz");
+        }
+    }
+
+    /// <summary>
+    /// Test-Funktion: Setzt Spieler auf wenig Geld
+    /// </summary>
+    [ContextMenu("Set Current Player Money to 100")]
+    public void TestSetLowMoney()
+    {
+        var currentPlayer = GetCurrentPlayer();
+        if (currentPlayer != null)
+        {
+            currentPlayer.Money = 100;
+            uiManager.UpdateMoneyDisplay();
+            Debug.Log($"🧪 TEST: Spieler {currentPlayer.PlayerID} Geld auf 100€ gesetzt");
+        }
+    }
+
+    // ============================================================
+    // 💰 INSOLVENZ & VERSTEIGERUNG
+    // ============================================================
+
+    private struct BankruptcyContext
+    {
+        public PlayerData bankruptPlayer;
+        public int requiredAmount;
+        public string reason;
+        public PlayerData recipient; // Empfänger der Zahlung (z.B. bei Miete)
+        public bool isActive;
+    }
+    private BankruptcyContext bankruptcyContext;
+
+    /// <summary>
+    /// Wird aufgerufen wenn ein Spieler eine Zahlung nicht leisten kann
+    /// </summary>
+    public void HandleBankruptcy(PlayerData player, int requiredAmount, string reason = "", PlayerData recipient = null)
+    {
+        if (player == null)
+        {
+            Debug.LogError("HandleBankruptcy: Player is null!");
+            return;
+        }
+
+        Debug.Log($"🚨 INSOLVENZ: Spieler {player.PlayerID} ({player.PlayerName}) kann {requiredAmount}€ nicht bezahlen ({reason})");
+
+        // Prüfe ob Spieler überhaupt Unternehmen besitzt
+        if (player.companies == null || player.companies.Count == 0)
+        {
+            Debug.LogWarning($"Spieler {player.PlayerID} hat keine Unternehmen zum Versteigern. Zahlung kann nicht geleistet werden.");
+            // Spieler bleibt im Spiel, aber kann nicht zahlen
+            EndTurn();
+            return;
+        }
+
+        // Berechne wie viel noch fehlt
+        int missingAmount = requiredAmount - player.Money;
+        if (missingAmount <= 0)
+        {
+            // Sollte nicht passieren, aber sicherheitshalber
+            player.Money -= requiredAmount;
+            uiManager.UpdateMoneyDisplay();
+            EndTurn();
+            return;
+        }
+
+        // Speichere Kontext für Versteigerung
+        bankruptcyContext = new BankruptcyContext
+        {
+            bankruptPlayer = player,
+            requiredAmount = requiredAmount,
+            reason = reason,
+            recipient = recipient,
+            isActive = true
+        };
+
+        // Zeige Versteigerungs-UI
+        uiManager.ShowBankruptcyAuction(player, missingAmount, reason);
+    }
+
+    /// <summary>
+    /// Startet die Versteigerung eines Unternehmens
+    /// </summary>
+    public void StartAuctionForCompany(CompanyField field)
+    {
+        if (!bankruptcyContext.isActive)
+        {
+            Debug.LogError("StartAuctionForCompany: Kein aktiver Insolvenz-Kontext!");
+            return;
+        }
+
+        var company = GetCompanyConfig(field.companyID);
+        if (company == null)
+        {
+            Debug.LogError($"StartAuctionForCompany: Keine Company Config für ID {field.companyID} gefunden!");
+            return;
+        }
+
+        // Versteigerungspreis = 50% der Gründungskosten
+        int auctionPrice = company.costFound / 2;
+
+        Debug.Log($"🔨 Versteigerung: {company.companyName} für {auctionPrice}€");
+
+        // Verkaufe Unternehmen
+        field.ownerID = -1; // Niemand besitzt es mehr
+        field.level = CompanyLevel.None; // Zurücksetzen auf None
+        bankruptcyContext.bankruptPlayer.companies.Remove(field.fieldIndex);
+
+        // Spieler erhält Versteigerungspreis
+        bankruptcyContext.bankruptPlayer.Money += auctionPrice;
+        uiManager.UpdateMoneyDisplay();
+
+        // Update Visuals
+        if (boardVisuals != null)
+            boardVisuals.UpdateFieldVisual(field);
+
+        Debug.Log($"✅ {company.companyName} versteigert für {auctionPrice}€. Spieler {bankruptcyContext.bankruptPlayer.PlayerID} hat jetzt {bankruptcyContext.bankruptPlayer.Money}€");
+
+        // Prüfe ob noch mehr versteigert werden muss
+        CheckIfBankruptcyResolved();
+    }
+
+    /// <summary>
+    /// Prüft ob die Insolvenz durch die Versteigerungen aufgelöst wurde
+    /// </summary>
+    private void CheckIfBankruptcyResolved()
+    {
+        if (!bankruptcyContext.isActive) return;
+
+        int currentMoney = bankruptcyContext.bankruptPlayer.Money;
+        int required = bankruptcyContext.requiredAmount;
+
+        if (currentMoney >= required)
+        {
+            // Genug Geld vorhanden - Zahlung durchführen
+            bankruptcyContext.bankruptPlayer.Money -= required;
+            
+            // Wenn es einen Empfänger gibt (z.B. bei Miete), erhält dieser das Geld
+            if (bankruptcyContext.recipient != null)
+            {
+                bankruptcyContext.recipient.Money += required;
+                Debug.Log($"✅ Insolvenz aufgelöst! Spieler {bankruptcyContext.bankruptPlayer.PlayerID} zahlt {required}€ an Spieler {bankruptcyContext.recipient.PlayerID} ({bankruptcyContext.reason})");
+            }
+            else
+            {
+                Debug.Log($"✅ Insolvenz aufgelöst! Spieler {bankruptcyContext.bankruptPlayer.PlayerID} zahlt {required}€ ({bankruptcyContext.reason})");
+            }
+            
+            uiManager.UpdateMoneyDisplay();
+
+            // Prüfe ob noch Unternehmen übrig sind
+            if (bankruptcyContext.bankruptPlayer.companies.Count == 0)
+            {
+                Debug.Log($"⚠️ Spieler {bankruptcyContext.bankruptPlayer.PlayerID} hat keine Unternehmen mehr, bleibt aber im Spiel.");
+            }
+
+            bankruptcyContext = default;
+            uiManager.HideBankruptcyAuction();
+            EndTurn();
+        }
+        else
+        {
+            // Noch nicht genug - weitere Versteigerung nötig
+            int stillMissing = required - currentMoney;
+            Debug.Log($"⚠️ Noch {stillMissing}€ benötigt. Weitere Versteigerung nötig.");
+            
+            // Prüfe ob noch Unternehmen vorhanden sind
+            if (bankruptcyContext.bankruptPlayer.companies.Count == 0)
+            {
+                Debug.LogWarning($"❌ Spieler {bankruptcyContext.bankruptPlayer.PlayerID} hat keine Unternehmen mehr, kann aber {stillMissing}€ nicht bezahlen. Zahlung wird nicht durchgeführt.");
+                bankruptcyContext = default;
+                uiManager.HideBankruptcyAuction();
+                EndTurn();
+            }
+            else
+            {
+                // Zeige UI erneut für weitere Versteigerung
+                uiManager.ShowBankruptcyAuction(bankruptcyContext.bankruptPlayer, stillMissing, bankruptcyContext.reason);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Wird aufgerufen wenn Spieler keine weiteren Unternehmen versteigern möchte/kann
+    /// </summary>
+    public void CancelBankruptcy()
+    {
+        if (!bankruptcyContext.isActive) return;
+
+        Debug.LogWarning($"⚠️ Versteigerung abgebrochen. Spieler {bankruptcyContext.bankruptPlayer.PlayerID} kann {bankruptcyContext.requiredAmount}€ nicht vollständig bezahlen.");
+        bankruptcyContext = default;
+        uiManager.HideBankruptcyAuction();
+        EndTurn();
+    }
+
+    /// <summary>
+    /// Gibt alle Unternehmen zurück, die ein Spieler versteigern kann
+    /// </summary>
+    public List<CompanyField> GetAuctionableCompanies(PlayerData player)
+    {
+        var result = new List<CompanyField>();
+        if (player == null || player.companies == null) return result;
+
+        var allFields = gameInitiator.GetCompanyFields();
+        foreach (var fieldIndex in player.companies)
+        {
+            var field = allFields.FirstOrDefault(f => f.fieldIndex == fieldIndex);
+            if (field != null)
+            {
+                result.Add(field);
+            }
+        }
+
+        return result;
+    }
 }

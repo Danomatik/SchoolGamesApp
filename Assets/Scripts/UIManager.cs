@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -19,9 +21,29 @@ public class UIManager : MonoBehaviour
     [Header("Money Display")]
     [SerializeField] private TextMeshProUGUI moneyDisplayText; // Display für Geld
 
+    [Header("Timer Display")]
+    [SerializeField] private TextMeshProUGUI timerDisplayText; // Display für Timer (optional)
+
     [Header("Initiative Popup")]
     [SerializeField] private GameObject initiativePanel;
     [SerializeField] private TextMeshProUGUI initiativeText;
+
+    [Header("Bankruptcy Auction Panel")]
+    [SerializeField] private GameObject bankruptcyPanel;
+    [SerializeField] private TextMeshProUGUI bankruptcyTitleText;
+    [SerializeField] private TextMeshProUGUI bankruptcyBodyText;
+    [SerializeField] private Transform auctionButtonContainer; // Container für Versteigerungs-Buttons
+    [SerializeField] private GameObject auctionButtonPrefab; // Prefab für einen Versteigerungs-Button (OPTIONAL - wird zur Laufzeit erstellt falls nicht vorhanden)
+    [SerializeField] private Button bankruptcyCancelButton; // Button zum Abbrechen
+
+    [Header("Game Over Panel")]
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private TextMeshProUGUI gameOverTitleText;
+    [SerializeField] private TextMeshProUGUI gameOverBodyText;
+    [SerializeField] private Transform rankingContainer; // Container für Ranking-Einträge
+    [SerializeField] private GameObject rankingEntryPrefab; // Prefab für einen Ranking-Eintrag (OPTIONAL)
+    [SerializeField] private Button gameOverMenuButton; // Button zum Zurück zum Menü
+
     private GameManager gm;
 
     private void Awake()
@@ -29,12 +51,24 @@ public class UIManager : MonoBehaviour
         gm = GetComponent<GameManager>(); // alle Manager am selben GO
         if (companyPanel != null) companyPanel.SetActive(false);
         if (initiativePanel != null) initiativePanel.SetActive(false);
+        if (bankruptcyPanel != null) bankruptcyPanel.SetActive(false);
+        if (gameOverPanel != null) gameOverPanel.SetActive(false);
     }
 
     private void Start()
     {
         // Initial money display update
         UpdateMoneyDisplay();
+        
+        // Initialisiere Timer-Anzeige (falls Timer bereits läuft)
+        if (gm != null && gm.gameTimerManager != null)
+        {
+            float timeRemaining = gm.gameTimerManager.GetTimeRemaining();
+            if (timeRemaining > 0)
+            {
+                UpdateTimerDisplay(timeRemaining);
+            }
+        }
     }
 
     private void LateUpdate()
@@ -57,6 +91,19 @@ public class UIManager : MonoBehaviour
         {
             moneyDisplayText.text = "--- €";
         }
+    }
+
+    /// <summary>
+    /// Aktualisiert die Timer-Anzeige
+    /// </summary>
+    public void UpdateTimerDisplay(float timeRemainingInSeconds)
+    {
+        if (timerDisplayText == null) return;
+
+        int minutes = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds / 60f));
+        int seconds = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds % 60f));
+
+        timerDisplayText.text = $"⏰ {minutes:D2}:{seconds:D2}";
     }
 
     public void ShowInitiativeRoll(string playerLabel, int roll)
@@ -181,5 +228,289 @@ public class UIManager : MonoBehaviour
     private void Close()
     {
         if (companyPanel) companyPanel.SetActive(false);
+    }
+
+    // ============================================================
+    // 💰 INSOLVENZ & VERSTEIGERUNG UI
+    // ============================================================
+
+    /// <summary>
+    /// Zeigt das Versteigerungs-Panel an
+    /// </summary>
+    public void ShowBankruptcyAuction(PlayerData player, int missingAmount, string reason)
+    {
+        if (!bankruptcyPanel)
+        {
+            Debug.LogError("BankruptcyPanel fehlt im UIManager!");
+            return;
+        }
+
+        bankruptcyPanel.SetActive(true);
+
+        // Titel und Beschreibung
+        if (bankruptcyTitleText)
+        {
+            bankruptcyTitleText.text = $"🚨 Zahlungsunfähigkeit";
+        }
+
+        if (bankruptcyBodyText)
+        {
+            string playerName = string.IsNullOrEmpty(player.PlayerName) ? $"Spieler {player.PlayerID}" : player.PlayerName;
+            bankruptcyBodyText.text =
+                $"{playerName} kann {missingAmount}€ nicht bezahlen.\n" +
+                $"Grund: {reason}\n\n" +
+                $"Bargeld: {player.Money}€\n" +
+                $"Fehlend: {missingAmount}€\n\n" +
+                $"Wähle ein Unternehmen zum Versteigern:\n" +
+                $"(Versteigerungspreis = 50% der Gründungskosten)";
+        }
+
+        // Lösche alte Buttons
+        if (auctionButtonContainer != null)
+        {
+            foreach (Transform child in auctionButtonContainer)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // Erstelle Buttons für alle versteigerbaren Unternehmen
+        var auctionableCompanies = gm.GetAuctionableCompanies(player);
+        if (auctionableCompanies == null || auctionableCompanies.Count == 0)
+        {
+            Debug.LogWarning("Keine Unternehmen zum Versteigern gefunden!");
+            if (bankruptcyBodyText)
+            {
+                bankruptcyBodyText.text += "\n\n⚠️ Keine Unternehmen verfügbar!";
+            }
+            return;
+        }
+
+        foreach (var field in auctionableCompanies)
+        {
+            var company = gm.gameInitiator.companyConfigs?.companies?.FirstOrDefault(c => c.companyID == field.companyID);
+            if (company == null) continue;
+
+            int auctionPrice = company.costFound / 2;
+            string companyName = company.companyName;
+            string levelText = field.level.ToString();
+
+            // Erstelle Button
+            if (auctionButtonContainer != null)
+            {
+                GameObject buttonObj;
+                
+                // Wenn Prefab vorhanden, verwende es, sonst erstelle Button zur Laufzeit
+                if (auctionButtonPrefab != null)
+                {
+                    buttonObj = Instantiate(auctionButtonPrefab, auctionButtonContainer);
+                }
+                else
+                {
+                    // Erstelle Button zur Laufzeit ohne Prefab
+                    buttonObj = new GameObject($"AuctionButton_{companyName}");
+                    buttonObj.transform.SetParent(auctionButtonContainer, false);
+                    
+                    // RectTransform hinzufügen
+                    RectTransform rectTransform = buttonObj.AddComponent<RectTransform>();
+                    rectTransform.sizeDelta = new Vector2(300, 60);
+                    
+                    // Image Component für Button-Hintergrund
+                    UnityEngine.UI.Image buttonImage = buttonObj.AddComponent<UnityEngine.UI.Image>();
+                    buttonImage.color = new Color(0.2f, 0.2f, 0.2f, 1f);
+                    
+                    // Button Component
+                    Button buttonComponent = buttonObj.AddComponent<Button>();
+                    buttonComponent.targetGraphic = buttonImage;
+                    
+                    // TextMeshPro Text hinzufügen
+                    GameObject textObj = new GameObject("Text (TMP)");
+                    textObj.transform.SetParent(buttonObj.transform, false);
+                    RectTransform textRect = textObj.AddComponent<RectTransform>();
+                    textRect.anchorMin = Vector2.zero;
+                    textRect.anchorMax = Vector2.one;
+                    textRect.sizeDelta = Vector2.zero;
+                    textRect.anchoredPosition = Vector2.zero;
+                    
+                    TextMeshProUGUI textComponent = textObj.AddComponent<TextMeshProUGUI>();
+                    textComponent.text = $"{companyName} ({levelText})\n{auctionPrice}€";
+                    textComponent.fontSize = 16;
+                    textComponent.alignment = TextAlignmentOptions.Center;
+                    textComponent.color = Color.white;
+                }
+                
+                Button button = buttonObj.GetComponent<Button>();
+                TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
+
+                if (buttonText)
+                {
+                    buttonText.text = $"{companyName} ({levelText})\n{auctionPrice}€";
+                }
+
+                if (button)
+                {
+                    // Speichere field für den Callback
+                    CompanyField capturedField = field;
+                    button.onClick.RemoveAllListeners();
+                    button.onClick.AddListener(() =>
+                    {
+                        gm.StartAuctionForCompany(capturedField);
+                    });
+                }
+            }
+            else
+            {
+                Debug.LogWarning("AuctionButtonContainer fehlt! Kann keine Buttons erstellen.");
+            }
+        }
+
+        // Cancel Button
+        if (bankruptcyCancelButton)
+        {
+            bankruptcyCancelButton.onClick.RemoveAllListeners();
+            bankruptcyCancelButton.onClick.AddListener(() =>
+            {
+                gm.CancelBankruptcy();
+            });
+        }
+    }
+
+    /// <summary>
+    /// Versteckt das Versteigerungs-Panel
+    /// </summary>
+    public void HideBankruptcyAuction()
+    {
+        if (bankruptcyPanel)
+        {
+            bankruptcyPanel.SetActive(false);
+        }
+
+        // Lösche alle Buttons
+        if (auctionButtonContainer != null)
+        {
+            foreach (Transform child in auctionButtonContainer)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+    }
+
+    // ============================================================
+    // 🏁 GAME OVER UI
+    // ============================================================
+
+    /// <summary>
+    /// Zeigt das Game Over Panel mit Rankings an
+    /// </summary>
+    public void ShowGameOver(List<PlayerRanking> rankings)
+    {
+        if (!gameOverPanel)
+        {
+            Debug.LogError("GameOverPanel fehlt im UIManager!");
+            return;
+        }
+
+        gameOverPanel.SetActive(true);
+
+        // Titel
+        if (gameOverTitleText)
+        {
+            gameOverTitleText.text = "🏆 Spiel beendet!";
+        }
+
+        // Body Text mit Gewinner
+        if (gameOverBodyText && rankings != null && rankings.Count > 0)
+        {
+            var winner = rankings[0];
+            string winnerName = string.IsNullOrEmpty(winner.player.PlayerName) 
+                ? $"Spieler {winner.player.PlayerID}" 
+                : winner.player.PlayerName;
+            
+            gameOverBodyText.text = $"Gewinner: {winnerName}\n" +
+                                    $"Vermögen: {winner.totalAssets}€\n" +
+                                    $"(Bargeld: {winner.money}€, Unternehmen: {winner.companyCount})";
+        }
+
+        // Lösche alte Ranking-Einträge
+        if (rankingContainer != null)
+        {
+            foreach (Transform child in rankingContainer)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // Erstelle Ranking-Einträge
+        if (rankings != null && rankings.Count > 0 && rankingContainer != null)
+        {
+            for (int i = 0; i < rankings.Count; i++)
+            {
+                var ranking = rankings[i];
+                string playerName = string.IsNullOrEmpty(ranking.player.PlayerName) 
+                    ? $"Spieler {ranking.player.PlayerID}" 
+                    : ranking.player.PlayerName;
+
+                GameObject entryObj;
+                
+                // Wenn Prefab vorhanden, verwende es, sonst erstelle zur Laufzeit
+                if (rankingEntryPrefab != null)
+                {
+                    entryObj = Instantiate(rankingEntryPrefab, rankingContainer);
+                }
+                else
+                {
+                    // Erstelle Entry zur Laufzeit
+                    entryObj = new GameObject($"RankingEntry_{i + 1}");
+                    entryObj.transform.SetParent(rankingContainer, false);
+                    
+                    RectTransform rectTransform = entryObj.AddComponent<RectTransform>();
+                    rectTransform.sizeDelta = new Vector2(400, 40);
+                    
+                    TextMeshProUGUI textComponent = entryObj.AddComponent<TextMeshProUGUI>();
+                    textComponent.fontSize = 18;
+                    textComponent.alignment = TextAlignmentOptions.Left;
+                    textComponent.color = i == 0 ? Color.yellow : Color.white; // Gewinner in Gelb
+                }
+
+                // Setze Text
+                TextMeshProUGUI text = entryObj.GetComponentInChildren<TextMeshProUGUI>();
+                if (text != null)
+                {
+                    text.text = $"{i + 1}. {playerName}: {ranking.totalAssets}€ " +
+                                $"(💰 {ranking.money}€, 🏢 {ranking.companyCount})";
+                    text.color = i == 0 ? Color.yellow : Color.white; // Gewinner in Gelb
+                }
+            }
+        }
+
+        // Menu Button
+        if (gameOverMenuButton)
+        {
+            gameOverMenuButton.onClick.RemoveAllListeners();
+            gameOverMenuButton.onClick.AddListener(() =>
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
+            });
+        }
+    }
+
+    /// <summary>
+    /// Versteckt das Game Over Panel
+    /// </summary>
+    public void HideGameOver()
+    {
+        if (gameOverPanel)
+        {
+            gameOverPanel.SetActive(false);
+        }
+
+        // Lösche alle Ranking-Einträge
+        if (rankingContainer != null)
+        {
+            foreach (Transform child in rankingContainer)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }

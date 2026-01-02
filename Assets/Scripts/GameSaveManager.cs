@@ -10,6 +10,9 @@ public class GameSaveManager : MonoBehaviour
 {
     private const string SAVE_FILE_NAME = "game_save.json";
     private string SaveFilePath => Path.Combine(Application.persistentDataPath, SAVE_FILE_NAME);
+    
+    // Static flag to track if game is currently being loaded
+    public static bool IsLoadingGame { get; private set; } = false;
 
     /// <summary>
     /// Saves the current game state
@@ -89,17 +92,22 @@ public class GameSaveManager : MonoBehaviour
         if (!File.Exists(SaveFilePath))
         {
             Debug.Log("[GameSaveManager] No save file found. Starting new game.");
+            IsLoadingGame = false;
             return null;
         }
 
         try
         {
+            // Set loading flag
+            IsLoadingGame = true;
+            
             string json = File.ReadAllText(SaveFilePath);
             GameSaveData saveData = JsonUtility.FromJson<GameSaveData>(json);
             
             if (saveData == null)
             {
                 Debug.LogError("[GameSaveManager] Failed to parse save file!");
+                IsLoadingGame = false;
                 return null;
             }
 
@@ -107,13 +115,28 @@ public class GameSaveManager : MonoBehaviour
             Debug.Log($"[GameSaveManager] Loaded {saveData.players.Count} players and {saveData.companyFields.Count} company fields");
             Debug.Log($"[GameSaveManager] Save timestamp: {saveData.saveTimestamp}");
             
+            // Reset loading flag after a short delay to allow position updates to complete
+            StartCoroutine(ResetLoadingFlagAfterDelay());
+            
             return saveData;
         }
         catch (Exception e)
         {
             Debug.LogError($"[GameSaveManager] ❌ Failed to load game: {e.Message}");
+            IsLoadingGame = false;
             return null;
         }
+    }
+
+    /// <summary>
+    /// Resets the loading flag after a delay to allow all position updates to complete
+    /// </summary>
+    private System.Collections.IEnumerator ResetLoadingFlagAfterDelay()
+    {
+        // Wait for position updates to complete (2 seconds should be enough)
+        yield return new WaitForSeconds(2f);
+        IsLoadingGame = false;
+        Debug.Log("[GameSaveManager] Loading flag reset - Start field bonuses are now active again.");
     }
 
     /// <summary>

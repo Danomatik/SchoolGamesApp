@@ -5554,6 +5554,7 @@ GameObject:
   - component: {fileID: 1372569203}
   - component: {fileID: 1372569206}
   - component: {fileID: 1372569207}
+  - component: {fileID: 1372569208}
   m_Layer: 5
   m_Name: Spiel starten
   m_TagString: Untagged
@@ -5626,7 +5627,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1372569207}
-        m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
+        m_TargetAssemblyTypeName: SwitchScene, GameScripts
         m_MethodName: LoadTargetScene
         m_Mode: 1
         m_Arguments:
@@ -5709,8 +5710,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd10a075aca1c840b38b3257a7f9924, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: MainScene
+  sceneToLoad: Demo 3
   saveGameBeforeSwitch: 0
+--- !u!114 &1372569208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372569201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff3bf158cb28407cb197e941d84d526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameScene: Demo 3
+  requireMinimumPlayers: 1
+  minimumPlayers: 2
 --- !u!224 &1418702457 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2714895085219010091, guid: 2df561e417f0dc642ba40a0ac5ea6baf, type: 3}

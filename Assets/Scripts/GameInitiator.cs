@@ -110,21 +110,113 @@ public class GameInitiator : MonoBehaviour
 
     private void StartNewGame()
     {
-        // Players (1..6 in default order)
-        PlayerData Player1 = new PlayerData { PlayerID = 1, Money = 2500, BoardPosition = 0, PlayerName = "Hanx", hasToSkip = false, companies = new List<int>() };
-        CurrentGame.AllPlayers.Add(Player1);
-        PlayerData Player2 = new PlayerData { PlayerID = 2, Money = 2500, BoardPosition = 0, PlayerName = "Momo", hasToSkip = false, companies = new List<int>() };
-        CurrentGame.AllPlayers.Add(Player2);
-        PlayerData Player3 = new PlayerData { PlayerID = 3, Money = 2500, BoardPosition = 0, PlayerName = "Simoan", hasToSkip = false, companies = new List<int>() };
-        CurrentGame.AllPlayers.Add(Player3);
-        PlayerData Player4 = new PlayerData { PlayerID = 4, Money = 2500, BoardPosition = 0, PlayerName = "Chidi", hasToSkip = false, companies = new List<int>() };
-        CurrentGame.AllPlayers.Add(Player4);
-        PlayerData Player5 = new PlayerData { PlayerID = 5, Money = 2500, BoardPosition = 0, PlayerName = "Dan", hasToSkip = false, companies = new List<int>() };
-        CurrentGame.AllPlayers.Add(Player5);
-        PlayerData Player6 = new PlayerData { PlayerID = 6, Money = 2500, BoardPosition = 0, PlayerName = "Mußbacher", hasToSkip = false, companies = new List<int>() };
-        CurrentGame.AllPlayers.Add(Player6);
+        CurrentGame.AllPlayers.Clear();
 
-        Debug.Log("Neues Spiel gestartet!");
+        // Versuche Spielerdaten aus PlayerPrefs zu laden (von Demo 3 Scene)
+        PlayerSetupManager setupManager = FindFirstObjectByType<PlayerSetupManager>();
+        if (setupManager == null)
+        {
+            // Erstelle temporären Manager zum Laden der Daten
+            GameObject tempObj = new GameObject("TempPlayerSetupManager");
+            setupManager = tempObj.AddComponent<PlayerSetupManager>();
+        }
+
+        int playerCount = setupManager.GetPlayerCount();
+        Debug.Log($"[GameInitiator] Lade Spielerdaten: {playerCount} Spieler");
+
+        // Erstelle Spieler basierend auf gespeicherten Daten
+        for (int i = 1; i <= playerCount; i++)
+        {
+            string playerName = setupManager.GetPlayerName(i);
+            PlayerData player = new PlayerData
+            {
+                PlayerID = i,
+                Money = 2500,
+                BoardPosition = 0,
+                PlayerName = playerName,
+                hasToSkip = false,
+                companies = new List<int>()
+            };
+            CurrentGame.AllPlayers.Add(player);
+            Debug.Log($"[GameInitiator] Spieler {i} erstellt: {playerName}");
+        }
+
+        // Falls keine Spielerdaten vorhanden, verwende Standard-Spieler (Fallback)
+        if (CurrentGame.AllPlayers.Count == 0)
+        {
+            Debug.LogWarning("[GameInitiator] Keine Spielerdaten gefunden! Verwende Standard-Spieler.");
+            CreateDefaultPlayers();
+        }
+
+        Debug.Log($"✅ Neues Spiel gestartet mit {CurrentGame.AllPlayers.Count} Spielern!");
+        
+        // Deaktiviere nicht verwendete PlayerCTRL GameObjects
+        StartCoroutine(DeactivateUnusedPlayers());
+    }
+
+    /// <summary>
+    /// Deaktiviert PlayerCTRL GameObjects für Spieler, die nicht im Spiel sind
+    /// </summary>
+    private IEnumerator DeactivateUnusedPlayers()
+    {
+        // Warte einen Frame, damit GameManager initialisiert ist
+        yield return null;
+        
+        GameManager gameManager = GetComponent<GameManager>();
+        if (gameManager == null || gameManager.players == null)
+        {
+            Debug.LogWarning("[GameInitiator] GameManager oder players nicht gefunden. Kann nicht verwendete Spieler nicht deaktivieren.");
+            yield break;
+        }
+        
+        // Erstelle eine Liste der aktiven PlayerIDs
+        HashSet<int> activePlayerIDs = new HashSet<int>();
+        foreach (var playerData in CurrentGame.AllPlayers)
+        {
+            activePlayerIDs.Add(playerData.PlayerID);
+        }
+        
+        // Deaktiviere alle PlayerCTRL GameObjects, die nicht in der aktiven Liste sind
+        foreach (var playerCTRL in gameManager.players)
+        {
+            if (playerCTRL != null)
+            {
+                if (!activePlayerIDs.Contains(playerCTRL.PlayerID))
+                {
+                    playerCTRL.gameObject.SetActive(false);
+                    Debug.Log($"[GameInitiator] PlayerCTRL für Spieler {playerCTRL.PlayerID} deaktiviert (nicht im Spiel).");
+                }
+                else
+                {
+                    playerCTRL.gameObject.SetActive(true);
+                    Debug.Log($"[GameInitiator] PlayerCTRL für Spieler {playerCTRL.PlayerID} aktiviert.");
+                }
+            }
+        }
+        
+        Debug.Log($"[GameInitiator] ✅ Nicht verwendete Spieler deaktiviert. Aktive Spieler: {CurrentGame.AllPlayers.Count}");
+    }
+
+    /// <summary>
+    /// Erstellt Standard-Spieler als Fallback
+    /// </summary>
+    private void CreateDefaultPlayers()
+    {
+        string[] defaultNames = { "Hanx", "Momo", "Simoan", "Chidi", "Dan", "Mußbacher" };
+        
+        for (int i = 0; i < 6; i++)
+        {
+            PlayerData player = new PlayerData
+            {
+                PlayerID = i + 1,
+                Money = 2500,
+                BoardPosition = 0,
+                PlayerName = defaultNames[i],
+                hasToSkip = false,
+                companies = new List<int>()
+            };
+            CurrentGame.AllPlayers.Add(player);
+        }
     }
 
     private void LoadSavedGame(GameSaveData saveData)
@@ -156,6 +248,9 @@ public class GameInitiator : MonoBehaviour
         Debug.Log($"✅ Spiel geladen! Aktueller Spieler: {CurrentGame.AllPlayers[CurrentGame.CurrentPlayerTurnID].PlayerName}");
         Debug.Log($"   Gespeichert am: {saveData.saveTimestamp}");
 
+        // Deaktiviere nicht verwendete PlayerCTRL GameObjects
+        StartCoroutine(DeactivateUnusedPlayers());
+        
         // Update visual player positions (PlayerCTRL objects)
         StartCoroutine(UpdatePlayerPositionsAfterLoad());
     }
