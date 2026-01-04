@@ -26,7 +26,7 @@ public class PlayerSetupManager : MonoBehaviour
     /// </summary>
     public int GetPlayerCount()
     {
-        return PlayerPrefs.GetInt(PLAYER_COUNT_KEY, 6);
+        return PlayerPrefs.GetInt(PLAYER_COUNT_KEY, 0);
     }
 
     /// <summary>

@@ -152,6 +152,43 @@ public class GameInitiator : MonoBehaviour
         
         // Deaktiviere nicht verwendete PlayerCTRL GameObjects
         StartCoroutine(DeactivateUnusedPlayers());
+
+        // Aktualisiere Spielernamen
+        StartCoroutine(UpdatePlayerNames());
+    }
+
+    /// <summary>
+    /// Aktualisiert die Namen der PlayerCTRL GameObjects basierend auf PlayerData
+    /// </summary>
+    private IEnumerator UpdatePlayerNames()
+    {
+        // Warte einen Frame, damit GameManager initialisiert ist
+        yield return null;
+        
+        GameManager gameManager = GetComponent<GameManager>();
+        if (gameManager == null || gameManager.players == null)
+        {
+            Debug.LogWarning("[GameInitiator] GameManager oder players nicht gefunden. Kann Spielernamen nicht aktualisieren.");
+            yield break;
+        }
+        
+        // Aktualisiere jeden PlayerCTRL mit dem Namen aus PlayerData
+        foreach (var playerData in CurrentGame.AllPlayers)
+        {
+            var playerCTRL = gameManager.players.Find(p => p.PlayerID == playerData.PlayerID);
+            if (playerCTRL != null)
+            {
+                // Setze den Namen auf dem PlayerCTRL GameObject
+                playerCTRL.gameObject.name = $"Player_{playerData.PlayerID}_{playerData.PlayerName}";
+                
+                // Falls PlayerCTRL ein playerName Feld hat, setze es hier
+                // playerCTRL.playerName = playerData.PlayerName; // ⚠️ Uncomment wenn PlayerCTRL ein playerName Feld hat
+                
+                Debug.Log($"[GameInitiator] PlayerCTRL für Spieler {playerData.PlayerID} Name gesetzt: {playerData.PlayerName}");
+            }
+        }
+        
+        Debug.Log($"[GameInitiator] ✅ Spielernamen aktualisiert.");
     }
 
     /// <summary>
@@ -253,6 +290,22 @@ public class GameInitiator : MonoBehaviour
         
         // Update visual player positions (PlayerCTRL objects)
         StartCoroutine(UpdatePlayerPositionsAfterLoad());
+
+         
+        // Aktualisiere Spielernamen
+        StartCoroutine(UpdatePlayerNames());
+{
+    // ... existing code ...
+
+    // Deaktiviere nicht verwendete PlayerCTRL GameObjects
+    StartCoroutine(DeactivateUnusedPlayers());
+    
+    // Update visual player positions (PlayerCTRL objects)
+    StartCoroutine(UpdatePlayerPositionsAfterLoad());
+    
+    // ✅ NEU: Aktualisiere Spielernamen
+    StartCoroutine(UpdatePlayerNames());
+}
     }
 
     /// <summary>
