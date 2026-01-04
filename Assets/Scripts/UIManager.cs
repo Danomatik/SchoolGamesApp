@@ -85,14 +85,19 @@ public class UIManager : MonoBehaviour
         var currentPlayer = gm.GetCurrentPlayer();
         if (currentPlayer != null)
         {
-            moneyDisplayText.text = $"Spieler {currentPlayer.PlayerID}: {currentPlayer.Money}€";
+            // ✅ Verwende PlayerName statt "Spieler {ID}"
+            string playerName = string.IsNullOrEmpty(currentPlayer.PlayerName) 
+                ? $"Spieler {currentPlayer.PlayerID}" 
+                : currentPlayer.PlayerName;
+            
+            moneyDisplayText.text = $"{playerName}: {currentPlayer.Money}€";
         }
         else
         {
             moneyDisplayText.text = "--- €";
         }
     }
-
+    
     /// <summary>
     /// Aktualisiert die Timer-Anzeige
     /// </summary>
