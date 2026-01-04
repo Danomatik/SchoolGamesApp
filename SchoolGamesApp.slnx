@@ -2,9 +2,8 @@
   <Project Path="MerryYellow.CodeAssist.Editor.csproj" />
   <Project Path="GameScripts.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
-  <Project Path="EditModeTests.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
-  <Project Path="Tests.csproj" />
   <Project Path="PlayModeTests.csproj" />
+  <Project Path="Tests.csproj" />
 </Solution>

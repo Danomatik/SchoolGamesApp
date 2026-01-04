@@ -10,6 +10,7 @@ public class MoneyManager : MonoBehaviour
     {
         gm = GetComponent<GameManager>();
     }
+
     public void AddMoney(int amount)
     {
         PlayerData currentPlayer = gm.GetCurrentPlayer();
@@ -95,6 +96,7 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     public bool TryPayAmount(PlayerData payer, int amount, string reason = "")
     {
+        
         if (payer == null) return false;
 
         // Genug Bargeld vorhanden
@@ -110,7 +112,27 @@ public class MoneyManager : MonoBehaviour
         int totalAssets = CalculateTotalAssets(payer);
         if (totalAssets < amount)
         {
-            Debug.LogError($"Spieler {payer.PlayerID} ist zahlungsunfähig! Benötigt {amount}€, hat aber nur {totalAssets}€ (Bargeld: {payer.Money}€)");
+            // Prüfe Insolvenz
+            if (totalAssets < amount)
+            {
+                Debug.LogError($"💀 Spieler {payer.PlayerID} ({payer.PlayerName}) ist zahlungsunfähig! Benötigt {amount}€, hat aber nur {totalAssets}€ (Bargeld: {payer.Money}€)");
+                
+                // ✅ ADD THIS DEBUG LINE
+                Debug.LogError($"[DEBUG] About to call EliminatePlayer for {payer.PlayerName}");
+                
+                // ✅ SPIELER ELIMINIEREN
+                EliminatePlayer(payer, $"Konnte {amount}€ nicht bezahlen ({reason})");
+                
+                // ✅ ADD THIS DEBUG LINE
+                Debug.LogError($"[DEBUG] After calling EliminatePlayer. Player.isEliminated = {payer.isEliminated}");
+                
+                return false;
+            }
+
+            Debug.LogError($"💀 Spieler {payer.PlayerID} ({payer.PlayerName}) ist zahlungsunfähig! Benötigt {amount}€, hat aber nur {totalAssets}€ (Bargeld: {payer.Money}€)");
+            
+            // ✅ SPIELER ELIMINIEREN
+            EliminatePlayer(payer, $"Konnte {amount}€ nicht bezahlen ({reason})");
             return false;
         }
 
@@ -144,7 +166,10 @@ public class MoneyManager : MonoBehaviour
         int totalAssets = CalculateTotalAssets(payer);
         if (totalAssets < amount)
         {
-            Debug.LogError($"Spieler {payer.PlayerID} ist zahlungsunfähig! Benötigt {amount}€, hat aber nur {totalAssets}€ (Bargeld: {payer.Money}€)");
+            Debug.LogError($"💀 Spieler {payer.PlayerID} ({payer.PlayerName}) ist zahlungsunfähig! Benötigt {amount}€, hat aber nur {totalAssets}€ (Bargeld: {payer.Money}€)");
+            
+            // ✅ SPIELER ELIMINIEREN
+            EliminatePlayer(payer, $"Konnte {amount}€ Miete an {recipient.PlayerName} nicht bezahlen");
             return false;
         }
 
@@ -181,6 +206,102 @@ public class MoneyManager : MonoBehaviour
             // Insolvenz wird in TryPayAmount/HandleBankruptcy behandelt
             // Wenn Versteigerung erfolgreich, wird die Miete danach bezahlt und EndTurn() aufgerufen
             // Wenn Insolvenz nicht aufgelöst werden kann, wird EndTurn() trotzdem aufgerufen
+        }
+    }
+
+    // ============================================================
+    // 💀 SPIELER ELIMINIERUNG
+    // ============================================================
+
+    /// <summary>
+    /// Eliminiert einen Spieler aus dem Spiel
+    /// </summary>
+/// <summary>
+/// Eliminiert einen Spieler aus dem Spiel
+/// </summary>
+public void EliminatePlayer(PlayerData player, string reason)
+{
+    if (player == null) return;
+
+    string playerName = string.IsNullOrEmpty(player.PlayerName) 
+        ? $"Spieler {player.PlayerID}" 
+        : player.PlayerName;
+
+    Debug.Log($"════════════════════════════════════════");
+    Debug.Log($"💀 {playerName} wurde eliminiert!");
+    Debug.Log($"   Grund: {reason}");
+    Debug.Log($"   Finales Geld: {player.Money}€");
+    Debug.Log($"   Unternehmen vor Eliminierung: {player.companies.Count}");
+    
+    // ✅ WICHTIG: Markiere ZUERST als eliminiert
+    player.isEliminated = true;
+    Debug.Log($"   isEliminated gesetzt auf: {player.isEliminated}");
+
+    // Entferne alle Unternehmen des Spielers
+    var allFields = gm.gameInitiator.GetCompanyFields();
+    foreach (var fieldIndex in player.companies.ToList()) // ToList() wichtig!
+    {
+        var field = allFields.FirstOrDefault(f => f.fieldIndex == fieldIndex);
+        if (field != null)
+        {
+            field.ownerID = -1;
+            field.level = CompanyLevel.None;
+            
+            // Update visuals
+            if (gm.boardVisuals != null)
+            {
+                gm.boardVisuals.UpdateFieldVisual(field);
+            }
+            
+            Debug.Log($"   Feld {field.fieldIndex} freigegeben");
+        }
+    }
+    player.companies.Clear();
+    Debug.Log($"   Unternehmen nach Clearing: {player.companies.Count}");
+
+    // Deaktiviere PlayerCTRL GameObject
+    var playerCTRL = gm.players.Find(p => p.PlayerID == player.PlayerID);
+    if (playerCTRL != null)
+    {
+        playerCTRL.gameObject.SetActive(false);
+        Debug.Log($"   PlayerCTRL für {playerName} deaktiviert");
+    }
+
+    // Entferne Spieler aus der aktiven Spielerliste
+    int playerCountBefore = gm.gameInitiator.CurrentGame.AllPlayers.Count;
+    gm.gameInitiator.CurrentGame.AllPlayers.Remove(player);
+    int playerCountAfter = gm.gameInitiator.CurrentGame.AllPlayers.Count;
+    
+    Debug.Log($"   Spieler aus AllPlayers entfernt");
+    Debug.Log($"   Spieleranzahl: {playerCountBefore} → {playerCountAfter}");
+    Debug.Log($"════════════════════════════════════════");
+
+    // Prüfe ob Spiel zu Ende ist
+    CheckGameOver();
+
+    // Beende den Zug (wechselt automatisch zum nächsten Spieler)
+    gm.EndTurn();
+}
+
+
+    /// <summary>
+    /// Prüft ob das Spiel zu Ende ist (nur noch 1 Spieler übrig)
+    /// </summary>
+    private void CheckGameOver()
+    {
+        int remainingPlayers = gm.gameInitiator.CurrentGame.AllPlayers.Count;
+
+        Debug.Log($"[MoneyManager] Verbleibende Spieler: {remainingPlayers}");
+
+        if (remainingPlayers <= 1)
+        {
+            Debug.Log("🏁 SPIEL ZU ENDE! Nur noch 1 Spieler übrig (oder keine).");
+            
+            // Optional: Zeige Game Over Screen
+            // if (gm.gameTimerManager != null)
+            // {
+            //     gm.gameTimerManager.TriggerGameOver();
+            // }
         }
     }
 }

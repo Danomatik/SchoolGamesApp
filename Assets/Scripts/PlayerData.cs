@@ -7,10 +7,8 @@ public class PlayerData
     public int PlayerID;
     public int Money;
     public int BoardPosition;
-
     public string PlayerName;
-
-    public bool hasToSkip = false;
-
-    public List<int> companies = new List<int>();
+    public bool hasToSkip;
+    public List<int> companies;
+    public bool isEliminated = false;
 }
