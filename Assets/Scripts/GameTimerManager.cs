@@ -122,6 +122,14 @@ public class GameTimerManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Öffentliche Methode um das Spiel zu beenden (z.B. wenn nur 1 Spieler übrig)
+    /// </summary>
+    public void TriggerGameOver()
+    {
+        EndGame();
+    }
+
+    /// <summary>
     /// Beendet das Spiel und bestimmt den Gewinner
     /// </summary>
     private void EndGame()

@@ -49,6 +49,7 @@ public class MoneyManager : MonoBehaviour
 
     /// <summary>
     /// Berechnet den Gesamtwert eines Spielers (Bargeld + Unternehmen)
+    /// Laut Spielregeln: Vermögenswerte = Gründungskosten + Investitionskosten + AG-Kosten + Bargeld
     /// </summary>
     public int CalculateTotalAssets(PlayerData player)
     {
@@ -56,7 +57,7 @@ public class MoneyManager : MonoBehaviour
 
         int totalValue = player.Money;
 
-        // Addiere den Wert aller Unternehmen (50% der Gründungskosten)
+        // Addiere den Wert aller Unternehmen (tatsächlich investierter Betrag)
         var allFields = gm.gameInitiator.GetCompanyFields();
         foreach (var fieldIndex in player.companies)
         {
@@ -66,9 +67,28 @@ public class MoneyManager : MonoBehaviour
                 var company = gm.gameInitiator.companyConfigs?.companies?.FirstOrDefault(c => c.companyID == field.companyID);
                 if (company != null)
                 {
-                    // Versteigerungspreis = 50% der Gründungskosten
-                    int auctionPrice = company.costFound / 2;
-                    totalValue += auctionPrice;
+                    // Vermögenswert = tatsächlich investierter Betrag
+                    int companyValue = 0;
+                    
+                    // Gründungskosten (immer wenn besessen)
+                    if (field.level >= CompanyLevel.Founded)
+                    {
+                        companyValue += company.costFound;
+                    }
+                    
+                    // Investitionskosten (wenn investiert oder AG)
+                    if (field.level >= CompanyLevel.Invested)
+                    {
+                        companyValue += company.costInvest;
+                    }
+                    
+                    // AG-Kosten (wenn AG)
+                    if (field.level == CompanyLevel.AG)
+                    {
+                        companyValue += company.costAG;
+                    }
+                    
+                    totalValue += companyValue;
                 }
             }
         }
@@ -297,11 +317,15 @@ public void EliminatePlayer(PlayerData player, string reason)
         {
             Debug.Log("🏁 SPIEL ZU ENDE! Nur noch 1 Spieler übrig (oder keine).");
             
-            // Optional: Zeige Game Over Screen
-            // if (gm.gameTimerManager != null)
-            // {
-            //     gm.gameTimerManager.TriggerGameOver();
-            // }
+            // Zeige Game Over Screen
+            if (gm.gameTimerManager != null)
+            {
+                gm.gameTimerManager.TriggerGameOver();
+            }
+            else
+            {
+                Debug.LogWarning("[MoneyManager] GameTimerManager nicht gefunden! Kann GameOver nicht auslösen.");
+            }
         }
     }
 }
