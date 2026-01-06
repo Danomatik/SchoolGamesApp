@@ -7788,6 +7788,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vehicle_Police Car (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 1af0a2c8773f85c40bdb120f32cd8a8a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 1af0a2c8773f85c40bdb120f32cd8a8a, type: 3}
       propertyPath: m_RootOrder
       value: 755
@@ -12080,6 +12084,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 630771062}
     m_Modifications:
+    - target: {fileID: 100000, guid: cffe1734bc43bcb47b6433ebca05c04c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cffe1734bc43bcb47b6433ebca05c04c, type: 3}
       propertyPath: m_RootOrder
       value: 221
@@ -12507,6 +12515,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 630771062}
     m_Modifications:
+    - target: {fileID: 100000, guid: ce2dd4bb67fdc684dac928dc2cfb7a0f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: ce2dd4bb67fdc684dac928dc2cfb7a0f, type: 3}
       propertyPath: m_RootOrder
       value: 628
@@ -19549,6 +19561,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vehicle_SUV_color03 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 00d77ce56096de34eb6645947a0f8925, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 00d77ce56096de34eb6645947a0f8925, type: 3}
       propertyPath: m_RootOrder
       value: 333
@@ -24764,6 +24780,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vehicle_Bus_color02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 79ef5961b86276943ab5da38ae9f2e4b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 79ef5961b86276943ab5da38ae9f2e4b, type: 3}
       propertyPath: m_RootOrder
       value: 193
@@ -25358,6 +25378,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: 00d77ce56096de34eb6645947a0f8925, type: 3}
       propertyPath: m_Name
       value: Vehicle_SUV_color03 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 00d77ce56096de34eb6645947a0f8925, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 00d77ce56096de34eb6645947a0f8925, type: 3}
       propertyPath: m_RootOrder
@@ -26891,6 +26915,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e218686c5655fad46a02ebfb004972ee, type: 3}
       propertyPath: m_Name
       value: Vehicle_Truck_color02 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e218686c5655fad46a02ebfb004972ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: e218686c5655fad46a02ebfb004972ee, type: 3}
       propertyPath: m_RootOrder
@@ -36909,6 +36937,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 630771062}
     m_Modifications:
+    - target: {fileID: 100000, guid: 93d0d450ec8b42e46b724bf2bbee330b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 93d0d450ec8b42e46b724bf2bbee330b, type: 3}
       propertyPath: m_RootOrder
       value: 464
