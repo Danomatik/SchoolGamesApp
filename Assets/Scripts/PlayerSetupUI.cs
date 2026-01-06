@@ -17,6 +17,10 @@ public class PlayerSetupUI : MonoBehaviour
     [Tooltip("Der Slider für die Spiel Dauer (in Minuten)")]
     public Slider gameDurationSlider;
     
+    [Header("Player Count Display")]
+    [Tooltip("Optional: Text um die Spieleranzahl anzuzeigen")]
+    public TextMeshProUGUI playerCountText;
+    
     [Header("Game Duration Display")]
     [Tooltip("Optional: Text um die Spiel Dauer anzuzeigen")]
     public TextMeshProUGUI gameDurationText;
@@ -78,6 +82,9 @@ public class PlayerSetupUI : MonoBehaviour
                 playerCountSlider.onValueChanged.RemoveAllListeners();
                 playerCountSlider.onValueChanged.AddListener(OnPlayerCountChanged);
                 
+                // Initialisiere Text-Anzeige
+                UpdatePlayerCountText(savedCount);
+                
                 Debug.Log($"[PlayerSetupUI] Spieleranzahl-Slider initialisiert: {savedCount} (Min: {playerCountSlider.minValue}, Max: {playerCountSlider.maxValue})");
             }
             else
@@ -136,10 +143,22 @@ public class PlayerSetupUI : MonoBehaviour
     {
         int count = Mathf.RoundToInt(value);
         setupManager.SetPlayerCount(count);
+        UpdatePlayerCountText(count);
         Debug.Log($"[PlayerSetupUI] Spieleranzahl geändert: {count}");
         
         // Optional: Aktiviere/Deaktiviere InputFields basierend auf Anzahl
         UpdateInputFieldVisibility(count);
+    }
+
+    /// <summary>
+    /// Aktualisiert die Text-Anzeige für Spieleranzahl
+    /// </summary>
+    private void UpdatePlayerCountText(int count)
+    {
+        if (playerCountText != null)
+        {
+            playerCountText.text = $"Anzahl: {count}";
+        }
     }
 
     /// <summary>
@@ -204,4 +223,3 @@ public class PlayerSetupUI : MonoBehaviour
         }
     }
 }
-

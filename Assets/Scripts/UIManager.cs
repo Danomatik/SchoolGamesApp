@@ -41,8 +41,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI gameOverTitleText;
     [SerializeField] private TextMeshProUGUI gameOverBodyText;
     [SerializeField] private Transform rankingContainer; // Container für Ranking-Einträge
-    [SerializeField] private GameObject rankingEntryPrefab; // Prefab für einen Ranking-Eintrag (OPTIONAL)
     [SerializeField] private Button gameOverMenuButton; // Button zum Zurück zum Menü
+    [SerializeField] private Button gameOverNewGameButton; // Button für Neues Spiel
+    [SerializeField] private string gameSceneName = "Demo"; // Name der Spielszene für Neues Spiel
 
     private GameManager gm;
 
@@ -448,6 +449,13 @@ public class UIManager : MonoBehaviour
         // Erstelle Ranking-Einträge
         if (rankings != null && rankings.Count > 0 && rankingContainer != null)
         {
+            // Hole Font von einem existierenden TMP Text (z.B. vom Body Text)
+            TMP_FontAsset fontToUse = null;
+            if (gameOverBodyText != null)
+            {
+                fontToUse = gameOverBodyText.font;
+            }
+
             for (int i = 0; i < rankings.Count; i++)
             {
                 var ranking = rankings[i];
@@ -455,37 +463,34 @@ public class UIManager : MonoBehaviour
                     ? $"Spieler {ranking.player.PlayerID}" 
                     : ranking.player.PlayerName;
 
-                GameObject entryObj;
+                // Erstelle Entry zur Laufzeit
+                GameObject entryObj = new GameObject($"RankingEntry_{i + 1}");
+                entryObj.transform.SetParent(rankingContainer, false);
                 
-                // Wenn Prefab vorhanden, verwende es, sonst erstelle zur Laufzeit
-                if (rankingEntryPrefab != null)
+                RectTransform rectTransform = entryObj.AddComponent<RectTransform>();
+                rectTransform.sizeDelta = new Vector2(600, 60);
+                
+                TextMeshProUGUI textComponent = entryObj.AddComponent<TextMeshProUGUI>();
+                textComponent.fontSize = 80; // Größere Schrift
+                textComponent.alignment = TextAlignmentOptions.Center;
+                textComponent.color = i == 0 ? Color.yellow : Color.white; // Gewinner in Gelb
+                
+                // Font zuweisen
+                if (fontToUse != null)
                 {
-                    entryObj = Instantiate(rankingEntryPrefab, rankingContainer);
+                    textComponent.font = fontToUse;
                 }
-                else
-                {
-                    // Erstelle Entry zur Laufzeit
-                    entryObj = new GameObject($"RankingEntry_{i + 1}");
-                    entryObj.transform.SetParent(rankingContainer, false);
-                    
-                    RectTransform rectTransform = entryObj.AddComponent<RectTransform>();
-                    rectTransform.sizeDelta = new Vector2(400, 40);
-                    
-                    TextMeshProUGUI textComponent = entryObj.AddComponent<TextMeshProUGUI>();
-                    textComponent.fontSize = 18;
-                    textComponent.alignment = TextAlignmentOptions.Left;
-                    textComponent.color = i == 0 ? Color.yellow : Color.white; // Gewinner in Gelb
-                }
-
+                
                 // Setze Text
-                TextMeshProUGUI text = entryObj.GetComponentInChildren<TextMeshProUGUI>();
-                if (text != null)
-                {
-                    text.text = $"{i + 1}. {playerName}: {ranking.totalAssets}€ " +
-                                $"(💰 {ranking.money}€, 🏢 {ranking.companyCount})";
-                    text.color = i == 0 ? Color.yellow : Color.white; // Gewinner in Gelb
-                }
+                textComponent.text = $"{i + 1}. {playerName}: {ranking.totalAssets} Euro " +
+                            $"(Bargeld: {ranking.money} Euro, Unternehmen: {ranking.companyCount})";
             }
+            
+            Debug.Log($"[UIManager] {rankings.Count} Ranking-Einträge erstellt im RankingContainer.");
+        }
+        else
+        {
+            Debug.LogWarning($"[UIManager] Ranking-Einträge nicht erstellt. Rankings: {rankings?.Count ?? 0}, Container: {(rankingContainer != null ? "vorhanden" : "NULL")}");
         }
 
         // Menu Button
@@ -494,7 +499,29 @@ public class UIManager : MonoBehaviour
             gameOverMenuButton.onClick.RemoveAllListeners();
             gameOverMenuButton.onClick.AddListener(() =>
             {
-                UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Demo 2");
+            });
+        }
+
+        // Neues Spiel Button
+        if (gameOverNewGameButton)
+        {
+            gameOverNewGameButton.onClick.RemoveAllListeners();
+            gameOverNewGameButton.onClick.AddListener(() =>
+            {
+                // Lösche gespeichertes Spiel und starte neu
+                PlayerPrefs.SetInt("LoadSavedGame", 0);
+                PlayerPrefs.Save();
+                
+                // Lade die Spielszene neu
+                if (!string.IsNullOrEmpty(gameSceneName))
+                {
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(gameSceneName);
+                }
+                else
+                {
+                    Debug.LogError("GameSceneName ist nicht gesetzt! Kann neues Spiel nicht starten.");
+                }
             });
         }
     }

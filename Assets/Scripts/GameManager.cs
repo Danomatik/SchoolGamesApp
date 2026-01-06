@@ -109,6 +109,80 @@ public class GameManager : MonoBehaviour
     /// Called when Save button is clicked
     /// This method saves the game and then uses SwitchScene to load the target scene
     /// </summary>
+// ============================================================
+// 💾 AUTO SAVE – APP LIFECYCLE
+// ============================================================
+// ============================================================
+// 💾 TURN AUTO SAVE
+// ============================================================
+
+private float lastAutoSaveTime;
+[SerializeField] private float autoSaveCooldown = 3f;
+
+private void AutoSave()
+{
+    if (Time.time - lastAutoSaveTime < autoSaveCooldown)
+        return;
+
+    lastAutoSaveTime = Time.time;
+
+    var saveManager = FindFirstObjectByType<GameSaveManager>();
+    if (saveManager == null)
+    {
+        GameObject obj = new GameObject("GameSaveManager");
+        saveManager = obj.AddComponent<GameSaveManager>();
+    }
+
+    saveManager.SaveGame(gameInitiator);
+    Debug.Log("💾 Auto-save (EndTurn)");
+}
+
+private bool hasSavedOnQuit = false;
+
+private void OnApplicationQuit()
+{
+    Debug.Log("🛑 Application quitting – auto-saving game...");
+    SaveOnExit();
+}
+
+private void OnApplicationPause(bool pause)
+{
+    if (pause)
+    {
+        Debug.Log("⏸ Application paused – auto-saving game...");
+        SaveOnExit();
+    }
+    else
+    {
+        // App resumed → allow future saves again
+        hasSavedOnQuit = false;
+    }
+}
+
+
+private void SaveOnExit()
+{
+    if (hasSavedOnQuit) return; // Prevent double-save
+    hasSavedOnQuit = true;
+
+    var saveManager = FindFirstObjectByType<GameSaveManager>();
+    if (saveManager == null)
+    {
+        GameObject saveManagerObj = new GameObject("GameSaveManager");
+        saveManager = saveManagerObj.AddComponent<GameSaveManager>();
+    }
+
+    bool saved = saveManager.SaveGame(gameInitiator);
+    if (saved)
+    {
+        Debug.Log("✅ Auto-save successful");
+    }
+    else
+    {
+        Debug.LogError("❌ Auto-save failed!");
+    }
+}
+
     public void OnSaveButtonClicked()
     {
         SaveGameAndReturnToMenu();
@@ -565,6 +639,8 @@ public class GameManager : MonoBehaviour
             moveButton.SetActive(true);
             moneyDisplay.SetActive(true);
         }
+
+        AutoSave();
     }
 
     private IEnumerator SkipTurnDelay()
