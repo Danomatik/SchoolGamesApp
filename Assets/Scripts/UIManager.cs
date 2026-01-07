@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
         int minutes = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds / 60f));
         int seconds = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds % 60f));
 
-        timerDisplayText.text = $"⏰ {minutes:D2}:{seconds:D2}";
+        timerDisplayText.text = $"{minutes:D2}:{seconds:D2}";
     }
 
     public void ShowInitiativeRoll(string playerLabel, int roll)
@@ -429,7 +429,7 @@ public class UIManager : MonoBehaviour
         // Titel
         if (gameOverTitleText)
         {
-            gameOverTitleText.text = "🏆 Spiel beendet!";
+            gameOverTitleText.text = "Spiel beendet!";
         }
 
         // Body Text mit Gewinner
