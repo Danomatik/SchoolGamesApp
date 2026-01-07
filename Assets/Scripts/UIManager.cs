@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button gameOverMenuButton; // Button zum Zurück zum Menü
     [SerializeField] private Button gameOverNewGameButton; // Button für Neues Spiel
     [SerializeField] private string gameSceneName = "Demo"; // Name der Spielszene für Neues Spiel
+    [SerializeField] private List<GameObject> gameOverObjects = new List<GameObject>();
 
     private GameManager gm;
 
@@ -416,7 +417,14 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+        for(int i = 0; i < gameOverObjects.Count; i++)
+        {
+            gameOverObjects[i].SetActive(false);
+        }
+
         gameOverPanel.SetActive(true);
+
+        
 
         // Titel
         if (gameOverTitleText)

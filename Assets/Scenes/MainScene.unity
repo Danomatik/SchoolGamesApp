@@ -12242,7 +12242,7 @@ GameObject:
   - component: {fileID: 803559262}
   - component: {fileID: 803559261}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: ZurueckBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32427,6 +32427,18 @@ MonoBehaviour:
   gameOverMenuButton: {fileID: 830164565}
   gameOverNewGameButton: {fileID: 1289552148}
   gameSceneName: MainScene
+  gameOverObjects:
+  - {fileID: 1095420939}
+  - {fileID: 1189273145}
+  - {fileID: 977201812}
+  - {fileID: 1021593877}
+  - {fileID: 458497979}
+  - {fileID: 1896093987}
+  - {fileID: 803559259}
+  - {fileID: 1591734239}
+  - {fileID: 1939213212}
+  - {fileID: 2073581085}
+  - {fileID: 1389172612}
 --- !u!114 &1871652814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33015,7 +33027,7 @@ GameObject:
   - component: {fileID: 1896093990}
   - component: {fileID: 1896093989}
   m_Layer: 5
-  m_Name: Button
+  m_Name: VorBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
