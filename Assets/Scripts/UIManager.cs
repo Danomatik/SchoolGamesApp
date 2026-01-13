@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button gameOverMenuButton; // Button zum Zurück zum Menü
     [SerializeField] private Button gameOverNewGameButton; // Button für Neues Spiel
     [SerializeField] private string gameSceneName = "Demo"; // Name der Spielszene für Neues Spiel
+    [SerializeField] private List<GameObject> gameOverObjects = new List<GameObject>();
 
     private GameManager gm;
 
@@ -109,7 +110,7 @@ public class UIManager : MonoBehaviour
         int minutes = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds / 60f));
         int seconds = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds % 60f));
 
-        timerDisplayText.text = $"⏰ {minutes:D2}:{seconds:D2}";
+        timerDisplayText.text = $"{minutes:D2}:{seconds:D2}";
     }
 
     public void ShowInitiativeRoll(string playerLabel, int roll)
@@ -416,12 +417,19 @@ public class UIManager : MonoBehaviour
             return;
         }
 
+        for(int i = 0; i < gameOverObjects.Count; i++)
+        {
+            gameOverObjects[i].SetActive(false);
+        }
+
         gameOverPanel.SetActive(true);
+
+        
 
         // Titel
         if (gameOverTitleText)
         {
-            gameOverTitleText.text = "🏆 Spiel beendet!";
+            gameOverTitleText.text = "Spiel beendet!";
         }
 
         // Body Text mit Gewinner

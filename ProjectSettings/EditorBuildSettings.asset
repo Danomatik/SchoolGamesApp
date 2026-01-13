@@ -21,6 +21,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Demo 3.unity
     guid: 008634d0f970c7a438c2c4884bfe2005
   m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: b00d7dde1216b2946b67821ba692724b, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: 5c3ae823362f2ec4080f47cde7af6d57, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -223,4 +223,3 @@ public class PlayerSetupUI : MonoBehaviour
         }
     }
 }
-
