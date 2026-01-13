@@ -67,6 +67,14 @@ public IEnumerator Test1_PlayerWithNoAssets_GetsEliminated()
     Debug.Log($"   Total Assets: {moneyManager.CalculateTotalAssets(player)}€");
     Debug.Log($"   Players in game: {originalPlayerCount}");
 
+    // Erwarte Error-Logs für Eliminierung (Reihenfolge ist wichtig!)
+    // 1. "ist zahlungsunfähig"
+    // 2. "[DEBUG] About to call EliminatePlayer"
+    // 3. "[DEBUG] After calling EliminatePlayer"
+    LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex(".*ist zahlungsunfähig.*"));
+    LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex(".*\\[DEBUG\\].*About to call EliminatePlayer.*"));
+    LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex(".*\\[DEBUG\\].*After calling EliminatePlayer.*"));
+
     // Act
     bool canPay = moneyManager.TryPayAmount(player, 500, "Test Elimination");
     yield return new WaitForSeconds(1.5f);
@@ -150,11 +158,13 @@ public IEnumerator Test1_PlayerWithNoAssets_GetsEliminated()
         var company1 = gi.companyConfigs?.companies?.FirstOrDefault(c => c.companyID == field1.companyID);
         var company2 = gi.companyConfigs?.companies?.FirstOrDefault(c => c.companyID == field2.companyID);
 
-        int expectedAssets = player.Money + (company1.costFound / 2) + (company2.costFound / 2);
+        // WICHTIG: CalculateTotalAssets verwendet VOLLE Kosten (nicht 50% wie bei Versteigerung)
+        // Die 50% Regel gilt nur für Versteigerungen, nicht für Vermögensberechnung
+        int expectedAssets = player.Money + company1.costFound + company2.costFound;
 
         Debug.Log($"   Player money: {player.Money}€");
-        Debug.Log($"   Company 1: {company1.companyName} → {company1.costFound / 2}€");
-        Debug.Log($"   Company 2: {company2.companyName} → {company2.costFound / 2}€");
+        Debug.Log($"   Company 1: {company1.companyName} → {company1.costFound}€ (volle Kosten)");
+        Debug.Log($"   Company 2: {company2.companyName} → {company2.costFound}€ (volle Kosten)");
         Debug.Log($"   Expected total assets: {expectedAssets}€");
 
         // Act
@@ -234,11 +244,14 @@ public IEnumerator Test1_PlayerWithNoAssets_GetsEliminated()
         player.companies.Add(field.fieldIndex);
 
         var company = gi.companyConfigs?.companies?.FirstOrDefault(c => c.companyID == field.companyID);
-        int companyValue = company.costFound / 2;
+        
+        // WICHTIG: CanAffordPayment verwendet CalculateTotalAssets, welches VOLLE Kosten verwendet
+        // (nicht 50% wie bei Versteigerung)
+        int companyValue = company.costFound; // Volle Kosten, nicht 50%
         int totalAssets = player.Money + companyValue;
 
         Debug.Log($"   Money: {player.Money}€");
-        Debug.Log($"   Company value: {companyValue}€");
+        Debug.Log($"   Company value: {companyValue}€ (volle Kosten)");
         Debug.Log($"   Total assets: {totalAssets}€");
 
         // Act & Assert
@@ -362,6 +375,14 @@ public IEnumerator Test8_EliminatedPlayer_ReleasesCompanies()
     Debug.Log($"   Player companies: {player.companies.Count}");
     Debug.Log($"   Total assets: {totalAssets}€");
     Debug.Log($"   Payment required: {paymentAmount}€ (exceeds assets)");
+
+    // Erwarte Error-Logs für Eliminierung (Reihenfolge ist wichtig!)
+    // 1. "ist zahlungsunfähig"
+    // 2. "[DEBUG] About to call EliminatePlayer"
+    // 3. "[DEBUG] After calling EliminatePlayer"
+    LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex(".*ist zahlungsunfähig.*"));
+    LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex(".*\\[DEBUG\\].*About to call EliminatePlayer.*"));
+    LogAssert.Expect(LogType.Error, new System.Text.RegularExpressions.Regex(".*\\[DEBUG\\].*After calling EliminatePlayer.*"));
 
     // Act: Eliminiere Spieler
     moneyManager.TryPayAmount(player, paymentAmount, "Test Company Release");

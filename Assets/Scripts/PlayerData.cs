@@ -9,6 +9,6 @@ public class PlayerData
     public int BoardPosition;
     public string PlayerName;
     public bool hasToSkip;
-    public List<int> companies;
+    public List<int> companies = new List<int>(); // Automatisch initialisiert
     public bool isEliminated = false;
 }
