@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public ActionManager actionManager;
     [HideInInspector] public FieldSelector fieldSelector;
     [HideInInspector] public GameTimerManager gameTimerManager;
+    [HideInInspector] public BackgroundMusicManager backgroundMusicManager;
 
 
 
@@ -84,12 +85,20 @@ public class GameManager : MonoBehaviour
         actionManager = GetComponent<ActionManager>();
         fieldSelector = GetComponent<FieldSelector>();
         gameTimerManager = GetComponent<GameTimerManager>();
+        backgroundMusicManager = GetComponent<BackgroundMusicManager>();
         
         // Erstelle GameTimerManager falls nicht vorhanden
         if (gameTimerManager == null)
         {
             gameTimerManager = gameObject.AddComponent<GameTimerManager>();
             Debug.Log("[GameManager] GameTimerManager automatisch hinzugefügt.");
+        }
+        
+        // Erstelle BackgroundMusicManager falls nicht vorhanden
+        if (backgroundMusicManager == null)
+        {
+            backgroundMusicManager = gameObject.AddComponent<BackgroundMusicManager>();
+            Debug.Log("[GameManager] BackgroundMusicManager automatisch hinzugefügt.");
         }
     }
 

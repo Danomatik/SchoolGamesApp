@@ -32289,6 +32289,7 @@ GameObject:
   - component: {fileID: 1871652821}
   - component: {fileID: 1871652822}
   - component: {fileID: 1871652823}
+  - component: {fileID: 1871652824}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -32354,6 +32355,7 @@ MonoBehaviour:
   actionManager: {fileID: 0}
   fieldSelector: {fileID: 0}
   gameTimerManager: {fileID: 0}
+  backgroundMusicManager: {fileID: 0}
   moneyDisplay: {fileID: 458497979}
   saveButton: {fileID: 239109082}
   menuSceneName: MenuScene
@@ -32695,6 +32697,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1871652824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1871652808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942224e53ab014ef98e1070d23f12eac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 8300000, guid: aa48cdb48e5bc40028a6660f333250b0, type: 3}
+  audioSource: {fileID: 1871652823}
+  volume: 0.5
+  playOnStart: 1
+  loop: 1
 --- !u!4 &1872821494 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 3a7e1c0a00828fd4196c8cd24886d2ed, type: 3}
