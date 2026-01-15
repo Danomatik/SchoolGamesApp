@@ -260,10 +260,85 @@ public class UIManager : MonoBehaviour
     {
         if (!btn) return;
         btn.gameObject.SetActive(true);
+        
+        // ✅ Styling für Button-Hintergrund
+        StyleButtonBackground(btn, label);
+        
+        // ✅ Modernes Styling für Button-Text
         var txt = btn.GetComponentInChildren<TextMeshProUGUI>();
-        if (txt) txt.text = label;
+        if (txt)
+        {
+            string formattedLabel = FormatButtonText(label);
+            txt.text = formattedLabel;
+            
+            // Moderne Text-Styling-Eigenschaften
+            txt.fontStyle = FontStyles.Bold;
+            txt.alignment = TextAlignmentOptions.Center;
+            
+            // Subtiler Outline für modernen Look (nicht zu stark)
+            txt.outlineWidth = 0.15f;
+            txt.outlineColor = new Color(0, 0, 0, 0.3f); // Subtiler schwarzer Outline
+            
+            // Letter Spacing für moderneren Look (wenn unterstützt)
+            // txt.characterSpacing = 2f;
+        }
+        
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(() => onClick?.Invoke());
+    }
+    
+    /// <summary>
+    /// Stylt den Button-Hintergrund basierend auf dem Label - Modern Design
+    /// </summary>
+    private void StyleButtonBackground(Button btn, string label)
+    {
+        var image = btn.GetComponent<UnityEngine.UI.Image>();
+        if (image == null) return;
+        
+        // Moderne Farbpalette - Flat Design mit satten, modernen Farben
+        Color bgColor = new Color(0.3f, 0.3f, 0.35f, 1f); // Standard: Modernes Dunkelgrau
+        
+        switch (label.ToLower())
+        {
+            case "gründen":
+            case "investieren":
+            case "ag gründen":
+                // Modernes, lebendiges Grün - Flat Design
+                bgColor = new Color(0.16f, 0.78f, 0.45f, 1f); // #28C773 - Vibrant Green
+                break;
+            case "verzichten":
+            case "später":
+                // Modernes, warmes Rot-Orange - Flat Design
+                bgColor = new Color(0.91f, 0.42f, 0.42f, 1f); // #E86B6B - Warm Red
+                break;
+        }
+        
+        image.color = bgColor;
+        
+        // Moderne Transparenz für subtilen Effekt (optional)
+        // image.color = new Color(bgColor.r, bgColor.g, bgColor.b, 0.95f);
+    }
+    
+    /// <summary>
+    /// Formatiert Button-Text mit Rich Text - Modern Design
+    /// </summary>
+    private string FormatButtonText(string label)
+    {
+        // Moderne Text-Farbe - Reines Weiß für maximalen Kontrast
+        string textColor = "#FFFFFF";
+        
+        // Moderne Typografie: Title Case für professionellen Look
+        string displayText = label;
+        
+        // Title Case: Erster Buchstabe groß, Rest klein (moderner als ALL CAPS)
+        if (displayText.Length > 0)
+        {
+            displayText = char.ToUpper(displayText[0]) + (displayText.Length > 1 ? displayText.Substring(1).ToLower() : "");
+        }
+        
+        // Moderner Text: Größer, fetter, mit subtiler Schatten-Simulation
+        // Verwende moderate Größe für modernen, nicht übertriebenen Look
+        return $"<size=+1><b><color={textColor}>{displayText}</color></b></size>";
     }
 
     private void Close()
