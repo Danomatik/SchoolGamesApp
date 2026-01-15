@@ -155,21 +155,20 @@ public class GameInitiator : MonoBehaviour
 
         // Aktualisiere Spielernamen
         StartCoroutine(UpdatePlayerNames());
+        
+        // ✅ NEU: Aktualisiere MoneyDisplay nach dem Start (mit Verzögerung, damit alles initialisiert ist)
+        StartCoroutine(UpdateMoneyDisplayAfterLoad());
     }
 
     /// <summary>
-    /// Aktualisiert die Namen der PlayerCTRL GameObjects basierend auf PlayerData
+    /// Öffentliche Methode zum sofortigen Aktualisieren der Spielernamen (ohne Coroutine)
     /// </summary>
-    private IEnumerator UpdatePlayerNames()
+    public void UpdatePlayerNamesImmediate()
     {
-        // Warte einen Frame, damit GameManager initialisiert ist
-        yield return null;
-        
         GameManager gameManager = GetComponent<GameManager>();
         if (gameManager == null || gameManager.players == null)
         {
-            Debug.LogWarning("[GameInitiator] GameManager oder players nicht gefunden. Kann Spielernamen nicht aktualisieren.");
-            yield break;
+            return; // Still initializing, will be called again later
         }
         
         // Aktualisiere jeden PlayerCTRL mit dem Namen aus PlayerData
@@ -181,14 +180,169 @@ public class GameInitiator : MonoBehaviour
                 // Setze den Namen auf dem PlayerCTRL GameObject
                 playerCTRL.gameObject.name = $"Player_{playerData.PlayerID}_{playerData.PlayerName}";
                 
-                // Falls PlayerCTRL ein playerName Feld hat, setze es hier
-                // playerCTRL.playerName = playerData.PlayerName; // ⚠️ Uncomment wenn PlayerCTRL ein playerName Feld hat
+                // Aktualisiere TextMeshPro-Komponenten, die den Spielernamen anzeigen
+                UpdatePlayerNameText(playerCTRL.gameObject, playerData.PlayerName);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Aktualisiert die Namen der PlayerCTRL GameObjects basierend auf PlayerData
+    /// </summary>
+    private IEnumerator UpdatePlayerNames()
+    {
+        // Warte ein paar Frames, damit GameManager und alle UI-Elemente initialisiert sind
+        yield return null;
+        yield return null;
+        
+        GameManager gameManager = GetComponent<GameManager>();
+        if (gameManager == null || gameManager.players == null)
+        {
+            Debug.LogWarning("[GameInitiator] GameManager oder players nicht gefunden. Versuche es erneut...");
+            // Versuche es nach einer kurzen Verzögerung erneut
+            yield return new WaitForSeconds(0.1f);
+            gameManager = GetComponent<GameManager>();
+            if (gameManager == null || gameManager.players == null)
+            {
+                Debug.LogWarning("[GameInitiator] GameManager oder players immer noch nicht gefunden. Kann Spielernamen nicht aktualisieren.");
+                yield break;
+            }
+        }
+        
+        // Aktualisiere jeden PlayerCTRL mit dem Namen aus PlayerData
+        foreach (var playerData in CurrentGame.AllPlayers)
+        {
+            var playerCTRL = gameManager.players.Find(p => p.PlayerID == playerData.PlayerID);
+            if (playerCTRL != null)
+            {
+                // Setze den Namen auf dem PlayerCTRL GameObject
+                playerCTRL.gameObject.name = $"Player_{playerData.PlayerID}_{playerData.PlayerName}";
+                
+                // ✅ NEU: Aktualisiere TextMeshPro-Komponenten, die den Spielernamen anzeigen
+                UpdatePlayerNameText(playerCTRL.gameObject, playerData.PlayerName);
                 
                 Debug.Log($"[GameInitiator] PlayerCTRL für Spieler {playerData.PlayerID} Name gesetzt: {playerData.PlayerName}");
             }
         }
         
         Debug.Log($"[GameInitiator] ✅ Spielernamen aktualisiert.");
+    }
+
+    /// <summary>
+    /// Aktualisiert TextMeshPro-Komponenten, die den Spielernamen anzeigen
+    /// </summary>
+    private void UpdatePlayerNameText(GameObject playerObject, string playerName)
+    {
+        if (playerObject == null || string.IsNullOrEmpty(playerName)) return;
+
+        // Suche nach TextMeshPro-Komponenten in allen Children (inklusive dem GameObject selbst)
+        var textComponents = playerObject.GetComponentsInChildren<TMPro.TextMeshProUGUI>(true);
+        
+        // Wenn genau ein Text-Element gefunden wird, aktualisiere es immer (wahrscheinlich das Namens-Label)
+        if (textComponents.Length == 1)
+        {
+            textComponents[0].text = playerName;
+            Debug.Log($"[GameInitiator] TextMeshProUGUI aktualisiert (einzige Komponente): '{playerName}'");
+        }
+        else if (textComponents.Length > 1)
+        {
+            // Mehrere Text-Elemente: Aktualisiere die, die leer sind oder Platzhalter enthalten
+            foreach (var textComp in textComponents)
+            {
+                if (string.IsNullOrEmpty(textComp.text) || 
+                    textComp.text.Contains("Player") || 
+                    textComp.text.Contains("Spieler") ||
+                    textComp.text == "Username" || // Standard-Text aus Prefab
+                    textComp.text.Length < 3 || // Sehr kurze Texte könnten Platzhalter sein
+                    textComp.gameObject.name.Contains("Name") || // GameObject-Name enthält "Name"
+                    textComp.gameObject.name.Contains("Label")) // GameObject-Name enthält "Label"
+                {
+                    textComp.text = playerName;
+                    Debug.Log($"[GameInitiator] TextMeshProUGUI aktualisiert: '{textComp.gameObject.name}' -> '{playerName}'");
+                }
+            }
+        }
+        
+        // Falls keine TextMeshProUGUI gefunden, versuche TextMeshPro (3D)
+        if (textComponents.Length == 0)
+        {
+            var text3DComponents = playerObject.GetComponentsInChildren<TMPro.TextMeshPro>(true);
+            if (text3DComponents.Length == 1)
+            {
+                text3DComponents[0].text = playerName;
+                Debug.Log($"[GameInitiator] TextMeshPro (3D) aktualisiert (einzige Komponente): '{playerName}'");
+            }
+            else if (text3DComponents.Length > 1)
+            {
+                foreach (var textComp in text3DComponents)
+                {
+                    if (string.IsNullOrEmpty(textComp.text) || 
+                        textComp.text.Contains("Player") || 
+                        textComp.text.Contains("Spieler") ||
+                        textComp.text == "Username" ||
+                        textComp.text.Length < 3 ||
+                        textComp.gameObject.name.Contains("Name") ||
+                        textComp.gameObject.name.Contains("Label"))
+                    {
+                        textComp.text = playerName;
+                        Debug.Log($"[GameInitiator] TextMeshPro (3D) aktualisiert: '{textComp.gameObject.name}' -> '{playerName}'");
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Aktualisiert das MoneyDisplay nach dem Laden/Start (mit Verzögerung)
+    /// </summary>
+    private IEnumerator UpdateMoneyDisplayAfterLoad()
+    {
+        // Warte bis GameManager und UIManager initialisiert sind
+        yield return new WaitForSeconds(0.2f);
+        
+        GameManager gameManager = GetComponent<GameManager>();
+        if (gameManager != null && gameManager.uiManager != null)
+        {
+            // Stelle sicher, dass moneyDisplay aktiviert ist
+            gameManager.SetMoneyDisplayActive(true);
+            
+            // Aktualisiere die Anzeige
+            gameManager.uiManager.UpdateMoneyDisplay();
+            Debug.Log("[GameInitiator] ✅ MoneyDisplay aktualisiert nach Start/Laden");
+        }
+    }
+
+    /// <summary>
+    /// Stellt den Timer-Zustand nach dem Laden eines gespeicherten Spiels wieder her
+    /// </summary>
+    private IEnumerator RestoreTimerState(float savedTimeRemaining)
+    {
+        // Warte nur einen Frame - GameTimerManager sollte bereits in Start() initialisiert sein
+        yield return null;
+        
+        GameManager gameManager = GetComponent<GameManager>();
+        if (gameManager == null || gameManager.gameTimerManager == null)
+        {
+            // Falls noch nicht verfügbar, warte noch einen Frame
+            yield return null;
+            gameManager = GetComponent<GameManager>();
+            if (gameManager == null || gameManager.gameTimerManager == null)
+            {
+                Debug.LogWarning("[GameInitiator] GameManager oder GameTimerManager nicht gefunden. Kann Timer-Zustand nicht wiederherstellen.");
+                yield break;
+            }
+        }
+        
+        // Stelle die Zeit wieder her
+        if (savedTimeRemaining > 0)
+        {
+            gameManager.gameTimerManager.SetTimeRemaining(savedTimeRemaining);
+            Debug.Log($"[GameInitiator] ✅ Timer-Zustand wiederhergestellt: {savedTimeRemaining / 60f:F2} Minuten ({savedTimeRemaining} Sekunden)");
+        }
+        else
+        {
+            Debug.LogWarning("[GameInitiator] Gespeicherte Zeit ist 0 oder negativ. Timer wird nicht wiederhergestellt.");
+        }
     }
 
     /// <summary>
@@ -291,21 +445,14 @@ public class GameInitiator : MonoBehaviour
         // Update visual player positions (PlayerCTRL objects)
         StartCoroutine(UpdatePlayerPositionsAfterLoad());
 
-         
         // Aktualisiere Spielernamen
         StartCoroutine(UpdatePlayerNames());
-{
-    // ... existing code ...
-
-    // Deaktiviere nicht verwendete PlayerCTRL GameObjects
-    StartCoroutine(DeactivateUnusedPlayers());
-    
-    // Update visual player positions (PlayerCTRL objects)
-    StartCoroutine(UpdatePlayerPositionsAfterLoad());
-    
-    // ✅ NEU: Aktualisiere Spielernamen
-    StartCoroutine(UpdatePlayerNames());
-}
+        
+        // ✅ NEU: Stelle Timer-Zustand wieder her
+        StartCoroutine(RestoreTimerState(saveData.timeRemaining));
+        
+        // ✅ NEU: Aktualisiere MoneyDisplay nach dem Laden (mit Verzögerung, damit alles initialisiert ist)
+        StartCoroutine(UpdateMoneyDisplayAfterLoad());
     }
 
     /// <summary>
@@ -380,6 +527,31 @@ public class GameInitiator : MonoBehaviour
             gm.diceManager.moveButton.SetActive(true);
 
         Debug.Log($"Initiative skipped. Default order applied: {string.Join(", ", CurrentGame.AllPlayers.Select(p => p.PlayerID))}. Start: Player {CurrentGame.AllPlayers[0].PlayerID}");
+        
+        // ✅ NEU: Aktualisiere Spielernamen nach der Initiative (falls Text-Elemente jetzt verfügbar sind)
+        StartCoroutine(UpdatePlayerNames());
+        
+        // ✅ NEU: Aktualisiere MoneyDisplay nach der Initiative (damit Namen angezeigt werden)
+        StartCoroutine(UpdateMoneyDisplayAfterInit());
+    }
+    
+    /// <summary>
+    /// Aktualisiert das MoneyDisplay nach der Initiative
+    /// </summary>
+    private IEnumerator UpdateMoneyDisplayAfterInit()
+    {
+        yield return new WaitForSeconds(0.3f);
+        
+        GameManager gameManager = GetComponent<GameManager>();
+        if (gameManager != null && gameManager.uiManager != null)
+        {
+            // Stelle sicher, dass moneyDisplay aktiviert ist
+            gameManager.SetMoneyDisplayActive(true);
+            
+            // Aktualisiere die Anzeige
+            gameManager.uiManager.UpdateMoneyDisplay();
+            Debug.Log("[GameInitiator] ✅ MoneyDisplay aktualisiert nach Initiative");
+        }
     }
 
 
@@ -517,6 +689,18 @@ public class GameInitiator : MonoBehaviour
 
         if (gm.diceManager != null && gm.diceManager.moveButton != null)
             gm.diceManager.moveButton.SetActive(true);
+        
+        // ✅ NEU: Aktualisiere Spielernamen nach der Initiative (falls Text-Elemente jetzt verfügbar sind)
+        StartCoroutine(UpdatePlayerNames());
+        
+        // ✅ NEU: Aktualisiere MoneyDisplay nach der Initiative (damit Namen angezeigt werden)
+        yield return new WaitForSeconds(0.3f);
+        if (gm.uiManager != null)
+        {
+            gm.SetMoneyDisplayActive(true);
+            gm.uiManager.UpdateMoneyDisplay();
+            Debug.Log("[GameInitiator] ✅ MoneyDisplay aktualisiert nach Initiative");
+        }
     }
 
     private void InitializeBoardLayout()

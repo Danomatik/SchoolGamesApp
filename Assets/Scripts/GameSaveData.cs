@@ -17,6 +17,9 @@ public class GameSaveData
     
     // Timestamp for when game was saved
     public string saveTimestamp;
+    
+    // Timer state
+    public float timeRemaining;
 }
 
 /// <summary>

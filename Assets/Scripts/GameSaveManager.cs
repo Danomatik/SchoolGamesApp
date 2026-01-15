@@ -66,6 +66,19 @@ public class GameSaveManager : MonoBehaviour
             // Save all company fields
             saveData.companyFields = new System.Collections.Generic.List<CompanyField>(gameInitiator.GetCompanyFields());
 
+            // Save timer state
+            if (gameManager != null && gameManager.gameTimerManager != null)
+            {
+                saveData.timeRemaining = gameManager.gameTimerManager.GetTimeRemaining();
+                Debug.Log($"[GameSaveManager] Timer-Zustand gespeichert: {saveData.timeRemaining} Sekunden ({saveData.timeRemaining / 60f:F2} Minuten)");
+            }
+            else
+            {
+                // Fallback: Wenn Timer nicht gefunden, setze auf 0 (wird beim Laden neu initialisiert)
+                saveData.timeRemaining = 0f;
+                Debug.LogWarning("[GameSaveManager] GameTimerManager nicht gefunden. Zeit wird nicht gespeichert.");
+            }
+
             // Serialize to JSON
             string json = JsonUtility.ToJson(saveData, true);
             

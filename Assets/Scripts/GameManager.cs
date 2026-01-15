@@ -33,6 +33,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GameObject moneyDisplay;
+    
+    /// <summary>
+    /// Aktiviert das MoneyDisplay GameObject
+    /// </summary>
+    public void SetMoneyDisplayActive(bool active)
+    {
+        if (moneyDisplay != null)
+        {
+            moneyDisplay.SetActive(active);
+        }
+    }
 
     [Header("Save System")]
     [SerializeField]
@@ -638,6 +649,12 @@ private void SaveOnExit()
             GameObject moveButton = playerMovement.getMoveButton();
             moveButton.SetActive(true);
             moneyDisplay.SetActive(true);
+        }
+
+        // ✅ NEU: Aktualisiere Spielernamen beim Zugwechsel (Fallback, falls sie noch nicht gesetzt wurden)
+        if (gameInitiator != null)
+        {
+            gameInitiator.UpdatePlayerNamesImmediate();
         }
 
         AutoSave();

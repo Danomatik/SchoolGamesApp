@@ -30,6 +30,16 @@ public class GameTimerManager : MonoBehaviour
 
     private void Start()
     {
+        // Prüfe ob ein Spiel geladen wird - wenn ja, warte auf Wiederherstellung der Zeit
+        if (GameSaveManager.IsLoadingGame)
+        {
+            Debug.Log("[GameTimerManager] Spiel wird geladen - Timer-Initialisierung wird übersprungen. Zeit wird später wiederhergestellt.");
+            // Timer nicht starten - wird von RestoreTimerState() gemacht
+            isTimerRunning = false;
+            timeRemaining = 0; // Wird später gesetzt
+            return;
+        }
+
         // Lade Spiel-Dauer aus PlayerPrefs
         setupManager = FindFirstObjectByType<PlayerSetupManager>();
         if (setupManager == null)
@@ -224,6 +234,43 @@ public class GameTimerManager : MonoBehaviour
     public bool IsGameEnded()
     {
         return gameEnded;
+    }
+
+    /// <summary>
+    /// Setzt die verbleibende Zeit (wird beim Laden eines gespeicherten Spiels verwendet)
+    /// </summary>
+    public void SetTimeRemaining(float timeInSeconds)
+    {
+        if (timeInSeconds < 0)
+        {
+            Debug.LogWarning("[GameTimerManager] Versuche negative Zeit zu setzen. Setze auf 0.");
+            timeInSeconds = 0;
+        }
+        
+        timeRemaining = timeInSeconds;
+        
+        // Update UI sofort
+        if (gameManager != null && gameManager.uiManager != null)
+        {
+            gameManager.uiManager.UpdateTimerDisplay(timeRemaining);
+        }
+        
+        // Wenn Zeit > 0, starte den Timer automatisch
+        if (timeRemaining > 0 && timerEnabled)
+        {
+            isTimerRunning = true;
+            gameEnded = false;
+            Debug.Log($"[GameTimerManager] ⏰ Zeit wiederhergestellt: {timeRemaining / 60f:F2} Minuten ({timeRemaining} Sekunden)");
+        }
+        else if (timeRemaining <= 0)
+        {
+            // Zeit abgelaufen - beende das Spiel
+            isTimerRunning = false;
+            if (!gameEnded)
+            {
+                EndGame();
+            }
+        }
     }
 }
 
