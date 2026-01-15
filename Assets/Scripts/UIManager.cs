@@ -133,6 +133,19 @@ public class UIManager : MonoBehaviour
         if (!companyPanel) { Debug.LogError("CompanyPanel fehlt!"); return; }
 
         companyPanel.SetActive(true);
+        
+        // ✅ Konfiguriere Text-Elemente für korrekte Anzeige (nur Word Wrapping)
+        if (titleText != null)
+        {
+            titleText.enableWordWrapping = true;
+            titleText.overflowMode = TextOverflowModes.Page;
+        }
+        if (bodyText != null)
+        {
+            bodyText.enableWordWrapping = true;
+            bodyText.overflowMode = TextOverflowModes.Page;
+        }
+        
         titleText.text = $"{company.companyName} — Gründung";
         bodyText.text =
             $"Kosten: {company.costFound}€\n" +
@@ -163,6 +176,19 @@ public class UIManager : MonoBehaviour
         if (!companyPanel) { Debug.LogError("CompanyPanel fehlt!"); return; }
 
         companyPanel.SetActive(true);
+        
+        // ✅ Konfiguriere Text-Elemente für korrekte Anzeige (nur Word Wrapping)
+        if (titleText != null)
+        {
+            titleText.enableWordWrapping = true;
+            titleText.overflowMode = TextOverflowModes.Page;
+        }
+        if (bodyText != null)
+        {
+            bodyText.enableWordWrapping = true;
+            bodyText.overflowMode = TextOverflowModes.Page;
+        }
+        
         titleText.text = $"{company.companyName} — Upgrade";
         bodyText.text =
             $"Aktueller Status: {field.level}\n\n" +

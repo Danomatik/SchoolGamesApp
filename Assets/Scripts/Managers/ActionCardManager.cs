@@ -47,6 +47,9 @@ public class ActionCardManager : MonoBehaviour
     private readonly HashSet<int> skipTurnCards = new HashSet<int> { 7 };
     private readonly HashSet<int> rollAgainCards = new HashSet<int> { 8 };
     private readonly HashSet<int> specialCards = new HashSet<int> { 5 };
+    
+    // Karten, die zu owned companies bewegen (nur wenn Spieler Unternehmen besitzt)
+    private readonly HashSet<int> ownedCompanyCards = new HashSet<int> { 3, 4 }; // 3 = nächste, 4 = eines deiner
 
     void Awake()
     {
@@ -120,6 +123,9 @@ public class ActionCardManager : MonoBehaviour
     public void ShowRandomActionCard()
     {
         List<ActionCard> availableCards = GetFilteredCards();
+        
+        // ✅ NEU: Filtere Karten heraus, die zu owned companies bewegen, wenn Spieler keine Unternehmen besitzt
+        availableCards = FilterCardsByPlayerOwnership(availableCards);
 
         if (availableCards == null || availableCards.Count == 0)
         {
@@ -243,5 +249,41 @@ public class ActionCardManager : MonoBehaviour
                 Debug.LogWarning($"Action Card #{cardId}: No action implemented yet.");
                 break;
         }
+    }
+    
+    /// <summary>
+    /// Filtert Karten heraus, die zu owned companies bewegen, wenn der Spieler keine Unternehmen besitzt
+    /// </summary>
+    private List<ActionCard> FilterCardsByPlayerOwnership(List<ActionCard> cards)
+    {
+        if (gameManager == null) return cards;
+        
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
+        if (currentPlayer == null) return cards;
+        
+        // Prüfe ob Spieler Unternehmen besitzt
+        bool hasCompanies = currentPlayer.companies != null && currentPlayer.companies.Count > 0;
+        
+        if (hasCompanies)
+        {
+            // Spieler hat Unternehmen - alle Karten erlaubt
+            return cards;
+        }
+        
+        // Spieler hat keine Unternehmen - filtere owned company Karten heraus
+        List<ActionCard> filtered = new List<ActionCard>();
+        foreach (var card in cards)
+        {
+            if (!ownedCompanyCards.Contains(card.id))
+            {
+                filtered.Add(card);
+            }
+            else
+            {
+                Debug.Log($"ActionCardManager: Karte {card.id} wurde herausgefiltert (Spieler hat keine Unternehmen)");
+            }
+        }
+        
+        return filtered;
     }
 }

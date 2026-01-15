@@ -66,14 +66,14 @@ public class TimerCalculationsTests
     public void Timer_FormatTime_MaxDuration()
     {
         // Arrange
-        float maxDuration = 10f * 60f; // 10 Minuten = 600 Sekunden
+        float maxDuration = 30f * 60f; // 30 Minuten = 1800 Sekunden
 
         // Act
         int minutes = Mathf.FloorToInt(maxDuration / 60f);
         int seconds = Mathf.FloorToInt(maxDuration % 60f);
 
         // Assert
-        Assert.AreEqual(10, minutes, "Sollte 10 Minuten sein");
+        Assert.AreEqual(30, minutes, "Sollte 30 Minuten sein");
         Assert.AreEqual(0, seconds, "Sollte 0 Sekunden sein");
     }
 
@@ -111,10 +111,10 @@ public class TimerCalculationsTests
     {
         // Arrange
         float minDuration = 0f;
-        float maxDuration = 10f; // 10 Minuten Maximum
+        float maxDuration = 30f; // 30 Minuten Maximum
 
         // Act & Assert
         Assert.GreaterOrEqual(minDuration, 0f, "Minimum Dauer sollte >= 0 sein");
-        Assert.LessOrEqual(maxDuration, 10f, "Maximum Dauer sollte <= 10 Minuten sein");
+        Assert.LessOrEqual(maxDuration, 30f, "Maximum Dauer sollte <= 30 Minuten sein");
     }
 }

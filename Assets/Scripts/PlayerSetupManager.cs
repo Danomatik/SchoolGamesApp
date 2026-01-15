@@ -105,12 +105,12 @@ public class PlayerSetupManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Gibt die gespeicherte Spiel Dauer zurück (Standard: 5 Minuten, Max: 10 Minuten)
+    /// Gibt die gespeicherte Spiel Dauer zurück (Standard: 5 Minuten, Max: 30 Minuten)
     /// </summary>
     public float GetGameDuration()
     {
         float duration = PlayerPrefs.GetFloat(GAME_DURATION_KEY, 5f); // Standard: 5 Minuten
-        return Mathf.Clamp(duration, 0f, 10f); // Max: 10 Minuten
+        return Mathf.Clamp(duration, 0f, 30f); // Max: 30 Minuten
     }
 }
 

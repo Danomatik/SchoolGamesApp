@@ -163,17 +163,17 @@ public class PlayerSetupManagerTests
     }
 
     [Test]
-    public void PlayerSetupManager_GetGameDuration_ClampsToMax10Minutes()
+    public void PlayerSetupManager_GetGameDuration_ClampsToMax30Minutes()
     {
         // Arrange
-        float tooHighDuration = 15f;
+        float tooHighDuration = 35f;
 
         // Act
         setupManager.SetGameDuration(tooHighDuration);
         float savedDuration = setupManager.GetGameDuration();
 
         // Assert
-        Assert.LessOrEqual(savedDuration, 10f, "Sollte auf max 10 Minuten begrenzt werden");
+        Assert.LessOrEqual(savedDuration, 30f, "Sollte auf max 30 Minuten begrenzt werden");
     }
 
     [Test]

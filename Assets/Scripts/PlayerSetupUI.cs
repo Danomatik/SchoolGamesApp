@@ -95,13 +95,13 @@ public class PlayerSetupUI : MonoBehaviour
             // Lade gespeicherte Spiel Dauer
             if (gameDurationSlider != null)
             {
-                // Stelle sicher, dass Slider richtig konfiguriert ist (Max: 10 Minuten)
+                // Stelle sicher, dass Slider richtig konfiguriert ist (Max: 30 Minuten)
                 if (gameDurationSlider.minValue < 0) gameDurationSlider.minValue = 0;
-                if (gameDurationSlider.maxValue > 10) gameDurationSlider.maxValue = 10; // Max: 10 Minuten
+                if (gameDurationSlider.maxValue < 30) gameDurationSlider.maxValue = 30; // Max: 30 Minuten
                 
                 float savedDuration = setupManager.GetGameDuration();
-                // Stelle sicher, dass Wert im gültigen Bereich ist (0-10 Minuten)
-                savedDuration = Mathf.Clamp(savedDuration, 0f, 10f);
+                // Stelle sicher, dass Wert im gültigen Bereich ist (0-30 Minuten)
+                savedDuration = Mathf.Clamp(savedDuration, 0f, 30f);
                 gameDurationSlider.value = savedDuration;
                 
                 // Verbinde Slider mit Manager (WICHTIG: Nach Setzen des Wertes!)

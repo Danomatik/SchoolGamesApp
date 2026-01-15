@@ -123,7 +123,7 @@ Unity -runTests -batchmode -projectPath . -testResults TestResults.xml
 - `PlayerSetupManager_GetAllPlayerNames_ReturnsCorrectNames()` - Alle Namen
 - `PlayerSetupManager_SetGameDuration_SavesCorrectly()` - Spiel-Dauer speichern
 - `PlayerSetupManager_GetGameDuration_ReturnsDefaultWhenNotSet()` - Standard-Dauer
-- `PlayerSetupManager_GetGameDuration_ClampsToMax10Minutes()` - Max-Begrenzung
+- `PlayerSetupManager_GetGameDuration_ClampsToMax30Minutes()` - Max-Begrenzung
 - `PlayerSetupManager_GetGameDuration_ClampsToMin0Minutes()` - Min-Begrenzung
 - `PlayerSetupManager_HasPlayerData_ReturnsFalseWhenEmpty()` - Daten-Prüfung
 - `PlayerSetupManager_HasPlayerData_ReturnsTrueWhenDataExists()` - Daten vorhanden

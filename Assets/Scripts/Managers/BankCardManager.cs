@@ -58,6 +58,9 @@ public class BankCardManager : MonoBehaviour
     private readonly HashSet<int> movementCards = new HashSet<int> {
         2, 7
     };
+    
+    // Karten, die zu owned companies bewegen (nur wenn Spieler Unternehmen besitzt)
+    private readonly HashSet<int> ownedCompanyCards = new HashSet<int> { 61, 85 }; // 61 = eines deiner, 85 = nächste
 
     private ActionManager actionManager;
 
@@ -131,6 +134,9 @@ public class BankCardManager : MonoBehaviour
     public void ShowRandomBankCard()
     {
         List<BankCard> availableCards = GetFilteredCards();
+        
+        // ✅ NEU: Filtere Karten heraus, die zu owned companies bewegen, wenn Spieler keine Unternehmen besitzt
+        availableCards = FilterCardsByPlayerOwnership(availableCards);
 
         if (availableCards == null || availableCards.Count == 0)
         {
@@ -256,6 +262,42 @@ public class BankCardManager : MonoBehaviour
             case 36: case 65: case 71: return 250;
             default: return 0;
         }
+    }
+    
+    /// <summary>
+    /// Filtert Karten heraus, die zu owned companies bewegen, wenn der Spieler keine Unternehmen besitzt
+    /// </summary>
+    private List<BankCard> FilterCardsByPlayerOwnership(List<BankCard> cards)
+    {
+        if (gameManager == null) return cards;
+        
+        PlayerData currentPlayer = gameManager.GetCurrentPlayer();
+        if (currentPlayer == null) return cards;
+        
+        // Prüfe ob Spieler Unternehmen besitzt
+        bool hasCompanies = currentPlayer.companies != null && currentPlayer.companies.Count > 0;
+        
+        if (hasCompanies)
+        {
+            // Spieler hat Unternehmen - alle Karten erlaubt
+            return cards;
+        }
+        
+        // Spieler hat keine Unternehmen - filtere owned company Karten heraus
+        List<BankCard> filtered = new List<BankCard>();
+        foreach (var card in cards)
+        {
+            if (!ownedCompanyCards.Contains(card.id))
+            {
+                filtered.Add(card);
+            }
+            else
+            {
+                Debug.Log($"BankCardManager: Karte {card.id} wurde herausgefiltert (Spieler hat keine Unternehmen)");
+            }
+        }
+        
+        return filtered;
     }
 
    
