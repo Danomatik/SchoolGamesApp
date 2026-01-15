@@ -92,11 +92,12 @@ public class UIManager : MonoBehaviour
                 ? $"Spieler {currentPlayer.PlayerID}" 
                 : currentPlayer.PlayerName;
             
-            moneyDisplayText.text = $"{playerName}: {currentPlayer.Money}€";
+            // ✅ Verbesserte Formatierung mit Rich Text
+            moneyDisplayText.text = $"<b><color=#FFFFFF>{playerName}</color></b>\n<color=#4CAF50><size=+2>{currentPlayer.Money:N0}</size>€</color>";
         }
         else
         {
-            moneyDisplayText.text = "--- €";
+            moneyDisplayText.text = "<color=#888888>--- €</color>";
         }
     }
     
@@ -110,7 +111,10 @@ public class UIManager : MonoBehaviour
         int minutes = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds / 60f));
         int seconds = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds % 60f));
 
-        timerDisplayText.text = $"{minutes:D2}:{seconds:D2}";
+        // ✅ Verbesserte Formatierung mit Rich Text und Farben
+        // Warnung bei weniger als 5 Minuten (rot), sonst normal (weiß)
+        string color = timeRemainingInSeconds < 300f ? "#FF4444" : "#FFFFFF";
+        timerDisplayText.text = $"<color={color}><b>Zeit: {minutes:D2}:{seconds:D2}</b></color>";
     }
 
     public void ShowInitiativeRoll(string playerLabel, int roll)
@@ -146,11 +150,12 @@ public class UIManager : MonoBehaviour
             bodyText.overflowMode = TextOverflowModes.Page;
         }
         
-        titleText.text = $"{company.companyName} — Gründung";
+        // ✅ Verbesserte Formatierung mit Rich Text
+        titleText.text = $"<b><color=#FFD700>{company.companyName}</color></b>\n<size=80%><color=#CCCCCC>Gründung</color></size>";
         bodyText.text =
-            $"Kosten: {company.costFound}€\n" +
-            $"Ertrag pro Runde: {company.revenueFound}€\n\n" +
-            "Möchtest du gründen? (Quiz erforderlich)";
+            $"<color=#FF6B6B>Kosten:</color> <b>{company.costFound:N0}€</b>\n" +
+            $"<color=#4ECDC4>Ertrag pro Runde:</color> <b>{company.revenueFound:N0}€</b>\n\n" +
+            $"<color=#FFFFFF>Möchtest du gründen?</color>\n<size=85%><color=#AAAAAA>(Quiz erforderlich)</color></size>";
 
         // Button 1 = Kaufen/Gründen
         Wire(primaryButton, "Gründen", () =>
@@ -189,12 +194,15 @@ public class UIManager : MonoBehaviour
             bodyText.overflowMode = TextOverflowModes.Page;
         }
         
-        titleText.text = $"{company.companyName} — Upgrade";
+        // ✅ Verbesserte Formatierung mit Rich Text
+        titleText.text = $"<b><color=#FFD700>{company.companyName}</color></b>\n<size=80%><color=#CCCCCC>Upgrade</color></size>";
+        
+        string statusColor = field.level == CompanyLevel.Founded ? "#4ECDC4" : "#FFA500";
         bodyText.text =
-            $"Aktueller Status: {field.level}\n\n" +
-            $"• Investieren: {company.costInvest}€ → Ertrag {company.revenueInvest}€\n" +
-            $"• AG gründen: {company.costAG}€ → Ertrag {company.revenueAG}€\n\n" +
-            "Wähle ein Upgrade (Quiz erforderlich):";
+            $"<color=#FFFFFF>Aktueller Status:</color> <b><color={statusColor}>{field.level}</color></b>\n\n" +
+            $"<color=#FF6B6B>Investieren:</color> <b>{company.costInvest:N0}€</b> → <color=#4ECDC4>Ertrag {company.revenueInvest:N0}€</color>\n" +
+            $"<color=#FF6B6B>AG gründen:</color> <b>{company.costAG:N0}€</b> → <color=#4ECDC4>Ertrag {company.revenueAG:N0}€</color>\n\n" +
+            $"<color=#FFFFFF>Wähle ein Upgrade:</color>\n<size=85%><color=#AAAAAA>(Quiz erforderlich)</color></size>";
 
         var gm = GetComponent<GameManager>(); // alle Manager am selben GO
 
