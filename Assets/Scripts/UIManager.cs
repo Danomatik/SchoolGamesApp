@@ -536,13 +536,14 @@ public class UIManager : MonoBehaviour
 
         
 
-        // Titel
+        // ✅ Modernes Formatting für Titel mit Farbschema
         if (gameOverTitleText)
         {
-            gameOverTitleText.text = "Spiel beendet!";
+            gameOverTitleText.text = $"<b><color=#3EBCD5><size=+2>Spiel beendet!</size></color></b>";
+            gameOverTitleText.alignment = TextAlignmentOptions.Center;
         }
 
-        // Body Text mit Gewinner
+        // ✅ Modernes Formatting für Body Text mit Gewinner
         if (gameOverBodyText && rankings != null && rankings.Count > 0)
         {
             var winner = rankings[0];
@@ -550,9 +551,11 @@ public class UIManager : MonoBehaviour
                 ? $"Spieler {winner.player.PlayerID}" 
                 : winner.player.PlayerName;
             
-            gameOverBodyText.text = $"Gewinner: {winnerName}\n" +
-                                    $"Vermögen: {winner.totalAssets}€\n" +
-                                    $"(Bargeld: {winner.money}€, Unternehmen: {winner.companyCount})";
+            gameOverBodyText.text = 
+                $"<b><color=#96C23D>Gewinner:</color></b> <color=#FFFFFF>{winnerName}</color>\n" +
+                $"<color=#FFFFFF>Vermögen:</color> <b><color=#96C23D>{winner.totalAssets:N0}€</color></b>\n" +
+                $"<size=90%><color=#C6E6F0>(Bargeld: {winner.money:N0}€, Unternehmen: {winner.companyCount})</color></size>";
+            gameOverBodyText.alignment = TextAlignmentOptions.Center;
         }
 
         // Lösche alte Ranking-Einträge
@@ -589,9 +592,8 @@ public class UIManager : MonoBehaviour
                 rectTransform.sizeDelta = new Vector2(600, 60);
                 
                 TextMeshProUGUI textComponent = entryObj.AddComponent<TextMeshProUGUI>();
-                textComponent.fontSize = 80; // Größere Schrift
+                textComponent.fontSize = 60; // Moderate Schriftgröße
                 textComponent.alignment = TextAlignmentOptions.Center;
-                textComponent.color = i == 0 ? Color.yellow : Color.white; // Gewinner in Gelb
                 
                 // Font zuweisen
                 if (fontToUse != null)
@@ -599,9 +601,13 @@ public class UIManager : MonoBehaviour
                     textComponent.font = fontToUse;
                 }
                 
-                // Setze Text
-                textComponent.text = $"{i + 1}. {playerName}: {ranking.totalAssets} Euro " +
-                            $"(Bargeld: {ranking.money} Euro, Unternehmen: {ranking.companyCount})";
+                // ✅ Modernes Formatting mit Farbschema für Ranking-Einträge
+                string rankColor = i == 0 ? "#96C23D" : (i == 1 ? "#3EBCD5" : "#FFFFFF"); // MINT für 1., SKY BLUE für 2., Weiß für Rest
+                
+                textComponent.text = 
+                    $"<b><color={rankColor}>{i + 1}. {playerName}</color></b>\n" +
+                    $"<size=85%><color=#FFFFFF>Vermögen: <b><color=#96C23D>{ranking.totalAssets:N0}€</color></b> " +
+                    $"(Bargeld: {ranking.money:N0}€, Unternehmen: {ranking.companyCount})</color></size>";
             }
             
             Debug.Log($"[UIManager] {rankings.Count} Ranking-Einträge erstellt im RankingContainer.");

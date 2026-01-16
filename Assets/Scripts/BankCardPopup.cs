@@ -7,8 +7,9 @@ public class BankCardPopup : MonoBehaviour, IPointerClickHandler
 {
     [Header("UI")]
     [SerializeField] private GameObject root;          // Fullscreen Panel (Image)
-    [SerializeField] private TextMeshProUGUI idText;
-    [SerializeField] private TextMeshProUGUI bodyText;
+    [SerializeField] private TextMeshProUGUI questionText;  // Zeigt "Bank Frage" oder "Bankkarte"
+    [SerializeField] private TextMeshProUGUI idText;        // Zeigt "Frage 23" oder "Karte 5"
+    [SerializeField] private TextMeshProUGUI bodyText;      // Zeigt den eigentlichen Text
     [SerializeField] private CanvasGroup cg;           // optional (falls vorhanden)
 
     private Action onDismiss;
@@ -24,8 +25,33 @@ public class BankCardPopup : MonoBehaviour, IPointerClickHandler
     {
         this.onDismiss = onDismiss;
 
-        if (idText)   idText.text   = $"#{id}";
-        if (bodyText) bodyText.text = text;
+        // ✅ Modernes Formatting mit Farbschema
+        // questionText zeigt "Bank Frage" oder "Bankkarte"
+        if (questionText)
+        {
+            questionText.text = $"<b><color=#3EBCD5>Bank Frage</color></b>";
+            questionText.enableWordWrapping = true;
+            questionText.overflowMode = TextOverflowModes.Page;
+            questionText.alignment = TextAlignmentOptions.Center;
+        }
+        
+        // idText zeigt nur die ID (z.B. "Frage 23")
+        if (idText)
+        {
+            idText.text = $"<size=90%><color=#C6E6F0>Frage {id}</color></size>";
+            idText.enableWordWrapping = true;
+            idText.overflowMode = TextOverflowModes.Page;
+            idText.alignment = TextAlignmentOptions.Center;
+        }
+        
+        // bodyText zeigt den eigentlichen Text
+        if (bodyText)
+        {
+            bodyText.text = $"<color=#FFFFFF>{text}</color>";
+            bodyText.enableWordWrapping = true;
+            bodyText.overflowMode = TextOverflowModes.Page;
+            bodyText.alignment = TextAlignmentOptions.Center;
+        }
 
         if (!root.activeSelf) root.SetActive(true);
 

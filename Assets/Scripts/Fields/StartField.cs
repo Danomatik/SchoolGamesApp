@@ -11,16 +11,25 @@ public class StartField : MonoBehaviour
         PlayerCTRL triggeredPiece = other.GetComponentInParent<PlayerCTRL>();
         if (triggeredPiece == null) return;
 
-        // Prüfe ob wir gerade ein Spiel laden - dann keinen Bonus geben
+        // ✅ Prüfe ob wir gerade ein Spiel laden - dann keinen Bonus geben
         if (IsLoadingGame())
         {
             Debug.Log($"[StartField] Ignoriere Start-Bonus für Spieler {triggeredPiece.PlayerID} (Spiel wird geladen)");
             return;
         }
 
+        // ✅ Prüfe ob dies wirklich das Start-Feld (Position 0) ist
+        // Corner-Felder außer Start (10, 20, 30) sollen kein Geld geben
+        int currentPosition = triggeredPiece.currentPos;
+        if (currentPosition != 0)
+        {
+            Debug.Log($"[StartField] Ignoriere Geld-Bonus für Spieler {triggeredPiece.PlayerID} auf Position {currentPosition} (nur Position 0 gibt Geld)");
+            return;
+        }
+
         gameManager.moneyManager.AddMoney(triggeredPiece.PlayerID, 400); 
         
-        Debug.Log($"Spieler {triggeredPiece.PlayerID} überquert das Startfeld und erhält Geld.");
+        Debug.Log($"Spieler {triggeredPiece.PlayerID} überquert das Startfeld (Position 0) und erhält 400€.");
     }
 
     /// <summary>

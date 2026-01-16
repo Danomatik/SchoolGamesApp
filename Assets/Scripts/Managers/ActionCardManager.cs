@@ -161,7 +161,8 @@ public class ActionCardManager : MonoBehaviour
             return;
         }
 
-        ExecuteActionCardAction(pendingCard.id);
+        int cardId = pendingCard.id;
+        ExecuteActionCardAction(cardId);
 
         if (lastCardWasRollAgain)
         {
@@ -169,6 +170,7 @@ public class ActionCardManager : MonoBehaviour
         }
         else
         {
+            // ✅ Stelle sicher, dass EndTurn() aufgerufen wird, um Move-Button für nächsten Spieler zu aktivieren
             gameManager.EndTurn();
         }
 

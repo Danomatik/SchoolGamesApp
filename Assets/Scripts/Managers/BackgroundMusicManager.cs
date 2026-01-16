@@ -20,11 +20,16 @@ public class BackgroundMusicManager : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
         
-        // Konfiguriere AudioSource
+        // Konfiguriere AudioSource - Stelle sicher, dass alle Werte korrekt sind
         audioSource.playOnAwake = false;
         audioSource.loop = loop;
         audioSource.volume = volume;
+        audioSource.pitch = 1.0f; // ✅ Stelle sicher, dass Pitch normal ist (1.0 = normale Geschwindigkeit)
         audioSource.priority = 0; // Niedrigste Priorität, damit Sound-Effekte nicht unterbrochen werden
+        audioSource.spatialBlend = 0f; // 2D Sound (nicht 3D)
+        audioSource.bypassEffects = false;
+        audioSource.bypassListenerEffects = false;
+        audioSource.bypassReverbZones = false;
         
         // Lade Musik aus Resources falls nicht im Inspector zugewiesen
         if (backgroundMusic == null)
@@ -56,9 +61,11 @@ public class BackgroundMusicManager : MonoBehaviour
             return;
         }
 
+        // ✅ Stelle sicher, dass Pitch korrekt ist (1.0 = normale Geschwindigkeit)
+        audioSource.pitch = 1.0f;
         audioSource.clip = backgroundMusic;
         audioSource.Play();
-        Debug.Log($"[BackgroundMusicManager] Hintergrundmusik gestartet: {backgroundMusic.name}");
+        Debug.Log($"[BackgroundMusicManager] Hintergrundmusik gestartet: {backgroundMusic.name} (Pitch: {audioSource.pitch})");
     }
 
     /// <summary>

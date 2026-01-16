@@ -172,8 +172,20 @@ public class BankCardManager : MonoBehaviour
             return;
         }
 
-        ExecuteBankCardAction(pendingCard.id);
+        int cardId = pendingCard.id;
+        ExecuteBankCardAction(cardId);
         pendingCard = null;
+        
+        // ✅ Stelle sicher, dass EndTurn() für Geldkarten aufgerufen wird
+        // (ExecuteBankCardAction ruft EndTurn() nicht für Geldkarten auf)
+        HashSet<int> moneyCards = new HashSet<int> {
+            13, 17, 18, 22, 26, 28, 31, 33, 34, 36, 41, 47, 48, 55, 59, 64, 65, 71, 73, 75, 78, 81, 82
+        };
+        if (moneyCards.Contains(cardId))
+        {
+            // ✅ Geldkarte wurde ausgeführt - rufe EndTurn() auf, um Move-Button für nächsten Spieler zu aktivieren
+            gameManager.EndTurn();
+        }
     }
 
     private void ExecuteBankCardAction(int cardId)
