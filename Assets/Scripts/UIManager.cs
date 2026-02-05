@@ -87,17 +87,15 @@ public class UIManager : MonoBehaviour
         var currentPlayer = gm.GetCurrentPlayer();
         if (currentPlayer != null)
         {
-            // ✅ Verwende PlayerName statt "Spieler {ID}"
             string playerName = string.IsNullOrEmpty(currentPlayer.PlayerName) 
                 ? $"Spieler {currentPlayer.PlayerID}" 
                 : currentPlayer.PlayerName;
             
-            // ✅ Modernes Design: PLATINUM für Name, MINT für Geld mit besserem Kontrast
-            moneyDisplayText.text = $"<b><color=#FFFFFF>{playerName}</color></b>\n<color=#96C23D><size=+3><b>{currentPlayer.Money:N0}</b></size>€</color>";
+            moneyDisplayText.text = $"{playerName}\n{currentPlayer.Money:N0}€";
         }
         else
         {
-            moneyDisplayText.text = "<color=#FFFFFF>--- €</color>";
+            moneyDisplayText.text = "--- €";
         }
     }
     
@@ -111,12 +109,7 @@ public class UIManager : MonoBehaviour
         int minutes = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds / 60f));
         int seconds = Mathf.Max(0, Mathf.FloorToInt(timeRemainingInSeconds % 60f));
 
-        // ✅ Modernes Design: SKY BLUE normal, BUSINESS bei Warnung mit besserem Kontrast
-        string color = timeRemainingInSeconds < 300f ? "#D79244" : "#3EBCD5";
-        timerDisplayText.text = $"<color={color}><size=+2><b>{minutes:D2}:{seconds:D2}</b></size></color>";
-        
-        // ✅ Zentriere die Timer-Anzeige
-        timerDisplayText.alignment = TextAlignmentOptions.Center;
+        timerDisplayText.text = $"{minutes:D2}:{seconds:D2}";
     }
 
     public void ShowInitiativeRoll(string playerLabel, int roll)
@@ -140,24 +133,11 @@ public class UIManager : MonoBehaviour
 
         companyPanel.SetActive(true);
         
-        // ✅ Konfiguriere Text-Elemente für korrekte Anzeige (nur Word Wrapping)
-        if (titleText != null)
-        {
-            titleText.enableWordWrapping = true;
-            titleText.overflowMode = TextOverflowModes.Page;
-        }
-        if (bodyText != null)
-        {
-            bodyText.enableWordWrapping = true;
-            bodyText.overflowMode = TextOverflowModes.Page;
-        }
-        
-        // ✅ Modernes Design mit besserem Kontrast: SKY BLUE für Titel, BUSINESS für Kosten, MINT für Ertrag
-        titleText.text = $"<b><color=#3EBCD5><size=+1>{company.companyName}</size></color></b>\n<size=90%><color=#FFFFFF>Gründung</color></size>";
+        titleText.text = $"{company.companyName}\nGründung";
         bodyText.text =
-            $"<color=#FFFFFF>Kosten:</color> <b><color=#D79244>{company.costFound:N0}€</color></b>\n" +
-            $"<color=#FFFFFF>Ertrag pro Runde:</color> <b><color=#96C23D>{company.revenueFound:N0}€</color></b>\n\n" +
-            $"<color=#FFFFFF>Möchtest du gründen?</color>\n<size=90%><color=#C6E6F0>(Quiz erforderlich)</color></size>";
+            $"Kosten: {company.costFound:N0}€\n" +
+            $"Ertrag pro Runde: {company.revenueFound:N0}€\n\n" +
+            $"Möchtest du gründen?\n(Quiz erforderlich)";
 
         // Button 1 = Kaufen/Gründen
         Wire(primaryButton, "Gründen", () =>
@@ -184,27 +164,13 @@ public class UIManager : MonoBehaviour
 
         companyPanel.SetActive(true);
         
-        // ✅ Konfiguriere Text-Elemente für korrekte Anzeige (nur Word Wrapping)
-        if (titleText != null)
-        {
-            titleText.enableWordWrapping = true;
-            titleText.overflowMode = TextOverflowModes.Page;
-        }
-        if (bodyText != null)
-        {
-            bodyText.enableWordWrapping = true;
-            bodyText.overflowMode = TextOverflowModes.Page;
-        }
+        titleText.text = $"{company.companyName}\nUpgrade";
         
-        // ✅ Modernes Design mit besserem Kontrast: SKY BLUE für Titel, BUSINESS für Kosten, MINT für Ertrag
-        titleText.text = $"<b><color=#3EBCD5><size=+1>{company.companyName}</size></color></b>\n<size=90%><color=#FFFFFF>Upgrade</color></size>";
-        
-        string statusColor = field.level == CompanyLevel.Founded ? "#96C23D" : "#D79244";
         bodyText.text =
-            $"<color=#FFFFFF>Aktueller Status:</color> <b><color={statusColor}>{field.level}</color></b>\n\n" +
-            $"<color=#FFFFFF>Investieren:</color> <b><color=#D79244>{company.costInvest:N0}€</color></b> → <color=#96C23D>Ertrag {company.revenueInvest:N0}€</color>\n" +
-            $"<color=#FFFFFF>AG gründen:</color> <b><color=#D79244>{company.costAG:N0}€</color></b> → <color=#96C23D>Ertrag {company.revenueAG:N0}€</color>\n\n" +
-            $"<color=#FFFFFF>Wähle ein Upgrade:</color>\n<size=90%><color=#C6E6F0>(Quiz erforderlich)</color></size>";
+            $"Aktueller Status: {field.level}\n\n" +
+            $"Investieren: {company.costInvest:N0}€ → Ertrag {company.revenueInvest:N0}€\n" +
+            $"AG gründen: {company.costAG:N0}€ → Ertrag {company.revenueAG:N0}€\n\n" +
+            $"Wähle ein Upgrade:\n(Quiz erforderlich)";
 
         var gm = GetComponent<GameManager>(); // alle Manager am selben GO
 
@@ -263,83 +229,14 @@ public class UIManager : MonoBehaviour
         if (!btn) return;
         btn.gameObject.SetActive(true);
         
-        // ✅ Styling für Button-Hintergrund mit Farbschema
-        StyleButtonBackground(btn, label);
-        
-        // ✅ Modernes Styling für Button-Text mit besserem Kontrast
         var txt = btn.GetComponentInChildren<TextMeshProUGUI>();
         if (txt)
         {
-            string formattedLabel = FormatButtonText(label);
-            txt.text = formattedLabel;
-            txt.fontStyle = FontStyles.Bold;
-            txt.alignment = TextAlignmentOptions.Center;
-            
-            // Subtiler Outline für bessere Lesbarkeit und modernen Look
-            txt.outlineWidth = 0.2f;
-            txt.outlineColor = new Color(0, 0, 0, 0.4f); // Leichter schwarzer Outline
+            txt.text = label;
         }
         
         btn.onClick.RemoveAllListeners();
         btn.onClick.AddListener(() => onClick?.Invoke());
-    }
-    
-    /// <summary>
-    /// Stylt den Button-Hintergrund mit Farbschema und abgerundeten Ecken
-    /// </summary>
-    private void StyleButtonBackground(Button btn, string label)
-    {
-        var image = btn.GetComponent<UnityEngine.UI.Image>();
-        if (image == null) return;
-        
-        // Moderne Farben: MINT für positive Aktionen, BUSINESS für negative/neutrale
-        Color bgColor = new Color(0.3f, 0.3f, 0.33f, 1f); // Standard: PLATINUM ähnlich
-        
-        switch (label.ToLower())
-        {
-            case "gründen":
-            case "investieren":
-            case "ag gründen":
-                // MINT (#96C23D) für positive Aktionen - etwas heller für moderneren Look
-                bgColor = new Color(0.588f, 0.761f, 0.239f, 1f); // #96C23D
-                break;
-            case "verzichten":
-            case "später":
-                // BUSINESS (#D79244) für negative/neutrale Aktionen
-                bgColor = new Color(0.843f, 0.573f, 0.267f, 1f); // #D79244
-                break;
-        }
-        
-        image.color = bgColor;
-        
-        // Abgerundete Ecken: Unity UI unterstützt keine direkten rounded corners,
-        // aber wir können die Button-Größe anpassen für einen moderneren Look
-        RectTransform rectTransform = btn.GetComponent<RectTransform>();
-        if (rectTransform != null)
-        {
-            // Stelle sicher, dass der Button eine angemessene Größe hat
-            // Die abgerundeten Ecken müssen im Unity Editor mit einem Sprite/Material gesetzt werden
-            // Hier können wir nur die visuelle Erscheinung verbessern
-        }
-    }
-    
-    /// <summary>
-    /// Formatiert Button-Text mit modernem Design
-    /// </summary>
-    private string FormatButtonText(string label)
-    {
-        // Weißer Text mit Outline für maximalen Kontrast und modernen Look
-        string textColor = "#FFFFFF";
-        
-        // Title Case für professionellen Look
-        string displayText = label;
-        if (displayText.Length > 0)
-        {
-            displayText = char.ToUpper(displayText[0]) + (displayText.Length > 1 ? displayText.Substring(1).ToLower() : "");
-        }
-        
-        // Moderner Text mit besserer Lesbarkeit
-        return $"<size=+2><b><color={textColor}>{displayText}</color></b></size>";
     }
 
     private void Close()
@@ -536,14 +433,11 @@ public class UIManager : MonoBehaviour
 
         
 
-        // ✅ Modernes Formatting für Titel mit Farbschema
         if (gameOverTitleText)
         {
-            gameOverTitleText.text = $"<b><color=#3EBCD5><size=+2>Spiel beendet!</size></color></b>";
-            gameOverTitleText.alignment = TextAlignmentOptions.Center;
+            gameOverTitleText.text = "Spiel beendet!";
         }
 
-        // ✅ Modernes Formatting für Body Text mit Gewinner
         if (gameOverBodyText && rankings != null && rankings.Count > 0)
         {
             var winner = rankings[0];
@@ -552,10 +446,9 @@ public class UIManager : MonoBehaviour
                 : winner.player.PlayerName;
             
             gameOverBodyText.text = 
-                $"<b><color=#96C23D>Gewinner:</color></b> <color=#FFFFFF>{winnerName}</color>\n" +
-                $"<color=#FFFFFF>Vermögen:</color> <b><color=#96C23D>{winner.totalAssets:N0}€</color></b>\n" +
-                $"<size=90%><color=#C6E6F0>(Bargeld: {winner.money:N0}€, Unternehmen: {winner.companyCount})</color></size>";
-            gameOverBodyText.alignment = TextAlignmentOptions.Center;
+                $"Gewinner: {winnerName}\n" +
+                $"Vermögen: {winner.totalAssets:N0}€\n" +
+                $"(Bargeld: {winner.money:N0}€, Unternehmen: {winner.companyCount})";
         }
 
         // Lösche alte Ranking-Einträge
@@ -601,13 +494,10 @@ public class UIManager : MonoBehaviour
                     textComponent.font = fontToUse;
                 }
                 
-                // ✅ Modernes Formatting mit Farbschema für Ranking-Einträge
-                string rankColor = i == 0 ? "#96C23D" : (i == 1 ? "#3EBCD5" : "#FFFFFF"); // MINT für 1., SKY BLUE für 2., Weiß für Rest
-                
                 textComponent.text = 
-                    $"<b><color={rankColor}>{i + 1}. {playerName}</color></b>\n" +
-                    $"<size=85%><color=#FFFFFF>Vermögen: <b><color=#96C23D>{ranking.totalAssets:N0}€</color></b> " +
-                    $"(Bargeld: {ranking.money:N0}€, Unternehmen: {ranking.companyCount})</color></size>";
+                    $"{i + 1}. {playerName}\n" +
+                    $"Vermögen: {ranking.totalAssets:N0}€ " +
+                    $"(Bargeld: {ranking.money:N0}€, Unternehmen: {ranking.companyCount})";
             }
             
             Debug.Log($"[UIManager] {rankings.Count} Ranking-Einträge erstellt im RankingContainer.");

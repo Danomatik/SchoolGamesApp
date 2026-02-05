@@ -24,32 +24,19 @@ public class ActionCardPopup : MonoBehaviour, IPointerClickHandler
     {
         this.onDismiss = onDismiss;
         
-        // ✅ Modernes Formatting mit Farbschema
-        // questionText zeigt "AktionFrage" oder "Aktionskarte"
         if (questionText)
         {
-            questionText.text = $"<b><color=#3EBCD5>Aktion Frage</color></b>";
-            questionText.enableWordWrapping = true;
-            questionText.overflowMode = TextOverflowModes.Page;
-            questionText.alignment = TextAlignmentOptions.Center;
+            questionText.text = "Aktion Frage";
         }
         
-        // idText zeigt nur die ID (z.B. "Frage 23")
         if (idText)
         {
-            idText.text = $"<size=90%><color=#C6E6F0>Frage {id}</color></size>";
-            idText.enableWordWrapping = true;
-            idText.overflowMode = TextOverflowModes.Page;
-            idText.alignment = TextAlignmentOptions.Center;
+            idText.text = $"Frage {id}";
         }
         
-        // bodyText zeigt den eigentlichen Text
         if (bodyText)
         {
-            bodyText.text = $"<color=#FFFFFF>{text}</color>";
-            bodyText.enableWordWrapping = true;
-            bodyText.overflowMode = TextOverflowModes.Page;
-            bodyText.alignment = TextAlignmentOptions.Center;
+            bodyText.text = text;
         }
 
         if (!root.activeSelf) root.SetActive(true);

@@ -33,13 +33,10 @@ public class CameraManager : MonoBehaviour
     
     private void Start()
     {
-        // ✅ Finde Buttons anhand ihrer Namen
+        // Finde Buttons anhand ihrer Namen
         FindButtonsByName();
         
-        // ✅ Styling für Vor/Zurück Buttons beim Start
-        StyleCameraButtons();
-        
-        // ✅ Prüfe initial, ob topCam aktiv ist und verstecke moveBtn entsprechend
+        // Prüfe initial, ob topCam aktiv ist und verstecke moveBtn entsprechend
         UpdateMoveButtonVisibility();
     }
     
@@ -108,45 +105,6 @@ public class CameraManager : MonoBehaviour
         return (UnityEngine.Object)camBrain.ActiveVirtualCamera == (UnityEngine.Object)topCam;
     }
     
-    /// <summary>
-    /// Stylt die Vor/Zurück Buttons mit modernem Design
-    /// </summary>
-    private void StyleCameraButtons()
-    {
-        // ✅ Style Zurück-Button mit SKY BLUE
-        StyleButton(zurueckBtn, "Zurück", new Color(0.243f, 0.737f, 0.835f, 1f)); // #3EBCD5 SKY BLUE
-        // ✅ Style Vor-Button mit MINT (für positive/fortschrittliche Aktion)
-        StyleButton(vorBtn, "Vor", new Color(0.588f, 0.761f, 0.239f, 1f)); // #96C23D MINT
-    }
-    
-    /// <summary>
-    /// Stylt einen einzelnen Button mit Farbschema
-    /// </summary>
-    private void StyleButton(GameObject buttonObj, string label, Color backgroundColor)
-    {
-        if (buttonObj == null) return;
-        
-        Button button = buttonObj.GetComponent<Button>();
-        if (button == null) return;
-        
-        // ✅ Button-Hintergrund mit angegebener Farbe
-        var image = button.GetComponent<UnityEngine.UI.Image>();
-        if (image != null)
-        {
-            image.color = backgroundColor;
-        }
-        
-        // ✅ Button-Text mit modernem Design
-        var txt = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
-        if (txt != null)
-        {
-            txt.text = $"<size=+1><b><color=#FFFFFF>{label}</color></b></size>";
-            txt.fontStyle = FontStyles.Bold;
-            txt.alignment = TextAlignmentOptions.Center;
-            txt.outlineWidth = 0.2f;
-            txt.outlineColor = new Color(0, 0, 0, 0.4f);
-        }
-    }
     
     public void NextSide()
     {

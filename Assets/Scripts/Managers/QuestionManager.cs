@@ -216,16 +216,12 @@ public class QuestionManager : MonoBehaviour
         if (quizPanel != null) quizPanel.SetActive(true);
         if (moveButton != null) moveButton.SetActive(false); // Würfeln blockieren solange Quiz offen
 
-        // ✅ Modernes Formatting für Frage-Text mit Farbschema
         if (questionText != null)
         {
-            questionText.enableWordWrapping = true;
-            questionText.overflowMode = TextOverflowModes.Page;
-            questionText.text = $"<b><color=#3EBCD5><size=+1>Frage {q.id}</size></color></b>\n<color=#FFFFFF>{q.text}</color>";
+            questionText.text = $"Frage {q.id}\n{q.text}";
         }
-        if (questionID != null) questionID.text = ""; // Nicht mehr benötigt, da ID im Titel steht
+        if (questionID != null) questionID.text = "";
 
-        // ✅ Optionen setzen + Formatting mit Farbschema
         for (int i = 0; i < optionButtons.Length; i++)
         {
             bool active = (i < q.options.Length);
@@ -234,17 +230,8 @@ public class QuestionManager : MonoBehaviour
 
             if (active && optionButtonTexts != null && i < optionButtonTexts.Length)
             {
-                // ✅ Modernes Button-Text-Formatting
-                optionButtonTexts[i].text = $"<size=+1><b><color=#FFFFFF>{q.options[i]}</color></b></size>";
-                optionButtonTexts[i].fontStyle = FontStyles.Bold;
-                optionButtonTexts[i].alignment = TextAlignmentOptions.Center;
-                optionButtonTexts[i].outlineWidth = 0.2f;
-                optionButtonTexts[i].outlineColor = new Color(0, 0, 0, 0.4f);
+                optionButtonTexts[i].text = q.options[i];
             }
-
-            // ✅ Button-Hintergrund mit Farbschema: SKY BLUE für neutrale Buttons
-            var img = optionButtons[i].GetComponent<UnityEngine.UI.Image>();
-            if (img) img.color = new Color(0.243f, 0.737f, 0.835f, 1f); // #3EBCD5 SKY BLUE
 
             // Click-Handler
             int idx = i;
@@ -263,30 +250,7 @@ public class QuestionManager : MonoBehaviour
 
         bool isCorrect = (selectedIndex == currentCorrectIndex);
 
-        // ✅ Verwende Farbschema: MINT für richtig, BUSINESS für falsch
-        var selectedImg = optionButtons[selectedIndex].GetComponent<UnityEngine.UI.Image>();
-        if (selectedImg)
-        {
-            if (isCorrect)
-            {
-                // MINT (#96C23D) für richtige Antwort
-                selectedImg.color = new Color(0.588f, 0.761f, 0.239f, 1f);
-            }
-            else
-            {
-                // BUSINESS (#D79244) für falsche Antwort
-                selectedImg.color = new Color(0.843f, 0.573f, 0.267f, 1f);
-            }
-        }
-
-        // Zeige korrekte Antwort in MINT, wenn falsch geantwortet wurde
-        if (!isCorrect && currentCorrectIndex >= 0 && currentCorrectIndex < optionButtons.Length)
-        {
-            var correctImg = optionButtons[currentCorrectIndex].GetComponent<UnityEngine.UI.Image>();
-            if (correctImg) correctImg.color = new Color(0.588f, 0.761f, 0.239f, 1f); // MINT
-        }
-
-        // ✅ Unterscheide zwischen Series und einzelnen Fragen
+        // Unterscheide zwischen Series und einzelnen Fragen
         if (seriesActive)
         {
             StartCoroutine(ContinueSeriesAfterDelay(isCorrect, 0.9f));
@@ -363,16 +327,12 @@ public class QuestionManager : MonoBehaviour
         answerLocked = false;
         currentCorrectIndex = q.correctIndex;
 
-        // ✅ Modernes Formatting für Frage-Text mit Farbschema (Series)
         if (questionText != null)
         {
-            questionText.enableWordWrapping = true;
-            questionText.overflowMode = TextOverflowModes.Page;
-            questionText.text = $"<b><color=#3EBCD5><size=+1>Frage {seriesIndex + 1}/{seriesTotal}</size></color></b>\n<color=#FFFFFF>{q.text}</color>";
+            questionText.text = $"Frage {seriesIndex + 1}/{seriesTotal}\n{q.text}";
         }
-        if (questionID != null) questionID.text = ""; // Nicht mehr benötigt, da ID im Titel steht
+        if (questionID != null) questionID.text = "";
 
-        // ✅ Optionen setzen + Formatting mit Farbschema (Series)
         for (int i = 0; i < optionButtons.Length; i++)
         {
             bool active = (i < q.options.Length);
@@ -381,17 +341,8 @@ public class QuestionManager : MonoBehaviour
 
             if (active && optionButtonTexts != null && i < optionButtonTexts.Length)
             {
-                // ✅ Modernes Button-Text-Formatting
-                optionButtonTexts[i].text = $"<size=+1><b><color=#FFFFFF>{q.options[i]}</color></b></size>";
-                optionButtonTexts[i].fontStyle = FontStyles.Bold;
-                optionButtonTexts[i].alignment = TextAlignmentOptions.Center;
-                optionButtonTexts[i].outlineWidth = 0.2f;
-                optionButtonTexts[i].outlineColor = new Color(0, 0, 0, 0.4f);
+                optionButtonTexts[i].text = q.options[i];
             }
-
-            // ✅ Button-Hintergrund mit Farbschema: SKY BLUE für neutrale Buttons
-            var img = optionButtons[i].GetComponent<UnityEngine.UI.Image>();
-            if (img) img.color = new Color(0.243f, 0.737f, 0.835f, 1f); // #3EBCD5 SKY BLUE
 
             int idx = i;
             optionButtons[i].onClick.RemoveAllListeners();

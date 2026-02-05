@@ -46,37 +46,9 @@ public class FieldSelector : MonoBehaviour
         {
             confirmButton.onClick.AddListener(ConfirmSelection);
             confirmButton.gameObject.SetActive(false); // Hide initially
-            // ✅ Style den Confirm-Button
-            StyleConfirmButton();
         }
         
         UpdateFieldStates();
-    }
-    
-    /// <summary>
-    /// Stylt den Confirm-Button mit modernem Design
-    /// </summary>
-    private void StyleConfirmButton()
-    {
-        if (confirmButton == null) return;
-        
-        // ✅ Button-Hintergrund mit Farbschema: MINT (für positive Aktionen)
-        var image = confirmButton.GetComponent<Image>();
-        if (image != null)
-        {
-            image.color = new Color(0.588f, 0.761f, 0.239f, 1f); // #96C23D MINT
-        }
-        
-        // ✅ Button-Text mit modernem Design
-        var txt = confirmButton.GetComponentInChildren<TextMeshProUGUI>();
-        if (txt != null)
-        {
-            txt.text = "<size=+1><b><color=#FFFFFF>Bestätigen</color></b></size>";
-            txt.fontStyle = FontStyles.Bold;
-            txt.alignment = TextAlignmentOptions.Center;
-            txt.outlineWidth = 0.2f;
-            txt.outlineColor = new Color(0, 0, 0, 0.4f);
-        }
     }
     
     void Update()
