@@ -610,63 +610,95 @@ private void SaveOnExit()
 
     public void EndTurn()
     {
-        // zum nächsten Index
-        gameInitiator.CurrentGame.CurrentPlayerTurnID++;
-        if (gameInitiator.CurrentGame.CurrentPlayerTurnID >= gameInitiator.CurrentGame.AllPlayers.Count)
-            gameInitiator.CurrentGame.CurrentPlayerTurnID = 0;
+        // Ein Zug ist abgeschlossen – stelle sicher, dass keine Bewegung mehr als "aktiv" gilt
+        playerMovement.setIsTurnInProgress(false);
 
-        uiManager.UpdateMoneyDisplay();
-
-        var next = GetCurrentPlayer();
-        if (next != null)
-            Debug.Log($"Zug beendet. Spieler {next.PlayerID} ist jetzt an der Reihe.");
-        else
-            Debug.LogError("EndTurn: Could not get next player!");
-
-        playerMovement.setIsTurnInProgress(false);  // wichtig
-
-        if (next.hasToSkip)
+        if (gameInitiator == null || gameInitiator.CurrentGame == null ||
+            gameInitiator.CurrentGame.AllPlayers == null ||
+            gameInitiator.CurrentGame.AllPlayers.Count == 0)
         {
-            Debug.Log($"Player {next.PlayerID} muss diesen Zug aussetzen!");
-            next.hasToSkip = false; // zurücksetzen
-            StartCoroutine(SkipTurnDelay());
-            EndTurn();
+            Debug.LogError("EndTurn: CurrentGame or AllPlayers is not properly initialised.");
             return;
         }
 
-        // Kamera auf nächsten Spieler setzen
-        PlayerCTRL activePlayer = players.Find(p => p.PlayerID == next.PlayerID);
-        if (activePlayer != null)
-        {
-            Transform playerChild = activePlayer.transform.childCount > 0
-                ? activePlayer.transform.GetChild(0)
-                : activePlayer.transform;
+        var game = gameInitiator.CurrentGame;
+        int playerCount = game.AllPlayers.Count;
 
-            cameraManager.cam.Lens.OrthographicSize = cameraManager.defaultLens;
-            cameraManager.cam.Follow = playerChild;
-        }
+        // Sicherheit: vermeide Endlos-Schleifen, falls alle Spieler eliminiert wären
+        for (int safety = 0; safety < playerCount; safety++)
+        {
+            // zum nächsten Index
+            game.CurrentPlayerTurnID++;
+            if (game.CurrentPlayerTurnID >= playerCount)
+                game.CurrentPlayerTurnID = 0;
 
-        if (cameraManager.camBrain.IsBlending && cameraManager.camBrain.ActiveBlend != null)
-        {
-            GameObject moveButton = playerMovement.getMoveButton();
-            moveButton.SetActive(true);
-            moneyDisplay.SetActive(false);
-        }
-        else
-        {
+            var next = GetCurrentPlayer();
+            if (next == null)
+            {
+                Debug.LogError("EndTurn: Could not get next player!");
+                return;
+            }
+
+            // Eliminierte Spieler komplett überspringen
+            if (next.isEliminated)
+            {
+                Debug.Log($"EndTurn: Spieler {next.PlayerID} ist eliminiert und wird übersprungen.");
+                continue;
+            }
+
+            // Runde aussetzen: genau EINEN vollständigen Zug überspringen
+            if (next.hasToSkip)
+            {
+                Debug.Log($"EndTurn: Spieler {next.PlayerID} setzt diese Runde aus.");
+                next.hasToSkip = false; // Flag verbrauchen
+                continue;
+            }
+
+            // Ab hier: gültiger nächster Spieler wurde gefunden
             uiManager.UpdateMoneyDisplay();
+            uiManager.UpdatePlayerNameDisplay();
+            uiManager.UpdatePlayerIDDisplay();
+            Debug.Log($"Zug beendet. Spieler {next.PlayerID} ist jetzt an der Reihe.");
+
+            // Kamera auf nächsten Spieler setzen
+            PlayerCTRL activePlayer = players.Find(p => p.PlayerID == next.PlayerID);
+            if (activePlayer != null)
+            {
+                Transform playerChild = activePlayer.transform.childCount > 0
+                    ? activePlayer.transform.GetChild(0)
+                    : activePlayer.transform;
+
+                cameraManager.cam.Lens.OrthographicSize = cameraManager.defaultLens;
+                cameraManager.cam.Follow = playerChild;
+            }
+
+            // Move-Button und MoneyDisplay passend setzen
             GameObject moveButton = playerMovement.getMoveButton();
-            moveButton.SetActive(true);
-            moneyDisplay.SetActive(true);
+            if (cameraManager.camBrain.IsBlending && cameraManager.camBrain.ActiveBlend != null)
+            {
+                if (moveButton != null) moveButton.SetActive(true);
+                if (moneyDisplay != null) moneyDisplay.SetActive(false);
+            }
+            else
+            {
+                uiManager.UpdateMoneyDisplay();
+                uiManager.UpdatePlayerNameDisplay();
+                uiManager.UpdatePlayerIDDisplay();
+                if (moveButton != null) moveButton.SetActive(true);
+                if (moneyDisplay != null) moneyDisplay.SetActive(true);
+            }
+
+            // Spielernamen im HUD aktualisieren
+            if (gameInitiator != null)
+            {
+                gameInitiator.UpdatePlayerNamesImmediate();
+            }
+
+            AutoSave();
+            return;
         }
 
-        // ✅ NEU: Aktualisiere Spielernamen beim Zugwechsel (Fallback, falls sie noch nicht gesetzt wurden)
-        if (gameInitiator != null)
-        {
-            gameInitiator.UpdatePlayerNamesImmediate();
-        }
-
-        AutoSave();
+        Debug.LogError("EndTurn: No valid next player found after iterating all players.");
     }
 
     private IEnumerator SkipTurnDelay()

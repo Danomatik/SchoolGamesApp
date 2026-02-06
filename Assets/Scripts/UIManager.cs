@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button cancelButton;      // Button 4 (ungenuzt im Kauf-/Upgrade-Popup)
 
     [Header("Money Display")]
+    [SerializeField] private TextMeshProUGUI playerNameText; // Display für Spielernamen
+    [SerializeField] private TextMeshProUGUI playerIDText; // Display für Spieler ID (P1, P2...)
     [SerializeField] private TextMeshProUGUI moneyDisplayText; // Display für Geld
 
     [Header("Timer Display")]
@@ -61,6 +63,8 @@ public class UIManager : MonoBehaviour
     {
         // Initial money display update
         UpdateMoneyDisplay();
+        UpdatePlayerNameDisplay();
+        UpdatePlayerIDDisplay();
         
         // Initialisiere Timer-Anzeige (falls Timer bereits läuft)
         if (gm != null && gm.gameTimerManager != null)
@@ -87,15 +91,48 @@ public class UIManager : MonoBehaviour
         var currentPlayer = gm.GetCurrentPlayer();
         if (currentPlayer != null)
         {
-            string playerName = string.IsNullOrEmpty(currentPlayer.PlayerName) 
-                ? $"Spieler {currentPlayer.PlayerID}" 
-                : currentPlayer.PlayerName;
-            
-            moneyDisplayText.text = $"{playerName}\n{currentPlayer.Money:N0}€";
+            moneyDisplayText.text = $"{currentPlayer.Money:N0}€";
         }
         else
         {
             moneyDisplayText.text = "--- €";
+        }
+    }
+
+    public void UpdatePlayerNameDisplay()
+    {
+        if (playerNameText == null || gm == null) return;
+
+        var currentPlayer = gm.GetCurrentPlayer();
+        if (currentPlayer != null)
+        {
+            const int maxLen = 15;
+            string displayName = currentPlayer.PlayerName; // fallback handled inside PlayerName prop usually, or check null
+            if (string.IsNullOrEmpty(displayName)) displayName = $"Spieler {currentPlayer.PlayerID}";
+
+            if (displayName.Length > maxLen)
+                displayName = displayName.Substring(0, maxLen) + "...";
+
+            playerNameText.text = displayName;
+        }
+        else
+        {
+            playerNameText.text = "";
+        }
+    }
+
+    public void UpdatePlayerIDDisplay()
+    {
+        if (playerIDText == null || gm == null) return;
+
+        var currentPlayer = gm.GetCurrentPlayer();
+        if (currentPlayer != null)
+        {
+            playerIDText.text = $"P{currentPlayer.PlayerID}";
+        }
+        else
+        {
+            playerIDText.text = "";
         }
     }
     
