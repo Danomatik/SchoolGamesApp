@@ -4154,7 +4154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 140.2, y: 0}
+  m_AnchoredPosition: {x: 99.7, y: 0}
   m_SizeDelta: {x: 134, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &239828113
@@ -20224,7 +20224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.105882354, g: 0.22745098, b: 0.29411766, a: 0.9607843}
+  m_Color: {r: 0.105882354, g: 0.22745098, b: 0.29411766, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20258,7 +20258,7 @@ RectTransform:
   m_GameObject: {fileID: 1095420939}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0904164, y: 1.0904164, z: 1.0904164}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1902445721}
@@ -36354,6 +36354,8 @@ MonoBehaviour:
   moneyDisplay: {fileID: 2039061725}
   saveButton: {fileID: 239109082}
   menuSceneName: MenuScene
+  audioSource: {fileID: 1871652823}
+  purchaseSound: {fileID: 8300000, guid: 2551f43783ce04f5fa043e83c0f7d46f, type: 3}
   autoSaveCooldown: 3
   agCardSkipsPrerequisites: 1
 --- !u!4 &1871652811
@@ -37438,7 +37440,7 @@ RectTransform:
   m_GameObject: {fileID: 1902445720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.85678375, y: 0.85678375, z: 0.85678375}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1492200258}
