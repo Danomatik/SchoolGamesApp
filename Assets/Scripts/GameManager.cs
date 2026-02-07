@@ -63,6 +63,12 @@ public class GameManager : MonoBehaviour
     }
     private PendingPurchase pending;
 
+    [Header("Purchase Audio")]
+    [SerializeField] private AudioSource audioSource; // assign AudioSource here
+    [SerializeField] private AudioClip purchaseSound;      // assign your single step/dice sound here
+
+
+
     // Spieler -> wie viele kommende Züge noch aussetzen
 
 
@@ -470,6 +476,9 @@ private void SaveOnExit()
             boardVisuals.UpdateFieldVisual(pending.field);
 
         Debug.Log($"Spieler {pending.player.PlayerID} hat {pending.company.companyName} → {pending.targetLevel} gekauft/aufgerüstet (−{cost}€).");
+        PlayPurchaseSound();
+        PlayPurchaseSound();
+        PlayPurchaseSound();
         pending = default;
         EndTurn();
     }
@@ -1000,5 +1009,16 @@ private void SaveOnExit()
         }
 
         return result;
+    }
+
+    private void PlayPurchaseSound()
+    {
+        if (audioSource == null || purchaseSound == null)
+        {
+            Debug.LogWarning($"GM ({name}): Missing AudioSource or purchase Soundä+!");
+            return;
+        }
+
+        audioSource.PlayOneShot(purchaseSound);
     }
 }
