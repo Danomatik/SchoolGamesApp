@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Money Display")]
     [SerializeField] private TextMeshProUGUI playerNameText; // Display für Spielernamen
+    [SerializeField] private TextMeshProUGUI playerNameText2; // Zweites Display für Spielernamen (optional)
     [SerializeField] private TextMeshProUGUI playerIDText; // Display für Spieler ID (P1, P2...)
     [SerializeField] private TextMeshProUGUI moneyDisplayText; // Display für Geld
 
@@ -101,24 +102,23 @@ public class UIManager : MonoBehaviour
 
     public void UpdatePlayerNameDisplay()
     {
-        if (playerNameText == null || gm == null) return;
+        if (gm == null) return;
 
+        string displayName = "";
         var currentPlayer = gm.GetCurrentPlayer();
+        
         if (currentPlayer != null)
         {
             const int maxLen = 15;
-            string displayName = currentPlayer.PlayerName; // fallback handled inside PlayerName prop usually, or check null
+            displayName = currentPlayer.PlayerName; // fallback handled inside PlayerName prop usually, or check null
             if (string.IsNullOrEmpty(displayName)) displayName = $"Spieler {currentPlayer.PlayerID}";
 
             if (displayName.Length > maxLen)
                 displayName = displayName.Substring(0, maxLen) + "...";
+        }
 
-            playerNameText.text = displayName;
-        }
-        else
-        {
-            playerNameText.text = "";
-        }
+        if (playerNameText != null) playerNameText.text = displayName;
+        if (playerNameText2 != null) playerNameText2.text = displayName;
     }
 
     public void UpdatePlayerIDDisplay()
