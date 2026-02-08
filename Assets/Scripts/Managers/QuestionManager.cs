@@ -59,8 +59,25 @@ public class QuestionManager : MonoBehaviour
 
 
 
+    private UIManager uiManager;
+
     void Start()
     {
+        uiManager = GetComponent<UIManager>();
+        if (uiManager == null)
+        {
+            uiManager = FindFirstObjectByType<UIManager>();
+        }
+        
+        if (uiManager == null)
+        {
+            Debug.LogError("[QuestionManager] CRITICAL: UIManager not found! Quiz Panel will not work correctly in Overlay.");
+        }
+        else
+        {
+            Debug.Log("[QuestionManager] UIManager reference found.");
+        }
+
         Debug.Log($"[QuestionManager] Startup Language: {language}, Difficulty: {difficulty}");
         LoadQuestions();
         FindQuizFields();
@@ -213,7 +230,16 @@ public class QuestionManager : MonoBehaviour
         answerLocked = false;
         currentCorrectIndex = q.correctIndex;
 
-        if (quizPanel != null) quizPanel.SetActive(true);
+        // ✅ USE UIManager
+        if (uiManager != null)
+        {
+            uiManager.ShowQuiz();
+        }
+        else if (quizPanel != null)
+        {
+            quizPanel.SetActive(true);
+        }
+
         if (moveButton != null) moveButton.SetActive(false); // Würfeln blockieren solange Quiz offen
 
         if (questionText != null)
@@ -273,9 +299,15 @@ public class QuestionManager : MonoBehaviour
         // GameManager führt Kauf/Upgrade aus und ruft IMMER EndTurn() (auch bei falscher Antwort)
         gm?.OnQuizResult(isCorrect);
 
-        // Panel schließen
-        if (quizPanel != null)
+        // ✅ USE UIManager
+        if (uiManager != null)
+        {
+            uiManager.ClosePopup();
+        }
+        else if (quizPanel != null)
+        {
             quizPanel.SetActive(false);
+        }
 
         // 👉 WICHTIG: Move-Button wieder aktivieren, damit der NÄCHSTE Spieler würfeln kann
         // (EndTurn() hat isTurnInProgress bereits auf false gesetzt)
@@ -302,7 +334,16 @@ public class QuestionManager : MonoBehaviour
         seriesUsedQuestionIds.Clear();
 
         // Show panel + block rolling during the series
-        if (quizPanel != null) quizPanel.SetActive(true);
+        // ✅ USE UIManager
+        if (uiManager != null)
+        {
+            uiManager.ShowQuiz();
+        }
+        else if (quizPanel != null)
+        {
+            quizPanel.SetActive(true);
+        }
+
         if (moveButton != null) moveButton.SetActive(false);
 
         ShowNextSeriesQuestion();
@@ -375,7 +416,16 @@ public class QuestionManager : MonoBehaviour
         bool passed = (seriesCorrect >= seriesRequired);
 
         // Clean up UI
-        if (quizPanel != null) quizPanel.SetActive(false);
+        // ✅ USE UIManager
+        if (uiManager != null)
+        {
+            uiManager.ClosePopup();
+        }
+        else if (quizPanel != null)
+        {
+            quizPanel.SetActive(false);
+        }
+
         if (moveButton != null) moveButton.SetActive(true);
 
         // Reset series state

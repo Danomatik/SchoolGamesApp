@@ -31,7 +31,7 @@ public class BankCardManager : MonoBehaviour
     private List<BankCard> cards = new List<BankCard>();
     private GameManager gameManager;
 
-    [SerializeField] private BankCardPopup popup;
+    // [SerializeField] private BankCardPopup popup; // OBSOLETE
 
     // 🎮 TEST MODE - Set this in the Inspector!
     [Header("Testing")]
@@ -154,14 +154,16 @@ public class BankCardManager : MonoBehaviour
 
         actionManager.lastCardWasRollAgain = false;
 
-        if (popup == null)
+        // NEW: use UIManager
+        if (gameManager != null && gameManager.uiManager != null)
         {
-            Debug.LogWarning("[BankCardManager] popup is NULL -> executing immediately (no UI).");
-            ResolvePendingCard();
-            return;
+            gameManager.uiManager.ShowBankCard(pendingCard.id, pendingCard.text, ResolvePendingCard);
         }
-
-        popup.Show(pendingCard.id, pendingCard.text, ResolvePendingCard);
+        else
+        {
+             Debug.LogWarning("[BankCardManager] GameManager or UIManager missing -> executing immediately.");
+             ResolvePendingCard();
+        }
     }
 
     private void ResolvePendingCard()

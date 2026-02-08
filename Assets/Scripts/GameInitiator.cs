@@ -625,9 +625,11 @@ public class GameInitiator : MonoBehaviour
     // 🎲 INITIATIVE SEQUENCE (RUNS ONCE AT GAME START)
     // ============================================================
     private bool initiativeDone = false;
-   private IEnumerator DetermineStartingOrder(GameManager gm)
+    private bool startGameClicked = false; // Flag for the start button
+
+    private IEnumerator DetermineStartingOrder(GameManager gm)
     {
-        // ✅ Early-out if inspector checkbox is turned on (safety if called accidentally)
+        // ✅ Early-out
         if (useDefaultOrder)
         {
             ApplyDefaultStartingOrder(gm);
@@ -638,8 +640,16 @@ public class GameInitiator : MonoBehaviour
 
         gm.InitiativeInProgress = true;
         Debug.Log("Initiative (Initiator): Starting initial roll-off phase...");
+        
+        // Disable move button during initiative
         if (gm.diceManager != null && gm.diceManager.moveButton != null)
             gm.diceManager.moveButton.SetActive(false);
+
+        // 1. Setup UI (Clear list, hide start button)
+        if (gm.uiManager != null)
+        {
+            gm.uiManager.SetupInitiative();
+        }
 
         var playersById = CurrentGame.AllPlayers.ToDictionary(p => p.PlayerID);
         var rolls = new List<(int playerId, int roll)>();
@@ -647,8 +657,9 @@ public class GameInitiator : MonoBehaviour
         for (int i = 0; i < CurrentGame.AllPlayers.Count; i++)
         {
             CurrentGame.CurrentPlayerTurnID = i;
-
             var currentPlayer = gm.GetCurrentPlayer();
+
+            // Focus Camera
             var activeCtrl = gm.players.Find(p => p.PlayerID == currentPlayer.PlayerID);
             if (activeCtrl != null)
             {
@@ -659,20 +670,33 @@ public class GameInitiator : MonoBehaviour
                 gm.cameraManager.cam.Follow = playerChild;
             }
 
+            // Hide Panel briefly to see the dice roll
+            if (gm.uiManager != null)
+            {
+                // Only hide the main popup content to show the board/dice, 
+                // but we might want to keep the name visible? 
+                // For now, let's close the popup so the player sees the 3D dice.
+                gm.uiManager.ClosePopup(); 
+            }
+
             int result = 0;
             yield return StartCoroutine(gm.diceManager.RollForInitiative(val => result = val));
             rolls.Add((currentPlayer.PlayerID, result));
             Debug.Log($"Initiative (Initiator): Player {currentPlayer.PlayerID} rolled {result}");
 
+            // Show Result in Panel
             if (gm.uiManager != null)
             {
                 var label = string.IsNullOrEmpty(currentPlayer.PlayerName) ? $"Spieler {currentPlayer.PlayerID}" : currentPlayer.PlayerName;
-                gm.uiManager.ShowInitiativeRoll(label, result);
-                yield return new WaitForSeconds(1.2f);
-                gm.uiManager.HideInitiative();
+                // Pass rank as i + 1 (1-based index of rolling)
+                gm.uiManager.ShowInitiativeResult(i + 1, label, result);
+                
+                // Wait for user to read the result
+                yield return new WaitForSeconds(2.0f);
             }
         }
 
+        // 2. Process Order
         var ordered = rolls.OrderByDescending(r => r.roll).ToList();
         var reordered = new List<PlayerData>();
         foreach (var entry in ordered)
@@ -681,19 +705,36 @@ public class GameInitiator : MonoBehaviour
                 reordered.Add(pdata);
         }
         CurrentGame.AllPlayers = reordered;
-
         CurrentGame.CurrentPlayerTurnID = 0;
+
+        Debug.Log($"Initiative (Initiator): Completed. Order: {string.Join(", ", CurrentGame.AllPlayers.Select(p=>p.PlayerID))}.");
+
+        // 3. Show Start Button and Wait
+        if (gm.uiManager != null)
+        {
+            startGameClicked = false;
+            gm.uiManager.ShowInitiativeStartButton(() => 
+            {
+                startGameClicked = true;
+            });
+
+            // Wait until button is clicked
+            yield return new WaitUntil(() => startGameClicked);
+            
+            // Close UI
+            gm.uiManager.HideInitiative();
+        }
+
         initiativeDone = true;
         gm.InitiativeInProgress = false;
-        Debug.Log($"Initiative (Initiator): Completed. Order: {string.Join(", ", CurrentGame.AllPlayers.Select(p=>p.PlayerID))}. Start: Player {CurrentGame.AllPlayers[0].PlayerID}");
 
+        // Re-enable move button
         if (gm.diceManager != null && gm.diceManager.moveButton != null)
             gm.diceManager.moveButton.SetActive(true);
         
-        // ✅ NEU: Aktualisiere Spielernamen nach der Initiative (falls Text-Elemente jetzt verfügbar sind)
+        // Update Names & Money (Visuals)
         StartCoroutine(UpdatePlayerNames());
         
-        // ✅ NEU: Aktualisiere MoneyDisplay nach der Initiative (damit Namen angezeigt werden)
         yield return new WaitForSeconds(0.3f);
         if (gm.uiManager != null)
         {

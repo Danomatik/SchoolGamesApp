@@ -31,7 +31,7 @@ public class ActionCardManager : MonoBehaviour
     private List<ActionCard> cards = new List<ActionCard>();
     private GameManager gameManager;
 
-    [SerializeField] private ActionCardPopup popup;  // im Inspector setzen
+    // [SerializeField] private ActionCardPopup popup; // OBSOLETE
 
     // 🎮 TEST MODE - Set this in the Inspector!
     [Header("Testing")]
@@ -143,14 +143,16 @@ public class ActionCardManager : MonoBehaviour
 
         lastCardWasRollAgain = false;
 
-        if (popup == null)
+        // NEW: use UIManager
+        if (gameManager != null && gameManager.uiManager != null)
         {
-            Debug.LogWarning("[ActionCardManager] popup is NULL -> executing immediately (no UI).");
-            ResolvePendingCard();
-            return;
+            gameManager.uiManager.ShowActionCard(pendingCard.id, pendingCard.text, ResolvePendingCard);
         }
-
-        popup.Show(pendingCard.id, pendingCard.text, ResolvePendingCard);
+        else
+        {
+             Debug.LogWarning("[ActionCardManager] GameManager or UIManager missing -> executing immediately.");
+             ResolvePendingCard();
+        }
     }
 
     private void ResolvePendingCard()

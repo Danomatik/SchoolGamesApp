@@ -6,17 +6,37 @@ using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("Company Panel")]
-    [SerializeField] private GameObject companyPanel;
+    [Header("Main Overlay")]
+    [SerializeField] private GameObject popupOverlay; // Der Hintergrund-Container für alle Popups
+    [SerializeField] private Button sharedConfirmButton; // Button zum Bestätigen (für Action/Bank/Quiz)
+    
+    [Header("Content Views")]
+    [SerializeField] private GameObject companyContent;      // Ersetzt companyPanel
+    [SerializeField] private GameObject actionContent;       // NEU: Für Aktionskarten
+    [SerializeField] private GameObject bankContent;         // NEU: Für Bankkarten
+    [SerializeField] private GameObject quizContent;         // (Platzhalter für später)
+    [SerializeField] private GameObject bankruptcyContent;   // Ersetzt bankruptcyPanel
+    [SerializeField] private GameObject gameOverContent;     // Ersetzt gameOverPanel
+    [SerializeField] private GameObject initiativeContent;   // Ersetzt initiativePanel
 
+    [Header("Action Card Content")]
+    [SerializeField] private TextMeshProUGUI actionTitleText;
+    [SerializeField] private TextMeshProUGUI actionIdText;
+    [SerializeField] private TextMeshProUGUI actionBodyText;
+    [SerializeField] private Button actionBackgroundButton; // NEU: Unsichtbarer Button für "Click to Continue" (nur Action)
+
+    [Header("Bank Card Content")]
+    [SerializeField] private TextMeshProUGUI bankTitleText;
+    [SerializeField] private TextMeshProUGUI bankIdText;
+    [SerializeField] private TextMeshProUGUI bankBodyText;
+
+    [Header("Company Content")]
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI bodyText;
-
-    // Button 1..4 in dieser Reihenfolge im Inspector zuweisen
-    [SerializeField] private Button primaryButton;     // Button 1 = Kaufen/Gründen ODER Investieren (bei Upgrades)
-    [SerializeField] private Button secondaryButton;   // Button 2 = Verzichten ODER AG (bei Upgrades)
-    [SerializeField] private Button tertiaryButton;    // Button 3 (ungenuzt im Kauf-Popup)
-    [SerializeField] private Button cancelButton;      // Button 4 (ungenuzt im Kauf-/Upgrade-Popup)
+    [SerializeField] private Button primaryButton;     // Button 1
+    [SerializeField] private Button secondaryButton;   // Button 2
+    [SerializeField] private Button tertiaryButton;    // Button 3
+    [SerializeField] private Button cancelButton;      // Button 4
 
     [Header("Money Display")]
     [SerializeField] private TextMeshProUGUI playerNameText; // Display für Spielernamen
@@ -27,20 +47,23 @@ public class UIManager : MonoBehaviour
     [Header("Timer Display")]
     [SerializeField] private TextMeshProUGUI timerDisplayText; // Display für Timer (optional)
 
-    [Header("Initiative Popup")]
-    [SerializeField] private GameObject initiativePanel;
-    [SerializeField] private TextMeshProUGUI initiativeText;
+    [Header("Initiative Content")]
+    // [SerializeField] private GameObject initiativeContent; // Removed duplicate
+    [SerializeField] private GameObject initiativeCurrentPlayerCard;
+    [SerializeField] private TextMeshProUGUI initiativePlayerNameText;
+    [SerializeField] private TextMeshProUGUI initiativeRollResultText;
+    [SerializeField] private Transform initiativeResultsContainer;
+    [SerializeField] private GameObject initiativeResultRowPrefab; // Prefab für Liste
+    [SerializeField] private Button initiativeStartButton;
 
-    [Header("Bankruptcy Auction Panel")]
-    [SerializeField] private GameObject bankruptcyPanel;
+    [Header("Bankruptcy Content")]
     [SerializeField] private TextMeshProUGUI bankruptcyTitleText;
     [SerializeField] private TextMeshProUGUI bankruptcyBodyText;
     [SerializeField] private Transform auctionButtonContainer; // Container für Versteigerungs-Buttons
-    [SerializeField] private GameObject auctionButtonPrefab; // Prefab für einen Versteigerungs-Button (OPTIONAL - wird zur Laufzeit erstellt falls nicht vorhanden)
+    [SerializeField] private GameObject auctionButtonPrefab; // Prefab für Versteigerungs-Button
     [SerializeField] private Button bankruptcyCancelButton; // Button zum Abbrechen
 
-    [Header("Game Over Panel")]
-    [SerializeField] private GameObject gameOverPanel;
+    [Header("Game Over Content")]
     [SerializeField] private TextMeshProUGUI gameOverTitleText;
     [SerializeField] private TextMeshProUGUI gameOverBodyText;
     [SerializeField] private Transform rankingContainer; // Container für Ranking-Einträge
@@ -50,14 +73,26 @@ public class UIManager : MonoBehaviour
     [SerializeField] private List<GameObject> gameOverObjects = new List<GameObject>();
 
     private GameManager gm;
+    private GameObject currentContent; // Aktuell angezeigter Content
+    private System.Action onConfirmAction; // Callback für den Confirm Button
 
     private void Awake()
     {
-        gm = GetComponent<GameManager>(); // alle Manager am selben GO
-        if (companyPanel != null) companyPanel.SetActive(false);
-        if (initiativePanel != null) initiativePanel.SetActive(false);
-        if (bankruptcyPanel != null) bankruptcyPanel.SetActive(false);
-        if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        gm = GetComponent<GameManager>();
+        
+        // Ensure everything is hidden at start
+        if (popupOverlay != null) popupOverlay.SetActive(false);
+        HideAllContent();
+
+        // Setup shared confirm button
+        if (sharedConfirmButton != null)
+        {
+            sharedConfirmButton.onClick.AddListener(() => 
+            {
+                onConfirmAction?.Invoke();
+                ClosePopup();
+            });
+        }
     }
 
     private void Start()
@@ -81,9 +116,108 @@ public class UIManager : MonoBehaviour
     private void LateUpdate()
     {
         // Update money display at end of frame
-        // This ensures the current player is always correct after turn changes
-        //UpdateMoneyDisplay();
     }
+
+    // ============================================================
+    // 📺 CORE POPUP SYSTEM
+    // ============================================================
+
+    public void ShowContent(GameObject content)
+    {
+        if (popupOverlay == null)
+        {
+            Debug.LogError("UIManager: PopupOverlay is not assigned!");
+            return;
+        }
+
+        HideAllContent();
+        
+        popupOverlay.SetActive(true);
+        currentContent = content;
+        
+        if (currentContent != null)
+        {
+            currentContent.SetActive(true);
+        }
+    }
+
+    public void ClosePopup()
+    {
+        if (popupOverlay != null) popupOverlay.SetActive(false);
+        HideAllContent();
+        onConfirmAction = null;
+    }
+
+    private void HideAllContent()
+    {
+        if (companyContent) companyContent.SetActive(false);
+        if (actionContent) actionContent.SetActive(false);
+        if (bankContent) bankContent.SetActive(false);
+        if (quizContent) quizContent.SetActive(false);
+        if (bankruptcyContent) bankruptcyContent.SetActive(false);
+        if (gameOverContent) gameOverContent.SetActive(false);
+        if (initiativeContent) initiativeContent.SetActive(false);
+        
+        if (currentContent != null)
+        {
+            currentContent.SetActive(false);
+            currentContent = null;
+        }
+    }
+
+    // ============================================================
+    // 🃏 ACTION & BANK CARDS
+    // ============================================================
+
+    public void ShowActionCard(int id, string text, System.Action onDismiss)
+    {
+        if (actionContent == null) return;
+
+        if (actionTitleText) actionTitleText.text = "Aktionskarte";
+        if (actionIdText) actionIdText.text = $"Karte {id}";
+        if (actionBodyText) actionBodyText.text = text;
+
+        onConfirmAction = onDismiss;
+
+        // Wire up specific click-to-dismiss behavior for Action Cards
+        if (actionBackgroundButton != null)
+        {
+            actionBackgroundButton.onClick.RemoveAllListeners();
+            actionBackgroundButton.onClick.AddListener(() => 
+            {
+                onConfirmAction?.Invoke();
+                ClosePopup();
+            });
+        }
+
+        ShowContent(actionContent);
+    }
+
+    public void ShowBankCard(int id, string text, System.Action onDismiss)
+    {
+        if (bankContent == null) return;
+
+        if (bankTitleText) bankTitleText.text = "Bankkarte";
+        if (bankIdText) bankIdText.text = $"Karte {id}";
+        if (bankBodyText) bankBodyText.text = text;
+
+        onConfirmAction = onDismiss;
+        ShowContent(bankContent);
+    }
+
+    public void ShowQuiz()
+    {
+        if (quizContent == null)
+        {
+            Debug.LogError("UIManager: quizContent is not assigned!");
+            return;
+        }
+        ShowContent(quizContent);
+    }
+    
+    // ============================================================
+    // 💰 MONEY & PLAYER DISPLAY
+    // ============================================================
 
     public void UpdateMoneyDisplay()
     {
@@ -136,9 +270,6 @@ public class UIManager : MonoBehaviour
         }
     }
     
-    /// <summary>
-    /// Aktualisiert die Timer-Anzeige
-    /// </summary>
     public void UpdateTimerDisplay(float timeRemainingInSeconds)
     {
         if (timerDisplayText == null) return;
@@ -149,29 +280,105 @@ public class UIManager : MonoBehaviour
         timerDisplayText.text = $"{minutes:D2}:{seconds:D2}";
     }
 
-    public void ShowInitiativeRoll(string playerLabel, int roll)
+    // ============================================================
+    // 🎲 INITIATIVE
+    // ============================================================
+
+    public void SetupInitiative()
     {
-        if (!initiativePanel || !initiativeText) return;
-        initiativePanel.SetActive(true);
-        initiativeText.text = $"{playerLabel}: {roll}";
+        if (!initiativeContent) return;
+        
+        // Clear results list
+        if (initiativeResultsContainer != null)
+        {
+            foreach (Transform child in initiativeResultsContainer)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // Hide Start Button initially
+        if (initiativeStartButton != null)
+        {
+            initiativeStartButton.gameObject.SetActive(false);
+        }
+
+        // Hide Current Player Card initially
+        if (initiativeCurrentPlayerCard != null)
+        {
+            initiativeCurrentPlayerCard.SetActive(false);
+        }
+
+        ShowContent(initiativeContent);
+    }
+
+    public void ShowInitiativeResult(int rank, string playerName, int rollResult)
+    {
+        if (!initiativeContent) return;
+
+        // Show/Update Current Player Card
+        if (initiativeCurrentPlayerCard != null)
+        {
+            initiativeCurrentPlayerCard.SetActive(true);
+            
+            if (initiativePlayerNameText != null)
+                initiativePlayerNameText.text = playerName;
+            
+            if (initiativeRollResultText != null)
+                initiativeRollResultText.text = rollResult.ToString();
+        }
+
+        // Add to Result List
+        if (initiativeResultsContainer != null && initiativeResultRowPrefab != null)
+        {
+            GameObject row = Instantiate(initiativeResultRowPrefab, initiativeResultsContainer);
+            
+            // Find child components by name (as requested by user structure)
+            var rankText = row.transform.Find("RankText")?.GetComponent<TextMeshProUGUI>();
+            var nameText = row.transform.Find("NameText")?.GetComponent<TextMeshProUGUI>();
+            var scoreText = row.transform.Find("ScoreText")?.GetComponent<TextMeshProUGUI>();
+
+            if (rankText != null) rankText.text = $"{rank}.";
+            if (nameText != null) nameText.text = playerName;
+            if (scoreText != null) scoreText.text = rollResult.ToString();
+        }
+        
+        ShowContent(initiativeContent);
+    }
+
+    public void ShowInitiativeStartButton(System.Action onStartGame)
+    {
+        if (!initiativeContent) return;
+
+        ShowContent(initiativeContent);
+
+        if (initiativeStartButton != null)
+        {
+            initiativeStartButton.gameObject.SetActive(true);
+            initiativeStartButton.onClick.RemoveAllListeners();
+            initiativeStartButton.onClick.AddListener(() =>
+            {
+                onStartGame?.Invoke();
+            });
+        }
     }
 
     public void HideInitiative()
     {
-        if (!initiativePanel) return;
-        initiativePanel.SetActive(false);
+        ClosePopup();
     }
 
+    // ============================================================
+    // 🏢 COMPANY PANEL
+    // ============================================================
 
     // Freies Feld → Kaufen oder Verzichten (Buttons 1/2)
     public void ShowCompanyPurchase(CompanyConfigData company, CompanyField field, PlayerData player)
     {
-        if (!companyPanel) { Debug.LogError("CompanyPanel fehlt!"); return; }
+        if (!companyContent) { Debug.LogError("CompanyContent fehlt!"); return; }
 
-        companyPanel.SetActive(true);
-        
-        titleText.text = $"{company.companyName}\nGründung";
-        bodyText.text =
+        if (titleText) titleText.text = $"{company.companyName}\nGründung";
+        if (bodyText) bodyText.text =
             $"Kosten: {company.costFound:N0}€\n" +
             $"Ertrag pro Runde: {company.revenueFound:N0}€\n\n" +
             $"Möchtest du gründen?\n(Quiz erforderlich)";
@@ -179,45 +386,45 @@ public class UIManager : MonoBehaviour
         // Button 1 = Kaufen/Gründen
         Wire(primaryButton, "Gründen", () =>
         {
-            Close();
+            ClosePopup();
             gm.StartQuizForCompany(company, field, player, CompanyLevel.Founded);
         });
 
         // Button 2 = Verzichten → Zug endet sofort
         Wire(secondaryButton, "Verzichten", () =>
         {
-            Close();
+            ClosePopup();
             gm.EndTurn();
         });
 
         // Rest ausblenden
         if (tertiaryButton) tertiaryButton.gameObject.SetActive(false);
         if (cancelButton)   cancelButton.gameObject.SetActive(false);
+
+        ShowContent(companyContent);
     }
 
     public void ShowUpgradeOptions(CompanyConfigData company, CompanyField field, PlayerData player)
     {
-        if (!companyPanel) { Debug.LogError("CompanyPanel fehlt!"); return; }
+        if (!companyContent) { Debug.LogError("CompanyContent fehlt!"); return; }
 
-        companyPanel.SetActive(true);
+        if (titleText) titleText.text = $"{company.companyName}\nUpgrade";
         
-        titleText.text = $"{company.companyName}\nUpgrade";
-        
-        bodyText.text =
+        if (bodyText) bodyText.text =
             $"Aktueller Status: {field.level}\n\n" +
             $"Investieren: {company.costInvest:N0}€ → Ertrag {company.revenueInvest:N0}€\n" +
             $"AG gründen: {company.costAG:N0}€ → Ertrag {company.revenueAG:N0}€\n\n" +
             $"Wähle ein Upgrade:\n(Quiz erforderlich)";
-
-        var gm = GetComponent<GameManager>(); // alle Manager am selben GO
 
         // Alles ausblenden, dann gezielt einblenden
         if (tertiaryButton) tertiaryButton.gameObject.SetActive(false);
         if (cancelButton)   cancelButton.gameObject.SetActive(false);
 
         // Reset Button-Listener
-        primaryButton.onClick.RemoveAllListeners();
-        secondaryButton.onClick.RemoveAllListeners();
+        if (primaryButton) primaryButton.onClick.RemoveAllListeners();
+        if (secondaryButton) secondaryButton.onClick.RemoveAllListeners();
+
+        bool showPanel = true;
 
         switch (field.level)
         {
@@ -225,13 +432,13 @@ public class UIManager : MonoBehaviour
                 // Button 1 = Investieren
                 Wire(primaryButton, "Investieren", () =>
                 {
-                    Close();
+                    ClosePopup();
                     gm.StartQuizForCompany(company, field, player, CompanyLevel.Invested);
                 });
                 // Button 2 = Später
                 Wire(secondaryButton, "Später", () =>
                 {
-                    Close();
+                    ClosePopup();
                     gm.EndTurn();
                 });
                 break;
@@ -240,13 +447,13 @@ public class UIManager : MonoBehaviour
                 // Button 1 = AG gründen
                 Wire(primaryButton, "AG gründen", () =>
                 {
-                    Close();
+                    ClosePopup();
                     gm.StartQuizForCompany(company, field, player, CompanyLevel.AG);
                 });
                 // Button 2 = Später
                 Wire(secondaryButton, "Später", () =>
                 {
-                    Close();
+                    ClosePopup();
                     gm.EndTurn();
                 });
                 break;
@@ -254,12 +461,17 @@ public class UIManager : MonoBehaviour
             case CompanyLevel.AG:
             default:
                 // Nichts mehr möglich
-                Close();
+                showPanel = false;
+                ClosePopup();
                 gm.EndTurn();
                 break;
         }
-    }
 
+        if (showPanel)
+        {
+            ShowContent(companyContent);
+        }
+    }
 
     private void Wire(Button btn, string label, System.Action onClick)
     {
@@ -276,27 +488,17 @@ public class UIManager : MonoBehaviour
         btn.onClick.AddListener(() => onClick?.Invoke());
     }
 
-    private void Close()
-    {
-        if (companyPanel) companyPanel.SetActive(false);
-    }
-
     // ============================================================
     // 💰 INSOLVENZ & VERSTEIGERUNG UI
     // ============================================================
 
-    /// <summary>
-    /// Zeigt das Versteigerungs-Panel an
-    /// </summary>
     public void ShowBankruptcyAuction(PlayerData player, int missingAmount, string reason)
     {
-        if (!bankruptcyPanel)
+        if (!bankruptcyContent)
         {
-            Debug.LogError("BankruptcyPanel fehlt im UIManager!");
+            Debug.LogError("BankruptcyContent fehlt im UIManager!");
             return;
         }
-
-        bankruptcyPanel.SetActive(true);
 
         // Titel und Beschreibung
         if (bankruptcyTitleText)
@@ -334,6 +536,8 @@ public class UIManager : MonoBehaviour
             {
                 bankruptcyBodyText.text += "\n\n⚠️ Keine Unternehmen verfügbar!";
             }
+            // Zeige Panel trotzdem, damit man sieht dass man pleite ist
+            ShowContent(bankruptcyContent);
             return;
         }
 
@@ -409,10 +613,6 @@ public class UIManager : MonoBehaviour
                     });
                 }
             }
-            else
-            {
-                Debug.LogWarning("AuctionButtonContainer fehlt! Kann keine Buttons erstellen.");
-            }
         }
 
         // Cancel Button
@@ -424,17 +624,13 @@ public class UIManager : MonoBehaviour
                 gm.CancelBankruptcy();
             });
         }
+
+        ShowContent(bankruptcyContent);
     }
 
-    /// <summary>
-    /// Versteckt das Versteigerungs-Panel
-    /// </summary>
     public void HideBankruptcyAuction()
     {
-        if (bankruptcyPanel)
-        {
-            bankruptcyPanel.SetActive(false);
-        }
+        ClosePopup();
 
         // Lösche alle Buttons
         if (auctionButtonContainer != null)
@@ -450,14 +646,11 @@ public class UIManager : MonoBehaviour
     // 🏁 GAME OVER UI
     // ============================================================
 
-    /// <summary>
-    /// Zeigt das Game Over Panel mit Rankings an
-    /// </summary>
     public void ShowGameOver(List<PlayerRanking> rankings)
     {
-        if (!gameOverPanel)
+        if (!gameOverContent)
         {
-            Debug.LogError("GameOverPanel fehlt im UIManager!");
+            Debug.LogError("GameOverContent fehlt im UIManager!");
             return;
         }
 
@@ -465,10 +658,6 @@ public class UIManager : MonoBehaviour
         {
             gameOverObjects[i].SetActive(false);
         }
-
-        gameOverPanel.SetActive(true);
-
-        
 
         if (gameOverTitleText)
         {
@@ -536,12 +725,6 @@ public class UIManager : MonoBehaviour
                     $"Vermögen: {ranking.totalAssets:N0}€ " +
                     $"(Bargeld: {ranking.money:N0}€, Unternehmen: {ranking.companyCount})";
             }
-            
-            Debug.Log($"[UIManager] {rankings.Count} Ranking-Einträge erstellt im RankingContainer.");
-        }
-        else
-        {
-            Debug.LogWarning($"[UIManager] Ranking-Einträge nicht erstellt. Rankings: {rankings?.Count ?? 0}, Container: {(rankingContainer != null ? "vorhanden" : "NULL")}");
         }
 
         // Menu Button
@@ -575,17 +758,13 @@ public class UIManager : MonoBehaviour
                 }
             });
         }
+
+        ShowContent(gameOverContent);
     }
 
-    /// <summary>
-    /// Versteckt das Game Over Panel
-    /// </summary>
     public void HideGameOver()
     {
-        if (gameOverPanel)
-        {
-            gameOverPanel.SetActive(false);
-        }
+        ClosePopup();
 
         // Lösche alle Ranking-Einträge
         if (rankingContainer != null)
