@@ -131,6 +131,7 @@ public class QuestionManager : MonoBehaviour
     private void CompileAllQuestions()
     {
         allQuestions.Clear();
+        globalUsedQuestionIds.Clear(); // Reset used history on reload/change
         // Build key: "junior_en", "senior_en", etc.
         string key = $"{difficulty.ToString().ToLower()}_{(language == QuestionLanguage.English ? "en" : "de")}";
         QuestionCategory pickedCategory = null;
@@ -157,6 +158,9 @@ public class QuestionManager : MonoBehaviour
         }
     }
 
+    // Track used questions globally to avoid repeats until all are shown
+    private HashSet<int> globalUsedQuestionIds = new HashSet<int>();
+
     public QuestionData GetRandomQuestion()
     {
         if (allQuestions.Count == 0)
@@ -165,8 +169,31 @@ public class QuestionManager : MonoBehaviour
             return null;
         }
 
-        int randomIndex = Random.Range(0, allQuestions.Count);
-        return allQuestions[randomIndex];
+        // Filter out already used questions
+        List<QuestionData> availableQuestions = new List<QuestionData>();
+        foreach (var q in allQuestions)
+        {
+            if (!globalUsedQuestionIds.Contains(q.id))
+            {
+                availableQuestions.Add(q);
+            }
+        }
+
+        // If all questions have been shown, reset the "deck"
+        if (availableQuestions.Count == 0)
+        {
+            Debug.Log("[QuestionManager] All questions shown! Reshuffling deck.");
+            globalUsedQuestionIds.Clear();
+            availableQuestions.AddRange(allQuestions);
+        }
+
+        int randomIndex = Random.Range(0, availableQuestions.Count);
+        QuestionData selected = availableQuestions[randomIndex];
+        
+        // Mark as used
+        globalUsedQuestionIds.Add(selected.id);
+        
+        return selected;
     }
 
     public void PrintRandomQuestion()

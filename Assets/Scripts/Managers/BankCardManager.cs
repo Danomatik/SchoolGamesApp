@@ -131,6 +131,8 @@ public class BankCardManager : MonoBehaviour
         }
     }
 
+    private HashSet<int> usedCardIds = new HashSet<int>();
+
     public void ShowRandomBankCard()
     {
         List<BankCard> availableCards = GetFilteredCards();
@@ -145,7 +147,26 @@ public class BankCardManager : MonoBehaviour
             return;
         }
 
-        pendingCard = availableCards[Random.Range(0, availableCards.Count)];
+        // Filter out used cards
+        List<BankCard> candidates = new List<BankCard>();
+        foreach (var card in availableCards)
+        {
+            if (!usedCardIds.Contains(card.id))
+            {
+                candidates.Add(card);
+            }
+        }
+
+        // Reshuffle if empty
+        if (candidates.Count == 0)
+        {
+            Debug.Log("[BankCardManager] All valid bank cards shown! Reshuffling deck.");
+            usedCardIds.Clear();
+            candidates.AddRange(availableCards);
+        }
+
+        pendingCard = candidates[Random.Range(0, candidates.Count)];
+        usedCardIds.Add(pendingCard.id);
         
         if (enableTestMode)
         {

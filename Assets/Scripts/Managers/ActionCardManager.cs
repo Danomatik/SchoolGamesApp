@@ -120,6 +120,8 @@ public class ActionCardManager : MonoBehaviour
         }
     }
 
+    private HashSet<int> usedCardIds = new HashSet<int>();
+
     public void ShowRandomActionCard()
     {
         List<ActionCard> availableCards = GetFilteredCards();
@@ -134,7 +136,26 @@ public class ActionCardManager : MonoBehaviour
             return;
         }
 
-        pendingCard = availableCards[Random.Range(0, availableCards.Count)];
+        // Filter out already used cards
+        List<ActionCard> candidates = new List<ActionCard>();
+        foreach (var card in availableCards)
+        {
+            if (!usedCardIds.Contains(card.id))
+            {
+                candidates.Add(card);
+            }
+        }
+
+        // If deck is empty (all valid cards used), reshuffle
+        if (candidates.Count == 0)
+        {
+            Debug.Log("[ActionCardManager] All valid action cards shown! Reshuffling deck.");
+            usedCardIds.Clear();
+            candidates.AddRange(availableCards);
+        }
+
+        pendingCard = candidates[Random.Range(0, candidates.Count)];
+        usedCardIds.Add(pendingCard.id);
 
         if (enableTestMode)
         {
