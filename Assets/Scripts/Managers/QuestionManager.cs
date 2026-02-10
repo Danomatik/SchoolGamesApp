@@ -290,6 +290,13 @@ public class QuestionManager : MonoBehaviour
             int idx = i;
             optionButtons[i].onClick.RemoveAllListeners();
             optionButtons[i].onClick.AddListener(() => HandleAnswer(idx));
+
+            // Reset Outline
+            var outline = optionButtons[i].GetComponent<Outline>();
+            if (outline != null)
+            {
+                outline.enabled = false;
+            }
         }
     }
 
@@ -303,14 +310,36 @@ public class QuestionManager : MonoBehaviour
 
         bool isCorrect = (selectedIndex == currentCorrectIndex);
 
+        // Visual Feedback
+        if (selectedIndex >= 0 && selectedIndex < optionButtons.Length)
+        {
+            var outline = optionButtons[selectedIndex].GetComponent<Outline>();
+            if (outline != null)
+            {
+                outline.enabled = true;
+                outline.effectColor = isCorrect ? Color.green : Color.red;
+            }
+        }
+
+        // Helper: Always show the correct answer if wrong one was picked
+        if (!isCorrect && currentCorrectIndex >= 0 && currentCorrectIndex < optionButtons.Length)
+        {
+             var correctOutline = optionButtons[currentCorrectIndex].GetComponent<Outline>();
+             if (correctOutline != null)
+             {
+                 correctOutline.enabled = true;
+                 correctOutline.effectColor = Color.green;
+             }
+        }
+
         // Unterscheide zwischen Series und einzelnen Fragen
         if (seriesActive)
         {
-            StartCoroutine(ContinueSeriesAfterDelay(isCorrect, 0.9f));
+            StartCoroutine(ContinueSeriesAfterDelay(isCorrect, 1.5f)); // Increased delay to see feedback
         }
         else
         {
-            StartCoroutine(FinishQuizAfterDelay(isCorrect, 0.9f));
+            StartCoroutine(FinishQuizAfterDelay(isCorrect, 1.5f)); // Increased delay to see feedback
         }
     }
 
@@ -415,6 +444,13 @@ public class QuestionManager : MonoBehaviour
             int idx = i;
             optionButtons[i].onClick.RemoveAllListeners();
             optionButtons[i].onClick.AddListener(() => HandleAnswer(idx));
+
+            // Reset Outline
+            var outline = optionButtons[i].GetComponent<Outline>();
+            if (outline != null)
+            {
+                outline.enabled = false;
+            }
         }
     }
 
