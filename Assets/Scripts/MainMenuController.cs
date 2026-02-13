@@ -1,0 +1,364 @@
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections.Generic;
+
+/// <summary>
+/// Manages the single-scene main menu flow:
+/// Main Menu → Player Setup → Game Settings → Load MainScene
+/// Attach to the Panel GameObject in the Menu scene.
+/// </summary>
+public class MainMenuController : MonoBehaviour
+{
+    [Header("Main Menu")]
+    [Tooltip("The ButtonsContainer (Spiel starten, Quizmodus, Spiel laden)")]
+    public GameObject buttonsContainer;
+    [Tooltip("The BottomIcons panel (Info, Settings)")]
+    public GameObject bottomIcons;
+
+    [Header("Player Setup")]
+    [Tooltip("The PlayerSetupPanel")]
+    public GameObject playerSetupPanel;
+    [Tooltip("The PlayerRow prefab to instantiate")]
+    public GameObject playerRowPrefab;
+    [Tooltip("The Content transform inside PlayersScrollView")]
+    public Transform playerRowContent;
+    [Tooltip("The AddPlayerButton")]
+    public Button addPlayerButton;
+    [Tooltip("The player count text (e.g. '2 / 6 Spieler')")]
+    public TextMeshProUGUI playerCountText;
+    [Tooltip("The 'Weiter' button in PlayerSetupPanel")]
+    public Button weiterButton;
+
+    [Header("Game Settings")]
+    [Tooltip("The GameSettingsPanel")]
+    public GameObject gameSettingsPanel;
+    [Tooltip("The TimeSlider for game duration")]
+    public Slider timeSlider;
+    [Tooltip("The TimeValue text that shows the current slider value")]
+    public TextMeshProUGUI timeValueText;
+    [Tooltip("The TimeUnit text (e.g. 'Minuten')")]
+    public TextMeshProUGUI timeUnitText;
+    [Tooltip("The 'Spiel starten' button in GameSettingsPanel")]
+    public Button startGameButton;
+
+    [Header("Scene")]
+    [Tooltip("The scene to load when starting the game")]
+    public string gameSceneName = "MainScene";
+
+    [Header("Limits")]
+    public int minPlayers = 2;
+    public int maxPlayers = 6;
+
+    // Player color palette matching the screenshot style
+    private static readonly Color[] playerColors = new Color[]
+    {
+        new Color(0.30f, 0.69f, 0.31f),  // Green
+        new Color(0.13f, 0.59f, 0.95f),  // Blue
+        new Color(0.98f, 0.74f, 0.02f),  // Yellow/Gold
+        new Color(0.90f, 0.30f, 0.24f),  // Red
+        new Color(0.61f, 0.15f, 0.69f),  // Purple
+        new Color(1.00f, 0.60f, 0.00f),  // Orange
+    };
+
+    // Track spawned player rows
+    private List<GameObject> playerRows = new List<GameObject>();
+
+    private void Start()
+    {
+        // Ensure correct initial state
+        ShowMainMenu();
+
+        // Wire button listeners
+        if (addPlayerButton != null)
+            addPlayerButton.onClick.AddListener(AddPlayerRow);
+        if (weiterButton != null)
+            weiterButton.onClick.AddListener(OnWeiterClicked);
+        if (startGameButton != null)
+            startGameButton.onClick.AddListener(OnStartGameClicked);
+        if (timeSlider != null)
+        {
+            timeSlider.onValueChanged.AddListener(OnTimeSliderChanged);
+            // Initialize the display with the current slider value
+            OnTimeSliderChanged(timeSlider.value);
+        }
+    }
+
+    /// <summary>
+    /// Shows the main menu (ButtonsContainer + BottomIcons), hides other panels.
+    /// </summary>
+    public void ShowMainMenu()
+    {
+        SetActive(buttonsContainer, true);
+        SetActive(bottomIcons, true);
+        SetActive(playerSetupPanel, false);
+        SetActive(gameSettingsPanel, false);
+    }
+
+    // ─── STEP 1: "Spiel starten" from Main Menu ─────────────────────
+
+    /// <summary>
+    /// Called by the "Spiel starten" (PlayButton) OnClick.
+    /// Hides main menu, shows PlayerSetupPanel with 2 default rows.
+    /// </summary>
+    public void OnPlayClicked()
+    {
+        Debug.Log("[MainMenuController] Spiel starten → Player Setup");
+
+        SetActive(buttonsContainer, false);
+        SetActive(bottomIcons, false);
+        SetActive(playerSetupPanel, true);
+        SetActive(gameSettingsPanel, false);
+
+        // Clear any existing rows
+        ClearAllPlayerRows();
+
+        // Spawn 2 default player rows
+        AddPlayerRow();
+        AddPlayerRow();
+    }
+
+    // ─── STEP 2: Player Setup ────────────────────────────────────────
+
+    /// <summary>
+    /// Adds a new PlayerRow to the scroll view.
+    /// Called by the "Spieler hinzufügen" button.
+    /// </summary>
+    public void AddPlayerRow()
+    {
+        if (playerRows.Count >= maxPlayers)
+        {
+            Debug.LogWarning($"[MainMenuController] Max players ({maxPlayers}) reached!");
+            return;
+        }
+
+        if (playerRowPrefab == null || playerRowContent == null)
+        {
+            Debug.LogError("[MainMenuController] PlayerRow prefab or content transform not assigned!");
+            return;
+        }
+
+        GameObject newRow = Instantiate(playerRowPrefab, playerRowContent);
+        playerRows.Add(newRow);
+
+        int playerNumber = playerRows.Count;
+
+        // Set number badge text and color
+        SetPlayerRowNumber(newRow, playerNumber);
+
+        // Wire the delete button (the X button)
+        Button deleteBtn = FindDeleteButton(newRow);
+        if (deleteBtn != null)
+        {
+            deleteBtn.onClick.RemoveAllListeners();
+            deleteBtn.onClick.AddListener(() => RemovePlayerRow(newRow));
+        }
+
+        UpdatePlayerCountDisplay();
+        UpdateAddButtonState();
+
+        Debug.Log($"[MainMenuController] Added player row #{playerNumber}");
+    }
+
+    /// <summary>
+    /// Removes a player row and renumbers remaining rows.
+    /// </summary>
+    public void RemovePlayerRow(GameObject row)
+    {
+        if (playerRows.Count <= minPlayers)
+        {
+            Debug.LogWarning($"[MainMenuController] Cannot remove — minimum {minPlayers} players required!");
+            return;
+        }
+
+        playerRows.Remove(row);
+        Destroy(row);
+
+        // Renumber remaining rows
+        for (int i = 0; i < playerRows.Count; i++)
+        {
+            SetPlayerRowNumber(playerRows[i], i + 1);
+        }
+
+        UpdatePlayerCountDisplay();
+        UpdateAddButtonState();
+
+        Debug.Log($"[MainMenuController] Removed player row. Remaining: {playerRows.Count}");
+    }
+
+    private void ClearAllPlayerRows()
+    {
+        foreach (var row in playerRows)
+        {
+            if (row != null) Destroy(row);
+        }
+        playerRows.Clear();
+    }
+
+    private void SetPlayerRowNumber(GameObject row, int number)
+    {
+        // The first child of PlayerRow is the number badge container
+        // Find the TMP text in the first child (the badge)
+        if (row.transform.childCount > 0)
+        {
+            Transform badge = row.transform.GetChild(0);
+            TextMeshProUGUI badgeText = badge.GetComponentInChildren<TextMeshProUGUI>();
+            if (badgeText != null)
+            {
+                badgeText.text = number.ToString();
+            }
+
+            // Set badge color
+            Image badgeImage = badge.GetComponent<Image>();
+            if (badgeImage != null && number - 1 < playerColors.Length)
+            {
+                badgeImage.color = playerColors[number - 1];
+            }
+        }
+    }
+
+    private Button FindDeleteButton(GameObject row)
+    {
+        // The delete button is the last child of the PlayerRow (the X button)
+        if (row.transform.childCount >= 3)
+        {
+            Transform deleteTransform = row.transform.GetChild(row.transform.childCount - 1);
+            return deleteTransform.GetComponent<Button>();
+        }
+        return null;
+    }
+
+    private void UpdatePlayerCountDisplay()
+    {
+        if (playerCountText != null)
+        {
+            playerCountText.text = $"{playerRows.Count} / {maxPlayers} Spieler";
+        }
+    }
+
+    private void UpdateAddButtonState()
+    {
+        if (addPlayerButton != null)
+        {
+            addPlayerButton.interactable = playerRows.Count < maxPlayers;
+        }
+    }
+
+    // ─── STEP 2 → 3: "Weiter" ───────────────────────────────────────
+
+    /// <summary>
+    /// Called by the "Weiter" button in PlayerSetupPanel.
+    /// Saves player data and transitions to GameSettingsPanel.
+    /// </summary>
+    public void OnWeiterClicked()
+    {
+        if (playerRows.Count < minPlayers)
+        {
+            Debug.LogWarning($"[MainMenuController] Need at least {minPlayers} players!");
+            return;
+        }
+
+        // Save player count and names to PlayerPrefs
+        PlayerPrefs.SetInt("PlayerCount", playerRows.Count);
+
+        for (int i = 0; i < playerRows.Count; i++)
+        {
+            string playerName = GetPlayerNameFromRow(playerRows[i], i + 1);
+            PlayerPrefs.SetString($"PlayerName_{i + 1}", playerName);
+        }
+        PlayerPrefs.Save();
+
+        Debug.Log($"[MainMenuController] Saved {playerRows.Count} players → Game Settings");
+
+        SetActive(playerSetupPanel, false);
+        SetActive(gameSettingsPanel, true);
+    }
+
+    private string GetPlayerNameFromRow(GameObject row, int fallbackNumber)
+    {
+        TMP_InputField inputField = row.GetComponentInChildren<TMP_InputField>();
+        if (inputField != null && !string.IsNullOrWhiteSpace(inputField.text))
+        {
+            return inputField.text;
+        }
+        return $"Spieler {fallbackNumber}";
+    }
+
+    // ─── STEP 3: Game Settings ───────────────────────────────────────
+
+    /// <summary>
+    /// Called when the time slider value changes.
+    /// Updates the TimeValue display text.
+    /// </summary>
+    public void OnTimeSliderChanged(float value)
+    {
+        int minutes = Mathf.RoundToInt(value);
+
+        if (timeValueText != null)
+        {
+            timeValueText.text = minutes.ToString();
+        }
+
+        if (timeUnitText != null)
+        {
+            timeUnitText.text = minutes == 1 ? "Minute" : "Minuten";
+        }
+    }
+
+    /// <summary>
+    /// Sets the time slider to a specific preset value (in minutes).
+    /// Wire each preset button's OnClick to this with the desired value.
+    /// </summary>
+    public void SetTimePreset(float minutes)
+    {
+        if (timeSlider != null)
+        {
+            timeSlider.value = minutes; // This automatically triggers OnTimeSliderChanged
+        }
+    }
+
+    /// <summary>
+    /// Called by the "Zurück" button in GameSettingsPanel.
+    /// Returns to PlayerSetupPanel without losing player data.
+    /// </summary>
+    public void OnBackToPlayerSetup()
+    {
+        Debug.Log("[MainMenuController] Zurück → Player Setup");
+        SetActive(gameSettingsPanel, false);
+        SetActive(playerSetupPanel, true);
+    }
+
+    /// <summary>
+    /// Called by the "Spiel starten" button in GameSettingsPanel.
+    /// Saves game duration and loads the game scene.
+    /// </summary>
+    public void OnStartGameClicked()
+    {
+        // Save game duration
+        float duration = timeSlider != null ? timeSlider.value : 5f;
+        PlayerPrefs.SetFloat("GameDuration", duration);
+
+        // Mark as new game (not loading a save)
+        PlayerPrefs.SetInt("LoadSavedGame", 0);
+        PlayerPrefs.Save();
+
+        Debug.Log($"[MainMenuController] Starting game — Duration: {duration} min, Players: {PlayerPrefs.GetInt("PlayerCount")}");
+
+        if (!string.IsNullOrEmpty(gameSceneName))
+        {
+            SceneManager.LoadScene(gameSceneName);
+        }
+        else
+        {
+            Debug.LogError("[MainMenuController] Game scene name not set!");
+        }
+    }
+
+    // ─── Utility ─────────────────────────────────────────────────────
+
+    private void SetActive(GameObject go, bool active)
+    {
+        if (go != null) go.SetActive(active);
+    }
+}
