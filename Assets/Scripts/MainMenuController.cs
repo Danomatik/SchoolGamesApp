@@ -17,6 +17,14 @@ public class MainMenuController : MonoBehaviour
     [Tooltip("The BottomIcons panel (Info, Settings)")]
     public GameObject bottomIcons;
 
+    [Header("Options")]
+    [Tooltip("The OptionsPanel (Musik Lautstärke etc.)")]
+    public GameObject optionsPanel;
+
+    [Header("Anleitung")]
+    [Tooltip("The AnleitungPanel (rules pages)")]
+    public GameObject anleitungPanel;
+
     [Header("Player Setup")]
     [Tooltip("The PlayerSetupPanel")]
     public GameObject playerSetupPanel;
@@ -94,6 +102,48 @@ public class MainMenuController : MonoBehaviour
         SetActive(bottomIcons, true);
         SetActive(playerSetupPanel, false);
         SetActive(gameSettingsPanel, false);
+        SetActive(optionsPanel, false);
+        SetActive(anleitungPanel, false);
+    }
+
+    // ─── Anleitung Panel ─────────────────────────────────────────────
+
+    /// <summary>
+    /// Called by the InfoButton in BottomIcons.
+    /// Opens the AnleitungPanel, hides the main menu.
+    /// </summary>
+    public void OnAnleitungClicked()
+    {
+        Debug.Log("[MainMenuController] Anleitung opened");
+        SetActive(buttonsContainer, false);
+        SetActive(bottomIcons, false);
+        SetActive(anleitungPanel, true);
+    }
+
+    // ─── Options Panel ───────────────────────────────────────────────
+
+    /// <summary>
+    /// Called by the SettingsButton (gear icon) in BottomIcons.
+    /// Opens the OptionsPanel, hides the main menu.
+    /// </summary>
+    public void OnOptionsClicked()
+    {
+        Debug.Log("[MainMenuController] Options opened");
+        SetActive(buttonsContainer, false);
+        SetActive(bottomIcons, false);
+        SetActive(optionsPanel, true);
+    }
+
+    /// <summary>
+    /// Called by the CloseButton (Schließen) in OptionsPanel.
+    /// Closes OptionsPanel and returns to main menu.
+    /// </summary>
+    public void OnOptionsClose()
+    {
+        Debug.Log("[MainMenuController] Options closed");
+        SetActive(optionsPanel, false);
+        SetActive(buttonsContainer, true);
+        SetActive(bottomIcons, true);
     }
 
     // ─── STEP 1: "Spiel starten" from Main Menu ─────────────────────
