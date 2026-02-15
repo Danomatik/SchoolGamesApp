@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI bankTitleText;
     [SerializeField] private TextMeshProUGUI bankIdText;
     [SerializeField] private TextMeshProUGUI bankBodyText;
+    [SerializeField] private Button bankBackgroundButton; // NEU: Unsichtbarer Button für "Click to Continue" (nur Bank)
 
     [Header("Company Content")]
     [SerializeField] private TextMeshProUGUI titleText;
@@ -63,14 +64,42 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject auctionButtonPrefab; // Prefab für Versteigerungs-Button
     [SerializeField] private Button bankruptcyCancelButton; // Button zum Abbrechen
 
-    [Header("Game Over Content")]
+    [Header("Game Over - General")]
     [SerializeField] private TextMeshProUGUI gameOverTitleText;
-    [SerializeField] private TextMeshProUGUI gameOverBodyText;
-    [SerializeField] private Transform rankingContainer; // Container für Ranking-Einträge
     [SerializeField] private Button gameOverMenuButton; // Button zum Zurück zum Menü
     [SerializeField] private Button gameOverNewGameButton; // Button für Neues Spiel
     [SerializeField] private string gameSceneName = "Demo"; // Name der Spielszene für Neues Spiel
-    [SerializeField] private List<GameObject> gameOverObjects = new List<GameObject>();
+    [SerializeField] private List<GameObject> gameOverObjects = new List<GameObject>(); // Alte Objekte, ggf. zum Ausblenden
+
+    [Header("Game Over - Podium")]
+    [SerializeField] private GameObject podiumContent;
+    [SerializeField] private Button podiumContinueButton;
+    [Header("Podium - Winner")]
+    [SerializeField] private TextMeshProUGUI podiumWinnerInitial; // z.B. "P1"
+    [SerializeField] private TextMeshProUGUI podiumWinnerName;    // "Max"
+    [SerializeField] private TextMeshProUGUI podiumWinnerAssets;  // "50.000€"
+    [Header("Podium - 2nd Place")]
+    [SerializeField] private GameObject podium2ndPlaceRoot;
+    [SerializeField] private TextMeshProUGUI podium2ndInitial;
+    [SerializeField] private TextMeshProUGUI podium2ndName;
+    [SerializeField] private TextMeshProUGUI podium2ndAssets;
+    [Header("Podium - 3rd Place")]
+    [SerializeField] private GameObject podium3rdPlaceRoot;
+    [SerializeField] private TextMeshProUGUI podium3rdInitial;
+    [SerializeField] private TextMeshProUGUI podium3rdName;
+    [SerializeField] private TextMeshProUGUI podium3rdAssets;
+
+    [Header("Game Over - Results List")]
+    [SerializeField] private GameObject resultsContent;
+    [SerializeField] private Transform resultsListContainer; // Container für 2. - X. Platz
+    [Header("Results - 1st Place (Static)")]
+    [SerializeField] private GameObject firstPlaceRowObject;
+    [SerializeField] private TextMeshProUGUI firstPlaceRankText; // "1"
+    [SerializeField] private TextMeshProUGUI firstPlaceNameText;
+    [SerializeField] private TextMeshProUGUI firstPlaceAssetsText;
+    [SerializeField] private TextMeshProUGUI firstPlaceMoneyText;
+    [Header("Results - Prefab (2nd+)")]
+    [SerializeField] private GameObject resultRowPrefab;
 
     private GameManager gm;
     private GameObject currentContent; // Aktuell angezeigter Content
@@ -202,6 +231,18 @@ public class UIManager : MonoBehaviour
         if (bankBodyText) bankBodyText.text = text;
 
         onConfirmAction = onDismiss;
+
+        // Wire up specific click-to-dismiss behavior for Bank Cards (same as Action Cards)
+        if (bankBackgroundButton != null)
+        {
+            bankBackgroundButton.onClick.RemoveAllListeners();
+            bankBackgroundButton.onClick.AddListener(() => 
+            {
+                onConfirmAction?.Invoke();
+                ClosePopup();
+            });
+        }
+
         ShowContent(bankContent);
     }
 
@@ -341,6 +382,40 @@ public class UIManager : MonoBehaviour
             if (rankText != null) rankText.text = $"{rank}.";
             if (nameText != null) nameText.text = playerName;
             if (scoreText != null) scoreText.text = rollResult.ToString();
+        }
+        
+        ShowContent(initiativeContent);
+    }
+
+    public void UpdateInitiativeResults(List<(string playerName, int rollResult)> sortedResults)
+    {
+        if (!initiativeContent) return;
+
+        // Clear existing results
+        if (initiativeResultsContainer != null)
+        {
+            foreach (Transform child in initiativeResultsContainer)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        // Re-populate list with sorted results
+        if (initiativeResultsContainer != null && initiativeResultRowPrefab != null)
+        {
+            for (int i = 0; i < sortedResults.Count; i++)
+            {
+                var result = sortedResults[i];
+                GameObject row = Instantiate(initiativeResultRowPrefab, initiativeResultsContainer);
+                
+                var rankText = row.transform.Find("RankText")?.GetComponent<TextMeshProUGUI>();
+                var nameText = row.transform.Find("NameText")?.GetComponent<TextMeshProUGUI>();
+                var scoreText = row.transform.Find("ScoreText")?.GetComponent<TextMeshProUGUI>();
+
+                if (rankText != null) rankText.text = $"{i + 1}.";
+                if (nameText != null) nameText.text = result.playerName;
+                if (scoreText != null) scoreText.text = result.rollResult.ToString();
+            }
         }
         
         ShowContent(initiativeContent);
@@ -646,133 +721,230 @@ public class UIManager : MonoBehaviour
     // 🏁 GAME OVER UI
     // ============================================================
 
+    private List<PlayerRanking> currentRankings;
+
     public void ShowGameOver(List<PlayerRanking> rankings)
     {
+        // ⏸️ PAUSE GAME
+        Time.timeScale = 0f;
+
         if (!gameOverContent)
         {
             Debug.LogError("GameOverContent fehlt im UIManager!");
             return;
         }
 
+        this.currentRankings = rankings;
+
+        // 1. Alles Reseten/Verstecken
+        if (podiumContent) podiumContent.SetActive(false);
+        if (resultsContent) resultsContent.SetActive(false);
+        
+        // Alte Objekte ausblenden
         for(int i = 0; i < gameOverObjects.Count; i++)
         {
-            gameOverObjects[i].SetActive(false);
+            if (gameOverObjects[i]) gameOverObjects[i].SetActive(false);
         }
 
-        if (gameOverTitleText)
-        {
-            gameOverTitleText.text = "Spiel beendet!";
-        }
-
-        if (gameOverBodyText && rankings != null && rankings.Count > 0)
-        {
-            var winner = rankings[0];
-            string winnerName = string.IsNullOrEmpty(winner.player.PlayerName) 
-                ? $"Spieler {winner.player.PlayerID}" 
-                : winner.player.PlayerName;
-            
-            gameOverBodyText.text = 
-                $"Gewinner: {winnerName}\n" +
-                $"Vermögen: {winner.totalAssets:N0}€\n" +
-                $"(Bargeld: {winner.money:N0}€, Unternehmen: {winner.companyCount})";
-        }
-
-        // Lösche alte Ranking-Einträge
-        if (rankingContainer != null)
-        {
-            foreach (Transform child in rankingContainer)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-
-        // Erstelle Ranking-Einträge
-        if (rankings != null && rankings.Count > 0 && rankingContainer != null)
-        {
-            // Hole Font von einem existierenden TMP Text (z.B. vom Body Text)
-            TMP_FontAsset fontToUse = null;
-            if (gameOverBodyText != null)
-            {
-                fontToUse = gameOverBodyText.font;
-            }
-
-            for (int i = 0; i < rankings.Count; i++)
-            {
-                var ranking = rankings[i];
-                string playerName = string.IsNullOrEmpty(ranking.player.PlayerName) 
-                    ? $"Spieler {ranking.player.PlayerID}" 
-                    : ranking.player.PlayerName;
-
-                // Erstelle Entry zur Laufzeit
-                GameObject entryObj = new GameObject($"RankingEntry_{i + 1}");
-                entryObj.transform.SetParent(rankingContainer, false);
-                
-                RectTransform rectTransform = entryObj.AddComponent<RectTransform>();
-                rectTransform.sizeDelta = new Vector2(600, 60);
-                
-                TextMeshProUGUI textComponent = entryObj.AddComponent<TextMeshProUGUI>();
-                textComponent.fontSize = 60; // Moderate Schriftgröße
-                textComponent.alignment = TextAlignmentOptions.Center;
-                
-                // Font zuweisen
-                if (fontToUse != null)
-                {
-                    textComponent.font = fontToUse;
-                }
-                
-                textComponent.text = 
-                    $"{i + 1}. {playerName}\n" +
-                    $"Vermögen: {ranking.totalAssets:N0}€ " +
-                    $"(Bargeld: {ranking.money:N0}€, Unternehmen: {ranking.companyCount})";
-            }
-        }
-
-        // Menu Button
+        // Setup Buttons (Global)
         if (gameOverMenuButton)
         {
             gameOverMenuButton.onClick.RemoveAllListeners();
             gameOverMenuButton.onClick.AddListener(() =>
             {
+                Time.timeScale = 1f; // 🟢 Unpause
                 UnityEngine.SceneManagement.SceneManager.LoadScene("Demo 2");
             });
         }
 
-        // Neues Spiel Button
         if (gameOverNewGameButton)
         {
             gameOverNewGameButton.onClick.RemoveAllListeners();
             gameOverNewGameButton.onClick.AddListener(() =>
             {
-                // Lösche gespeichertes Spiel und starte neu
+                Time.timeScale = 1f; // 🟢 Unpause
                 PlayerPrefs.SetInt("LoadSavedGame", 0);
                 PlayerPrefs.Save();
-                
-                // Lade die Spielszene neu
                 if (!string.IsNullOrEmpty(gameSceneName))
-                {
                     UnityEngine.SceneManagement.SceneManager.LoadScene(gameSceneName);
-                }
-                else
-                {
-                    Debug.LogError("GameSceneName ist nicht gesetzt! Kann neues Spiel nicht starten.");
-                }
             });
         }
+
+        // 2. Podium füllen und anzeigen
+        ShowPodium(rankings);
 
         ShowContent(gameOverContent);
     }
 
+    private void ShowPodium(List<PlayerRanking> rankings)
+    {
+        if (!podiumContent) return;
+
+        // Setup Winner (Muss existieren, da Spiel vorbei)
+        if (rankings.Count > 0)
+        {
+            var winner = rankings[0];
+            SetPodiumData(winner, podiumWinnerInitial, podiumWinnerName, podiumWinnerAssets);
+        }
+
+        // Setup 2nd Place
+        if (podium2ndPlaceRoot)
+        {
+            if (rankings.Count > 1)
+            {
+                podium2ndPlaceRoot.SetActive(true);
+                SetPodiumData(rankings[1], podium2ndInitial, podium2ndName, podium2ndAssets);
+            }
+            else
+            {
+                podium2ndPlaceRoot.SetActive(false);
+            }
+        }
+
+        // Setup 3rd Place
+        if (podium3rdPlaceRoot)
+        {
+            if (rankings.Count > 2)
+            {
+                podium3rdPlaceRoot.SetActive(true);
+                SetPodiumData(rankings[2], podium3rdInitial, podium3rdName, podium3rdAssets);
+            }
+            else
+            {
+                podium3rdPlaceRoot.SetActive(false);
+            }
+        }
+
+        // Continue Button
+        if (podiumContinueButton)
+        {
+            podiumContinueButton.onClick.RemoveAllListeners();
+            podiumContinueButton.onClick.AddListener(() =>
+            {
+                // Wechsel zu Results View
+                ShowResultsList(rankings);
+            });
+        }
+
+        podiumContent.SetActive(true);
+    }
+
+    private void SetPodiumData(PlayerRanking r, TextMeshProUGUI initial, TextMeshProUGUI name, TextMeshProUGUI assets)
+    {
+        // Initial: "P" + PlayerID
+        if (initial) initial.text = $"P{r.player.PlayerID}";
+        
+        // Name: "Simeon", "Max" etc.
+        if (name)
+        {
+            name.text = string.IsNullOrEmpty(r.player.PlayerName) 
+                ? $"Spieler {r.player.PlayerID}" 
+                : r.player.PlayerName;
+        }
+
+        // Assets: "18.450€"
+        if (assets) assets.text = $"{r.totalAssets:N0}€";
+    }
+
+    private void ShowResultsList(List<PlayerRanking> rankings)
+    {
+        if (podiumContent) podiumContent.SetActive(false);
+        if (!resultsContent) return;
+
+        resultsContent.SetActive(true);
+
+        // 1. Platz (Static Object)
+        if (rankings.Count > 0 && firstPlaceRowObject)
+        {
+            firstPlaceRowObject.SetActive(true);
+            var winner = rankings[0];
+            
+            if (firstPlaceRankText) firstPlaceRankText.text = "1";
+            if (firstPlaceNameText) firstPlaceNameText.text = string.IsNullOrEmpty(winner.player.PlayerName) ? $"P{winner.player.PlayerID}" : winner.player.PlayerName;
+            
+            // Assets statt nur Money? User sagte "total money... je nachdem wie viel geld man hat" -> wahrscheinlich totalAssets
+            if (firstPlaceAssetsText) firstPlaceAssetsText.text = $"{winner.totalAssets:N0}€";
+            
+            // Bargeld separat (optional)
+            if (firstPlaceMoneyText) firstPlaceMoneyText.text = $"Bargeld: {winner.money:N0}€"; 
+        }
+
+        // Restliche Plätze (Prefab)
+        // Zuerst aufräumen
+        if (resultsListContainer)
+        {
+            foreach (Transform child in resultsListContainer)
+            {
+                // WICHTIG: Lösche NICHT das statische Objekt für den 1. Platz, falls es im selben Container liegt!
+                if (firstPlaceRowObject != null && child.gameObject == firstPlaceRowObject)
+                {
+                    continue;
+                }
+                Destroy(child.gameObject);
+            }
+        }
+
+        if (resultsListContainer && resultRowPrefab)
+        {
+            for (int i = 1; i < rankings.Count; i++) // Start bei Index 1 (2. Platz)
+            {
+                var ranking = rankings[i];
+                GameObject row = Instantiate(resultRowPrefab, resultsListContainer);
+                
+                // Wir suchen nach Komponenten im Prefab, die hoffentlich so heißen wie im Inspektor/Plan
+                // Strukturannahme: RankText, NameText, StatsText/MoneyText
+                
+                // Helper zum Finden (rekursiv oder direkt)
+                var rankTxt = row.transform.FindDeepChild("RankText")?.GetComponent<TextMeshProUGUI>();
+                var nameTxt = row.transform.FindDeepChild("NameText")?.GetComponent<TextMeshProUGUI>();
+                var statsTxt = row.transform.FindDeepChild("StatsText")?.GetComponent<TextMeshProUGUI>(); // Assets
+                var moneyTxt = row.transform.FindDeepChild("MoneyText")?.GetComponent<TextMeshProUGUI>(); // Bargeld
+
+                if (rankTxt) rankTxt.text = (i + 1).ToString();
+                
+                string pName = string.IsNullOrEmpty(ranking.player.PlayerName) 
+                    ? $"P{ranking.player.PlayerID}" 
+                    : ranking.player.PlayerName;
+                if (nameTxt) nameTxt.text = pName;
+
+                if (statsTxt) statsTxt.text = $"{ranking.totalAssets:N0}€";
+                if (moneyTxt) moneyTxt.text = $"{ranking.money:N0}€";
+            }
+            }
+        }
+
+
+
+
     public void HideGameOver()
     {
+        Time.timeScale = 1f; // 🟢 Unpause
         ClosePopup();
 
         // Lösche alle Ranking-Einträge
-        if (rankingContainer != null)
+        if (resultsListContainer != null)
         {
-            foreach (Transform child in rankingContainer)
+            foreach (Transform child in resultsListContainer)
             {
                 Destroy(child.gameObject);
             }
         }
+    }
+}
+
+// Helper Extension
+public static class TransformDeepChildExtension
+{
+    public static Transform FindDeepChild(this Transform aParent, string aName)
+    {
+        foreach(Transform child in aParent)
+        {
+            if(child.name == aName )
+                return child;
+            var result = child.FindDeepChild(aName);
+            if (result != null)
+                return result;
+        }
+        return null;
     }
 }

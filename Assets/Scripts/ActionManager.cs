@@ -297,6 +297,16 @@ public class ActionManager : MonoBehaviour
 
         Debug.Log($"Player {currentPlayer.PlayerID} selected owned company field {selectedFieldId}");
 
+        // 🛡️ SECURITY CHECK: Ensure player ACTUALLY owns this field (in case of bug/exploit)
+        if (!currentPlayer.companies.Contains(selectedFieldId))
+        {
+            Debug.LogError($"[ActionManager] SECURITY ALERT: Player {currentPlayer.PlayerID} tried to move to field {selectedFieldId} via 'Owned Company' card, but they DO NOT own it! Cancelling move.");
+            selector.DisableSelection();
+            selector.ResetSelection();
+            gameManager.EndTurn();
+            yield break;
+        }
+
         // 🧹 cleanup selector for next turn
         selector.DisableSelection();
         selector.ResetSelection();

@@ -709,6 +709,19 @@ public class GameInitiator : MonoBehaviour
 
         Debug.Log($"Initiative (Initiator): Completed. Order: {string.Join(", ", CurrentGame.AllPlayers.Select(p=>p.PlayerID))}.");
 
+        // ✅ NEU: Update UI with sorted results
+        if (gm.uiManager != null)
+        {
+            var sortedResultsForUI = ordered.Select(r => 
+            {
+                var pName = playersById[r.playerId].PlayerName;
+                if (string.IsNullOrEmpty(pName)) pName = $"Spieler {r.playerId}";
+                return (pName, r.roll);
+            }).ToList();
+            
+            gm.uiManager.UpdateInitiativeResults(sortedResultsForUI);
+        }
+
         // 3. Show Start Button and Wait
         if (gm.uiManager != null)
         {

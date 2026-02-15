@@ -35,9 +35,9 @@ public class ActionCardManager : MonoBehaviour
 
     // 🎮 TEST MODE - Set this in the Inspector!
     [Header("Testing")]
+    [SerializeField] private bool debugOnlyMovementCards = false; // ✅ New simple flag
     [SerializeField] private ActionCardTestMode testMode = ActionCardTestMode.All;
     [SerializeField] private bool enableTestMode = false;  // Toggle testing on/off
-
     private ActionCard pendingCard;
     private bool lastCardWasRollAgain = false;
 
@@ -77,10 +77,22 @@ public class ActionCardManager : MonoBehaviour
             Debug.LogError("ActionCardManager: Failed to parse action cards from JSON file.");
         }
     }
-
     // 🎮 Get filtered cards based on test mode
     private List<ActionCard> GetFilteredCards()
     {
+        // ✅ Priority check for the simple flag
+        if (debugOnlyMovementCards)
+        {
+            Debug.Log("[ActionCardManager] Debug Flag 'Only Movement Cards' is ACTIVE.");
+            List<ActionCard> movementOnly = new List<ActionCard>();
+            foreach (var card in cards)
+            {
+                if (movementCards.Contains(card.id))
+                    movementOnly.Add(card);
+            }
+            return movementOnly;
+        }
+
         if (!enableTestMode || testMode == ActionCardTestMode.All)
         {
             return cards;
@@ -185,34 +197,39 @@ public class ActionCardManager : MonoBehaviour
         }
 
         int cardId = pendingCard.id;
-        ExecuteActionCardAction(cardId);
+        bool shouldEndTurnImmediately = ExecuteActionCardAction(cardId);
 
         if (lastCardWasRollAgain)
         {
             gameManager.actionManager.RollAgain();
         }
-        else
+        else if (shouldEndTurnImmediately)
         {
-            // ✅ Stelle sicher, dass EndTurn() aufgerufen wird, um Move-Button für nächsten Spieler zu aktivieren
+            // ✅ Nur EndTurn() aufrufen, wenn die Aktion synchron war (z.B. Geld, Skip)
+            // Bei Bewegung (Cards 1-4) oder Quiz (Card 5) übernimmt der jeweilige Manager das EndTurn()
             gameManager.EndTurn();
         }
 
         pendingCard = null;
     }
 
-    private void ExecuteActionCardAction(int cardId)
+    /// <summary>
+    /// Executes the action. Returns true if the turn should end immediately after.
+    /// Returns false if the action is asynchronous (e.g. movement, quiz) and handles EndTurn itself.
+    /// </summary>
+    private bool ExecuteActionCardAction(int cardId)
     {
         if (gameManager == null)
         {
             Debug.LogError("ActionCardManager: GameManager not found!");
-            return;
+            return true;
         }
 
         PlayerData currentPlayer = gameManager.GetCurrentPlayer();
         if (currentPlayer == null)
         {
             Debug.LogError("ActionCardManager: Current player is null!");
-            return;
+            return true;
         }
 
         Debug.Log($"Executing action card {cardId} for Player {currentPlayer.PlayerID}");
@@ -222,57 +239,59 @@ public class ActionCardManager : MonoBehaviour
             case 1: // Possibly - Rücke vor zu einem Unternehmen deiner Wahl
                 Debug.Log("Action Card 1: Player can move to any company");
                 gameManager.actionManager.MoveToChosenCompanyField(); 
-                break;
+                return false; // Async movement
 
             case 2: // Volksbank Präsentation - Springe zu einem Unternehmen deiner Wahl
                 Debug.Log("Action Card 2: Player can move to any company");
-                gameManager.actionManager.MoveToChosenCompanyField(); // TODO: Implement company selection UI
-                break;
+                gameManager.actionManager.MoveToChosenCompanyField();
+                return false; // Async movement
 
             case 3: // Business Angels - Springe zu deinem nächsten Unternehmen
                 Debug.Log("Action Card 3: Jump to player's next owned company");
                 gameManager.actionManager.MoveToNextCompanyField();
-                break;
+                return false; // Async movement
 
             case 4: // Landesregierung - Springe zu einem deiner Unternehmen
                 Debug.Log("Action Card 4: Jump to one of player's companies");
-                gameManager.actionManager.MoveToOwnedCompanyField(); // TODO: Implement owned company selection UI
-                break;
+                gameManager.actionManager.MoveToOwnedCompanyField();
+                return false; // Async movement
 
             case 5: // Quiz für kostenloses AG-Upgrade
                 {
                     var player = gameManager.GetCurrentPlayer();
-                    if (player == null) { Debug.LogWarning("No current player."); break; }
+                    if (player == null) { Debug.LogWarning("No current player."); return true; }
 
-                    // reuse the GameManager check
-                    var ok = typeof(GameManager)
-                        .GetMethod("TryGetEligibleCompaniesForAG", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-                        ?.Invoke(gameManager, new object[] { player, null });
-
-                    // simpler: just let GameManager decide (recommended)
+                    // Reuse GameManager logic
                     gameManager.StartQuizForAG();
-                    break;
+                    return false; // Async quiz
                 }
 
             case 6: // Stadt gestalten - EUR 200 Bonus
                 Debug.Log("Action Card 6: Player receives 200€");
                 gameManager.actionManager.AddMoney(200);
-                break;
+                return true; // Instant
 
             case 7: // Gesetzliche Auflagen - Setze eine Runde aus
                 Debug.Log("Action Card 7: Player skips next turn");
                 gameManager.actionManager.SkipTurn();
-                break;
+                return true; // Instant (ActionManager.SkipTurn calls EndTurn internally? Let's check. Yes it does.)
+                // Wait, ActionManager.SkipTurn calls gameManager.EndTurn() itself. 
+                // So if we return true, we might double call EndTurn.
+                // ActionManager.SkipTurn:
+                // public void SkipTurn() { ... gameManager.EndTurn(); }
+                // So we should return FALSE here to avoid double EndTurn, OR change ActionManager.SkipTurn.
+                // Changing this return to FALSE for safety if ActionManager handles it.
+                return false; 
 
             case 8: // Stadt Graz Praktikum - Noch einmal würfeln
                 Debug.Log("Action Card 8: Player can roll again");
                 lastCardWasRollAgain = true;
                 gameManager.actionManager.RollAgain();
-                break;
+                return false; // RollAgain logic handles flow
 
             default:
                 Debug.LogWarning($"Action Card #{cardId}: No action implemented yet.");
-                break;
+                return true;
         }
     }
     
@@ -297,18 +316,28 @@ public class ActionCardManager : MonoBehaviour
         
         // Spieler hat keine Unternehmen - filtere owned company Karten heraus
         List<ActionCard> filtered = new List<ActionCard>();
+        int removedCount = 0;
+
         foreach (var card in cards)
         {
-            if (!ownedCompanyCards.Contains(card.id))
+            // Prüfe, ob Karte eine "Owned Company"-Karte ist (ID 3 oder 4)
+            if (ownedCompanyCards.Contains(card.id))
             {
-                filtered.Add(card);
+                // Überspringen -> wird nicht hinzugefügt
+                removedCount++;
+                // Debug.Log($"ActionCardManager: Filtered out Card {card.id} because Player {currentPlayer.PlayerID} has no companies.");
             }
             else
             {
-                Debug.Log($"ActionCardManager: Karte {card.id} wurde herausgefiltert (Spieler hat keine Unternehmen)");
+                filtered.Add(card);
             }
         }
         
+        if (removedCount > 0)
+        {
+            Debug.Log($"[ActionCardManager] Filtered out {removedCount} 'Owned Company' cards (Player {currentPlayer.PlayerID} has 0 companies). Remaining: {filtered.Count}");
+        }
+
         return filtered;
     }
 }
