@@ -15956,13 +15956,25 @@ MonoBehaviour:
   m_FillRect: {fileID: 1034447405}
   m_HandleRect: {fileID: 9944295}
   m_Direction: 0
-  m_MinValue: 0
-  m_MaxValue: 100
+  m_MinValue: -55
+  m_MaxValue: 10
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2042338878}
+        m_TargetAssemblyTypeName: OptionsScript, Assembly-CSharp
+        m_MethodName: SetVolume
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &930810593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21913,10 +21925,10 @@ RectTransform:
   - {fileID: 433122002}
   m_Father: {fileID: 1164331290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 549.5, y: 0}
-  m_SizeDelta: {x: 196.90094, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 549.5, y: -143.26666}
+  m_SizeDelta: {x: 0, y: 186.53333}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1247005273
 MonoBehaviour:
@@ -30261,10 +30273,10 @@ RectTransform:
   - {fileID: 1809035518}
   m_Father: {fileID: 1164331290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 116.5, y: 0}
-  m_SizeDelta: {x: 196.90094, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 116.5, y: -143.26666}
+  m_SizeDelta: {x: 0, y: 186.53333}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1860989250
 MonoBehaviour:
@@ -32829,6 +32841,7 @@ GameObject:
   - component: {fileID: 2042338876}
   - component: {fileID: 2042338875}
   - component: {fileID: 2042338877}
+  - component: {fileID: 2042338878}
   m_Layer: 5
   m_Name: OptionsPanel
   m_TagString: Untagged
@@ -32923,6 +32936,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &2042338878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2042338873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db05147379700744f96969936e5ae5e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: c1947ad758495a54192fd144d6fd4b5b, type: 2}
 --- !u!1 &2044113942
 GameObject:
   m_ObjectHideFlags: 0
