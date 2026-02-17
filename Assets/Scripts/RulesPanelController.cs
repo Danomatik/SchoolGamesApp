@@ -44,6 +44,7 @@ public class RulesPanelController : MonoBehaviour
         for (int i = 0; i < contentPanels.Length; i++)
         {
             int index = i; // Closure
+            if (contentPanels[i] == null) continue;
             Transform headerBtn = contentPanels[i].transform.parent.Find("HeaderButton");
             if (headerBtn != null)
             {
@@ -89,24 +90,30 @@ public class RulesPanelController : MonoBehaviour
     void OpenAccordionAt(int index)
     {
         if (index < 0 || index >= contentPanels.Length) return;
+        if (contentPanels[index] == null) return;
+
         contentPanels[index].SetActive(true);
-        if (arrowTexts != null && index < arrowTexts.Length)
+
+        if (arrowTexts != null && index < arrowTexts.Length && arrowTexts[index] != null)
             arrowTexts[index].text = "▴";
-        if (itemBackgrounds != null && index < itemBackgrounds.Length)
+        if (itemBackgrounds != null && index < itemBackgrounds.Length && itemBackgrounds[index] != null)
             itemBackgrounds[index].color = COLOR_OPEN_BG;
-        if (iconBackgrounds != null && index < iconBackgrounds.Length)
+        if (iconBackgrounds != null && index < iconBackgrounds.Length && iconBackgrounds[index] != null)
             iconBackgrounds[index].color = COLOR_PRIMARY;
     }
 
     void CloseAccordionAt(int index)
     {
         if (index < 0 || index >= contentPanels.Length) return;
+        if (contentPanels[index] == null) return;
+
         contentPanels[index].SetActive(false);
-        if (arrowTexts != null && index < arrowTexts.Length)
+
+        if (arrowTexts != null && index < arrowTexts.Length && arrowTexts[index] != null)
             arrowTexts[index].text = "▾";
-        if (itemBackgrounds != null && index < itemBackgrounds.Length)
+        if (itemBackgrounds != null && index < itemBackgrounds.Length && itemBackgrounds[index] != null)
             itemBackgrounds[index].color = COLOR_WHITE;
-        if (iconBackgrounds != null && index < iconBackgrounds.Length)
+        if (iconBackgrounds != null && index < iconBackgrounds.Length && iconBackgrounds[index] != null)
             iconBackgrounds[index].color = COLOR_ITEM_BG;
     }
 
@@ -130,7 +137,11 @@ public class RulesPanelController : MonoBehaviour
 
         // Accordion Items finden
         Transform content = transform.Find("PanelContainer/ScrollArea/Viewport/Content");
-        if (content == null) return;
+        if (content == null)
+        {
+            Debug.LogWarning("Auto-Setup: Content-Transform nicht gefunden!");
+            return;
+        }
 
         var panels = new System.Collections.Generic.List<GameObject>();
         var arrows = new System.Collections.Generic.List<TextMeshProUGUI>();
@@ -143,15 +154,15 @@ public class RulesPanelController : MonoBehaviour
             if (item == null) break;
 
             Transform cp = item.Find("ContentPanel");
-            if (cp != null) panels.Add(cp.gameObject);
+            panels.Add(cp != null ? cp.gameObject : null);
 
             Transform arrow = item.Find("HeaderButton/ArrowText");
-            if (arrow != null) arrows.Add(arrow.GetComponent<TextMeshProUGUI>());
+            arrows.Add(arrow != null ? arrow.GetComponent<TextMeshProUGUI>() : null);
 
             backgrounds.Add(item.GetComponent<Image>());
 
             Transform iconBG = item.Find("HeaderButton/IconBG");
-            if (iconBG != null) icons.Add(iconBG.GetComponent<Image>());
+            icons.Add(iconBG != null ? iconBG.GetComponent<Image>() : null);
         }
 
         contentPanels = panels.ToArray();
