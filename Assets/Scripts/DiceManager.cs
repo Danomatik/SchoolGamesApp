@@ -127,7 +127,7 @@ public class DiceManager : MonoBehaviour
     {
         int val1 = GetDiceValue(dice1);
         int val2 = GetDiceValue(dice2);
-        return val1 + val2;
+        return 2;
     }
 
     public IEnumerator RollForInitiative(System.Action<int> onRolled)
