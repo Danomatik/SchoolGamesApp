@@ -476,8 +476,8 @@ public class QuizController : MonoBehaviour
             _currentIndex = 0;
         }
 
-        // 5-Minuten-Countdown starten
-        _learnTimeRemaining = learnTotalTime;
+        // 20-Minuten-Countdown starten
+        _learnTimeRemaining = 1200f; // Force 20 minutes
         _learnTimerRunning  = true;
         UpdateLearnTimerUI();
     }
@@ -520,7 +520,7 @@ public class QuizController : MonoBehaviour
         for (int i = 0; i < _questions.Count; i++) _userAnswers.Add(-1);
 
         _currentIndex = 0;
-        _examTimeRemaining = examTotalTime;
+        _examTimeRemaining = 300f; // Force 5 minutes
         _examRunning = true;
 
         UpdateExamTimerUI();
