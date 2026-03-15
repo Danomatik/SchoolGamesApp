@@ -80,7 +80,7 @@ public class QuizController : MonoBehaviour
 
     [Header("Exam Settings")]
     public int examQuestionCount = 20;
-    public float examTotalTime = 1200f;  // 20 minutes
+    public float examTotalTime = 300f;  // 5 minutes
     public float passingPercentage = 70f;
 
     [Header("UI - Exam Result Panel")]
@@ -120,7 +120,7 @@ public class QuizController : MonoBehaviour
     // Learn mode
     private float _learnTimeRemaining = 0f;
     private bool _learnTimerRunning = false;
-    public float learnTotalTime = 300f; // 5 Minuten
+    public float learnTotalTime = 1200f; // 20 Minuten
     public int learnQuestionCount = 20;
 
     // Score mode
@@ -462,17 +462,19 @@ public class QuizController : MonoBehaviour
         SetActive(questionTimerSlider?.gameObject, false);
         SetActive(questionProgress?.gameObject, true);
 
-        // Find first unsolved question
-        int firstUnsolved = 0;
-        for(int i = 0; i < _questions.Count; i++)
+        // Resume from last index if possible, otherwise find first unsolved question
+        int lastIndex = LearnProgressStore.GetLastIndex(language, _currentLevel);
+        
+        // If last index is valid and not solved, start there. 
+        // If it's solved, look for the NEXT unsolved one.
+        if (lastIndex >= 0 && lastIndex < _questions.Count)
         {
-            if (!LearnProgressStore.IsSolved(language, _currentLevel, _questions[i].storageKey))
-            {
-                firstUnsolved = i;
-                break;
-            }
+            _currentIndex = lastIndex;
         }
-        _currentIndex = firstUnsolved;
+        else
+        {
+            _currentIndex = 0;
+        }
 
         // 5-Minuten-Countdown starten
         _learnTimeRemaining = learnTotalTime;
@@ -921,6 +923,12 @@ public class QuizController : MonoBehaviour
 
     public void OnMenuButtonClicked()
     {
+        // Persistence: Save Learn progress
+        if (_currentMode == QuizMode.Learn)
+        {
+            LearnProgressStore.SaveLastIndex(language, _currentLevel, _currentIndex);
+        }
+
         // Stop all timers
         _questionTimerRunning = false;
         _examRunning  = false;

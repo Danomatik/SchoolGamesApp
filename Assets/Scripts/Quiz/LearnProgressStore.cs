@@ -62,4 +62,19 @@ public static class LearnProgressStore
         }
         return count;
     }
+
+    // --- Last Index Persistence ---
+
+    private static string LastIndexKey(QuizLang lang, LearnLevel level) => $"learn_last_index_{lang}_{level}";
+
+    public static void SaveLastIndex(QuizLang lang, LearnLevel level, int index)
+    {
+        PlayerPrefs.SetInt(LastIndexKey(lang, level), index);
+        PlayerPrefs.Save();
+    }
+
+    public static int GetLastIndex(QuizLang lang, LearnLevel level)
+    {
+        return PlayerPrefs.GetInt(LastIndexKey(lang, level), 0);
+    }
 }
