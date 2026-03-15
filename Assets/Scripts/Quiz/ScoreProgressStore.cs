@@ -44,5 +44,22 @@ public static class ScoreProgressStore
         PlayerPrefs.DeleteKey(Key(lang, level));
         PlayerPrefs.Save();
     }
+
+    // --- All-Time Best ---
+    private static string AllTimeBestKey(QuizLang lang) => $"score_alltime_best_{lang}";
+
+    public static int GetAllTimeBest(QuizLang lang)
+    {
+        return PlayerPrefs.GetInt(AllTimeBestKey(lang), 0);
+    }
+
+    public static void UpdateAllTimeBest(QuizLang lang, int score)
+    {
+        if (score > GetAllTimeBest(lang))
+        {
+            PlayerPrefs.SetInt(AllTimeBestKey(lang), score);
+            PlayerPrefs.Save();
+        }
+    }
 }
 

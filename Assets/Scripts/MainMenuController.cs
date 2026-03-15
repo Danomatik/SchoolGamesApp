@@ -16,6 +16,18 @@ public class MainMenuController : MonoBehaviour
     public GameObject buttonsContainer;
     [Tooltip("The BottomIcons panel (Info, Settings)")]
     public GameObject bottomIcons;
+    [Tooltip("The Logo GameObject in the MenuContainer")]
+    public GameObject logo;
+
+    [Header("Quiz Mode")]
+    [Tooltip("Container with the 3 mode buttons (Lernmodus, Punktemodus, Prüfungsmodus)")]
+    public GameObject quizModusButtonContainer;
+    [Tooltip("The top-level QuizContainer GameObject")]
+    public GameObject quizContainer;
+    [Tooltip("The QuizController on the QuizContainer")]
+    public QuizController quizController;
+    [Tooltip("The container holding all EndScreens (Game Over, etc.)")]
+    public GameObject endScreenContainer;
 
     [Header("Options")]
     [Tooltip("The OptionsPanel (Musik Lautstärke etc.)")]
@@ -77,6 +89,7 @@ public class MainMenuController : MonoBehaviour
     {
         // Ensure correct initial state
         ShowMainMenu();
+        SetActive(endScreenContainer, false);
 
         // Wire button listeners
         if (addPlayerButton != null)
@@ -100,10 +113,93 @@ public class MainMenuController : MonoBehaviour
     {
         SetActive(buttonsContainer, true);
         SetActive(bottomIcons, true);
+        SetActive(logo, true);
         SetActive(playerSetupPanel, false);
         SetActive(gameSettingsPanel, false);
         SetActive(optionsPanel, false);
         SetActive(anleitungPanel, false);
+        SetActive(quizModusButtonContainer, false);
+        SetActive(quizContainer, false);
+    }
+
+    // ─── Quiz Mode ────────────────────────────────────────────────────
+
+    /// <summary>
+    /// Called by the "Quizmodus" button in ButtonsContainer.
+    /// Hides the main buttons, shows the 3 quiz mode buttons.
+    /// </summary>
+    public void OnQuizModusClicked()
+    {
+        Debug.Log("[MainMenuController] Quiz mode picker opened");
+        SetActive(buttonsContainer, false);
+        SetActive(quizModusButtonContainer, true);
+    }
+
+    /// <summary>Called by the Lernmodus button.</summary>
+    public void OnLernmodusClicked()
+    {
+        ShowQuizContainer(QuizController.QuizMode.Learn);
+    }
+
+    /// <summary>Called by the Punktemodus button.</summary>
+    public void OnPunktemodusClicked()
+    {
+        ShowQuizContainer(QuizController.QuizMode.Score);
+    }
+
+    /// <summary>Called by the Prüfungsmodus button.</summary>
+    public void OnPrüfungsmodusClicked()
+    {
+        ShowQuizContainer(QuizController.QuizMode.Exam);
+    }
+
+    /// <summary>
+    /// Hides the menu UI and opens the QuizContainer for the specified mode.
+    /// Level is hardcoded to Junior for now – extend with a level picker if needed.
+    /// </summary>
+    private void ShowQuizContainer(QuizController.QuizMode mode)
+    {
+        Debug.Log($"[MainMenuController] Starting quiz mode: {mode}");
+
+        // Hide menu elements
+        SetActive(buttonsContainer, false);
+        SetActive(quizModusButtonContainer, false);
+        SetActive(bottomIcons, false);
+        SetActive(logo, false);
+
+        // Show quiz
+        SetActive(quizContainer, true);
+
+        if (quizController != null)
+            quizController.StartMode(mode, LearnLevel.Junior);
+        else
+            Debug.LogError("[MainMenuController] QuizController reference not set!");
+    }
+
+    /// <summary>
+    /// Called by QuizController when the user presses the Menü button inside the quiz.
+    /// Returns to the main menu.
+    /// </summary>
+    public void HideQuizContainer()
+    {
+        Debug.Log("[MainMenuController] Returning to main menu from quiz");
+        SetActive(quizContainer, false);
+        SetActive(endScreenContainer, false);
+        ShowMainMenu();
+    }
+
+    /// <summary>
+    /// Shows the EndScreenContainer (e.g. at the end of a quiz).
+    /// </summary>
+    public void ShowEndScreen()
+    {
+        Debug.Log("[MainMenuController] Showing Game Over Screen");
+        SetActive(endScreenContainer, true);
+    }
+
+    public void ShowQuizEndScreen()
+    {
+        // Removed, using ShowEndScreen on MainMenuController instead
     }
 
     // ─── Anleitung Panel ─────────────────────────────────────────────

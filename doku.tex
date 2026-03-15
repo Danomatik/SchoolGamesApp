@@ -1,0 +1,196 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage{listings}
+
+\geometry{margin=2.5cm}
+
+\begin{document}
+\section*{Themenstellung von Simeon Jovicic}
+
+Implementierung und Analyse lokaler Speicherlösungen in Unity für mobile Spiele: Datenbankstruktur und Businesslogikdesign
+
+\section{Einleitung}
+
+Das Diplomprojekt \textit{SchoolGamesApp} setzt das analoge Brettspiel \textit{Business Master} des Kooperationspartners \textit{Schoolgames} als mobile Anwendung in Unity um. Im Brettspiel erwerben Spielerinnen und Spieler reale Unternehmen wie BIPA oder Thalia, investieren in diese und müssen Wirtschaftsfragen beantworten, um voranzukommen. Die digitale Version funktioniert als lokales Mehrspielerspiel. Das bedeutet, dass ein einziges Mobilgerät zwischen den Spielenden weitergereicht wird. Einen Server gibt es nicht.
+
+Genau das ist die Herausforderung. Ohne Server müssen sämtliche Daten direkt auf dem Gerät gespeichert werden. Das betrifft zum einen statische Inhalte wie Fragenkataloge und Firmendaten. Zum anderen betrifft es dynamische Spielzustände, also alles was sich während einer Partie verändert: Kontostände, Spielerpositionen, erworbene Unternehmen und den aktuellen Spielfortschritt. Zusätzlich muss die Speicherlösung auf unterschiedlichen Plattformen funktionieren, denn Android und iOS verwenden verschiedene Dateisysteme.
+
+Das Untersuchungsanliegen dieser Arbeit lautet: \textit{Welche Methoden ergeben sich bei der Implementierung von lokalen Speicherlösungen in Unity für mobile Spiele und welche Vor- und Nachteile resultieren aus diesen?}
+
+Um diese Frage zu beantworten, ist die Arbeit wie folgt aufgebaut: Kapitel~2 vergleicht die in Unity verfügbaren Speichermethoden und begründet die Entscheidung für den gewählten Ansatz. Kapitel~3 beschreibt die Struktur der statischen Spieldaten, also der Fragenkataloge und Firmendaten. Kapitel~4 behandelt die dynamischen Spielzustände und wie diese als Savegames persistiert werden. In Kapitel~5 geht es um das Businesslogikdesign der Serialisierungsschicht und die eingesetzten Architektur-Patterns. Kapitel~6 erklärt die dynamische Datenbindung, mit der zur Laufzeit zwischen Sprachen und Fragesets gewechselt wird. Kapitel~7 analysiert den gewählten Ansatz kritisch, unter anderem in Bezug auf Performance, Sicherheit und Zukunftsfähigkeit. Kapitel~8 fasst die Ergebnisse zusammen und gibt einen Ausblick auf mögliche Cloud-Erweiterungen.
+
+% ============================================================
+% HINWEIS: Hier optional ein Screenshot einfügen,
+% z.B. das Spielfeld der App oder eine Übersicht.
+%
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{images/app_overview.png}
+%     \caption{Übersicht der SchoolGamesApp}
+%     \label{fig:app-overview}
+% \end{figure}
+% ============================================================
+\section{Theoretische Grundlagen: Datenpersistenz in Unity}
+
+Wenn eine mobile App geschlossen oder das Gerät neu gestartet wird, gehen alle Daten verloren, die nur im Arbeitsspeicher liegen. Für ein Spiel wie die SchoolGamesApp bedeutet das, dass Spielstände, Kontostände und Spielerpositionen nach jedem Neustart der App nicht mehr vorhanden wären. Um das zu verhindern, müssen Daten vom flüchtigen Arbeitsspeicher auf den dauerhaften Flash-Speicher des Geräts geschrieben werden. Dieser Vorgang wird als Datenpersistenz bezeichnet.
+
+Unity bietet dafür mehrere Methoden an, die sich in Funktionsumfang, Performance und Komplexität unterscheiden. In den folgenden Abschnitten werden die vier gängigsten Ansätze vorgestellt und anhand definierter Kriterien verglichen. Am Ende steht die begründete Entscheidung für den Ansatz, der in der SchoolGamesApp verwendet wird.
+
+\subsection{PlayerPrefs}
+
+\texttt{PlayerPrefs} ist die einfachste Methode, um Daten in Unity zu speichern. Sie funktioniert als Key-Value-Store: Ein Wert wird unter einem Schlüssel abgelegt und kann später über diesen Schlüssel wieder abgerufen werden.
+
+\begin{lstlisting}[language={[Sharp]C}]
+// Speichern (Beispiel aus PlayerSetupManager.cs)
+PlayerPrefs.SetInt(PLAYER_COUNT_KEY, count);                    // ①
+PlayerPrefs.SetString($"{PLAYER_NAME_PREFIX}{playerID}", name); // ②
+PlayerPrefs.Save();                                             // ③
+
+// Laden (Beispiel aus PlayerSetupManager.cs)
+int loadedCount = PlayerPrefs.GetInt(PLAYER_COUNT_KEY, 0);      // ④
+\end{lstlisting}
+
+① Ein Integer-Wert für die Spieleranzahl wird unter einer festen Konstante (\texttt{PLAYER\_COUNT\_KEY}) gespeichert.
+② Ein String-Wert für den Spielernamen wird über einen String-Interpolation-Schlüssel dynamisch gespeichert.
+③ Die Änderungen werden explizit auf die Festplatte geschrieben.
+④ Der gespeicherte Wert wird über den Schlüssel wieder abgerufen, hier mit einem Fallback-Wert von 0.
+
+Der Vorteil liegt in der Einfachheit. Es sind keine zusätzlichen Bibliotheken nötig und die Methode funktioniert auf allen Plattformen. Allerdings unterstützt \texttt{PlayerPrefs} nur drei Datentypen: \texttt{int}, \texttt{float} und \texttt{string}. Komplexe Objekte wie ein vollständiger Spielstand mit mehreren Spielern, deren Positionen und Kontostände lassen sich damit nicht direkt abbilden. Man müsste jeden Wert einzeln unter einem eigenen Schlüssel speichern, was bei einem Spiel mit vier bis sechs Spielern schnell unübersichtlich wird.
+
+Dazu kommt, dass \texttt{PlayerPrefs} nicht für umfangreiche Spieldaten vorgesehen ist. Auf Android werden die Werte in den \texttt{SharedPreferences} des Betriebssystems gespeichert, auf iOS in einer \texttt{.plist}-Datei. Beides ist vom System für kleine Einstellungen gedacht. Die Werte liegen auf beiden Plattformen im Klartext vor und können von Nutzern eingesehen und verändert werden (vgl.~Unity Documentation, PlayerPrefs).
+
+\texttt{PlayerPrefs} eignet sich daher für einfache Einstellungen wie Lautstärke oder Sprachauswahl, nicht aber für die Speicherung komplexer Spielzustände.
+
+\subsection{JSON-Dateien mit JsonUtility}
+
+Ein flexiblerer Ansatz ist die Serialisierung von C\#-Objekten in das JSON-Format (JavaScript Object Notation). JSON ist ein textbasiertes Datenformat, das Daten als Schlüssel-Wert-Paare in einer hierarchischen Struktur speichert. Es ist leicht lesbar und in der Softwareentwicklung weit verbreitet.
+
+Unity stellt dafür die Klasse \texttt{JsonUtility} bereit. Der Ablauf ist dabei immer gleich: Ein C\#-Objekt wird mit \texttt{JsonUtility.ToJson()} in einen String konvertiert und dieser String wird dann mit \texttt{System.IO.File.WriteAllText()} in eine Datei geschrieben. Beim Laden wird der Vorgang umgekehrt.
+
+\begin{lstlisting}[language={[Sharp]C}]
+// Speichern (Beispiel aus GameSaveManager.cs)
+string json = JsonUtility.ToJson(saveData, true);                   // ①
+File.WriteAllText(SaveFilePath, json);                              // ②
+
+// Laden (Beispiel aus GameSaveManager.cs)
+string loadedJson = File.ReadAllText(SaveFilePath);                 // ③
+GameSaveData data = JsonUtility.FromJson<GameSaveData>(loadedJson); // ④
+\end{lstlisting}
+
+① Das C\#-Objekt \texttt{saveData} wird in einen eingerückten, gut lesbaren JSON-String umgewandelt.
+② Der konvertierte JSON-String wird in den plattformspezifischen \texttt{SaveFilePath} geschrieben.
+③ Der Inhalt der Datei vom Speicherpfad wird vollständig als String-Wert eingelesen.
+④ Der Text wird zurück in das typisierte C\#-Objekt \texttt{GameSaveData} deserialisiert.
+
+Was \texttt{JsonUtility} besonders für mobile Spiele interessant macht, ist die Performance. Die Klasse ist direkt in die Unity-Engine integriert und wurde speziell für den Einsatz auf Mobilgeräten optimiert. Im Vergleich zu externen Bibliotheken wie Newtonsoft JSON arbeitet sie deutlich schneller, da sie weniger Funktionen bietet und dadurch weniger Overhead erzeugt (vgl.~Unity Documentation, JsonUtility).
+
+Gleichzeitig bringt das auch Einschränkungen mit sich. \texttt{JsonUtility} kann keine Dictionaries serialisieren, unterstützt keine polymorphen Typen und keine Vererbung. Auch \texttt{null}-Werte werden nicht korrekt verarbeitet. Alle Klassen, die serialisiert werden sollen, müssen mit dem Attribut \texttt{[System.Serializable]} markiert sein. Das bedeutet, dass die Datenstrukturen einfach und flach gehalten werden müssen. Wie sich in den späteren Kapiteln zeigt, ist das im Fall der SchoolGamesApp aber eher ein Vorteil als ein Nachteil.
+
+Ein weiterer Pluspunkt ist die Lesbarkeit. JSON-Dateien können mit jedem Texteditor geöffnet werden. Wenn während der Entwicklung ein Fehler auftritt, lässt sich so schnell nachvollziehen, welche Daten tatsächlich gespeichert wurden.
+
+\subsection{SQLite}
+
+SQLite ist eine relationale Datenbank, die als einzelne Datei auf dem Gerät gespeichert wird. Anders als Server-Datenbanken wie MySQL oder PostgreSQL braucht SQLite keinen eigenen Serverprozess. Das macht sie grundsätzlich auch für mobile Anwendungen einsetzbar.
+
+Der Vorteil liegt bei komplexen Datenstrukturen. Mit SQL-Abfragen lässt sich gezielt nach Daten suchen, zum Beispiel: alle Fragen einer bestimmten Kategorie, in einer bestimmten Sprache, mit einem bestimmten Schwierigkeitsgrad. Solche Abfragen sind mit JSON-Dateien deutlich umständlicher umzusetzen.
+
+Allerdings ist SQLite in Unity nicht standardmäßig verfügbar. Es muss eine externe Bibliothek eingebunden werden, etwa \textit{SQLite4Unity3d}. Das bringt zusätzlichen Konfigurationsaufwand mit sich: Auf Android muss eine native \texttt{.so}-Bibliothek mitgeliefert werden und auf iOS gelten eigene Build-Regeln. Dazu sind SQL-Kenntnisse für das Erstellen von Tabellen, Relationen und Abfragen erforderlich.
+
+Für Anwendungen mit großen Datenmengen oder komplexen Verknüpfungen ist SQLite die richtige Wahl. Die SchoolGamesApp arbeitet aber mit einigen hundert Fragen und maximal sechs Spielern pro Partie. Für dieses Datenvolumen wäre der Einrichtungsaufwand einer relationalen Datenbank unverhältnismäßig.
+
+\subsection{ScriptableObjects}
+
+\texttt{ScriptableObjects} sind ein Unity-eigenes Konzept, mit dem sich Daten als Assets direkt im Projekt anlegen lassen. Sie werden im Unity Editor erstellt und konfiguriert und sind danach als Dateien im Projektordner verfügbar.
+
+% ============================================================
+% SCREENSHOT: Hier optional einen Screenshot einfügen,
+% der ein ScriptableObject im Unity Inspector zeigt.
+%
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{images/scriptableobject_inspector.png}
+%     \caption{Ein ScriptableObject im Unity Inspector}
+%     \label{fig:scriptableobject}
+% \end{figure}
+% ============================================================
+
+Der Vorteil ist, dass sich Werte direkt im Editor anpassen lassen, ohne Code ändern zu müssen. Für Game Designer, die etwa Schwierigkeitsgrade oder Kostenparameter konfigurieren wollen, ist das praktisch.
+
+Das Problem ist allerdings grundlegend: \texttt{ScriptableObjects} sind auf mobilen Geräten zur Laufzeit nicht persistent. Änderungen, die während des Spiels vorgenommen werden, gehen beim Schließen der App verloren. Die Daten werden nicht auf den Flash-Speicher geschrieben, sondern bleiben nur im Arbeitsspeicher. Für Savegames sind \texttt{ScriptableObjects} daher nicht geeignet.
+
+In der Praxis werden sie oft für statische Konfigurationsdaten eingesetzt, etwa für Itemlisten oder Leveleinstellungen. In der SchoolGamesApp werden allerdings auch die statischen Daten über JSON verwaltet. Das hat den Vorteil, dass es ein einheitliches System gibt und nicht zwei verschiedene Lademechanismen gewartet werden müssen.
+
+\subsection{Vergleich und Entscheidung}
+
+Die folgende Tabelle fasst die vier Methoden anhand der für die SchoolGamesApp relevanten Kriterien zusammen.
+
+% ============================================================
+% TABELLE: Vergleich der Speichermethoden
+% Diese Tabelle einfügen/anpassen:
+%
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{lcccc}
+%         \toprule
+%         \textbf{Kriterium} & \textbf{PlayerPrefs} & \textbf{JsonUtility} & \textbf{SQLite} & \textbf{ScriptableObj.} \\
+%         \midrule
+%         Komplexe Objekte   & --  & ++  & ++  & +  \\
+%         Performance        & ++  & ++  & +   & ++ \\
+%         Portabilität       & ++  & ++  & o   & ++ \\
+%         Einrichtungsaufwand & ++ & +   & --  & ++ \\
+%         Runtime-Persistenz & +   & ++  & ++  & -- \\
+%         Lesbarkeit/Debug   & o   & ++  & o   & +  \\
+%         Skalierbarkeit     & --  & +   & ++  & o  \\
+%         \bottomrule
+%     \end{tabular}
+%     \caption{Vergleich der Speichermethoden in Unity (++ sehr gut, + gut, o neutral, -- schlecht)}
+%     \label{tab:vergleich-speicher}
+% \end{table}
+% ============================================================
+
+Die Entscheidung fällt auf \textbf{JSON-Dateien mit JsonUtility}. Dafür gibt es drei zentrale Gründe.
+
+Erstens ist das Datenvolumen der SchoolGamesApp überschaubar. Einige hundert Fragen, eine begrenzte Anzahl an Firmen und maximal sechs Spieler pro Partie. Für diesen Umfang ist keine relationale Datenbank nötig.
+
+Zweitens bietet \texttt{JsonUtility} die beste Balance aus Performance und Funktionsumfang für dieses Projekt. Die Serialisierung ist schnell, die Integration in Unity unkompliziert und es werden keine externen Abhängigkeiten benötigt.
+
+Drittens ist die Portabilität durch \texttt{Application.persistentDataPath} gegeben. Derselbe Code läuft auf Android und iOS, ohne dass plattformspezifische Anpassungen nötig sind.
+
+\subsection{Application.persistentDataPath}
+
+Bleibt die Frage, wohin die JSON-Dateien geschrieben werden. Unity stellt dafür die Eigenschaft \texttt{Application.persistentDataPath} bereit. Sie zeigt auf einen Ordner, in dem die App dauerhaft Daten speichern darf. Dieser Pfad ist auf jeder Plattform anders, wird aber von Unity automatisch aufgelöst.
+
+Auf Android zeigt der Pfad typischerweise auf:
+
+\begin{quote}
+\texttt{/storage/emulated/0/Android/data/com.company.app/files}
+\end{quote}
+
+Auf iOS hingegen auf:
+
+\begin{quote}
+\texttt{/var/mobile/Containers/Data/Application/[GUID]/Documents}
+\end{quote}
+
+Im Code wird einfach \texttt{Application.persistentDataPath} verwendet und Unity liefert den korrekten Pfad für das jeweilige Betriebssystem. Die Daten in diesem Ordner bleiben auch nach App-Updates erhalten. Erst bei einer Deinstallation der App werden sie gelöscht (vgl.~Unity Documentation, Application.persistentDataPath).
+
+% ============================================================
+% SCREENSHOT: Hier einen Screenshot einfügen, der den
+% persistentDataPath in der Unity Console zeigt.
+%
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.8\textwidth]{images/persistent_data_path.png}
+%     \caption{Debug-Ausgabe des persistentDataPath in der Unity Console}
+%     \label{fig:persistentdatapath}
+% \end{figure}
+% ============================================================
+
+Für die SchoolGamesApp bedeutet das: Alle dynamischen Daten wie Savegames werden in diesen Ordner geschrieben. Die statischen Daten wie Fragenkataloge und Firmendaten werden hingegen über einen anderen Mechanismus geladen, der in Kapitel~3 beschrieben wird.
+\end{document}
