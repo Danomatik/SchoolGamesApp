@@ -1030,6 +1030,12 @@ public class QuizController : MonoBehaviour
         SetActiveBadge((QuizMode)(-1));
         SetActive(menuButton?.gameObject, false);
 
+        // Hide TopSection (the timer/progress areas that were overlapping)
+        ShowTopSection(false, false, false);
+
+        // Activate the results container in the MainMenuController
+        if (mainMenuController != null) mainMenuController.ShowEndScreen();
+
         // Calculate score
         float pct = total > 0 ? (correct * 100f / total) : 0f;
         bool passed = pct >= passingPercentage;
