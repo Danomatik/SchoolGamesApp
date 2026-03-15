@@ -504,8 +504,8 @@ public class QuizController : MonoBehaviour
     private void SetupExamMode()
     {
         SetActiveBadge(QuizMode.Exam);
-        // TopSection: TimerArea (overall progress slider) + ProgressArea (countdown timer) = 2 sliders
-        ShowTopSection(timerArea: true, livesArea: false, progressArea: true);
+        // TopSection: TimerArea (overall progress slider) visible, ProgressArea (countdown timer) hidden
+        ShowTopSection(timerArea: true, livesArea: false, progressArea: false);
         // QuestionCard: QuestionProgress visible, QuestionTimer (per-question slider) hidden
         SetActive(questionTimerSlider?.gameObject, false);
         SetActive(questionProgress?.gameObject, true);
