@@ -169,7 +169,7 @@ public class QuizController : MonoBehaviour
         if (resultViewQuestionsButton) resultViewQuestionsButton.onClick.AddListener(ShowReviewMode);
 
         // Sliders not user-interactable
-        if (progressSlider)      progressSlider.interactable = false;
+        if (learnProgressSlider) learnProgressSlider.interactable = false;
         if (questionTimerSlider) questionTimerSlider.interactable = false;
     }
 
