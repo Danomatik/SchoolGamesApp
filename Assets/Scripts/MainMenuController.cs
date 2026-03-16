@@ -29,6 +29,20 @@ public class MainMenuController : MonoBehaviour
     [Tooltip("The container holding all EndScreens (Game Over, etc.)")]
     public GameObject endScreenContainer;
 
+    [Header("Difficulty Selection")]
+    [Tooltip("The DifficultyPanel GameObject")]
+    public GameObject difficultyPanel;
+    public TextMeshProUGUI modeNameText;
+    public TextMeshProUGUI modeSubText;
+    [Tooltip("The clickable cards (buttons)")]
+    public Button juniorButton;
+    public Button seniorButton;
+    [Tooltip("The TagText (Tag1) inside the cards")]
+    public TextMeshProUGUI juniorTagText;
+    public TextMeshProUGUI seniorTagText;
+
+    private QuizController.QuizMode _selectedQuizMode;
+
     [Header("Options")]
     [Tooltip("The OptionsPanel (Musik Lautstärke etc.)")]
     public GameObject optionsPanel;
@@ -104,6 +118,9 @@ public class MainMenuController : MonoBehaviour
             // Initialize the display with the current slider value
             OnTimeSliderChanged(timeSlider.value);
         }
+
+        if (juniorButton != null) juniorButton.onClick.AddListener(OnJuniorClicked);
+        if (seniorButton != null) seniorButton.onClick.AddListener(OnSeniorClicked);
     }
 
     /// <summary>
@@ -119,6 +136,7 @@ public class MainMenuController : MonoBehaviour
         SetActive(optionsPanel, false);
         SetActive(anleitungPanel, false);
         SetActive(quizModusButtonContainer, false);
+        SetActive(difficultyPanel, false);
         SetActive(quizContainer, false);
     }
 
@@ -138,26 +156,65 @@ public class MainMenuController : MonoBehaviour
     /// <summary>Called by the Lernmodus button.</summary>
     public void OnLernmodusClicked()
     {
-        ShowQuizContainer(QuizController.QuizMode.Learn);
+        OpenDifficultyPanel(QuizController.QuizMode.Learn);
     }
 
     /// <summary>Called by the Punktemodus button.</summary>
     public void OnPunktemodusClicked()
     {
-        ShowQuizContainer(QuizController.QuizMode.Score);
+        OpenDifficultyPanel(QuizController.QuizMode.Score);
     }
 
     /// <summary>Called by the Prüfungsmodus button.</summary>
     public void OnPrüfungsmodusClicked()
     {
-        ShowQuizContainer(QuizController.QuizMode.Exam);
+        OpenDifficultyPanel(QuizController.QuizMode.Exam);
+    }
+
+    private void OpenDifficultyPanel(QuizController.QuizMode mode)
+    {
+        _selectedQuizMode = mode;
+        SetActive(quizModusButtonContainer, false);
+        SetActive(difficultyPanel, true);
+
+        // Update texts based on mode
+        switch (mode)
+        {
+            case QuizController.QuizMode.Learn:
+                if (modeNameText) modeNameText.text = "Lernmodus";
+                if (modeSubText)  modeSubText.text  = "Übe in deinem eigenen Tempo";
+                if (juniorTagText) juniorTagText.text = "360 Fragen";
+                if (seniorTagText) seniorTagText.text = "360 Fragen";
+                break;
+            case QuizController.QuizMode.Score:
+                if (modeNameText) modeNameText.text = "Punktemodus";
+                if (modeSubText)  modeSubText.text  = "Sammle Punkte und knacke den Highscore";
+                if (juniorTagText) juniorTagText.text = "Endlos";
+                if (seniorTagText) seniorTagText.text = "Endlos";
+                break;
+            case QuizController.QuizMode.Exam:
+                if (modeNameText) modeNameText.text = "Prüfungsmodus";
+                if (modeSubText)  modeSubText.text  = "Bestehst du die Prüfung? (70%)";
+                if (juniorTagText) juniorTagText.text = "20 Fragen";
+                if (seniorTagText) seniorTagText.text = "20 Fragen";
+                break;
+        }
+    }
+
+    private void OnJuniorClicked()
+    {
+        ShowQuizContainer(_selectedQuizMode, LearnLevel.Junior);
+    }
+
+    private void OnSeniorClicked()
+    {
+        ShowQuizContainer(_selectedQuizMode, LearnLevel.Senior);
     }
 
     /// <summary>
     /// Hides the menu UI and opens the QuizContainer for the specified mode.
-    /// Level is hardcoded to Junior for now – extend with a level picker if needed.
     /// </summary>
-    private void ShowQuizContainer(QuizController.QuizMode mode)
+    private void ShowQuizContainer(QuizController.QuizMode mode, LearnLevel level)
     {
         Debug.Log($"[MainMenuController] Starting quiz mode: {mode}");
 
@@ -169,9 +226,10 @@ public class MainMenuController : MonoBehaviour
 
         // Show quiz
         SetActive(quizContainer, true);
+        SetActive(difficultyPanel, false);
 
         if (quizController != null)
-            quizController.StartMode(mode, LearnLevel.Junior);
+            quizController.StartMode(mode, level);
         else
             Debug.LogError("[MainMenuController] QuizController reference not set!");
     }
