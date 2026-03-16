@@ -118,9 +118,7 @@ public class QuizController : MonoBehaviour
     private bool _answered = false;
 
     // Learn mode
-    private float _learnTimeRemaining = 0f;
-    private bool _learnTimerRunning = false;
-    public float learnTotalTime = 1200f; // 20 Minuten
+    // (Timer removed)
     public int learnQuestionCount = 20;
 
     // Score mode
@@ -231,15 +229,15 @@ public class QuizController : MonoBehaviour
         if (!livesArea)    livesArea    = FindGO("TopSection/LivesArea");
         if (!progressArea) progressArea = FindGO("TopSection/ProgressArea");
 
-        // TimerArea sliders/text
-        if (!progressSlider) progressSlider = Find<Slider>("TopSection/TimerArea");
-        if (!learnTimerText) learnTimerText = Find<TMP_Text>("TopSection/TimerArea/TimerText");
+        // ProgressArea sliders/text
+        if (!progressSlider) progressSlider = Find<Slider>("TopSection/ProgressArea");
+        if (!examTimerText)  examTimerText  = Find<TMP_Text>("TopSection/ProgressArea/TimerText");
 
         // LivesArea
         if (!scoreText)     scoreText     = Find<TMP_Text>("TopSection/LivesArea/ScoreRow/ScoreItem");
         if (!highscoreText) highscoreText = Find<TMP_Text>("TopSection/LivesArea/ScoreRow/HighscoreItem");
 
-        // Exam timer text (inside ProgressArea)
+        // Exam timer text (handled above if it's inside ProgressArea, otherwise find explicit)
         if (!examTimerText) examTimerText = Find<TMP_Text>("TopSection/ProgressArea");
 
         // Hearts – find by HeartsContainer children
@@ -363,17 +361,7 @@ public class QuizController : MonoBehaviour
 
     private void Update()
     {
-        if (_currentMode == QuizMode.Learn && _learnTimerRunning)
-        {
-            _learnTimeRemaining -= Time.deltaTime;
-            UpdateLearnTimerUI();
-            if (_learnTimeRemaining <= 0)
-            {
-                _learnTimerRunning = false;
-                _learnTimeRemaining = 0;
-                OnMenuButtonClicked(); // Zeit abgelaufen → zurück zum Menü
-            }
-        }
+        // (Learn mode timer removed)
 
         if (_currentMode == QuizMode.Score && _questionTimerRunning && !_gameOver)
         {
@@ -456,8 +444,8 @@ public class QuizController : MonoBehaviour
     private void SetupLearnMode()
     {
         SetActiveBadge(QuizMode.Learn);
-        // TopSection: only TimerArea (countdown timer)
-        ShowTopSection(timerArea: true, livesArea: false, progressArea: false);
+        // TopSection: only ProgressArea
+        ShowTopSection(timerArea: false, livesArea: false, progressArea: true);
         // QuestionCard: QuestionProgress visible, QuestionTimer (per-question slider) hidden
         SetActive(questionTimerSlider?.gameObject, false);
         SetActive(questionProgress?.gameObject, true);
@@ -483,13 +471,8 @@ public class QuizController : MonoBehaviour
             progressSlider.value = _currentIndex + 1;
         }
 
-        // Hide timer text as we focus on progress bar
-        SetActive(learnTimerText?.gameObject, false);
-
-        // 20-Minuten-Countdown starten (im Hintergrund)
-        _learnTimeRemaining = 1200f; // Force 20 minutes
-        _learnTimerRunning  = true;
-        UpdateLearnTimerUI();
+        // Hide timer text as we focus on progress bar in ProgressArea
+        SetActive(examTimerText?.gameObject, false);
     }
 
     private void SetupScoreMode()
@@ -516,8 +499,8 @@ public class QuizController : MonoBehaviour
     private void SetupExamMode()
     {
         SetActiveBadge(QuizMode.Exam);
-        // TopSection: TimerArea (overall progress slider) visible, ProgressArea (countdown timer) hidden
-        ShowTopSection(timerArea: true, livesArea: false, progressArea: false);
+        // TopSection: ProgressArea (timer + slider) visible
+        ShowTopSection(timerArea: false, livesArea: false, progressArea: true);
         // QuestionCard: QuestionProgress visible, QuestionTimer (per-question slider) hidden
         SetActive(questionTimerSlider?.gameObject, false);
         SetActive(questionProgress?.gameObject, true);
@@ -853,7 +836,6 @@ public class QuizController : MonoBehaviour
                 int nextUnsolved = GetNextUnsolvedLearnIndex();
                 if (nextUnsolved < 0)
                 {
-                    _learnTimerRunning = false;
                     Debug.Log("[QuizController] Lernmodus abgeschlossen!");
                     int total = _questions.Count;
                     ShowExamResult(total, total);
@@ -956,7 +938,6 @@ public class QuizController : MonoBehaviour
         // Stop all timers
         _questionTimerRunning = false;
         _examRunning  = false;
-        _learnTimerRunning = false;
 
         if (mainMenuController != null)
             mainMenuController.HideQuizContainer();
@@ -978,16 +959,6 @@ public class QuizController : MonoBehaviour
         SetActive(this.timerArea,    timerArea);
         SetActive(this.livesArea,    livesArea);
         SetActive(this.progressArea, progressArea);
-    }
-
-    private void UpdateLearnTimerUI()
-    {
-        if (learnTimerText)
-        {
-            int m = Mathf.Max(0, (int)(_learnTimeRemaining / 60));
-            int s = Mathf.Max(0, (int)(_learnTimeRemaining % 60));
-            learnTimerText.text = $"{m:D2}:{s:D2}";
-        }
     }
 
     private void UpdateExamTimerUI()
