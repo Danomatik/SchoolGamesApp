@@ -119,8 +119,26 @@ public class MainMenuController : MonoBehaviour
             OnTimeSliderChanged(timeSlider.value);
         }
 
+        // Auto-find DifficultyPanel references if not set
+        AutoFindDifficultyReferences();
+
         if (juniorButton != null) juniorButton.onClick.AddListener(OnJuniorClicked);
         if (seniorButton != null) seniorButton.onClick.AddListener(OnSeniorClicked);
+    }
+
+    private void AutoFindDifficultyReferences()
+    {
+        if (difficultyPanel == null) difficultyPanel = transform.Find("MenuContainer/DifficultyPanel")?.gameObject;
+        if (difficultyPanel == null) return;
+
+        if (modeNameText == null) modeNameText = difficultyPanel.transform.Find("ModeName")?.GetComponent<TextMeshProUGUI>();
+        if (modeSubText == null)  modeSubText  = difficultyPanel.transform.Find("ModeSub")?.GetComponent<TextMeshProUGUI>();
+        
+        if (juniorButton == null) juniorButton = difficultyPanel.transform.Find("CardsContainer/JuniorCard")?.GetComponent<Button>();
+        if (seniorButton == null) seniorButton = difficultyPanel.transform.Find("CardsContainer/SeniorCard")?.GetComponent<Button>();
+
+        if (juniorTagText == null) juniorTagText = difficultyPanel.transform.Find("CardsContainer/JuniorCard/TagsRow/Tag1/TagText")?.GetComponent<TextMeshProUGUI>();
+        if (seniorTagText == null) seniorTagText = difficultyPanel.transform.Find("CardsContainer/SeniorCard/TagsRow/Tag1/TagText")?.GetComponent<TextMeshProUGUI>();
     }
 
     /// <summary>
@@ -174,8 +192,16 @@ public class MainMenuController : MonoBehaviour
     private void OpenDifficultyPanel(QuizController.QuizMode mode)
     {
         _selectedQuizMode = mode;
+        
+        // Hide all possible menu containers to ensure clean transition
+        SetActive(buttonsContainer, false);
         SetActive(quizModusButtonContainer, false);
+        SetActive(optionsPanel, false);
+        SetActive(anleitungPanel, false);
+
+        // Show difficulty panel
         SetActive(difficultyPanel, true);
+        if (difficultyPanel != null) difficultyPanel.transform.SetAsLastSibling();
 
         // Update texts based on mode
         switch (mode)
@@ -199,6 +225,15 @@ public class MainMenuController : MonoBehaviour
                 if (seniorTagText) seniorTagText.text = "20 Fragen";
                 break;
         }
+    }
+
+    /// <summary>
+    /// Returns from DifficultyPanel back to mode selection.
+    /// </summary>
+    public void OnBackFromDifficulty()
+    {
+        SetActive(difficultyPanel, false);
+        SetActive(quizModusButtonContainer, true);
     }
 
     private void OnJuniorClicked()
