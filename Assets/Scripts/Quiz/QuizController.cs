@@ -31,11 +31,10 @@ public class QuizController : MonoBehaviour
     public Button menuButton;
 
     [Header("UI - TopSection Areas")]
-    [Tooltip("TimerArea: shown in Learn mode (progress slider).")]
+    [Tooltip("TimerArea: shown in Exam mode (countdown timer).")]
     public GameObject timerArea;
-    public Slider progressSlider;
-    [Tooltip("TimerText inside TimerArea – shows the learn mode countdown")]
-    public TMP_Text learnTimerText;
+    [Tooltip("TimerText inside TimerArea – shows the exam mode countdown")]
+    public TMP_Text examTimerText;
 
     [Tooltip("LivesArea: shown in Score mode.")]
     public GameObject livesArea;
@@ -45,9 +44,10 @@ public class QuizController : MonoBehaviour
     public TMP_Text scoreText;
     public TMP_Text highscoreText;
 
-    [Tooltip("ProgressArea: shown in Exam mode (countdown timer).")]
+    [Tooltip("ProgressArea: shown in Learn mode (question progress).")]
     public GameObject progressArea;
-    public TMP_Text examTimerText;
+    public Slider learnProgressSlider;
+    public TMP_Text learnProgressText;
 
     [Header("UI - QuestionCard")]
     [Tooltip("The QuestionCard root GameObject")]
@@ -229,16 +229,16 @@ public class QuizController : MonoBehaviour
         if (!livesArea)    livesArea    = FindGO("TopSection/LivesArea");
         if (!progressArea) progressArea = FindGO("TopSection/ProgressArea");
 
-        // ProgressArea sliders/text
-        if (!progressSlider) progressSlider = Find<Slider>("TopSection/ProgressArea");
-        if (!examTimerText)  examTimerText  = Find<TMP_Text>("TopSection/ProgressArea/TimerText");
+        // TimerArea
+        if (!examTimerText)  examTimerText  = Find<TMP_Text>("TopSection/TimerArea/TimerText");
+
+        // ProgressArea
+        if (!learnProgressSlider) learnProgressSlider = Find<Slider>("TopSection/ProgressArea/ProgressBar");
+        if (!learnProgressText)   learnProgressText   = Find<TMP_Text>("TopSection/ProgressArea/ProgressText");
 
         // LivesArea
         if (!scoreText)     scoreText     = Find<TMP_Text>("TopSection/LivesArea/ScoreRow/ScoreItem");
         if (!highscoreText) highscoreText = Find<TMP_Text>("TopSection/LivesArea/ScoreRow/HighscoreItem");
-
-        // Exam timer text (handled above if it's inside ProgressArea, otherwise find explicit)
-        if (!examTimerText) examTimerText = Find<TMP_Text>("TopSection/ProgressArea");
 
         // Hearts – find by HeartsContainer children
         if (heartImages == null || heartImages.Length == 0 || heartImages[0] == null)
@@ -453,8 +453,6 @@ public class QuizController : MonoBehaviour
         // Resume from last index if possible, otherwise find first unsolved question
         int lastIndex = LearnProgressStore.GetLastIndex(language, _currentLevel);
         
-        // If last index is valid and not solved, start there. 
-        // If it's solved, look for the NEXT unsolved one.
         if (lastIndex >= 0 && lastIndex < _questions.Count)
         {
             _currentIndex = lastIndex;
@@ -464,15 +462,16 @@ public class QuizController : MonoBehaviour
             _currentIndex = 0;
         }
 
-        // Initialize progress slider
-        if (progressSlider)
+        // Initialize progress slider and text
+        if (learnProgressSlider)
         {
-            progressSlider.maxValue = _questions.Count;
-            progressSlider.value = _currentIndex + 1;
+            learnProgressSlider.maxValue = _questions.Count;
+            learnProgressSlider.value = _currentIndex + 1;
         }
-
-        // Hide timer text as we focus on progress bar in ProgressArea
-        SetActive(examTimerText?.gameObject, false);
+        if (learnProgressText)
+        {
+            learnProgressText.text = $"{_currentIndex + 1} / {_questions.Count}";
+        }
     }
 
     private void SetupScoreMode()
@@ -499,8 +498,8 @@ public class QuizController : MonoBehaviour
     private void SetupExamMode()
     {
         SetActiveBadge(QuizMode.Exam);
-        // TopSection: ProgressArea (timer + slider) visible
-        ShowTopSection(timerArea: false, livesArea: false, progressArea: true);
+        // TopSection: only TimerArea
+        ShowTopSection(timerArea: true, livesArea: false, progressArea: false);
         // QuestionCard: QuestionProgress visible, QuestionTimer (per-question slider) hidden
         SetActive(questionTimerSlider?.gameObject, false);
         SetActive(questionProgress?.gameObject, true);
@@ -513,14 +512,6 @@ public class QuizController : MonoBehaviour
         for (int i = 0; i < _questions.Count; i++) _userAnswers.Add(-1);
 
         _currentIndex = 0;
-        
-        // Initialize progress slider
-        if (progressSlider)
-        {
-            progressSlider.maxValue = _questions.Count;
-            progressSlider.value = 1;
-        }
-
         _examTimeRemaining = 300f; // Force 5 minutes
         _examRunning = true;
 
@@ -546,10 +537,11 @@ public class QuizController : MonoBehaviour
         // Progress e.g. "7 / 20"
         if (questionProgress) questionProgress.text = $"{index + 1} / {_questions.Count}";
 
-        // Update overall progress slider (Learn & Exam)
-        if (progressSlider && (_currentMode == QuizMode.Learn || _currentMode == QuizMode.Exam))
+        // Update Learn progress visuals
+        if (_currentMode == QuizMode.Learn)
         {
-            progressSlider.value = index + 1;
+            if (learnProgressSlider) learnProgressSlider.value = index + 1;
+            if (learnProgressText)   learnProgressText.text   = $"{index + 1} / {_questions.Count}";
         }
 
         // Reset all answer buttons
