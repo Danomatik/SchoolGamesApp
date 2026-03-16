@@ -483,10 +483,7 @@ public class QuizController : MonoBehaviour
             learnProgressText.text = $"{_currentIndex + 1} / {_questions.Count}";
         }
         
-        // Initialize Score for Learn Mode
-        _currentScore = 0;
-        UpdateScoreUI();
-        SetActive(scoreInCardText?.gameObject, true);
+        SetActive(scoreInCardText?.gameObject, false);
     }
 
     private void SetupScoreMode()
@@ -655,12 +652,6 @@ public class QuizController : MonoBehaviour
         _answered = true;
 
         bool correct = (index == _current.correctIndex);
-
-        if (correct)
-        {
-            _currentScore += 100;
-            UpdateScoreUI();
-        }
 
         // Color buttons
         // Visual Feedback
