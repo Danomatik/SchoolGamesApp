@@ -54,6 +54,7 @@ public class QuizController : MonoBehaviour
     public GameObject questionCardRoot;
     public TMP_Text questionLabel;     // e.g. "FRAGE 7"
     public TMP_Text questionText;
+    public TMP_Text scoreInCardText;   // Added: Score display on card
     public Slider questionTimerSlider; // Score mode: per-question countdown
     public TMP_Text questionProgress;  // e.g. "7 / 20"
 
@@ -259,6 +260,7 @@ public class QuizController : MonoBehaviour
         // QuestionCard – use assigned root or auto-found
         if (!questionLabel)       questionLabel       = FindIn<TMP_Text>(cardRoot, "QuestionLabel");
         if (!questionText)        questionText        = FindIn<TMP_Text>(cardRoot, "QuestionText");
+        if (!scoreInCardText)     scoreInCardText     = FindIn<TMP_Text>(cardRoot, "Current Score");
         if (!questionTimerSlider) questionTimerSlider = FindIn<Slider>(cardRoot, "QuestionTimer");
         if (!questionProgress)    questionProgress    = FindIn<TMP_Text>(cardRoot, "QuestionProgress");
 
@@ -339,6 +341,7 @@ public class QuizController : MonoBehaviour
         // QuestionCard extras – all off
         SetActive(questionTimerSlider?.gameObject, false);
         SetActive(questionProgress?.gameObject,    false);
+        SetActive(scoreInCardText?.gameObject,     false);
 
         // BottomButtons – all off
         SetActive(backButton?.gameObject,   false);
@@ -472,6 +475,11 @@ public class QuizController : MonoBehaviour
         {
             learnProgressText.text = $"{_currentIndex + 1} / {_questions.Count}";
         }
+        
+        // Initialize Score for Learn Mode
+        _currentScore = 0;
+        UpdateScoreUI();
+        SetActive(scoreInCardText?.gameObject, true);
     }
 
     private void SetupScoreMode()
@@ -482,6 +490,7 @@ public class QuizController : MonoBehaviour
         // QuestionCard: QuestionTimer (per-question countdown slider) visible, QuestionProgress hidden
         SetActive(questionTimerSlider?.gameObject, true);
         SetActive(questionProgress?.gameObject, false);
+        SetActive(scoreInCardText?.gameObject, true); // Added: Show score on card
 
         // Shuffle questions
         ShuffleList(_questions);
@@ -503,6 +512,7 @@ public class QuizController : MonoBehaviour
         // QuestionCard: QuestionProgress visible, QuestionTimer (per-question slider) hidden
         SetActive(questionTimerSlider?.gameObject, false);
         SetActive(questionProgress?.gameObject, true);
+        SetActive(scoreInCardText?.gameObject, false);
 
         // Select random subset
         _questions = SelectRandom(_questions, examQuestionCount);
@@ -638,6 +648,12 @@ public class QuizController : MonoBehaviour
         _answered = true;
 
         bool correct = (index == _current.correctIndex);
+
+        if (correct)
+        {
+            _currentScore += 100;
+            UpdateScoreUI();
+        }
 
         // Color buttons
         // Visual Feedback
@@ -966,6 +982,7 @@ public class QuizController : MonoBehaviour
     private void UpdateScoreUI()
     {
         if (scoreText) scoreText.text = $"Score: {_currentScore}";
+        if (scoreInCardText) scoreInCardText.text = $"Score: {_currentScore}";
     }
 
     private void UpdateLivesUI()
