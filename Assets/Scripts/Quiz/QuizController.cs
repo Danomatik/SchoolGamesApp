@@ -164,6 +164,13 @@ public class QuizController : MonoBehaviour
         if (gameOverMenuButton) gameOverMenuButton.onClick.AddListener(OnMenuButtonClicked);
         if (gameOverRestartButton) gameOverRestartButton.onClick.AddListener(RestartCurrentMode);
 
+        // Auto-fix provider path if it's the default but files are in Data
+        if (provider != null && provider.resourcesFolder == "questions")
+        {
+            provider.resourcesFolder = "Data";
+            Debug.Log("[QuizController] Auto-adjusted provider resourcesFolder to 'Data'");
+        }
+
         // --- Exam Result Panel Buttons ---
         if (resultMenuButton) resultMenuButton.onClick.AddListener(OnMenuButtonClicked);
         if (resultRestartButton) resultRestartButton.onClick.AddListener(RestartCurrentMode);
