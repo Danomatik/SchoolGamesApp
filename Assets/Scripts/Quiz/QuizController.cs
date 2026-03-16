@@ -476,7 +476,17 @@ public class QuizController : MonoBehaviour
             _currentIndex = 0;
         }
 
-        // 20-Minuten-Countdown starten
+        // Initialize progress slider
+        if (progressSlider)
+        {
+            progressSlider.maxValue = _questions.Count;
+            progressSlider.value = _currentIndex + 1;
+        }
+
+        // Hide timer text as we focus on progress bar
+        SetActive(learnTimerText?.gameObject, false);
+
+        // 20-Minuten-Countdown starten (im Hintergrund)
         _learnTimeRemaining = 1200f; // Force 20 minutes
         _learnTimerRunning  = true;
         UpdateLearnTimerUI();
@@ -520,6 +530,14 @@ public class QuizController : MonoBehaviour
         for (int i = 0; i < _questions.Count; i++) _userAnswers.Add(-1);
 
         _currentIndex = 0;
+        
+        // Initialize progress slider
+        if (progressSlider)
+        {
+            progressSlider.maxValue = _questions.Count;
+            progressSlider.value = 1;
+        }
+
         _examTimeRemaining = 300f; // Force 5 minutes
         _examRunning = true;
 
@@ -544,6 +562,12 @@ public class QuizController : MonoBehaviour
 
         // Progress e.g. "7 / 20"
         if (questionProgress) questionProgress.text = $"{index + 1} / {_questions.Count}";
+
+        // Update overall progress slider (Learn & Exam)
+        if (progressSlider && (_currentMode == QuizMode.Learn || _currentMode == QuizMode.Exam))
+        {
+            progressSlider.value = index + 1;
+        }
 
         // Reset all answer buttons
         for (int i = 0; i < answerButtons.Length; i++)
