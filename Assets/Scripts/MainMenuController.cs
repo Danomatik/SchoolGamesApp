@@ -316,6 +316,10 @@ public class MainMenuController : MonoBehaviour
         Debug.Log("[MainMenuController] Opening Exam History");
         SetActive(difficultyPanel, false);
         SetActive(examHistoryPanel, true);
+        // Hide logo and bottom icons when history is open
+        SetActive(logo, false);
+        SetActive(bottomIcons, false);
+
         if (examHistoryPanel != null) examHistoryPanel.transform.SetAsLastSibling();
         
         PopulateExamHistory();
@@ -399,6 +403,10 @@ public class MainMenuController : MonoBehaviour
     private void OnHistoryNewExamClicked()
     {
         SetActive(examHistoryPanel, false);
+        // Restore logo and bottom icons for the difficulty panel
+        SetActive(logo, true);
+        SetActive(bottomIcons, true);
+
         // Start new exam => goes back to Difficulty panel for Exam
         OpenDifficultyPanel(QuizController.QuizMode.Exam);
     }
