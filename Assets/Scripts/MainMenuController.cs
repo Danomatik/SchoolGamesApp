@@ -43,6 +43,8 @@ public class MainMenuController : MonoBehaviour
     public TextMeshProUGUI seniorTagText;
     [Tooltip("The History button inside DifficultyPanel (only visible in Exam mode)")]
     public Button difficultyHistoryButton;
+    [Tooltip("The History button prefab to instantiate inside CardsContainer")]
+    public GameObject historyButtonPrefab;
 
     [Header("Exam History")]
     public GameObject examHistoryPanel;
@@ -158,7 +160,8 @@ public class MainMenuController : MonoBehaviour
         if (juniorTagText == null) juniorTagText = difficultyPanel.transform.Find("CardsContainer/JuniorCard/TagsRow/Tag1/TagText")?.GetComponent<TextMeshProUGUI>();
         if (seniorTagText == null) seniorTagText = difficultyPanel.transform.Find("CardsContainer/SeniorCard/TagsRow/Tag1/TagText")?.GetComponent<TextMeshProUGUI>();
 
-        if (difficultyHistoryButton == null) difficultyHistoryButton = difficultyPanel.transform.Find("History")?.GetComponent<Button>();
+        if (difficultyHistoryButton == null) difficultyHistoryButton = difficultyPanel.transform.Find("CardsContainer/History")?.GetComponent<Button>();
+        if (historyButtonPrefab == null) historyButtonPrefab = Resources.Load<GameObject>("Prefabs/History");
     }
 
     private void AutoFindHistoryReferences()
@@ -261,8 +264,32 @@ public class MainMenuController : MonoBehaviour
                 if (modeSubText)  modeSubText.text  = "Bestehst du die Prüfung? (70%)";
                 if (juniorTagText) juniorTagText.text = "20 Fragen";
                 if (seniorTagText) seniorTagText.text = "20 Fragen";
-                if (difficultyHistoryButton != null) difficultyHistoryButton.gameObject.SetActive(true);
+                EnsureHistoryButtonExists();
+                if (difficultyHistoryButton != null)
+                {
+                    difficultyHistoryButton.gameObject.SetActive(true);
+                    // Move it to the bottom of the container
+                    difficultyHistoryButton.transform.SetAsLastSibling();
+                }
                 break;
+        }
+    }
+
+    private void EnsureHistoryButtonExists()
+    {
+        if (difficultyHistoryButton != null) return;
+        if (difficultyPanel == null || historyButtonPrefab == null) return;
+
+        Transform cardsContainer = difficultyPanel.transform.Find("CardsContainer");
+        if (cardsContainer == null) return;
+
+        GameObject historyObj = Instantiate(historyButtonPrefab, cardsContainer);
+        historyObj.name = "History";
+        difficultyHistoryButton = historyObj.GetComponent<Button>();
+        
+        if (difficultyHistoryButton != null)
+        {
+            difficultyHistoryButton.onClick.AddListener(OnDifficultyHistoryClicked);
         }
     }
 
