@@ -278,7 +278,14 @@ public class MainMenuController : MonoBehaviour
     private void EnsureHistoryButtonExists()
     {
         if (difficultyHistoryButton != null) return;
-        if (difficultyPanel == null || historyButtonPrefab == null) return;
+        
+        if (difficultyPanel == null) return;
+
+        if (historyButtonPrefab == null)
+        {
+            Debug.LogWarning("[MainMenuController] historyButtonPrefab is NOT assigned in the Inspector! Cannot instantiate History button.");
+            return;
+        }
 
         Transform cardsContainer = difficultyPanel.transform.Find("CardsContainer");
         if (cardsContainer == null) return;
