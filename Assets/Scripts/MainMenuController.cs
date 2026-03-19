@@ -40,6 +40,16 @@ public class MainMenuController : MonoBehaviour
     [Tooltip("The TagText (Tag1) inside the cards")]
     public TextMeshProUGUI juniorTagText;
     public TextMeshProUGUI seniorTagText;
+    [Tooltip("The History button inside DifficultyPanel (only visible in Exam mode)")]
+    public Button difficultyHistoryButton;
+
+    [Header("Exam History")]
+    public GameObject examHistoryPanel;
+    public Transform historyContent;
+    public GameObject historyEntryWinPrefab;
+    public GameObject historyEntryLossPrefab;
+    public Button historyMainMenuButton;
+    public Button historyNewExamButton;
 
     private QuizController.QuizMode _selectedQuizMode;
 
@@ -122,8 +132,15 @@ public class MainMenuController : MonoBehaviour
         // Auto-find DifficultyPanel references if not set
         AutoFindDifficultyReferences();
 
+        // Auto-find ExamHistoryPanel references if not set
+        AutoFindHistoryReferences();
+
         if (juniorButton != null) juniorButton.onClick.AddListener(OnJuniorClicked);
         if (seniorButton != null) seniorButton.onClick.AddListener(OnSeniorClicked);
+        
+        if (difficultyHistoryButton != null) difficultyHistoryButton.onClick.AddListener(OnDifficultyHistoryClicked);
+        if (historyMainMenuButton != null) historyMainMenuButton.onClick.AddListener(OnHistoryMainMenuClicked);
+        if (historyNewExamButton != null) historyNewExamButton.onClick.AddListener(OnHistoryNewExamClicked);
     }
 
     private void AutoFindDifficultyReferences()
@@ -139,6 +156,23 @@ public class MainMenuController : MonoBehaviour
 
         if (juniorTagText == null) juniorTagText = difficultyPanel.transform.Find("CardsContainer/JuniorCard/TagsRow/Tag1/TagText")?.GetComponent<TextMeshProUGUI>();
         if (seniorTagText == null) seniorTagText = difficultyPanel.transform.Find("CardsContainer/SeniorCard/TagsRow/Tag1/TagText")?.GetComponent<TextMeshProUGUI>();
+
+        if (difficultyHistoryButton == null) difficultyHistoryButton = difficultyPanel.transform.Find("History")?.GetComponent<Button>();
+    }
+
+    private void AutoFindHistoryReferences()
+    {
+        if (examHistoryPanel == null) examHistoryPanel = transform.Find("MenuContainer/ExamHistoryPanel")?.gameObject;
+        if (examHistoryPanel == null) return;
+
+        if (historyContent == null) historyContent = examHistoryPanel.transform.Find("HistoryScrollView/Viewport/Content");
+        
+        if (historyMainMenuButton == null) historyMainMenuButton = examHistoryPanel.transform.Find("BottomBar/MainMenuButton")?.GetComponent<Button>();
+        if (historyNewExamButton == null) historyNewExamButton = examHistoryPanel.transform.Find("BottomBar/NewExamButton")?.GetComponent<Button>();
+        
+        // Try to load prefabs from Resources if not assigned
+        if (historyEntryWinPrefab == null) historyEntryWinPrefab = Resources.Load<GameObject>("Prefabs/HistoryEntryW");
+        if (historyEntryLossPrefab == null) historyEntryLossPrefab = Resources.Load<GameObject>("Prefabs/HistoryEntryL");
     }
 
     /// <summary>
@@ -155,6 +189,7 @@ public class MainMenuController : MonoBehaviour
         SetActive(anleitungPanel, false);
         SetActive(quizModusButtonContainer, false);
         SetActive(difficultyPanel, false);
+        SetActive(examHistoryPanel, false);
         SetActive(quizContainer, false);
     }
 
@@ -211,18 +246,21 @@ public class MainMenuController : MonoBehaviour
                 if (modeSubText)  modeSubText.text  = "Übe in deinem eigenen Tempo";
                 if (juniorTagText) juniorTagText.text = "360 Fragen";
                 if (seniorTagText) seniorTagText.text = "360 Fragen";
+                if (difficultyHistoryButton != null) difficultyHistoryButton.gameObject.SetActive(false);
                 break;
             case QuizController.QuizMode.Score:
                 if (modeNameText) modeNameText.text = "Punktemodus";
                 if (modeSubText)  modeSubText.text  = "Sammle Punkte und knacke den Highscore";
                 if (juniorTagText) juniorTagText.text = "Endlos";
                 if (seniorTagText) seniorTagText.text = "Endlos";
+                if (difficultyHistoryButton != null) difficultyHistoryButton.gameObject.SetActive(false);
                 break;
             case QuizController.QuizMode.Exam:
                 if (modeNameText) modeNameText.text = "Prüfungsmodus";
                 if (modeSubText)  modeSubText.text  = "Bestehst du die Prüfung? (70%)";
                 if (juniorTagText) juniorTagText.text = "20 Fragen";
                 if (seniorTagText) seniorTagText.text = "20 Fragen";
+                if (difficultyHistoryButton != null) difficultyHistoryButton.gameObject.SetActive(true);
                 break;
         }
     }
@@ -235,6 +273,102 @@ public class MainMenuController : MonoBehaviour
         SetActive(difficultyPanel, false);
         SetActive(quizModusButtonContainer, true);
     }
+
+    // ─── Exam History ───────────────────────────────────────────────
+
+    private void OnDifficultyHistoryClicked()
+    {
+        Debug.Log("[MainMenuController] Opening Exam History");
+        SetActive(difficultyPanel, false);
+        SetActive(examHistoryPanel, true);
+        if (examHistoryPanel != null) examHistoryPanel.transform.SetAsLastSibling();
+        
+        PopulateExamHistory();
+    }
+
+    private void PopulateExamHistory()
+    {
+        if (historyContent == null) return;
+
+        // Clear existing entries
+        foreach (Transform child in historyContent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        if (historyEntryWinPrefab == null || historyEntryLossPrefab == null)
+        {
+            Debug.LogError("[MainMenuController] History prefabs not assigned!");
+            return;
+        }
+
+        // Fetch DE results (assume DE as primary for now, could fetch EN as well)
+        List<ExamResult> allResults = new List<ExamResult>();
+        allResults.AddRange(ExamProgressStore.GetAllResults(QuizLang.DE, LearnLevel.Junior));
+        allResults.AddRange(ExamProgressStore.GetAllResults(QuizLang.DE, LearnLevel.Senior));
+        
+        // Sort by timestamp descending (newest first)
+        allResults = allResults.OrderByDescending(r => r.timestamp).ToList();
+
+        foreach (var result in allResults)
+        {
+            GameObject prefabToUse = result.passed ? historyEntryWinPrefab : historyEntryLossPrefab;
+            GameObject entry = Instantiate(prefabToUse, historyContent);
+
+            // Fetch generic TextMeshPro components based on their common naming in screenshots
+            TextMeshProUGUI[] texts = entry.GetComponentsInChildren<TextMeshProUGUI>();
+
+            // E.g. Date: 15.03.2026, Perc: 87%, Level: JUNIOR, Time: 19:01, Status: Bestanden
+            // We do basic string matching or order based if exact names aren't strictly guaranteed,
+            // but usually we can match text components by name.
+            foreach (var txt in texts)
+            {
+                string n = txt.gameObject.name.ToLower();
+                
+                // Usually "DateText" or "Date"
+                if (n.Contains("date"))
+                {
+                    // "2026-03-15 19:01:23"
+                    if (System.DateTime.TryParse(result.timestamp, out System.DateTime dt))
+                        txt.text = dt.ToString("dd.MM.yyyy");
+                    else
+                        txt.text = result.timestamp;
+                }
+                else if (n.Contains("time"))
+                {
+                    if (System.DateTime.TryParse(result.timestamp, out System.DateTime dt))
+                        txt.text = dt.ToString("HH:mm");
+                }
+                else if (n.Contains("percent") || txt.text.Contains("%"))
+                {
+                    txt.text = $"{Mathf.RoundToInt(result.percentageScore)}%";
+                }
+                else if (n.Contains("level") || txt.text.Contains("JUNIOR") || txt.text.Contains("SENIOR"))
+                {
+                    txt.text = result.level.ToString().ToUpper();
+                }
+                else if (n.Contains("status"))
+                {
+                    txt.text = result.passed ? "Bestanden" : "Nicht bestanden";
+                }
+            }
+        }
+    }
+
+    private void OnHistoryMainMenuClicked()
+    {
+        SetActive(examHistoryPanel, false);
+        ShowMainMenu();
+    }
+
+    private void OnHistoryNewExamClicked()
+    {
+        SetActive(examHistoryPanel, false);
+        // Start new exam => goes back to Difficulty panel for Exam
+        OpenDifficultyPanel(QuizController.QuizMode.Exam);
+    }
+
+    // ─── Junior / Senior Handlers ────────────────────────────────────
 
     private void OnJuniorClicked()
     {
