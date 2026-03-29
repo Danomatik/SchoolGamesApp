@@ -91,7 +91,7 @@ public class QuizController : MonoBehaviour
     public TMP_Text resultTitleText;         // "BESTANDEN"
     public TMP_Text resultPercentageText;    // "87%"
     public TMP_Text resultCountSubText;      // "20 / 20"
-    public TMP_Text resultThresholdText;     // "Mindestens 70% zum Bestehen"
+    public TMP_Text resultThresholdText;     // "Mindestens 70% erforderlich"
     public Button resultMenuButton;
     public Button resultRestartButton;
     public Button resultViewQuestionsButton;
@@ -480,7 +480,7 @@ public class QuizController : MonoBehaviour
         }
         if (learnProgressText)
         {
-            learnProgressText.text = $"{_currentIndex + 1} / {_questions.Count}";
+            learnProgressText.gameObject.SetActive(false);
         }
         
         SetActive(scoreInCardText?.gameObject, false);
@@ -555,7 +555,8 @@ public class QuizController : MonoBehaviour
         if (_currentMode == QuizMode.Learn)
         {
             if (learnProgressSlider) learnProgressSlider.value = index + 1;
-            if (learnProgressText)   learnProgressText.text   = $"{index + 1} / {_questions.Count}";
+            if (learnProgressText && learnProgressText.gameObject.activeSelf) 
+                learnProgressText.text = $"{index + 1} / {_questions.Count}";
         }
 
         // Reset all answer buttons
@@ -1067,7 +1068,7 @@ public class QuizController : MonoBehaviour
 
         if (resultPercentageText) resultPercentageText.text = $"{Mathf.RoundToInt(pct)}%";
         if (resultCountSubText) resultCountSubText.text = $"{correct} / {total}";
-        if (resultThresholdText) resultThresholdText.text = $"Mindestens {passingPercentage}% zum Bestehen";
+        if (resultThresholdText) resultThresholdText.text = $"Mindestens {passingPercentage}% erforderlich";
 
         // Show "Fragen anschauen" only in Exam mode or if results vary?
         // Usually Learn mode is already "reviewed" as you go, but keeping it won't hurt.
