@@ -34,6 +34,36 @@ public class DiceManager : MonoBehaviour
 
     [SerializeField] private PlayerMovement playerMovement;
 
+    [Header("Shake Detection")]
+    [SerializeField] private float shakeDetectionThreshold = 3.5f;
+
+    void Update()
+    {
+        // Check if we should roll
+        bool shouldRoll = false;
+
+        // Detect phone shake
+        if (Input.acceleration.sqrMagnitude >= shakeDetectionThreshold)
+        {
+            shouldRoll = true;
+        }
+
+#if UNITY_EDITOR
+        // Allow testing the shake in the Unity Editor by pressing Space
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            shouldRoll = true;
+        }
+#endif
+
+        if (shouldRoll)
+        {
+            if (!rolling && moveButton != null && moveButton.activeSelf)
+            {
+                RollDice();
+            }
+        }
+    }
 
     public void RollDice()
     {
@@ -43,6 +73,11 @@ public class DiceManager : MonoBehaviour
 
     private IEnumerator RollRoutine()
     {
+        // Vibrate the device when rolling starts
+#if UNITY_IOS || UNITY_ANDROID
+        Handheld.Vibrate();
+#endif
+        
         moveButton.SetActive(false);
         rolling = true;
 
@@ -133,6 +168,12 @@ public class DiceManager : MonoBehaviour
     public IEnumerator RollForInitiative(System.Action<int> onRolled)
     {
         if (rolling) yield break;
+        
+        // Vibrate the device when rolling starts
+#if UNITY_IOS || UNITY_ANDROID
+        Handheld.Vibrate();
+#endif
+        
         moveButton.SetActive(false);
         rolling = true;
 

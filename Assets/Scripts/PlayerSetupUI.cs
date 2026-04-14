@@ -30,8 +30,44 @@ public class PlayerSetupUI : MonoBehaviour
     public List<TMP_InputField> playerNameInputs = new List<TMP_InputField>();
 
     private PlayerSetupManager setupManager;
+
+    [Header("Mobile Keyboard Fix")]
+    [Tooltip("Die Höhe, um die das Fenster nach oben geschoben wird, wenn die Tastatur offen ist.")]
+    public float keyboardOffset = 400f;
+    private RectTransform myRectTransform;
+    private Vector2 originalAnchoredPosition;
+    private bool isKeyboardShifted = false;
+
     void Update()
     {
+        // Mobile Keyboard Offset Logic
+        if (myRectTransform != null)
+        {
+            bool anyInputFocused = false;
+            if (playerNameInputs != null)
+            {
+                foreach (var input in playerNameInputs)
+                {
+                    if (input != null && input.isFocused)
+                    {
+                        anyInputFocused = true;
+                        break;
+                    }
+                }
+            }
+
+            if (anyInputFocused && !isKeyboardShifted)
+            {
+                myRectTransform.anchoredPosition = originalAnchoredPosition + new Vector2(0, keyboardOffset);
+                isKeyboardShifted = true;
+            }
+            else if (!anyInputFocused && isKeyboardShifted)
+            {
+                myRectTransform.anchoredPosition = originalAnchoredPosition;
+                isKeyboardShifted = false;
+            }
+        }
+
         // Temporärer Debug-Code für Player Count Slider
         if (Input.GetKeyDown(KeyCode.P) && playerCountSlider != null)
         {
@@ -47,6 +83,12 @@ public class PlayerSetupUI : MonoBehaviour
     }
     void Start()
     {
+        myRectTransform = GetComponent<RectTransform>();
+        if (myRectTransform != null)
+        {
+            originalAnchoredPosition = myRectTransform.anchoredPosition;
+        }
+
         // Finde PlayerSetupManager
         setupManager = FindFirstObjectByType<PlayerSetupManager>();
         if (setupManager == null)

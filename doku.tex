@@ -6,11 +6,66 @@
 \usepackage{booktabs}
 \usepackage{enumitem}
 \usepackage{parskip}
+\usepackage{graphicx}
+\usepackage{xcolor}
 \usepackage{listings}
+\usepackage{xurl}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{carlito}
+\usepackage{needspace}
+
+\renewcommand{\familydefault}{\sfdefault}
+\onehalfspacing
+\setlength{\emergencystretch}{3em}
 
 \geometry{margin=2.5cm}
 
+% ============================================================
+% LISTINGS SETUP: C# Code Style
+% ============================================================
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codegreen}{RGB}{0,128,0}
+\definecolor{codegray}{RGB}{120,120,120}
+\definecolor{codeblue}{RGB}{0,0,180}
+\definecolor{codestring}{RGB}{163,21,21}
+
+\lstdefinelanguage{CSharp}{
+    keywords={string, int, bool, float, true, false, null, new, void, return, if, else, public, private, static, class, await, using, try, catch, enum, interface},
+    keywordstyle=\color{codeblue}\bfseries,
+    commentstyle=\color{codegreen}\itshape,
+    stringstyle=\color{codestring},
+    morecomment=[l]{//},
+    morestring=[b]",
+    sensitive=true
+}
+
+\lstset{
+    language=CSharp,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{codegray},
+    numbers=none,
+    tabsize=4,
+    showstringspaces=false,
+    captionpos=b,
+    aboveskip=1em,
+    belowskip=1em,
+    xleftmargin=0.5em,
+    xrightmargin=0.5em,
+    framexleftmargin=0.5em,
+    framexrightmargin=0.5em
+}
+
 \begin{document}
+
+% ============================================================
+% KAPITEL 1: EINLEITUNG
+% ============================================================
+
 \section*{Themenstellung von Simeon Jovicic}
 
 Implementierung und Analyse lokaler Speicherlösungen in Unity für mobile Spiele: Datenbankstruktur und Businesslogikdesign
@@ -23,174 +78,1332 @@ Genau das ist die Herausforderung. Ohne Server müssen sämtliche Daten direkt a
 
 Das Untersuchungsanliegen dieser Arbeit lautet: \textit{Welche Methoden ergeben sich bei der Implementierung von lokalen Speicherlösungen in Unity für mobile Spiele und welche Vor- und Nachteile resultieren aus diesen?}
 
-Um diese Frage zu beantworten, ist die Arbeit wie folgt aufgebaut: Kapitel~2 vergleicht die in Unity verfügbaren Speichermethoden und begründet die Entscheidung für den gewählten Ansatz. Kapitel~3 beschreibt die Struktur der statischen Spieldaten, also der Fragenkataloge und Firmendaten. Kapitel~4 behandelt die dynamischen Spielzustände und wie diese als Savegames persistiert werden. In Kapitel~5 geht es um das Businesslogikdesign der Serialisierungsschicht und die eingesetzten Architektur-Patterns. Kapitel~6 erklärt die dynamische Datenbindung, mit der zur Laufzeit zwischen Sprachen und Fragesets gewechselt wird. Kapitel~7 analysiert den gewählten Ansatz kritisch, unter anderem in Bezug auf Performance, Sicherheit und Zukunftsfähigkeit. Kapitel~8 fasst die Ergebnisse zusammen und gibt einen Ausblick auf mögliche Cloud-Erweiterungen.
+Um diese Frage zu beantworten, ist die Arbeit wie folgt aufgebaut: Kapitel~2 liefert den theoretischen Hintergrund zu Datenpersistenz in Unity und vergleicht die verfügbaren Speichermethoden. Kapitel~3 beschreibt die Struktur der statischen Spieldaten, also der Fragenkataloge und Firmendaten. Kapitel~4 behandelt die dynamischen Spielzustände und wie diese als Savegames persistiert werden. In Kapitel~5 geht es um das Businesslogikdesign der Serialisierungsschicht und die eingesetzten Architektur-Patterns. Kapitel~6 erklärt die dynamische Datenbindung, mit der zur Laufzeit zwischen Sprachen und Fragesets gewechselt wird. Kapitel~7 analysiert den gewählten Ansatz kritisch und bewertet ihn in Bezug auf Performance, Sicherheit und Zukunftsfähigkeit. Kapitel~8 fasst die Ergebnisse zusammen und gibt einen Ausblick auf mögliche Cloud-Erweiterungen.
 
 % ============================================================
-% HINWEIS: Hier optional ein Screenshot einfügen,
-% z.B. das Spielfeld der App oder eine Übersicht.
-%
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/app_overview.png}
-%     \caption{Übersicht der SchoolGamesApp}
-%     \label{fig:app-overview}
-% \end{figure}
+% KAPITEL 2: THEORETISCHER HINTERGRUND
 % ============================================================
-\section{Theoretische Grundlagen: Datenpersistenz in Unity}
 
-Wenn eine mobile App geschlossen oder das Gerät neu gestartet wird, gehen alle Daten verloren, die nur im Arbeitsspeicher liegen. Für ein Spiel wie die SchoolGamesApp bedeutet das, dass Spielstände, Kontostände und Spielerpositionen nach jedem Neustart der App nicht mehr vorhanden wären. Um das zu verhindern, müssen Daten vom flüchtigen Arbeitsspeicher auf den dauerhaften Flash-Speicher des Geräts geschrieben werden. Dieser Vorgang wird als Datenpersistenz bezeichnet.
+\section{Theoretischer Hintergrund: Datenpersistenz in Unity}
 
-Unity bietet dafür mehrere Methoden an, die sich in Funktionsumfang, Performance und Komplexität unterscheiden. In den folgenden Abschnitten werden die vier gängigsten Ansätze vorgestellt und anhand definierter Kriterien verglichen. Am Ende steht die begründete Entscheidung für den Ansatz, der in der SchoolGamesApp verwendet wird.
+Wenn eine mobile App geschlossen oder das Gerät neu gestartet wird, gehen alle Daten verloren, die nur im Arbeitsspeicher (RAM -- Random Access Memory) liegen. Der Arbeitsspeicher ist ein flüchtiger Speicher, der Daten nur solange vorhält, wie die Anwendung aktiv ist. Für ein Spiel wie die SchoolGamesApp bedeutet das, dass Spielstände, Kontostände und Spielerpositionen nach jedem Neustart der App nicht mehr vorhanden wären. Um das zu verhindern, müssen Daten vom Arbeitsspeicher auf den dauerhaften Flash-Speicher des Geräts geschrieben werden. Dieser Vorgang wird als Datenpersistenz bezeichnet.
+
+Unity bietet dafür mehrere Methoden an, die sich in Funktionsumfang, Performance und Komplexität unterscheiden~[1]. In den folgenden Abschnitten werden die vier gängigsten Ansätze vorgestellt und anhand definierter Kriterien verglichen. Am Ende steht die begründete Entscheidung für den Ansatz, der in der SchoolGamesApp verwendet wird.
 
 \subsection{PlayerPrefs}
 
-\texttt{PlayerPrefs} ist die einfachste Methode, um Daten in Unity zu speichern. Sie funktioniert als Key-Value-Store: Ein Wert wird unter einem Schlüssel abgelegt und kann später über diesen Schlüssel wieder abgerufen werden.
+\texttt{PlayerPrefs} ist die einfachste Methode, um Daten in Unity zu speichern. Sie funktioniert als Key-Value-Store: Ein Wert wird unter einem Schlüssel abgelegt und kann später über diesen Schlüssel wieder abgerufen werden~[2].
 
-\begin{lstlisting}[language={[Sharp]C}]
+\needspace{10\baselineskip}
+\begin{lstlisting}
 // Speichern (Beispiel aus PlayerSetupManager.cs)
-PlayerPrefs.SetInt(PLAYER_COUNT_KEY, count);                    // ①
-PlayerPrefs.SetString($"{PLAYER_NAME_PREFIX}{playerID}", name); // ②
-PlayerPrefs.Save();                                             // ③
+PlayerPrefs.SetInt(PLAYER_COUNT_KEY, count);                    // (1)
+PlayerPrefs.SetString(
+    $"{PLAYER_NAME_PREFIX}{playerID}", name);                   // (2)
+PlayerPrefs.Save();                                             // (3)
 
 // Laden (Beispiel aus PlayerSetupManager.cs)
-int loadedCount = PlayerPrefs.GetInt(PLAYER_COUNT_KEY, 0);      // ④
+int loadedCount = PlayerPrefs.GetInt(PLAYER_COUNT_KEY, 0);      // (4)
 \end{lstlisting}
 
-① Ein Integer-Wert für die Spieleranzahl wird unter einer festen Konstante (\texttt{PLAYER\_COUNT\_KEY}) gespeichert.
-② Ein String-Wert für den Spielernamen wird über einen String-Interpolation-Schlüssel dynamisch gespeichert.
-③ Die Änderungen werden explizit auf die Festplatte geschrieben.
-④ Der gespeicherte Wert wird über den Schlüssel wieder abgerufen, hier mit einem Fallback-Wert von 0.
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Ein Integer-Wert für die Spieleranzahl wird unter einer festen Konstante gespeichert.
+    \item[(2)] Ein String-Wert für den Spielernamen wird über einen dynamischen Schlüssel per String-Interpolation gespeichert.
+    \item[(3)] Die Änderungen werden explizit auf die Festplatte geschrieben.
+    \item[(4)] Der gespeicherte Wert wird über den Schlüssel wieder abgerufen, mit einem Fallback-Wert von 0.
+\end{description}
 
-Der Vorteil liegt in der Einfachheit. Es sind keine zusätzlichen Bibliotheken nötig und die Methode funktioniert auf allen Plattformen. Allerdings unterstützt \texttt{PlayerPrefs} nur drei Datentypen: \texttt{int}, \texttt{float} und \texttt{string}. Komplexe Objekte wie ein vollständiger Spielstand mit mehreren Spielern, deren Positionen und Kontostände lassen sich damit nicht direkt abbilden. Man müsste jeden Wert einzeln unter einem eigenen Schlüssel speichern, was bei einem Spiel mit vier bis sechs Spielern schnell unübersichtlich wird.
+Der Vorteil liegt in der Einfachheit. Es sind keine zusätzlichen Bibliotheken nötig und die Methode funktioniert auf allen Plattformen. Allerdings unterstützt \texttt{PlayerPrefs} nur drei Datentypen: \texttt{int}, \texttt{float} und \texttt{string}~[2]. Komplexe Objekte wie ein vollständiger Spielstand mit mehreren Spielern, deren Positionen und Kontostände lassen sich damit nicht direkt abbilden. Man müsste jeden Wert einzeln unter einem eigenen Schlüssel speichern, was bei einem Spiel mit vier bis sechs Spielern schnell unübersichtlich wird.
 
-Dazu kommt, dass \texttt{PlayerPrefs} nicht für umfangreiche Spieldaten vorgesehen ist. Auf Android werden die Werte in den \texttt{SharedPreferences} des Betriebssystems gespeichert, auf iOS in einer \texttt{.plist}-Datei. Beides ist vom System für kleine Einstellungen gedacht. Die Werte liegen auf beiden Plattformen im Klartext vor und können von Nutzern eingesehen und verändert werden (vgl.~Unity Documentation, PlayerPrefs).
+Dazu kommt, dass \texttt{PlayerPrefs} nicht für umfangreiche Spieldaten vorgesehen ist. Auf Android werden die Werte über die \texttt{SharedPreferences}-API des Betriebssystems gespeichert, auf iOS über \texttt{NSUserDefaults}~[2]. Beides ist vom System für kleine Einstellungen gedacht. Die Werte liegen auf beiden Plattformen im Klartext vor und können von Nutzern eingesehen und verändert werden.
 
 \texttt{PlayerPrefs} eignet sich daher für einfache Einstellungen wie Lautstärke oder Sprachauswahl, nicht aber für die Speicherung komplexer Spielzustände.
 
 \subsection{JSON-Dateien mit JsonUtility}
 
-Ein flexiblerer Ansatz ist die Serialisierung von C\#-Objekten in das JSON-Format (JavaScript Object Notation). JSON ist ein textbasiertes Datenformat, das Daten als Schlüssel-Wert-Paare in einer hierarchischen Struktur speichert. Es ist leicht lesbar und in der Softwareentwicklung weit verbreitet.
+Ein flexiblerer Ansatz ist die Serialisierung von C\#-Objekten in das JSON-Format (JavaScript Object Notation). JSON ist ein textbasiertes, sprachunabhängiges Datenformat, das Daten als Schlüssel-Wert-Paare in einer hierarchischen Struktur speichert~[3]. Es ist leicht lesbar und in der Softwareentwicklung weit verbreitet.
 
-Unity stellt dafür die Klasse \texttt{JsonUtility} bereit. Der Ablauf ist dabei immer gleich: Ein C\#-Objekt wird mit \texttt{JsonUtility.ToJson()} in einen String konvertiert und dieser String wird dann mit \texttt{System.IO.File.WriteAllText()} in eine Datei geschrieben. Beim Laden wird der Vorgang umgekehrt.
+Unity stellt dafür die Klasse \texttt{JsonUtility} bereit~[4]. Der Ablauf ist dabei immer gleich: Ein C\#-Objekt wird mit \texttt{JsonUtility.ToJson()} in einen String konvertiert und dieser String wird dann mit \texttt{File.WriteAllText()} in eine Datei geschrieben. Beim Laden wird der Vorgang umgekehrt.
 
-\begin{lstlisting}[language={[Sharp]C}]
+\needspace{10\baselineskip}
+\begin{lstlisting}
 // Speichern (Beispiel aus GameSaveManager.cs)
-string json = JsonUtility.ToJson(saveData, true);                   // ①
-File.WriteAllText(SaveFilePath, json);                              // ②
+string json = JsonUtility.ToJson(saveData, true);               // (1)
+File.WriteAllText(SaveFilePath, json);                          // (2)
 
 // Laden (Beispiel aus GameSaveManager.cs)
-string loadedJson = File.ReadAllText(SaveFilePath);                 // ③
-GameSaveData data = JsonUtility.FromJson<GameSaveData>(loadedJson); // ④
+string loadedJson = File.ReadAllText(SaveFilePath);             // (3)
+GameSaveData data =
+    JsonUtility.FromJson<GameSaveData>(loadedJson);             // (4)
 \end{lstlisting}
 
-① Das C\#-Objekt \texttt{saveData} wird in einen eingerückten, gut lesbaren JSON-String umgewandelt.
-② Der konvertierte JSON-String wird in den plattformspezifischen \texttt{SaveFilePath} geschrieben.
-③ Der Inhalt der Datei vom Speicherpfad wird vollständig als String-Wert eingelesen.
-④ Der Text wird zurück in das typisierte C\#-Objekt \texttt{GameSaveData} deserialisiert.
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Das C\#-Objekt \texttt{saveData} wird in einen eingerückten, gut lesbaren JSON-String umgewandelt.
+    \item[(2)] Der konvertierte JSON-String wird in den plattformspezifischen Speicherpfad geschrieben.
+    \item[(3)] Der Inhalt der Datei wird vollständig als String eingelesen.
+    \item[(4)] Der Text wird zurück in das typisierte C\#-Objekt deserialisiert.
+\end{description}
 
-Was \texttt{JsonUtility} besonders für mobile Spiele interessant macht, ist die Performance. Die Klasse ist direkt in die Unity-Engine integriert und wurde speziell für den Einsatz auf Mobilgeräten optimiert. Im Vergleich zu externen Bibliotheken wie Newtonsoft JSON arbeitet sie deutlich schneller, da sie weniger Funktionen bietet und dadurch weniger Overhead erzeugt (vgl.~Unity Documentation, JsonUtility).
+Was \texttt{JsonUtility} besonders für mobile Spiele interessant macht, ist die Performance. Laut der offiziellen Unity-Dokumentation ist \texttt{JsonUtility} deutlich schneller als verbreitete .NET-JSON-Bibliotheken, auch wenn es in manchen Fällen weniger Funktionen bietet~[1]. Der Speicherverbrauch ist dabei minimal: \texttt{ToJson} allokiert nur den Speicher für den zurückgegebenen String und \texttt{FromJson} nur für das Zielobjekt~[1].
 
-Gleichzeitig bringt das auch Einschränkungen mit sich. \texttt{JsonUtility} kann keine Dictionaries serialisieren, unterstützt keine polymorphen Typen und keine Vererbung. Auch \texttt{null}-Werte werden nicht korrekt verarbeitet. Alle Klassen, die serialisiert werden sollen, müssen mit dem Attribut \texttt{[System.Serializable]} markiert sein. Das bedeutet, dass die Datenstrukturen einfach und flach gehalten werden müssen. Wie sich in den späteren Kapiteln zeigt, ist das im Fall der SchoolGamesApp aber eher ein Vorteil als ein Nachteil.
+Gleichzeitig bringt das auch Einschränkungen mit sich. \texttt{JsonUtility} unterstützt nur Klassen und Structs mit dem Attribut \texttt{[System.Serializable]}. Typen wie \texttt{Dictionary<>} werden nicht unterstützt und auch die Serialisierung von Top-Level-Arrays ist nicht möglich~[1]. \texttt{FromJson} kann nur einfache Klassen und Structs deserialisieren, keine von \texttt{UnityEngine.Object} abgeleiteten Klassen wie \texttt{MonoBehaviour}~[5]. Das bedeutet, dass die Datenstrukturen einfach und flach gehalten werden müssen. Wie sich in den späteren Kapiteln zeigt, ist das im Fall der SchoolGamesApp aber eher ein Vorteil als ein Nachteil.
 
 Ein weiterer Pluspunkt ist die Lesbarkeit. JSON-Dateien können mit jedem Texteditor geöffnet werden. Wenn während der Entwicklung ein Fehler auftritt, lässt sich so schnell nachvollziehen, welche Daten tatsächlich gespeichert wurden.
 
 \subsection{SQLite}
 
-SQLite ist eine relationale Datenbank, die als einzelne Datei auf dem Gerät gespeichert wird. Anders als Server-Datenbanken wie MySQL oder PostgreSQL braucht SQLite keinen eigenen Serverprozess. Das macht sie grundsätzlich auch für mobile Anwendungen einsetzbar.
+SQLite ist eine relationale Datenbank, die als einzelne Datei auf dem Gerät gespeichert wird. Anders als Server-Datenbanken wie MySQL oder PostgreSQL braucht SQLite keinen eigenen Serverprozess. Das macht sie grundsätzlich auch für mobile Anwendungen einsetzbar~[6].
 
 Der Vorteil liegt bei komplexen Datenstrukturen. Mit SQL-Abfragen lässt sich gezielt nach Daten suchen, zum Beispiel: alle Fragen einer bestimmten Kategorie, in einer bestimmten Sprache, mit einem bestimmten Schwierigkeitsgrad. Solche Abfragen sind mit JSON-Dateien deutlich umständlicher umzusetzen.
 
-Allerdings ist SQLite in Unity nicht standardmäßig verfügbar. Es muss eine externe Bibliothek eingebunden werden, etwa \textit{SQLite4Unity3d}. Das bringt zusätzlichen Konfigurationsaufwand mit sich: Auf Android muss eine native \texttt{.so}-Bibliothek mitgeliefert werden und auf iOS gelten eigene Build-Regeln. Dazu sind SQL-Kenntnisse für das Erstellen von Tabellen, Relationen und Abfragen erforderlich.
+Allerdings ist SQLite in Unity nicht standardmäßig verfügbar. Es muss eine externe Bibliothek eingebunden werden, etwa \textit{SQLite4Unity3d}~[7]. Das bringt zusätzlichen Konfigurationsaufwand mit sich: Auf Android muss eine native \texttt{.so}-Bibliothek mitgeliefert werden und auf iOS gelten eigene Build-Regeln. Dazu sind SQL-Kenntnisse für das Erstellen von Tabellen, Relationen und Abfragen erforderlich.
 
 Für Anwendungen mit großen Datenmengen oder komplexen Verknüpfungen ist SQLite die richtige Wahl. Die SchoolGamesApp arbeitet aber mit einigen hundert Fragen und maximal sechs Spielern pro Partie. Für dieses Datenvolumen wäre der Einrichtungsaufwand einer relationalen Datenbank unverhältnismäßig.
 
 \subsection{ScriptableObjects}
 
-\texttt{ScriptableObjects} sind ein Unity-eigenes Konzept, mit dem sich Daten als Assets direkt im Projekt anlegen lassen. Sie werden im Unity Editor erstellt und konfiguriert und sind danach als Dateien im Projektordner verfügbar.
-
-% ============================================================
-% SCREENSHOT: Hier optional einen Screenshot einfügen,
-% der ein ScriptableObject im Unity Inspector zeigt.
-%
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=0.7\textwidth]{images/scriptableobject_inspector.png}
-%     \caption{Ein ScriptableObject im Unity Inspector}
-%     \label{fig:scriptableobject}
-% \end{figure}
-% ============================================================
+\texttt{ScriptableObjects} sind ein Unity-eigenes Konzept, mit dem sich Daten als Assets direkt im Projekt anlegen lassen. Sie werden im Unity Editor erstellt und konfiguriert und sind danach als Dateien im Projektordner verfügbar~[8].
 
 Der Vorteil ist, dass sich Werte direkt im Editor anpassen lassen, ohne Code ändern zu müssen. Für Game Designer, die etwa Schwierigkeitsgrade oder Kostenparameter konfigurieren wollen, ist das praktisch.
 
-Das Problem ist allerdings grundlegend: \texttt{ScriptableObjects} sind auf mobilen Geräten zur Laufzeit nicht persistent. Änderungen, die während des Spiels vorgenommen werden, gehen beim Schließen der App verloren. Die Daten werden nicht auf den Flash-Speicher geschrieben, sondern bleiben nur im Arbeitsspeicher. Für Savegames sind \texttt{ScriptableObjects} daher nicht geeignet.
+Das Problem ist allerdings grundlegend: \texttt{ScriptableObjects} sind auf mobilen Geräten zur Laufzeit nicht persistent. Änderungen, die während des Spiels vorgenommen werden, gehen beim Schließen der App verloren. Die Daten werden nicht auf den Flash-Speicher geschrieben, sondern bleiben nur im Arbeitsspeicher~[8]. Für Savegames sind \texttt{ScriptableObjects} daher nicht geeignet.
 
-In der Praxis werden sie oft für statische Konfigurationsdaten eingesetzt, etwa für Itemlisten oder Leveleinstellungen. In der SchoolGamesApp werden allerdings auch die statischen Daten über JSON verwaltet. Das hat den Vorteil, dass es ein einheitliches System gibt und nicht zwei verschiedene Lademechanismen gewartet werden müssen.
+In der Praxis werden sie oft für statische Konfigurationsdaten eingesetzt. In der SchoolGamesApp werden allerdings auch die statischen Daten über JSON verwaltet. Das hat den Vorteil, dass es ein einheitliches System gibt und nicht zwei verschiedene Lademechanismen gewartet werden müssen.
 
 \subsection{Vergleich und Entscheidung}
 
-Die folgende Tabelle fasst die vier Methoden anhand der für die SchoolGamesApp relevanten Kriterien zusammen.
+Tabelle~\ref{tab:vergleich-speicher} fasst die vier Methoden anhand der für die SchoolGamesApp relevanten Kriterien zusammen.
 
-% ============================================================
-% TABELLE: Vergleich der Speichermethoden
-% Diese Tabelle einfügen/anpassen:
-%
-% \begin{table}[h]
-%     \centering
-%     \begin{tabular}{lcccc}
-%         \toprule
-%         \textbf{Kriterium} & \textbf{PlayerPrefs} & \textbf{JsonUtility} & \textbf{SQLite} & \textbf{ScriptableObj.} \\
-%         \midrule
-%         Komplexe Objekte   & --  & ++  & ++  & +  \\
-%         Performance        & ++  & ++  & +   & ++ \\
-%         Portabilität       & ++  & ++  & o   & ++ \\
-%         Einrichtungsaufwand & ++ & +   & --  & ++ \\
-%         Runtime-Persistenz & +   & ++  & ++  & -- \\
-%         Lesbarkeit/Debug   & o   & ++  & o   & +  \\
-%         Skalierbarkeit     & --  & +   & ++  & o  \\
-%         \bottomrule
-%     \end{tabular}
-%     \caption{Vergleich der Speichermethoden in Unity (++ sehr gut, + gut, o neutral, -- schlecht)}
-%     \label{tab:vergleich-speicher}
-% \end{table}
-% ============================================================
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Kriterium} & \textbf{PlayerPrefs} & \textbf{JsonUtility} & \textbf{SQLite} & \textbf{Script. Obj.} \\
+        \midrule
+        Komplexe Objekte    & $--$  & $++$  & $++$  & $+$  \\
+        Performance         & $++$  & $++$  & $+$   & $++$ \\
+        Portabilität        & $++$  & $++$  & $\circ$   & $++$ \\
+        Einrichtungsaufwand & $++$  & $+$   & $--$  & $++$ \\
+        Runtime-Persistenz  & $+$   & $++$  & $++$  & $--$ \\
+        Lesbarkeit / Debug  & $\circ$   & $++$  & $\circ$   & $+$  \\
+        Skalierbarkeit      & $--$  & $+$   & $++$  & $\circ$  \\
+        \bottomrule
+    \end{tabular}
+    \caption{Vergleich der Speichermethoden in Unity}
+    \label{tab:vergleich-speicher}
+\end{table}
 
 Die Entscheidung fällt auf \textbf{JSON-Dateien mit JsonUtility}. Dafür gibt es drei zentrale Gründe.
 
 Erstens ist das Datenvolumen der SchoolGamesApp überschaubar. Einige hundert Fragen, eine begrenzte Anzahl an Firmen und maximal sechs Spieler pro Partie. Für diesen Umfang ist keine relationale Datenbank nötig.
 
-Zweitens bietet \texttt{JsonUtility} die beste Balance aus Performance und Funktionsumfang für dieses Projekt. Die Serialisierung ist schnell, die Integration in Unity unkompliziert und es werden keine externen Abhängigkeiten benötigt.
+Zweitens bietet \texttt{JsonUtility} die beste Balance aus Performance und Funktionsumfang für dieses Projekt. Die Serialisierung ist schnell, die Integration in Unity unkompliziert und es werden keine externen Abhängigkeiten benötigt~[1].
 
-Drittens ist die Portabilität durch \texttt{Application.persistentDataPath} gegeben. Derselbe Code läuft auf Android und iOS, ohne dass plattformspezifische Anpassungen nötig sind.
+Drittens ist die Portabilität durch \texttt{Application.persistentDataPath} gegeben. Derselbe Code läuft auf Android und iOS, ohne dass plattformspezifische Anpassungen nötig sind~[9].
 
 \subsection{Application.persistentDataPath}
 
-Bleibt die Frage, wohin die JSON-Dateien geschrieben werden. Unity stellt dafür die Eigenschaft \texttt{Application.persistentDataPath} bereit. Sie zeigt auf einen Ordner, in dem die App dauerhaft Daten speichern darf. Dieser Pfad ist auf jeder Plattform anders, wird aber von Unity automatisch aufgelöst.
+Bleibt die Frage, wohin die JSON-Dateien geschrieben werden. Unity stellt dafür die Eigenschaft \texttt{Application.persistentDataPath} bereit. Sie zeigt auf einen Ordner, in dem die App dauerhaft Daten speichern darf. Dieser Pfad ist auf jeder Plattform anders, wird aber von Unity automatisch aufgelöst~[9].
 
-Auf Android zeigt der Pfad typischerweise auf:
+Auf Android zeigt der Pfad auf:
 
 \begin{quote}
-\texttt{/storage/emulated/0/Android/data/com.company.app/files}
+\small\texttt{/storage/emulated/0/Android/data/<packagename>/files}
 \end{quote}
 
 Auf iOS hingegen auf:
 
 \begin{quote}
-\texttt{/var/mobile/Containers/Data/Application/[GUID]/Documents}
+\small\texttt{/var/mobile/Containers/Data/Application/<GUID>/Documents}
 \end{quote}
 
-Im Code wird einfach \texttt{Application.persistentDataPath} verwendet und Unity liefert den korrekten Pfad für das jeweilige Betriebssystem. Die Daten in diesem Ordner bleiben auch nach App-Updates erhalten. Erst bei einer Deinstallation der App werden sie gelöscht (vgl.~Unity Documentation, Application.persistentDataPath).
+Im Code wird einfach \texttt{Application.persistentDataPath} verwendet und Unity liefert den korrekten Pfad für das jeweilige Betriebssystem. Die Daten in diesem Ordner bleiben auch nach App-Updates erhalten. Erst bei einer Deinstallation der App werden sie gelöscht~[9]. Im Unity Editor auf macOS zeigt der Pfad beispielsweise auf:
 
-% ============================================================
-% SCREENSHOT: Hier einen Screenshot einfügen, der den
-% persistentDataPath in der Unity Console zeigt.
-%
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{images/persistent_data_path.png}
-%     \caption{Debug-Ausgabe des persistentDataPath in der Unity Console}
-%     \label{fig:persistentdatapath}
-% \end{figure}
-% ============================================================
+\begin{quote}
+\small\texttt{/Users/simeon/Library/Application\allowbreak{} Support/\allowbreak{}SchoolGames/\allowbreak{}SchoolGamesUnity/}
+\end{quote}
+
+Dort wird unter anderem die Datei \texttt{game\_save.json} abgelegt, die den aktuellen Spielstand enthält.
 
 Für die SchoolGamesApp bedeutet das: Alle dynamischen Daten wie Savegames werden in diesen Ordner geschrieben. Die statischen Daten wie Fragenkataloge und Firmendaten werden hingegen über einen anderen Mechanismus geladen, der in Kapitel~3 beschrieben wird.
+
+% ============================================================
+% KAPITEL 3: STATISCHE SPIELDATEN
+% ============================================================
+
+\section{Datenbankstruktur: Statische Spieldaten}
+
+In der SchoolGamesApp gibt es zwei grundlegend verschiedene Arten von Daten. Auf der einen Seite stehen Inhalte, die sich während des Spiels nie verändern: der Fragenkatalog und die Firmendaten der Kooperationspartner. Auf der anderen Seite stehen Daten, die erst zur Laufzeit entstehen und sich ständig ändern: Spielstände, Kontostände, erworbene Unternehmen. Kapitel~4 behandelt diese dynamischen Daten. In diesem Kapitel geht es um die statischen Spieldaten und wie sie strukturiert, gespeichert und geladen werden.
+
+\subsection{Trennung von statischen und dynamischen Daten}
+
+Die Entscheidung, statische und dynamische Daten getrennt zu verwalten, hat einen praktischen Grund. Statische Daten werden einmal erstellt und dann mit der App ausgeliefert. Sie liegen im Projektordner unter \texttt{Assets/\allowbreak{}Resources/\allowbreak{}Data/} und werden beim Build in das App-Paket eingebunden~[10]. Dynamische Daten hingegen entstehen erst, wenn jemand das Spiel spielt. Sie werden zur Laufzeit erzeugt und auf den Flash-Speicher des Geräts geschrieben, wie in Kapitel~2 beschrieben.
+
+Diese Trennung bringt mehrere Vorteile. Statische Daten müssen nicht bei jedem Spielstart vom Dateisystem gelesen werden, sondern sind direkt über das Resources-System verfügbar. Außerdem besteht keine Gefahr, dass ein fehlerhafter Speichervorgang die Spielinhalte überschreibt. Die Fragendatenbank bleibt immer intakt, unabhängig davon was mit den Savegames passiert. Nystrom beschreibt dieses Prinzip der Trennung von Daten und Logik als grundlegende Voraussetzung für wartbare Spielarchitekturen~[12].
+
+Abbildung~\ref{fig:resources-folder} zeigt die Ordnerstruktur des Projekts im Unity Editor. Die statischen Daten liegen im Ordner \texttt{Resources/Data}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.45\textwidth]{images/resources-folder-structure.jpg}
+    \caption{Ordnerstruktur des Unity-Projekts mit dem Resources-Ordner (eigene Darstellung)}
+    \label{fig:resources-folder}
+\end{figure}
+
+\subsection{Der Fragenkatalog (QuestionDatabase)}
+
+Die Fragen sind das zentrale inhaltliche Element des Spiels. Jedes Mal wenn ein Spieler ein Unternehmen kaufen oder aufwerten will, muss er eine Wirtschaftsfrage richtig beantworten. Der Fragenkatalog muss daher mehrere Anforderungen erfüllen: Er muss verschiedene Sprachen unterstützen, verschiedene Schwierigkeitsgrade anbieten und die Fragen in thematische Kategorien einteilen.
+
+Die Datenstruktur wurde deshalb hierarchisch aufgebaut. Die oberste Ebene unterscheidet nach Sprache (aktuell Deutsch und Englisch). Innerhalb einer Sprache wird nach Schwierigkeitsgrad differenziert (Junior und Senior). Auf der untersten Ebene sind die Fragen in Kategorien eingeteilt, die den Spielmechaniken entsprechen: Gründung, Investition und AG. Diese drei Kategorien korrespondieren mit den drei Upgrade-Stufen, die ein Unternehmen im Spiel durchlaufen kann.
+
+Abbildung~\ref{fig:question-db-json} zeigt einen Ausschnitt aus der Fragendatenbank im JSON-Format.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/question-db-json.jpg}
+    \caption{Ausschnitt aus der QuestionDatabase JSON-Datei (eigene Darstellung)}
+    \label{fig:question-db-json}
+\end{figure}
+
+In JSON abgebildet sieht die Struktur vereinfacht so aus:
+
+\needspace{16\baselineskip}
+\begin{lstlisting}
+// Datei: Schoolgames_Fragen_Junior_DE.json
+{
+    "junior_de": {                            // (1)
+        "gruendung": [                        // (2)
+            {
+                "id": 1,                      // (3)
+                "text": "Rund ein Viertel ...",// (4)
+                "options": [                  // (5)
+                    "Produzierender Sektor",
+                    "Dienstleistungssektor",
+                    "Landwirtschaftlicher Sektor"
+                ],
+                "correctIndex": 0             // (6)
+            }
+        ],
+        "investition": [ ... ],
+        "ag": [ ... ]
+    }
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Schlüssel aus Schwierigkeitsgrad und Sprache. Pro Kombination existiert eine eigene JSON-Datei.
+    \item[(2)] Kategorie. Entspricht den drei Upgrade-Stufen im Spiel: Gründung, Investition und AG.
+    \item[(3)] Eindeutige ID der Frage als Integer.
+    \item[(4)] Der Fragetext als String.
+    \item[(5)] Die drei Antwortmöglichkeiten als String-Array.
+    \item[(6)] Index der richtigen Antwort (0-basiert). In diesem Fall ist die erste Antwort korrekt.
+\end{description}
+
+Auf der C\#-Seite wird diese Struktur durch eine Reihe von Klassen abgebildet, die jeweils mit dem Attribut \texttt{[System.Serializable]} markiert sind. Das ist notwendig, damit \texttt{JsonUtility} die Objekte korrekt deserialisieren kann~[1]. Eine einzelne Frage wird durch die Klasse \texttt{QuestionData} repräsentiert:
+
+\needspace{8\baselineskip}
+\begin{lstlisting}
+// Datei: QuestionData.cs
+[Serializable]
+public class QuestionData                     // (1)
+{
+    public int id;                            // (2)
+    public string text;                       // (3)
+    public string[] options;                  // (4)
+    public int correctIndex;                  // (5)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Die Klasse ist mit \texttt{[Serializable]} markiert, damit \texttt{JsonUtility} sie verarbeiten kann.
+    \item[(2)] Eindeutige ID der Frage.
+    \item[(3)] Der Fragetext.
+    \item[(4)] Array mit den Antwortmöglichkeiten.
+    \item[(5)] Index der richtigen Antwort.
+\end{description}
+
+Die einzelnen Fragen werden in Wrapper-Klassen zusammengefasst. Die Klasse \texttt{QuestionCategory} enthält die Listen für jede Fragekategorie, und \texttt{QuestionDatabase} bündelt alle Kombinationen aus Sprache und Schwierigkeitsgrad:
+
+\needspace{16\baselineskip}
+\begin{lstlisting}
+// Datei: QuestionManager.cs (innere Klassen)
+[System.Serializable]
+public class QuestionCategory                 // (1)
+{
+    public List<QuestionData> gruendung;       // (2)
+    public List<QuestionData> investition;     // (3)
+    public List<QuestionData> ag;              // (4)
+}
+
+[System.Serializable]
+public class QuestionDatabase                 // (5)
+{
+    public QuestionCategory junior_en;         // (6)
+    public QuestionCategory junior_de;
+    public QuestionCategory senior_en;
+    public QuestionCategory senior_de;
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Wrapper-Klasse für eine einzelne Kombination aus Schwierigkeitsgrad und Sprache.
+    \item[(2)] Liste aller Fragen der Kategorie Gründung.
+    \item[(3)] Liste aller Fragen der Kategorie Investition.
+    \item[(4)] Liste aller Fragen der Kategorie AG.
+    \item[(5)] Die Datenbank-Klasse bündelt alle vier möglichen Kombinationen.
+    \item[(6)] Die Feldnamen (z.B. \texttt{junior\_de}) entsprechen exakt den Schlüsseln in der JSON-Datei, damit \texttt{JsonUtility} die Zuordnung automatisch vornehmen kann.
+\end{description}
+
+Diese Klassen sind typische Beispiele für das Data Transfer Object (DTO) Pattern~[12]. Sie enthalten ausschließlich Daten und keine Logik. Sie erben nicht von \texttt{MonoBehaviour} oder einer anderen Unity-Klasse. Das macht sie leichtgewichtig und problemlos serialisierbar~[5]. In der Softwareentwicklung wird dieses Prinzip der strikten Trennung von Daten und Verhalten als grundlegend für wartbare Architekturen angesehen~[13].
+
+\subsection{Die Firmendaten (CompanyData)}
+
+Neben den Fragen benötigt das Spiel auch Informationen über die Unternehmen, die auf dem Spielfeld dargestellt werden. Die SchoolGamesApp bildet reale Kooperationspartner wie BIPA, Thalia oder andere Unternehmen als Spielfelder ab. Jedes Unternehmen hat dabei eine eindeutige ID, einen Namen und wirtschaftliche Attribute: Gründungskosten, Investitionskosten, AG-Kosten sowie die Mieteinnahmen je Upgrade-Stufe.
+
+Abbildung~\ref{fig:company-data-json} zeigt einen Ausschnitt aus den Firmendaten im JSON-Format. Die Daten sind als flache Liste modelliert. Im Gegensatz zum Fragenkatalog gibt es hier keine hierarchische Verschachtelung, da alle Firmen auf der gleichen Ebene existieren.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/company-data-json.jpg}
+    \caption{Ausschnitt aus der CompanyData JSON-Datei (eigene Darstellung)}
+    \label{fig:company-data-json}
+\end{figure}
+
+\needspace{12\baselineskip}
+\begin{lstlisting}
+// Datei: CompanyModels.cs
+[Serializable]
+public class CompanyConfigData                // (1)
+{
+    public int companyID;                     // (2)
+    public string companyName;                // (3)
+    public int costFound;                     // (4)
+    public int costInvest;                    // (5)
+    public int costAG;                        // (6)
+    public int revenueFound;                  // (7)
+    public int revenueInvest;                 // (8)
+    public int revenueAG;                     // (9)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Auch diese Klasse ist mit \texttt{[Serializable]} markiert für \texttt{JsonUtility}.
+    \item[(2)] Eindeutige ID des Unternehmens auf dem Spielfeld.
+    \item[(3)] Name des Unternehmens (z.B. \texttt{"BIPA"}, \texttt{"Thalia"}).
+    \item[(4)] Kosten für die Gründung des Unternehmens.
+    \item[(5)] Kosten für die Investition (erstes Upgrade).
+    \item[(6)] Kosten für die Umwandlung zur AG (zweites Upgrade).
+    \item[(7)] Mieteinnahmen bei Gründungs-Stufe.
+    \item[(8)] Mieteinnahmen bei Investitions-Stufe.
+    \item[(9)] Mieteinnahmen bei AG-Stufe.
+\end{description}
+
+Auch hier gilt: Die Klasse enthält nur Daten. Die Logik, die bestimmt was passiert wenn ein Spieler auf ein Firmenfeld landet, liegt nicht in der Datenklasse, sondern in der Spiellogik.
+
+Da \texttt{JsonUtility} keine Top-Level-Arrays deserialisieren kann~[1], werden die Firmendaten in einer Wrapper-Klasse zusammengefasst:
+
+\needspace{6\baselineskip}
+\begin{lstlisting}
+// Datei: CompanyModels.cs
+[Serializable]
+public class CompanyConfigCollection       // (1)
+{
+    public List<CompanyConfigData> companies;// (2)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Wrapper-Klasse, die eine Liste von Firmenkonfigurationen kapselt.
+    \item[(2)] Die JSON-Datei enthält ein Objekt mit dem Schlüssel \texttt{"companies"}, das auf ein Array von \texttt{CompanyConfigData}-Einträgen zeigt.
+\end{description}
+
+\subsection{Zugriffsmuster: Resources.Load}
+
+Statische Daten, die mit der App ausgeliefert werden, können in Unity über das Resources-System geladen werden. Dateien im Ordner \texttt{Assets/Resources/} werden beim Build in das App-Paket serialisiert und können zur Laufzeit über \texttt{Resources.Load<T>()} abgerufen werden~[10].
+
+Für JSON-Dateien wird der Typ \texttt{TextAsset} verwendet. Unity behandelt \texttt{.json}-Dateien im Resources-Ordner als Text-Assets, deren Inhalt über die Eigenschaft \texttt{.text} als String abgerufen werden kann~[11].
+
+\needspace{12\baselineskip}
+\begin{lstlisting}
+// Datei: QuestionManager.cs (vereinfacht)
+string lang = (language == QuestionLanguage.English)
+    ? "EN" : "DE";
+string diff = (difficulty == QuestionDifficulty.Junior)
+    ? "Junior" : "Senior";
+string fileName =
+    $"Data/Schoolgames_Fragen_{diff}_{lang}";               // (1)
+
+TextAsset jsonFile =
+    Resources.Load<TextAsset>(fileName);                    // (2)
+QuestionDatabase db =
+    JsonUtility.FromJson<QuestionDatabase>(jsonFile.text);  // (3)
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Der Dateiname wird dynamisch aus Sprache und Schwierigkeitsgrad zusammengesetzt.
+    \item[(2)] Die JSON-Datei wird als \texttt{TextAsset} aus dem Resources-Ordner geladen, ohne Dateiendung~[10].
+    \item[(3)] Der Textinhalt wird in das typisierte C\#-Objekt deserialisiert.
+\end{description}
+
+Dieser Ansatz ist einfach und plattformunabhängig. Allerdings weist Unity darauf hin, dass das Resources-System bei großen Projekten mit vielen Assets zu Performanceproblemen beim App-Start führen kann~[14]. Für die SchoolGamesApp, die nur wenige JSON-Dateien im Resources-Ordner hat, ist das aber kein relevantes Problem.
+
+Ein wichtiger Unterschied zum dynamischen Dateizugriff (Kapitel~4) ist, dass über \texttt{Resources.Load} geladene Dateien zur Laufzeit nicht verändert werden können. Die physische Datei ist nach dem Build in das App-Paket eingebettet~[11]. Das ist für statische Spielinhalte genau das gewünschte Verhalten.
+
+% ============================================================
+% KAPITEL 4: DYNAMISCHE SPIELZUSTAENDE
+% ============================================================
+
+\section{Datenbankstruktur: Dynamische Spielzustände}
+
+Während die statischen Daten aus Kapitel~3 fest mit der App ausgeliefert werden und sich nie verändern, entstehen dynamische Spielzustände erst zur Laufzeit. Jedes Mal wenn ein Spieler würfelt, ein Unternehmen kauft oder Miete zahlt, ändert sich der Zustand des Spiels. Damit dieser Zustand nach dem Schließen der App nicht verloren geht, muss er in eine Datei geschrieben werden.
+
+\subsection{Anforderungsanalyse: Was muss gespeichert werden?}
+
+Bevor die Datenstruktur entworfen werden kann, muss definiert werden, welche Informationen einen vollständigen Spielstand ausmachen. Zu jedem Spieler müssen die aktuelle Position auf dem Spielfeld, der Kontostand, der Name, eine Liste der erworbenen Unternehmen sowie die Information gespeichert werden, ob der Spieler in der nächsten Runde aussetzen muss. Zusätzlich muss festgehalten werden, welcher Spieler gerade am Zug ist.
+
+Neben den Spielerdaten muss auch der Zustand aller Firmenfelder erfasst werden. Jedes Feld hat einen Besitzer (oder keinen, wenn es noch frei ist) und eine Upgrade-Stufe. Nicht alle Felder auf dem Spielbrett sind Firmenfelder -- es gibt auch Aktionsfelder und Sonderfelder.
+
+Schließlich werden ein Zeitstempel des letzten Speichervorgangs und die verbleibende Spielzeit erfasst, da das Spiel mit einem Timer arbeitet.
+
+\subsection{Die Savegame-Struktur}
+
+Der gesamte Spielstand wird als einzelnes JSON-Objekt in der Datei \texttt{game\_save.json} gespeichert. Abbildung~\ref{fig:savegame-players} und Abbildung~\ref{fig:savegame-fields} zeigen den Aufbau eines tatsächlichen Spielstands aus der Entwicklungsumgebung.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/savegame-players.jpg}
+    \caption{Savegame JSON: Spielerdaten und Firmenfelder (eigene Darstellung)}
+    \label{fig:savegame-players}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\textwidth]{images/savegame-fields.jpg}
+    \caption{Savegame JSON: Zeitstempel und Timer (eigene Darstellung)}
+    \label{fig:savegame-fields}
+\end{figure}
+
+Die Struktur folgt dem Snapshot-Muster: Der gesamte Spielzustand wird als Momentaufnahme in ein einzelnes Objekt geschrieben~[12]. Das hat den Vorteil, dass beim Laden nur eine Datei gelesen werden muss.
+
+\needspace{12\baselineskip}
+\begin{lstlisting}
+// Datei: GameSaveData.cs
+[Serializable]
+public class GameSaveData                     // (1)
+{
+    public List<PlayerSaveData> players =
+        new List<PlayerSaveData>();            // (2)
+    public int currentPlayerTurnID;           // (3)
+    public List<CompanyField> companyFields =
+        new List<CompanyField>();             // (4)
+    public string saveTimestamp;              // (5)
+    public float timeRemaining;              // (6)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Die Hauptklasse des Spielstands. Bündelt alle Daten in einem serialisierbaren Objekt.
+    \item[(2)] Liste aller Spieler mit ihren jeweiligen Zuständen.
+    \item[(3)] ID des Spielers, der aktuell am Zug ist.
+    \item[(4)] Liste aller Firmenfelder mit Besitzer und Upgrade-Stufe.
+    \item[(5)] Zeitstempel des letzten Speichervorgangs als String.
+    \item[(6)] Verbleibende Spielzeit in Sekunden.
+\end{description}
+
+Die Klasse enthält keine Spiellogik. Sie dient ausschließlich als Container für die Daten, die zwischen Spielsitzungen erhalten bleiben müssen~[13].
+
+\subsection{Spielerdaten (PlayerSaveData)}
+
+Jeder Spieler wird durch ein eigenes Objekt innerhalb der \texttt{players}-Liste repräsentiert.
+
+\needspace{12\baselineskip}
+\begin{lstlisting}
+// Datei: GameSaveData.cs
+[Serializable]
+public class PlayerSaveData                   // (1)
+{
+    public int PlayerID;                      // (2)
+    public int Money;                         // (3)
+    public int BoardPosition;                 // (4)
+    public string PlayerName;                 // (5)
+    public bool hasToSkip;                    // (6)
+    public List<int> companies =
+        new List<int>();                      // (7)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Datenklasse für einen einzelnen Spieler.
+    \item[(2)] Eindeutige ID des Spielers (1-basiert).
+    \item[(3)] Aktueller Kontostand.
+    \item[(4)] Aktuelle Position auf dem Spielfeld (Feldindex).
+    \item[(5)] Anzeigename des Spielers.
+    \item[(6)] Flag, ob der Spieler in der nächsten Runde aussetzen muss.
+    \item[(7)] Liste der IDs der Unternehmen, die dem Spieler gehören.
+\end{description}
+
+Die \texttt{companies}-Liste speichert nur die IDs der Unternehmen, nicht die vollständigen Firmendaten. Das ist bewusst so entworfen. Die Firmendaten sind statisch und werden aus den JSON-Dateien in \texttt{Resources/Data/} geladen (Kapitel~3). Im Spielstand muss nur festgehalten werden, \textit{welche} Unternehmen einem Spieler gehören. Das reduziert die Dateigröße und vermeidet Datenredundanz.
+
+\subsection{Firmenfeld-Zustand (CompanyField)}
+
+Neben den Spielerdaten muss auch der Zustand jedes Firmenfelds gespeichert werden.
+
+\needspace{12\baselineskip}
+\begin{lstlisting}
+// Datei: CompanyModels.cs
+[Serializable]
+public class CompanyField                     // (1)
+{
+    public int fieldIndex;                    // (2)
+    public int companyID;                     // (3)
+    public int ownerID = -1;                  // (4)
+    public CompanyLevel level =
+        CompanyLevel.None;                    // (5)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Datenklasse für den Zustand eines einzelnen Firmenfelds.
+    \item[(2)] Position des Felds auf dem Spielbrett (0--39).
+    \item[(3)] ID des Unternehmens, das auf diesem Feld liegt.
+    \item[(4)] ID des Besitzers. Standardwert \texttt{-1} bedeutet kein Besitzer.
+    \item[(5)] Aktuelle Upgrade-Stufe als Enum.
+\end{description}
+
+Das verwendete Enum \texttt{CompanyLevel} definiert die vier möglichen Zustände:
+
+\needspace{8\baselineskip}
+\begin{lstlisting}
+// Datei: CompanyModels.cs
+public enum CompanyLevel
+{
+    None,                                     // (1)
+    Founded,                                  // (2)
+    Invested,                                 // (3)
+    AG                                        // (4)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Das Unternehmen wurde noch nicht gegründet.
+    \item[(2)] Das Unternehmen wurde gegründet (erste Stufe).
+    \item[(3)] In das Unternehmen wurde investiert (zweite Stufe).
+    \item[(4)] Das Unternehmen wurde zur AG umgewandelt (höchste Stufe).
+\end{description}
+
+In Abbildung~\ref{fig:savegame-fields} ist zu erkennen, dass die Feldindizes nicht lückenlos sind. Zwischen \texttt{fieldIndex: 36} und \texttt{fieldIndex: 38} fehlt der Index 37. Das liegt daran, dass nicht alle Positionen auf dem Spielbrett Firmenfelder sind. Aktionsfelder und Sonderfelder haben keinen persistierbaren Zustand.
+
+\subsection{Speicherort und Dateizugriff}
+
+Die Savegame-Datei wird im Ordner \texttt{Application.persistentDataPath} abgelegt (Kapitel~2). Im Unity Editor auf macOS liegt sie unter:
+
+\begin{quote}
+\small\texttt{/Users/simeon/Library/Application\allowbreak{} Support/\allowbreak{}SchoolGames/\allowbreak{}SchoolGamesUnity/\allowbreak{}game\_save.json}
+\end{quote}
+
+Der Schreibvorgang nutzt \texttt{System.IO.File} aus dem .NET-Framework~[15]. Zuerst wird das Objekt mit \texttt{JsonUtility.ToJson()} in einen String umgewandelt, dann mit \texttt{File.WriteAllText()} auf den Speicher geschrieben.
+
+\needspace{20\baselineskip}
+\begin{lstlisting}
+// Datei: GameSaveManager.cs (vereinfacht)
+private const string SAVE_FILE_NAME =
+    "game_save.json";
+private string SaveFilePath =>
+    Path.Combine(
+        Application.persistentDataPath,
+        SAVE_FILE_NAME);                       // (1)
+
+public bool SaveGame(GameInitiator gi)         // (2)
+{
+    GameSaveData saveData = new GameSaveData
+    {
+        currentPlayerTurnID =
+            gi.CurrentGame.CurrentPlayerTurnID,
+        saveTimestamp = DateTime.Now
+            .ToString("yyyy-MM-dd HH:mm:ss")   // (3)
+    };
+
+    foreach (var player in
+        gi.CurrentGame.AllPlayers)              // (4)
+    {
+        saveData.players.Add(
+            new PlayerSaveData
+        {
+            PlayerID = player.PlayerID,
+            Money = player.Money,
+            BoardPosition = player.BoardPosition,
+            PlayerName = player.PlayerName,
+            hasToSkip = player.hasToSkip,
+            companies =
+                new List<int>(player.companies) // (5)
+        });
+    }
+
+    saveData.companyFields =
+        new List<CompanyField>(
+            gi.GetCompanyFields());             // (6)
+
+    string json =
+        JsonUtility.ToJson(saveData, true);    // (7)
+    File.WriteAllText(SaveFilePath, json);     // (8)
+    return true;
+}
+
+public GameSaveData LoadGame()                // (9)
+{
+    if (!File.Exists(SaveFilePath))           // (10)
+        return null;
+    string json =
+        File.ReadAllText(SaveFilePath);        // (11)
+    return JsonUtility
+        .FromJson<GameSaveData>(json);         // (12)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Der Speicherpfad wird aus Basispfad und Dateiname zusammengesetzt.
+    \item[(2)] Öffentliche Methode zum Speichern.
+    \item[(3)] Der Zeitstempel wird auf den aktuellen Zeitpunkt gesetzt.
+    \item[(4)] Iteration über alle Spieler des aktuellen Spiels.
+    \item[(5)] Die Firmenliste wird als Kopie gespeichert.
+    \item[(6)] Alle Firmenfelder werden in das Savegame übernommen.
+    \item[(7)] Das Objekt wird in einen formatierten JSON-String umgewandelt.
+    \item[(8)] Der String wird als Datei auf den Speicher geschrieben.
+    \item[(9)] Öffentliche Methode zum Laden.
+    \item[(10)] Prüft ob eine Savegame-Datei existiert.
+    \item[(11)] Liest den Dateiinhalt als String ein.
+    \item[(12)] Deserialisiert den String zurück in ein typisiertes Objekt.
+\end{description}
+
+\subsection{Fehlerbehandlung}
+
+Beim ersten Start der App existiert noch kein Spielstand. \texttt{File.Exists()} gibt dann \texttt{false} zurück und \texttt{LoadGame()} liefert \texttt{null}. Das Spiel startet mit einem frischen Zustand.
+
+Bei einer korrupten JSON-Datei würde \texttt{JsonUtility.FromJson()} eine Exception auslösen. Der \texttt{GameSaveManager} fängt diesen Fehler ab:
+
+\needspace{16\baselineskip}
+\begin{lstlisting}
+// Datei: GameSaveManager.cs
+public GameSaveData LoadGame()
+{
+    if (!File.Exists(SaveFilePath))
+    {
+        Debug.Log("No save file found.");
+        return null;
+    }
+    try                                       // (1)
+    {
+        string json =
+            File.ReadAllText(SaveFilePath);
+        GameSaveData saveData = JsonUtility
+            .FromJson<GameSaveData>(json);
+        if (saveData == null)                 // (2)
+        {
+            Debug.LogError(
+                "Failed to parse save file!");
+            return null;
+        }
+        return saveData;
+    }
+    catch (Exception e)                       // (3)
+    {
+        Debug.LogError(
+            $"Failed to load: {e.Message}");  // (4)
+        return null;                          // (5)
+    }
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Der Ladevorgang wird in einen \texttt{try}-Block eingeschlossen.
+    \item[(2)] Auch ohne Exception kann \texttt{FromJson} \texttt{null} zurückgeben.
+    \item[(3)] Falls die Deserialisierung fehlschlägt, wird der Fehler gefangen.
+    \item[(4)] Die Fehlermeldung wird in die Unity Console geschrieben.
+    \item[(5)] Es wird \texttt{null} zurückgegeben, damit das Spiel neu starten kann.
+\end{description}
+
+Diese Behandlung ist bewusst einfach gehalten. Für eine produktive Anwendung wäre es denkbar, vor dem Überschreiben ein Backup anzulegen. Im aktuellen Entwicklungsstand ist die einfache Variante ausreichend.
+
+% ============================================================
+% KAPITEL 5: BUSINESSLOGIKDESIGN
+% ============================================================
+
+\section{Businesslogikdesign: Serialisierung und Architektur-Patterns}
+
+In den Kapiteln~3 und~4 wurde beschrieben, \textit{welche} Daten gespeichert werden und \textit{wo} sie liegen. Dieses Kapitel behandelt das \textit{Wie}: Welche Architektur-Entscheidungen stecken hinter der Serialisierungsschicht? Welche Design Patterns kommen zum Einsatz und warum?
+
+Design Patterns sind bewährte Lösungsschablonen für wiederkehrende Probleme in der Softwareentwicklung. Sie geben keine fertigen Code-Vorlagen vor, sondern beschreiben Strukturen, die sich in der Praxis als wartbar und erweiterbar erwiesen haben~[13]. In der SchoolGamesApp werden drei Patterns eingesetzt, die für die Speicherlösung relevant sind: das Data Transfer Object Pattern, das Facade Pattern und das Interface Pattern.
+
+\subsection{Data Transfer Object (DTO) Pattern}
+
+Das DTO Pattern wurde in den vorherigen Kapiteln bereits mehrfach erwähnt. An dieser Stelle wird es im Detail erklärt, da es das Fundament der gesamten Speicherarchitektur bildet.
+
+Das Grundprinzip ist einfach: Datenklassen enthalten ausschließlich Felder und keine Logik. Sie dienen als reine Container, um Daten zwischen verschiedenen Schichten einer Anwendung zu transportieren~[13]. In der SchoolGamesApp sind alle Klassen, die mit der Persistenzschicht in Berührung kommen, als DTOs umgesetzt: \texttt{QuestionData}, \texttt{CompanyConfigData}, \texttt{GameSaveData}, \texttt{PlayerSaveData} und \texttt{CompanyField}.
+
+Der Grund für diese strikte Trennung liegt in den Anforderungen von \texttt{JsonUtility}. Wie in Kapitel~2 beschrieben, kann \texttt{JsonUtility} nur einfache Klassen und Structs serialisieren, die nicht von \texttt{MonoBehaviour} erben~[5]. Das schließt alle Unity-spezifischen Komponenten aus. Ein Spieler im laufenden Spiel ist ein \texttt{GameObject} mit Komponenten wie \texttt{Transform}, \texttt{SpriteRenderer} und eigenen Skripten. All das kann nicht direkt in JSON umgewandelt werden.
+
+Die Lösung ist eine Zwischenschicht: Beim Speichern werden die relevanten Werte aus den aktiven GameObjects in DTOs kopiert. Beim Laden werden die DTOs gelesen und die Werte zurück in die GameObjects geschrieben. Die DTOs sind dabei vollständig unabhängig von Unity-Komponenten.
+
+Nystrom beschreibt diesen Ansatz als eine Form der Entkopplung: Die Spiellogik arbeitet mit ihren eigenen Objekten und die Persistenzschicht arbeitet mit ihren eigenen Datenstrukturen. Keine Seite muss die Details der anderen kennen~[12].
+
+\needspace{20\baselineskip}
+\begin{lstlisting}
+// Spiellogik: MonoBehaviour (nicht serialisierbar)
+public class PlayerCTRL : MonoBehaviour       // (1)
+{
+    [SerializeField]
+    private GameManager gameManager;
+    [SerializeField]
+    private PlayerMovement playerMovement;
+    public int PlayerID;
+    public Route route;
+    public int currentPos = 0;                // (2)
+    // + Animator, AudioSource, DOTween, etc.
+}
+
+// Persistenz: DTO (serialisierbar)
+[Serializable]
+public class PlayerSaveData                   // (3)
+{
+    public int PlayerID;
+    public int Money;
+    public int BoardPosition;                 // (4)
+    public string PlayerName;
+    public bool hasToSkip;
+    public List<int> companies =
+        new List<int>();
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Die \texttt{MonoBehaviour}-Klasse ist an ein \texttt{GameObject} gebunden und enthält Unity-spezifische Abhängigkeiten wie \texttt{SerializeField}, \texttt{Animator} und \texttt{DOTween}.
+    \item[(2)] Die Spielfeldposition heißt hier \texttt{currentPos} und wird von der Bewegungslogik direkt verändert.
+    \item[(3)] Die DTO-Klasse enthält nur die Werte, die persistiert werden müssen. Keine Unity-Abhängigkeiten, keine Logik.
+    \item[(4)] Dasselbe Datum heißt im DTO \texttt{BoardPosition}. Beim Speichern wird \texttt{currentPos} in \texttt{BoardPosition} kopiert, beim Laden umgekehrt. Die unterschiedlichen Feldnamen spiegeln die jeweilige Perspektive wider: Die Spiellogik spricht von der aktuellen Position, das Savegame vom Spielfeldzustand.
+\end{description}
+
+\subsection{Facade Pattern: Der GameSaveManager}
+
+Das Facade Pattern beschreibt eine Klasse, die eine vereinfachte Schnittstelle zu einem komplexen System bereitstellt~[13]. Anstatt dass verschiedene Teile der Anwendung direkt mit dem Dateisystem, der Serialisierung und den DTOs interagieren, gibt es eine einzige Anlaufstelle: den \texttt{GameSaveManager}.
+
+In der SchoolGamesApp ist der \texttt{GameSaveManager} die einzige Klasse, die Dateizugriffe durchführt. Alle anderen Systeme, die Daten speichern oder laden wollen, rufen die Methoden \texttt{SaveGame()} oder \texttt{LoadGame()} auf. Sie müssen nicht wissen, wie die Serialisierung funktioniert, wo die Datei liegt oder wie die Fehlerbehandlung abläuft.
+
+Das bringt drei konkrete Vorteile. Erstens gibt es genau eine Stelle im Code, an der Dateizugriffe stattfinden. Wenn sich am Speichermechanismus etwas ändern muss, betrifft das nur den \texttt{GameSaveManager}. Zweitens wird die Fehlerbehandlung zentralisiert. Drittens lässt sich der gesamte Speichermechanismus austauschen, ohne den Rest der Anwendung anzufassen.
+
+Der \texttt{GameSaveManager} führt beim Speichern drei Schritte aus, die in Kapitel~4 bereits im Code gezeigt wurden:
+
+\begin{enumerate}
+    \item \textbf{Kollektion:} Die Daten werden aus den aktiven GameObjects gesammelt.
+    \item \textbf{Transformation:} Die Spiellogik-Objekte werden in serialisierbare DTOs umgewandelt.
+    \item \textbf{Persistenz:} Das DTO wird über \texttt{JsonUtility.ToJson()} in einen String konvertiert und mit \texttt{File.WriteAllText()} gespeichert.
+\end{enumerate}
+
+Beim Laden läuft der Prozess in umgekehrter Reihenfolge ab.
+
+Über die reinen Speicher- und Ladefunktionen hinaus stellt der \texttt{GameSaveManager} als Facade weitere Hilfsmethoden bereit, die den Zugriff auf das Dateisystem kapseln:
+
+\needspace{14\baselineskip}
+\begin{lstlisting}
+// Datei: GameSaveManager.cs
+public bool HasSaveFile()                  // (1)
+{
+    return File.Exists(SaveFilePath);
+}
+
+public void DeleteSaveFile()               // (2)
+{
+    if (File.Exists(SaveFilePath))
+    {
+        try
+        {
+            File.Delete(SaveFilePath);     // (3)
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(
+                $"Failed to delete save file:"
+                + $" {e.Message}");         // (4)
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Prüft, ob eine Savegame-Datei existiert. Wird vom Menüsystem verwendet, um den Button \textit{Spiel fortsetzen} nur anzuzeigen, wenn ein Spielstand vorhanden ist.
+    \item[(2)] Löscht die Savegame-Datei, wenn ein neues Spiel gestartet wird.
+    \item[(3)] Der eigentliche Löschvorgang über \texttt{File.Delete()}.
+    \item[(4)] Auch hier wird der Fehler gefangen und geloggt, statt die Anwendung abstürzen zu lassen.
+\end{description}
+
+Kein anderes Skript im Projekt greift direkt auf das Dateisystem zu. Das Menü prüft über \texttt{HasSaveFile()}, ob ein Spielstand geladen werden kann und löst über \texttt{DeleteSaveFile()} das Zurücksetzen aus. Die Facade kapselt alle Dateisystem-Details.
+
+\subsection{Zugriffsmuster: Singleton im Unity-Kontext}
+
+In Unity stellt sich oft die Frage, wie verschiedene Skripte auf einen gemeinsamen Manager zugreifen können. Der \texttt{GameSaveManager} muss von mehreren Stellen aus erreichbar sein, etwa wenn das Spiel beim Pausieren automatisch speichern soll.
+
+In der SchoolGamesApp wird dafür \texttt{FindFirstObjectByType<T>()} verwendet~[16]. Damit kann jedes Skript zur Laufzeit den \texttt{GameSaveManager} finden, ohne eine direkte Referenz halten zu müssen. Das ist ein gängiger Ansatz in Unity, der als vereinfachte Form des Service-Locator-Patterns betrachtet werden kann~[12].
+
+\needspace{14\baselineskip}
+\begin{lstlisting}
+// Datei: GameManager.cs (vereinfacht)
+private void AutoSave()                       // (1)
+{
+    var saveManager =
+        FindFirstObjectByType
+            <GameSaveManager>();               // (2)
+    if (saveManager == null)                  // (3)
+    {
+        GameObject obj =
+            new GameObject("GameSaveManager");
+        saveManager =
+            obj.AddComponent<GameSaveManager>();
+    }
+    saveManager.SaveGame(gameInitiator);      // (4)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Wird automatisch am Ende jedes Zugs aufgerufen.
+    \item[(2)] Unity durchsucht die Szene nach einer Instanz des Typs \texttt{GameSaveManager}.
+    \item[(3)] Falls kein \texttt{GameSaveManager} in der Szene existiert, wird einer dynamisch erstellt.
+    \item[(4)] Der Speichervorgang wird über die Facade ausgelöst.
+\end{description}
+
+Ein alternativer Ansatz wäre das klassische Singleton-Pattern, bei dem eine statische Instanz auf der Klasse selbst gehalten wird. In der SchoolGamesApp wurde bewusst darauf verzichtet, da \texttt{FindFirstObjectByType} keine zusätzliche Infrastruktur erfordert und für die aktuelle Projektgröße ausreichend performant ist.
+
+Neben dem manuellen Speichern über einen Button und dem automatischen Speichern am Zugende reagiert die SchoolGamesApp auch auf mobile Lebenszyklusereignisse. Auf mobilen Geräten kann eine App jederzeit vom Betriebssystem pausiert oder beendet werden, etwa durch einen eingehenden Anruf oder das Schließen der App. Unity stellt dafür die Callbacks \texttt{OnApplicationPause()} und \texttt{OnApplicationQuit()} bereit:
+
+\needspace{20\baselineskip}
+\begin{lstlisting}
+// Datei: GameManager.cs
+private bool hasSavedOnQuit = false;       // (1)
+
+private void OnApplicationQuit()           // (2)
+{
+    SaveOnExit();
+}
+
+private void OnApplicationPause(
+    bool pause)                            // (3)
+{
+    if (pause)
+        SaveOnExit();
+    else
+        hasSavedOnQuit = false;            // (4)
+}
+
+private void SaveOnExit()                  // (5)
+{
+    if (hasSavedOnQuit) return;            // (6)
+    hasSavedOnQuit = true;
+
+    var saveManager =
+        FindFirstObjectByType
+            <GameSaveManager>();
+    if (saveManager == null)
+    {
+        GameObject obj =
+            new GameObject("GameSaveManager");
+        saveManager =
+            obj.AddComponent<GameSaveManager>();
+    }
+    saveManager.SaveGame(gameInitiator);   // (7)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Flag, das verhindert, dass der Spielstand doppelt gespeichert wird, wenn \texttt{OnApplicationPause} und \texttt{OnApplicationQuit} kurz hintereinander aufgerufen werden.
+    \item[(2)] Wird aufgerufen, wenn die App komplett geschlossen wird.
+    \item[(3)] Wird aufgerufen, wenn die App in den Hintergrund geht (\texttt{pause = true}) oder wieder in den Vordergrund kommt (\texttt{pause = false}).
+    \item[(4)] Beim Wiederaufnehmen wird das Flag zurückgesetzt, damit bei erneutem Pausieren wieder gespeichert wird.
+    \item[(5)] Zentrale Methode, die den Speichervorgang über die Facade auslöst.
+    \item[(6)] Schutz gegen mehrfaches Speichern im selben Beendigungsvorgang.
+    \item[(7)] Der eigentliche Speichervorgang wird an den \texttt{GameSaveManager} delegiert.
+\end{description}
+
+Dieses Muster stellt sicher, dass der Spielstand auch dann erhalten bleibt, wenn die App unerwartet pausiert oder beendet wird -- ein wichtiger Aspekt für mobile Spiele, bei denen Unterbrechungen jederzeit auftreten können.
+
+\subsection{Interface Pattern für Austauschbarkeit}
+
+Die bisherige Architektur hat eine Eigenschaft, die für die Zukunftsfähigkeit besonders relevant ist: Der \texttt{GameSaveManager} ist die einzige Klasse, die weiß, \textit{wie} und \textit{wohin} Daten geschrieben werden. Aktuell schreibt er JSON-Dateien auf den lokalen Flash-Speicher. Aber was wäre, wenn in Zukunft eine Cloud-Synchronisierung gewünscht wird?
+
+Um einen solchen Wechsel möglichst reibungslos zu ermöglichen, kann ein Interface eingesetzt werden. Das Interface-Pattern definiert einen Vertrag, den verschiedene Implementierungen erfüllen müssen~[13]. Die konkrete Implementierung kann dann ausgetauscht werden, ohne dass der aufrufende Code verändert werden muss.
+
+Für die SchoolGamesApp könnte ein solches Interface so aussehen:
+
+\needspace{10\baselineskip}
+\begin{lstlisting}
+// Konzept: IGameDataProvider
+public interface IGameDataProvider            // (1)
+{
+    void SaveData(string key, string json);   // (2)
+    string LoadData(string key);              // (3)
+    bool DataExists(string key);              // (4)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Das Interface definiert den Vertrag für alle Datenprovider.
+    \item[(2)] Speichert einen JSON-String unter einem bestimmten Schlüssel.
+    \item[(3)] Lädt einen JSON-String anhand eines Schlüssels.
+    \item[(4)] Prüft, ob Daten unter einem bestimmten Schlüssel existieren.
+\end{description}
+
+Die aktuelle Implementierung wäre ein \texttt{LocalFileProvider}, der die bestehende Logik kapselt:
+
+\needspace{14\baselineskip}
+\begin{lstlisting}
+// Konzept: LocalFileProvider
+public class LocalFileProvider
+    : IGameDataProvider                       // (1)
+{
+    private string BasePath =>
+        Application.persistentDataPath;
+
+    public void SaveData(
+        string key, string json)              // (2)
+    {
+        string path =
+            Path.Combine(BasePath, key);
+        File.WriteAllText(path, json);
+    }
+
+    public string LoadData(string key)        // (3)
+    {
+        string path =
+            Path.Combine(BasePath, key);
+        return File.ReadAllText(path);
+    }
+
+    public bool DataExists(string key)        // (4)
+    {
+        string path =
+            Path.Combine(BasePath, key);
+        return File.Exists(path);
+    }
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Die Klasse implementiert das Interface.
+    \item[(2)] Schreibt den JSON-String als lokale Datei.
+    \item[(3)] Liest den Inhalt einer lokalen Datei als String.
+    \item[(4)] Prüft über \texttt{File.Exists()}, ob die Datei vorhanden ist.
+\end{description}
+
+Wenn in Zukunft eine Cloud-Lösung wie PlayFab oder Firebase integriert werden soll, müsste nur ein neuer Provider geschrieben werden. Dieser würde dasselbe Interface implementieren, aber die Daten über eine Web-API statt über das lokale Dateisystem speichern. Im \texttt{GameSaveManager} müsste dann nur der Provider ausgetauscht werden, nicht die gesamte Speicherlogik.
+
+Dieses Prinzip wird in der Softwareentwicklung als Dependency Inversion bezeichnet: Der \texttt{GameSaveManager} hängt nicht von einer konkreten Implementierung ab, sondern von einer Abstraktion~[13]. Nystrom betont, dass solche Entkopplungen gerade in Spieleprojekten wichtig sind, da sich Anforderungen oft spät im Entwicklungsprozess ändern~[12].
+
+Im aktuellen Stand der SchoolGamesApp ist das Interface als Konzept vorbereitet, aber noch nicht vollständig umgesetzt. Der \texttt{GameSaveManager} arbeitet direkt mit \texttt{File.WriteAllText()} und \texttt{File.ReadAllText()}. Für den aktuellen Entwicklungsstand -- ein lokales Spiel ohne Netzwerkanbindung -- ist das ausreichend. Die Architektur ist aber so aufgebaut, dass der Übergang zu einem Provider-basierten System mit minimalem Aufwand möglich wäre. Kapitel~8 geht darauf im Ausblick näher ein.
+
+
+% ============================================================
+% KAPITEL 6: DYNAMISCHE DATENBINDUNG
+%
+% In die Hauptdatei einfuegen nach Kapitel 5, vor dem
+% Literaturverzeichnis.
+%
+% Neue Quellen: [17] fuer System.Reflection
+% ============================================================
+
+\section{Dynamische Datenbindung: Der QuestionManager}
+
+In Kapitel~3 wurde gezeigt, wie die Fragendatenbank strukturiert ist und wie sie über \texttt{Resources.Load} geladen wird. Was dort noch offen blieb, ist die Frage: Wie wählt der \texttt{QuestionManager} zur Laufzeit die richtige Kombination aus Sprache und Schwierigkeitsgrad aus? Und wie wird sichergestellt, dass neue Sprachen oder Kategorien hinzugefügt werden können, ohne den bestehenden Code umschreiben zu müssen?
+
+Dieses Kapitel behandelt den Mechanismus, der diese dynamische Auswahl ermöglicht.
+
+\subsection{Das Problem: Starre Zuordnung}
+
+Die \texttt{QuestionDatabase}-Klasse aus Kapitel~3 enthält vier Felder: \texttt{junior\_en}, \texttt{junior\_de}, \texttt{senior\_en} und \texttt{senior\_de}. Jedes Feld ist vom Typ \texttt{QuestionCategory} und enthält die Fragenlisten für eine bestimmte Kombination aus Schwierigkeitsgrad und Sprache.
+
+Der naheliegendste Ansatz, um zur Laufzeit das richtige Feld auszuwählen, wäre eine Kette von \texttt{if-else} oder \texttt{switch-case} Anweisungen:
+
+\needspace{14\baselineskip}
+\begin{lstlisting}
+// Naiver Ansatz (nicht verwendet)
+QuestionCategory GetCategory(
+    QuestionDatabase db,
+    string difficulty, string language)
+{
+    if (difficulty == "Junior"
+        && language == "DE")
+        return db.junior_de;                  // (1)
+    else if (difficulty == "Junior"
+        && language == "EN")
+        return db.junior_en;                  // (2)
+    else if (difficulty == "Senior"
+        && language == "DE")
+        return db.senior_de;                  // (3)
+    else
+        return db.senior_en;                  // (4)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1--4)] Für jede Kombination aus Schwierigkeitsgrad und Sprache gibt es einen eigenen Zweig.
+\end{description}
+
+Dieser Ansatz funktioniert, hat aber einen entscheidenden Nachteil: Jedes Mal wenn eine neue Sprache oder ein neuer Schwierigkeitsgrad hinzugefügt wird, muss der Code angepasst werden. Bei vier Kombinationen ist das noch überschaubar. Aber wenn in Zukunft etwa Französisch, Spanisch oder ein dritter Schwierigkeitsgrad hinzukommen soll, wächst die Anzahl der Zweige schnell. Das verstößt gegen das Open-Closed-Prinzip, das besagt, dass Software offen für Erweiterungen, aber geschlossen für Modifikationen sein sollte~[13].
+
+\subsection{Die Lösung: Reflection-basierter Zugriff}
+
+Anstatt die Zuordnung hart im Code zu verdrahten, nutzt der \texttt{QuestionManager} einen dynamischen Ansatz über Reflection. Reflection ist ein Mechanismus in C\#, mit dem ein Programm zur Laufzeit Informationen über seine eigene Struktur abfragen kann~[17]. Konkret bedeutet das: Anstatt ein Feld über seinen Namen im Code anzusprechen, kann der Feldname als String zusammengesetzt und dann über Reflection aufgelöst werden.
+
+\needspace{18\baselineskip}
+\begin{lstlisting}
+// Datei: QuestionManager.cs (aus LoadQuestions)
+questionDatabase = JsonUtility
+    .FromJson<QuestionDatabase>(jsonFile.text);
+
+string key =
+    $"{difficulty.ToString().ToLower()}"
+    + $"_{(language == QuestionLanguage.English
+        ? "en" : "de")}";                     // (1)
+
+var field = typeof(QuestionDatabase)
+    .GetField(key);                           // (2)
+var pickedCategory =
+    field?.GetValue(questionDatabase)
+    as QuestionCategory;                      // (3)
+
+if (pickedCategory == null)                  // (4)
+{
+    Debug.LogError(
+        $"Key '{key}' is null! "
+        + "Check JSON structure.");
+    return;
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Der Schlüssel wird dynamisch aus dem Enum-Wert des Schwierigkeitsgrads und der Sprache zusammengesetzt, z.B. \texttt{"junior\_de"}.
+    \item[(2)] Über \texttt{typeof(QuestionDatabase).GetField(key)} wird das Feld mit diesem Namen zur Laufzeit gesucht.
+    \item[(3)] Der Null-Conditional-Operator \texttt{?.} verhindert eine \texttt{NullReferenceException}, falls das Feld nicht existiert. Der Wert wird als \texttt{QuestionCategory} gecastet.
+    \item[(4)] Falls der Schlüssel nicht gefunden wird (z.B. Tippfehler oder fehlende JSON-Struktur), wird ein Fehler geloggt.
+\end{description}
+
+Der Ablauf ist folgender: Aus dem aktuell gewählten Schwierigkeitsgrad und der Sprache wird ein String zusammengesetzt, zum Beispiel \texttt{"junior\_de"}. Dieser String entspricht exakt dem Feldnamen in der \texttt{QuestionDatabase}-Klasse. Über \texttt{typeof(QuestionDatabase).GetField(key)} wird das Feld zur Laufzeit aufgelöst und sein Wert zurückgegeben.
+
+Der Vorteil dieses Ansatzes ist, dass der Code nicht verändert werden muss, wenn eine neue Kombination hinzukommt. Wenn beispielsweise ein Feld \texttt{junior\_fr} für französische Fragen zur \texttt{QuestionDatabase}-Klasse hinzugefügt wird, funktioniert der Reflection-Zugriff automatisch, solange die Namenskonvention eingehalten wird. Es muss kein neuer \texttt{if-else}-Zweig geschrieben werden.
+
+\subsection{Auswahl der Fragen nach Kategorie}
+
+Nachdem die richtige \texttt{QuestionCategory} über Reflection ausgewählt wurde, werden alle drei Fragenlisten dieser Kategorie in eine gemeinsame Liste zusammengeführt. Die Methode \texttt{CompileAllQuestions()} übernimmt diesen Schritt:
+
+\needspace{16\baselineskip}
+\begin{lstlisting}
+// Datei: QuestionManager.cs
+private void CompileAllQuestions()            // (1)
+{
+    allQuestions.Clear();
+    string key =
+        $"{difficulty.ToString().ToLower()}"
+        + $"_{(language ==
+            QuestionLanguage.English
+            ? "en" : "de")}";                 // (2)
+
+    var field = typeof(QuestionDatabase)
+        .GetField(key);                       // (3)
+    QuestionCategory pickedCategory = null;
+    if (field != null)
+        pickedCategory = field
+            .GetValue(questionDatabase)
+            as QuestionCategory;
+
+    if (pickedCategory != null)              // (4)
+    {
+        if (pickedCategory.gruendung != null)
+            allQuestions.AddRange(
+                pickedCategory.gruendung);    // (5)
+        if (pickedCategory.investition != null)
+            allQuestions.AddRange(
+                pickedCategory.investition);
+        if (pickedCategory.ag != null)
+            allQuestions.AddRange(
+                pickedCategory.ag);
+    }
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Methode, die alle Fragen der aktuellen Sprach-/Schwierigkeitskombination in eine gemeinsame Liste zusammenführt.
+    \item[(2)] Derselbe Reflection-Schlüssel wie beim Laden.
+    \item[(3)] Erneuter Reflection-Zugriff auf das Feld der \texttt{QuestionDatabase}.
+    \item[(4)] Null-Prüfung, falls die Kategorie nicht existiert.
+    \item[(5)] Alle drei Fragenlisten (\texttt{gruendung}, \texttt{investition}, \texttt{ag}) werden in die gemeinsame Liste \texttt{allQuestions} zusammengeführt.
+\end{description}
+
+\subsection{Vorteile und Nachteile des Reflection-Ansatzes}
+
+Der Reflection-basierte Zugriff bringt klare Vorteile für die Wartbarkeit. Neue Sprachen oder Schwierigkeitsgrade können hinzugefügt werden, indem einfach ein neues Feld zur \texttt{QuestionDatabase}-Klasse und eine neue JSON-Datei angelegt werden. Der \texttt{QuestionManager} selbst muss nicht angepasst werden.
+
+Allerdings hat Reflection auch Nachteile, die ehrlich benannt werden müssen. Erstens ist Reflection langsamer als ein direkter Feldzugriff. Bei jedem Aufruf muss die Laufzeitumgebung die Typinformationen durchsuchen, um das Feld zu finden~[17]. Für die SchoolGamesApp ist das kein spürbares Problem, da Fragen nur bei bestimmten Spielaktionen geladen werden und nicht in jedem Frame. Bei einem Spiel mit hunderten Abfragen pro Sekunde wäre der Ansatz aber nicht geeignet.
+
+Zweitens gibt es keine Sicherheit zur Kompilierzeit. Wenn der zusammengesetzte Schlüssel einen Tippfehler enthält, zum Beispiel \texttt{"junor\_de"} statt \texttt{"junior\_de"}, fällt das erst zur Laufzeit auf und nicht beim Kompilieren. Der Code kompiliert fehlerfrei, aber \texttt{GetField()} gibt \texttt{null} zurück. Deshalb ist die Null-Prüfung mit \texttt{Debug.LogError()} im Code wichtig: Sie macht solche Fehler sichtbar, auch wenn sie nicht beim Kompilieren abgefangen werden.
+
+Drittens ist der Ansatz weniger intuitiv als ein einfacher \texttt{switch-case}. Entwickler, die den Code zum ersten Mal lesen, müssen verstehen, dass Feldnamen als Strings zusammengesetzt werden. Das erfordert eine klare Namenskonvention und gute Dokumentation.
+
+Tabelle~\ref{tab:reflection-vergleich} fasst die Vor- und Nachteile im Vergleich zu einem \texttt{switch-case}-Ansatz zusammen.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Kriterium} & \textbf{switch-case} & \textbf{Reflection} \\
+        \midrule
+        Erweiterbarkeit     & $--$ & $++$ \\
+        Performance         & $++$ & $\circ$ \\
+        Kompilierzeit-Sicherheit & $++$ & $--$ \\
+        Lesbarkeit          & $++$ & $\circ$ \\
+        Wartbarkeit         & $\circ$ & $++$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Vergleich switch-case vs. Reflection für die Datenbindung}
+    \label{tab:reflection-vergleich}
+\end{table}
+
+Für die SchoolGamesApp überwiegen die Vorteile. Das Spiel ist als Kooperationsprojekt mit Schoolgames konzipiert und soll in Zukunft um weitere Sprachen und Inhalte erweitert werden. Die Erweiterbarkeit ohne Code-Änderungen ist daher wichtiger als die maximale Performance bei der Feldauflösung.
+
+
+% ============================================================
+% KAPITEL 7 UND 8
+%
+% Einfuegen nach Kapitel 6, vor dem Literaturverzeichnis.
+%
+% Keine neuen Quellen noetig. Alle Referenzen verweisen auf
+% bereits vorhandene Quellen [1]--[17].
+% ============================================================
+
+\section{Analyse und Kritische Würdigung}
+
+Die vorherigen Kapitel haben die Implementierung der lokalen Speicherlösung im Detail beschrieben. Dieses Kapitel tritt einen Schritt zurück und bewertet den gewählten Ansatz anhand von drei Kriterien: Performance, Datensicherheit und Zukunftsfähigkeit. Dabei werden sowohl die Stärken als auch die Grenzen der aktuellen Lösung benannt.
+
+\subsection{Performance}
+
+Die Speicherlösung der SchoolGamesApp basiert vollständig auf \texttt{JsonUtility} und synchronen Dateizugriffen über \texttt{File.WriteAllText()} und \texttt{File.ReadAllText()}. Das bedeutet, dass der gesamte Spielstand in einem einzigen Vorgang geschrieben und gelesen wird. Für die aktuelle Datenmenge ist das unproblematisch. Ein typischer Spielstand mit vier Spielern und allen Firmenfeldern umfasst wenige Kilobyte. Die Serialisierung und der Schreibvorgang sind in Sekundenbruchteilen abgeschlossen.
+
+\texttt{JsonUtility} ist laut Unity-Dokumentation schneller als verbreitete Alternativen wie \texttt{Newtonsoft.Json}~[1]. Der Grund liegt darin, dass \texttt{JsonUtility} direkt in die Unity Engine integriert ist und keine zusätzlichen Allokationen über den Rückgabewert hinaus vornimmt~[1]. Für ein rundenbasiertes Spiel, bei dem der Speichervorgang nur am Ende jedes Zugs ausgelöst wird, ist die Performance mehr als ausreichend.
+
+Eine Grenze des Ansatzes zeigt sich bei der Skalierung. Die synchrone Dateioperation blockiert den Hauptthread. Solange die Datei klein ist, fällt das nicht auf. Bei einem hypothetischen Szenario mit hunderten Spielern oder sehr großen Datenmengen könnte der Speichervorgang aber zu einem spürbaren Ruckler führen. In einem solchen Fall müsste auf asynchrone Dateizugriffe umgestellt werden. Für die SchoolGamesApp mit maximal sechs Spielern ist das aber kein realistisches Problem.
+
+Auch der Reflection-Zugriff im \texttt{QuestionManager} (Kapitel~6) hat Performance-Implikationen. Reflection ist langsamer als ein direkter Feldzugriff~[17]. Da die Fragen aber nur beim Spielstart und bei einem Sprachwechsel geladen werden und nicht in jedem Frame, ist der Unterschied in der Praxis nicht messbar. In einem Echtzeit-Spiel mit Frame-genauen Abfragen wäre der Ansatz nicht geeignet, für ein rundenbasiertes Brettspiel aber angemessen.
+
+\subsection{Datensicherheit}
+
+Die Savegame-Datei liegt als Klartext-JSON im Ordner \texttt{Application.persistentDataPath}~[9]. Das bedeutet, dass die Datei auf Android und iOS grundsätzlich zugänglich ist. Auf Android kann sie über einen Dateimanager eingesehen werden, auf iOS über iTunes-Backups. Ein technisch versierter Nutzer könnte die Datei öffnen, seinen Kontostand ändern und das Spiel mit manipulierten Werten fortsetzen.
+
+Für die SchoolGamesApp ist das ein akzeptables Risiko. Das Spiel wird als lokales Lernspiel auf einem geteilten Gerät gespielt. Es gibt keine Online-Ranglisten, keine In-App-Käufe und keinen kompetitiven Modus, bei dem Manipulation einen unfairen Vorteil verschaffen würde. Die Spielenden sitzen nebeneinander und spielen kooperativ auf einem Gerät.
+
+Für ein Spiel mit Online-Funktionen oder monetären Anreizen wäre der Klartext-Ansatz nicht ausreichend. In einem solchen Fall müssten die Daten entweder verschlüsselt werden oder serverseitig validiert werden. Verschlüsselung wäre mit \texttt{System.Security.Cryptography} aus dem .NET-Framework möglich und könnte als zusätzliche Schicht im \texttt{GameSaveManager} eingefügt werden, ohne die restliche Architektur zu verändern. Die Facade-Struktur (Kapitel~5) macht einen solchen Eingriff vergleichsweise einfach, da nur eine Klasse betroffen wäre.
+
+Konzeptionell ließe sich eine solche Verschlüsselungsschicht im \texttt{GameSaveManager} wie folgt einfügen:
+
+\needspace{14\baselineskip}
+\begin{lstlisting}
+// Konzept: Verschluesselung der Savegame-Daten
+using System.Security.Cryptography;
+using System.Text;
+
+public void SaveEncrypted(
+    GameSaveData data, string key)         // (1)
+{
+    string json =
+        JsonUtility.ToJson(data, true);
+    byte[] encrypted = Encrypt(
+        Encoding.UTF8.GetBytes(json), key);// (2)
+    File.WriteAllBytes(
+        SaveFilePath, encrypted);          // (3)
+}
+
+public GameSaveData LoadEncrypted(
+    string key)                            // (4)
+{
+    byte[] encrypted =
+        File.ReadAllBytes(SaveFilePath);
+    byte[] decrypted =
+        Decrypt(encrypted, key);
+    string json =
+        Encoding.UTF8.GetString(decrypted);
+    return JsonUtility
+        .FromJson<GameSaveData>(json);     // (5)
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Der Speichervorgang erhält einen Schlüssel für die Verschlüsselung.
+    \item[(2)] Der JSON-String wird in Bytes umgewandelt und verschlüsselt.
+    \item[(3)] Statt \texttt{WriteAllText} wird \texttt{WriteAllBytes} für die Binärdaten verwendet.
+    \item[(4)] Beim Laden wird derselbe Schlüssel für die Entschlüsselung verwendet.
+    \item[(5)] Nach der Entschlüsselung wird der JSON-String wie gewohnt deserialisiert.
+\end{description}
+
+Die Facade-Struktur macht diesen Eingriff vergleichsweise einfach, da nur eine Klasse betroffen wäre und der Rest der Anwendung weiterhin \texttt{SaveGame()} und \texttt{LoadGame()} aufruft.
+
+Dieselbe Überlegung gilt für die statischen Daten. Die Fragendatenbank liegt als JSON-Datei im App-Paket. Auch sie könnte theoretisch ausgelesen werden, um die richtigen Antworten zu ermitteln. Im Kontext eines Lernspiels, bei dem das Ziel der Wissenserwerb ist, stellt das aber kein relevantes Problem dar.
+
+\subsection{Zukunftsfähigkeit}
+
+Die Architektur der Speicherlösung wurde bewusst so gestaltet, dass sie erweiterbar ist. Drei Aspekte sind dabei besonders relevant.
+
+Erstens ermöglicht die Trennung von statischen und dynamischen Daten (Kapitel~3 und~4), dass beide Bereiche unabhängig voneinander weiterentwickelt werden können. Wenn der Kooperationspartner Schoolgames neue Fragen oder neue Kooperationspartner-Unternehmen hinzufügen möchte, betrifft das nur die JSON-Dateien im Resources-Ordner. Am Savegame-System oder an der Spiellogik muss nichts geändert werden.
+
+Zweitens wurde in Kapitel~5 gezeigt, wie das Interface \texttt{IGameDataProvider} den Wechsel von einer lokalen Speicherung zu einer Cloud-Lösung ermöglichen könnte. Im aktuellen Entwicklungsstand ist das Interface als Konzept vorbereitet, aber noch nicht implementiert. Der \texttt{GameSaveManager} arbeitet direkt mit dem Dateisystem. Der Aufwand für die Umstellung wäre aber gering: Es müsste ein neuer Provider geschrieben und im \texttt{GameSaveManager} eingesetzt werden.
+
+Drittens erlaubt der Reflection-basierte Zugriff im \texttt{QuestionManager} (Kapitel~6) die Ergänzung neuer Sprachen und Schwierigkeitsgrade, ohne bestehenden Code ändern zu müssen. Ein neues Feld in der \texttt{QuestionDatabase}-Klasse und eine passende JSON-Datei reichen aus. Das ist besonders relevant, da Schoolgames das Spiel an verschiedenen Schulen mit unterschiedlichen Sprachanforderungen einsetzen möchte.
+
+Es gibt allerdings auch Aspekte, die bei einer Weiterentwicklung Aufmerksamkeit erfordern. Die aktuelle Lösung unterstützt nur einen einzigen Spielstand. Wenn mehrere Savegame-Slots gewünscht sind, müsste die Dateinamenslogik im \texttt{GameSaveManager} erweitert werden, etwa durch einen Index oder einen Zeitstempel im Dateinamen. Außerdem gibt es kein Versionierungssystem für Savegames. Wenn sich die Datenstruktur in einem Update ändert, zum Beispiel durch ein neues Feld in \texttt{PlayerSaveData}, könnte ein alter Spielstand nicht mehr korrekt geladen werden. \texttt{JsonUtility} ignoriert zwar unbekannte Felder und setzt fehlende Felder auf ihre Standardwerte~[1], aber bei größeren Strukturänderungen wäre eine explizite Migrationsstrategie sinnvoll.
+
+Ein solches Versionierungssystem könnte durch ein zusätzliches Feld in der \texttt{GameSaveData}-Klasse umgesetzt werden:
+
+\needspace{18\baselineskip}
+\begin{lstlisting}
+// Konzept: Savegame-Versionierung
+[Serializable]
+public class GameSaveData
+{
+    public int saveVersion = 2;            // (1)
+    public List<PlayerSaveData> players
+        = new List<PlayerSaveData>();
+    public int currentPlayerTurnID;
+    // ... weitere Felder
+}
+
+// Im GameSaveManager:
+public GameSaveData LoadGame()
+{
+    // ... Laden wie bisher ...
+    if (saveData.saveVersion < 2)          // (2)
+    {
+        MigrateFromV1(saveData);           // (3)
+        saveData.saveVersion = 2;
+    }
+    return saveData;
+}
+\end{lstlisting}
+
+\begin{description}[leftmargin=2em, labelwidth=1.5em]
+    \item[(1)] Versionsnummer des Savegame-Formats. Wird bei jedem Strukturwechsel erhöht.
+    \item[(2)] Beim Laden wird die Version geprüft und bei Bedarf eine Migration durchgeführt.
+    \item[(3)] Eine Migrationsmethode konvertiert alte Spielstände in das aktuelle Format.
+\end{description}
+
+\subsection{Gesamtbewertung}
+
+Tabelle~\ref{tab:gesamtbewertung} fasst die Bewertung der drei Kriterien zusammen.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        \textbf{Kriterium} & \textbf{Bewertung} & \textbf{Anmerkung} \\
+        \midrule
+        Performance & $++$ & Ausreichend für aktuelles Datenvolumen \\
+        Datensicherheit & $\circ$ & Klartext, aber für Lernspiel akzeptabel \\
+        Zukunftsfähigkeit & $+$ & Erweiterbar, aber Versionierung fehlt \\
+        \bottomrule
+    \end{tabular}
+    \caption{Gesamtbewertung der lokalen Speicherlösung}
+    \label{tab:gesamtbewertung}
+\end{table}
+
+Der gewählte Ansatz ist für den aktuellen Anwendungsfall gut geeignet. Die Kombination aus \texttt{JsonUtility}, dem DTO-Pattern, der Facade-Architektur und dem Reflection-basierten Datenzugriff ergibt eine Lösung, die einfach, wartbar und erweiterbar ist. Die identifizierten Schwächen -- fehlende Verschlüsselung, kein Multi-Slot-System, keine Savegame-Versionierung -- sind für den aktuellen Einsatzzweck als lokales Lernspiel nicht kritisch und können bei Bedarf nachgerüstet werden.
+
+% ============================================================
+% KAPITEL 8: ZUSAMMENFASSUNG UND AUSBLICK
+% ============================================================
+
+\section{Zusammenfassung und Ausblick}
+
+\subsection{Zusammenfassung}
+
+Diese Arbeit hat die Implementierung und Analyse lokaler Speicherlösungen in Unity für die SchoolGamesApp untersucht. Die zentrale Fragestellung lautete, welche Methoden sich bei der Implementierung lokaler Speicherlösungen in Unity für mobile Spiele ergeben und welche Vor- und Nachteile daraus resultieren.
+
+Kapitel~2 hat vier Speichermethoden verglichen: \texttt{PlayerPrefs}, \texttt{JsonUtility}, SQLite und \texttt{ScriptableObjects}. Die Entscheidung fiel auf \texttt{JsonUtility}, da es die beste Balance aus Performance, Portabilität und Einrichtungsaufwand für das Datenvolumen der SchoolGamesApp bietet.
+
+Die Kapitel~3 und~4 haben die Datenbankstruktur beschrieben. Statische Daten wie der Fragenkatalog und die Firmendaten werden über das Resources-System mit der App ausgeliefert. Dynamische Daten wie Spielstände werden als JSON-Dateien im plattformspezifischen Ordner \texttt{Application.persistentDataPath} gespeichert. Die strikte Trennung beider Datenkategorien stellt sicher, dass Spielinhalte von Savegame-Fehlern unberührt bleiben.
+
+Kapitel~5 hat das Businesslogikdesign der Serialisierungsschicht analysiert. Drei Design Patterns kommen zum Einsatz: Das DTO-Pattern sorgt für die Entkopplung von Spiellogik und Persistenzschicht. Das Facade-Pattern bündelt alle Dateizugriffe im \texttt{GameSaveManager}. Das Interface-Pattern bereitet die Architektur auf einen möglichen Wechsel zu Cloud-basierten Speicherlösungen vor.
+
+Kapitel~6 hat den Reflection-Mechanismus im \texttt{QuestionManager} erklärt, der eine dynamische Auswahl von Fragenkategorien zur Laufzeit ermöglicht. Dieser Ansatz verbessert die Erweiterbarkeit, bringt aber Nachteile bei der Kompilierzeit-Sicherheit mit sich.
+
+Kapitel~7 hat den Gesamtansatz kritisch bewertet. Die Performance ist für das aktuelle Datenvolumen ausreichend. Die Datensicherheit ist für ein lokales Lernspiel ohne Online-Funktionen akzeptabel. Die Zukunftsfähigkeit ist durch die modulare Architektur gegeben, erfordert aber bei größeren Erweiterungen Nacharbeiten wie eine Savegame-Versionierung.
+
+\subsection{Ausblick}
+
+Die aktuelle Implementierung löst die gestellte Aufgabe -- lokale Datenpersistenz ohne Server -- vollständig. Für die Weiterentwicklung der SchoolGamesApp ergeben sich drei konkrete Erweiterungsmöglichkeiten.
+
+Die erste Erweiterung betrifft die Cloud-Synchronisierung. Der Kooperationspartner Schoolgames hat Interesse an einer zentralen Verwaltung von Spielergebnissen signalisiert. Über das in Kapitel~5 beschriebene \texttt{IGameDataProvider}-Interface könnte ein Cloud-Provider implementiert werden, der Spielstände zusätzlich zum lokalen Speicher an einen Server überträgt. Dienste wie PlayFab oder Firebase bieten fertige SDKs für Unity, die als Grundlage dienen könnten. Der lokale Speicher würde dabei als Fallback erhalten bleiben, sodass das Spiel auch ohne Internetverbindung funktioniert.
+
+Die zweite Erweiterung betrifft die Verschlüsselung der Savegame-Daten. Falls die SchoolGamesApp in Zukunft kompetitive Elemente wie Ranglisten oder Wettbewerbe erhält, müsste die Klartext-Speicherung durch eine verschlüsselte Variante ersetzt werden. Da alle Dateizugriffe über den \texttt{GameSaveManager} laufen, wäre die Integration eines Verschlüsselungsschritts zwischen Serialisierung und Dateischreibvorgang mit geringem Aufwand möglich.
+
+Die dritte Erweiterung betrifft die Savegame-Versionierung. Bei zukünftigen Updates der App könnte sich die Struktur des Spielstands ändern, etwa durch neue Felder oder geänderte Datentypen. Ein Versionsfeld im \texttt{GameSaveData}-Objekt würde es ermöglichen, beim Laden alte Spielstände zu erkennen und automatisch in das aktuelle Format zu migrieren.
+
+Diese Erweiterungen bauen auf der in dieser Arbeit beschriebenen Architektur auf und erfordern keine grundlegende Umstrukturierung des bestehenden Systems.
+% ============================================================
+% NEUE QUELLEN FUER DAS LITERATURVERZEICHNIS:
+%
+% Weitere Quellen:
+%
+% \item[{[17]}] Microsoft,
+%      \textit{System.Reflection Namespace},
+%      .NET Documentation, 2026. [Online]. Verfuegbar:
+%      \url{https://learn.microsoft.com/en-us/dotnet/api/system.reflection}
+%      (abgerufen am 21.03.2026).
+% ============================================================
+
+% ============================================================
+% LITERATURVERZEICHNIS
+% ============================================================
+
+\section*{Quellen- und Literaturverzeichnis}
+
+\subsection*{Literaturverzeichnis (Fachliteratur)}
+
+\begin{description}[leftmargin=2em]
+    \item[{[3]}] T.~Bray, Ed., \textit{The JavaScript Object Notation (JSON) Data Interchange Format}, RFC~8259, Internet Engineering Task Force (IETF), Dez.~2017. [Online]. Verfügbar: \url{https://datatracker.ietf.org/doc/html/rfc8259}
+
+    \item[{[6]}] SQLite Consortium, \textit{About SQLite}, 2024. [Online]. Verfügbar: \url{https://www.sqlite.org/about.html} (abgerufen am 24.02.2026).
+
+    \item[{[12]}] R.~Nystrom, \textit{Game Programming Patterns}, Genever Benning, 2014. ISBN: 978-0-9905829-0-8. Auch online verfügbar: \url{https://gameprogrammingpatterns.com/} (abgerufen am 24.02.2026).
+
+    \item[{[13]}] E.~Gamma, R.~Helm, R.~Johnson und J.~Vlissides, \textit{Design Patterns: Elements of Reusable Object-Oriented Software}, Addison-Wesley, 1994. ISBN: 978-0-201-63361-0.
+\end{description}
+
+\subsection*{Weitere Quellen}
+
+\begin{description}[leftmargin=2em]
+    \item[{[1]}] Unity Technologies, \textit{Unity Manual: JSON Serialization}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/6000.3/Documentation/Manual/json-serialization.html} (abgerufen am 24.02.2026).
+
+    \item[{[2]}] Unity Technologies, \textit{Scripting API: PlayerPrefs}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/ScriptReference/PlayerPrefs.html} (abgerufen am 24.02.2026).
+
+    \item[{[4]}] Unity Technologies, \textit{Scripting API: JsonUtility}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/6000.3/Documentation/ScriptReference/JsonUtility.html} (abgerufen am 24.02.2026).
+
+    \item[{[5]}] Unity Technologies, \textit{Scripting API: JsonUtility.FromJson}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/ScriptReference/JsonUtility.FromJson.html} (abgerufen am 24.02.2026).
+
+    \item[{[7]}] R.~Olivares, \textit{SQLite4Unity3d}, GitHub Repository, 2023. [Online]. Verfügbar: \url{https://github.com/robertohuertasm/SQLite4Unity3d} (abgerufen am 24.02.2026).
+
+    \item[{[8]}] Unity Technologies, \textit{Unity Manual: ScriptableObject}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/Manual/class-ScriptableObject.html} (abgerufen am 24.02.2026).
+
+    \item[{[9]}] Unity Technologies, \textit{Scripting API: Application.persistentDataPath}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Application-persistentDataPath.html} (abgerufen am 24.02.2026).
+
+    \item[{[10]}] Unity Technologies, \textit{Scripting API: Resources}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/ScriptReference/Resources.html} (abgerufen am 24.02.2026).
+
+    \item[{[11]}] Unity Technologies, \textit{Unity Manual: Text Assets}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/Manual/class-TextAsset.html} (abgerufen am 24.02.2026).
+
+    \item[{[14]}] Unity Technologies, \textit{Unity Manual: Introduction to the Resources system}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/6000.2/Documentation/Manual/LoadingResourcesatRuntime.html} (abgerufen am 24.02.2026).
+
+    \item[{[15]}] Microsoft, \textit{File.WriteAllText Method}, .NET Documentation, 2026. [Online]. Verfügbar: \url{https://learn.microsoft.com/en-us/dotnet/api/system.io.file.writealltext} (abgerufen am 21.03.2026).
+
+    \item[{[16]}] Unity Technologies, \textit{Scripting API: Object.FindFirstObjectByType}, 2026. [Online]. Verfügbar: \url{https://docs.unity3d.com/ScriptReference/Object.FindFirstObjectByType.html} (abgerufen am 21.03.2026).
+
+    \item[{[17]}] Microsoft, \textit{System.Reflection Namespace}, .NET Documentation, 2026. [Online]. Verfügbar: \url{https://learn.microsoft.com/en-us/dotnet/api/system.reflection} (abgerufen am 21.03.2026).
+\end{description}
+
+% ============================================================
+% VERZEICHNISSE
+% ============================================================
+\listoffigures
+\listoftables
+
 \end{document}
