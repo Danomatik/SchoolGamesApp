@@ -529,10 +529,10 @@ public class ExamModeController : MonoBehaviour
                 100);
 
             // Status
-            CreateHistoryText(itemObj.transform, 
-                result.passed ? "Bestanden" : "Nicht bestanden", 
-                result.passed ? correctColor : wrongColor, 
-                100, 
+            CreateHistoryText(itemObj.transform,
+                result.passed ? "✓" : "X",
+                result.passed ? correctColor : wrongColor,
+                100,
                 FontStyles.Bold);
 
             // Zeit

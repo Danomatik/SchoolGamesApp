@@ -210,6 +210,19 @@ public class MainMenuController : MonoBehaviour
         SetActive(quizModusButtonContainer, true);
     }
 
+    /// <summary>
+    /// Called by the Back/Close button inside QuizModusButtonContainer.
+    /// Closes the quiz mode picker and returns to the main menu.
+    /// </summary>
+    public void OnQuizModusBackClicked()
+    {
+        Debug.Log("[MainMenuController] Quiz mode picker closed → back to main menu");
+        SetActive(quizModusButtonContainer, false);
+        SetActive(buttonsContainer, true);
+        SetActive(bottomIcons, true);
+        SetActive(logo, true);
+    }
+
     /// <summary>Called by the Lernmodus button.</summary>
     public void OnLernmodusClicked()
     {
@@ -388,7 +401,7 @@ public class MainMenuController : MonoBehaviour
                 }
                 else if (n.Contains("status"))
                 {
-                    txt.text = result.passed ? "Bestanden" : "Nicht bestanden";
+                    txt.text = result.passed ? "✓" : "X";
                 }
             }
         }

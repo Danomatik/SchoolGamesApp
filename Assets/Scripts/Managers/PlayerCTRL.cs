@@ -24,6 +24,20 @@ public class PlayerCTRL : MonoBehaviour
 
     private static Dictionary<int, List<PlayerCTRL>> playersOnTile = new();
     private bool isMoving = false;
+    public bool IsMoving => isMoving;
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+    private static void RegisterSceneReset()
+    {
+        UnityEngine.SceneManagement.SceneManager.sceneLoaded += (_, __) => playersOnTile.Clear();
+    }
+
+    private void OnDestroy()
+    {
+        // Eigene Einträge aus allen Tiles entfernen, falls dieser Spieler zerstört wird
+        foreach (var list in playersOnTile.Values)
+            list?.Remove(this);
+    }
     private Animator anim;
 
     private void Awake()

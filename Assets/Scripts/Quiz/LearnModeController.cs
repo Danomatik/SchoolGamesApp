@@ -41,6 +41,10 @@ public class LearnModeController : MonoBehaviour
     private Question _current;
     private bool _answered = false;
 
+    // Pass-based Logic: alle Fragen im 1. Durchgang, dann nur die falschen
+    private Queue<int> _currentPass = new();
+    private List<int> _nextPass = new();
+
     private void Awake()
     {
         // Slider nicht vom User bedienbar
@@ -92,6 +96,14 @@ public class LearnModeController : MonoBehaviour
         // UI umschalten
         if (levelSelectPanel) levelSelectPanel.SetActive(false);
         if (quizPanel) quizPanel.SetActive(true);
+
+        // Pass-Queues frisch initialisieren: 1. Durchgang = ALLE Fragen in Reihenfolge
+        _currentPass.Clear();
+        _nextPass.Clear();
+        for (int i = 0; i < _pool.Count; i++)
+        {
+            _currentPass.Enqueue(i);
+        }
 
         UpdateProgressUI();
 
@@ -177,36 +189,32 @@ public class LearnModeController : MonoBehaviour
             LearnProgressStore.MarkSolved(language, level, _current.storageKey);
             UpdateProgressUI();
         }
+        else
+        {
+            // Falsch beantwortet -> erneut im nächsten Durchgang fragen
+            _nextPass.Add(_currentIndex);
+        }
 
         if (nextButton) nextButton.gameObject.SetActive(true);
     }
 
     private void NextQuestion()
     {
-        int nextIdx = GetNextUnsolvedIndex();
-        if (nextIdx < 0)
+        // Aktueller Durchgang leer? -> in den nächsten Durchgang wechseln
+        if (_currentPass.Count == 0)
         {
-            ShowAllDone();
-            return;
+            if (_nextPass.Count == 0)
+            {
+                ShowAllDone();
+                return;
+            }
+
+            foreach (var idx in _nextPass) _currentPass.Enqueue(idx);
+            _nextPass.Clear();
         }
 
-        _currentIndex = nextIdx;
+        _currentIndex = _currentPass.Dequeue();
         ShowQuestion(_pool[_currentIndex]);
-    }
-
-    private int GetNextUnsolvedIndex()
-    {
-        if (_pool.Count == 0) return -1;
-
-        // Ab aktueller Position vorwärts, dann wrap-around
-        for (int step = 1; step <= _pool.Count; step++)
-        {
-            int idx = (_currentIndex + step) % _pool.Count;
-            var q = _pool[idx];
-            bool solved = LearnProgressStore.IsSolved(language, level, q.storageKey);
-            if (!solved) return idx;
-        }
-        return -1; // alles gelöst
     }
 
     private void UpdateProgressUI()
@@ -253,6 +261,14 @@ public class LearnModeController : MonoBehaviour
             if (txt) txt.text = "Nächste Frage";
             nextButton.onClick.RemoveAllListeners();
             nextButton.onClick.AddListener(NextQuestion);
+        }
+
+        // Pass-Queues neu aufbauen: wieder mit allen Fragen starten
+        _currentPass.Clear();
+        _nextPass.Clear();
+        for (int i = 0; i < _pool.Count; i++)
+        {
+            _currentPass.Enqueue(i);
         }
 
         _currentIndex = -1;

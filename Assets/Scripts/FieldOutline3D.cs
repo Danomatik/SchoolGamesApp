@@ -50,11 +50,23 @@ public class FieldOutline3D : MonoBehaviour
 
         if (lineMaterial == null)
         {
+            // Mehrere Fallbacks: URP Unlit wird im Build oft gestrippt, da kein Material darauf zeigt.
+            // Sprites/Default ist immer im Build verfügbar.
             var shader = Shader.Find("Universal Render Pipeline/Unlit");
             if (!shader) shader = Shader.Find("Unlit/Color");
-            lineMaterial = new Material(shader) { enableInstancing = true };
+            if (!shader) shader = Shader.Find("Sprites/Default");
+            if (!shader) shader = Shader.Find("Hidden/Internal-Colored");
+
+            if (shader != null)
+            {
+                lineMaterial = new Material(shader) { enableInstancing = true };
+            }
+            else
+            {
+                Debug.LogError("FieldOutline3D: Kein Shader gefunden. Bitte lineMaterial im Inspector zuweisen oder Shader in 'Always Included Shaders' aufnehmen.");
+            }
         }
-        lr.material = lineMaterial;
+        if (lineMaterial != null) lr.material = lineMaterial;
 
         SetColor(Color.white);
     }

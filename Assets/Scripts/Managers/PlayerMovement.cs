@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject moveButton;
     
     private bool isTurnInProgress = false;
+    public bool IsTurnInProgress => isTurnInProgress;
 
 
 

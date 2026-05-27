@@ -122,6 +122,15 @@ public class QuizController : MonoBehaviour
     // (Timer removed)
     public int learnQuestionCount = 20;
 
+    // Learn mode - Pass-based Durchgänge:
+    // 1. Durchgang = alle Fragen, ab dem 2. nur die falsch beantworteten
+    private Queue<int> _learnCurrentPass = new();
+    private List<int> _learnNextPass = new();
+
+    // Session-Counter: zählt die in dieser Lernsession richtig beantworteten Fragen (unique).
+    // Persistenter Store bleibt für historische Daten erhalten.
+    private HashSet<string> _learnSolvedThisSession = new();
+
     // Score mode
     private int _currentScore = 0;
     private int _livesRemaining = 3;
@@ -460,30 +469,53 @@ public class QuizController : MonoBehaviour
         SetActive(questionTimerSlider?.gameObject, false);
         SetActive(questionProgress?.gameObject, true);
 
-        // Resume from last index if possible, otherwise find first unsolved question
-        int lastIndex = LearnProgressStore.GetLastIndex(language, _currentLevel);
-        
-        if (lastIndex >= 0 && lastIndex < _questions.Count)
+        // Pass-Queues frisch initialisieren: 1. Durchgang = ALLE Fragen in Reihenfolge
+        _learnCurrentPass.Clear();
+        _learnNextPass.Clear();
+        for (int i = 0; i < _questions.Count; i++)
         {
-            _currentIndex = lastIndex;
-        }
-        else
-        {
-            _currentIndex = 0;
+            _learnCurrentPass.Enqueue(i);
         }
 
-        // Initialize progress slider and text
+        // Session-Counter zurücksetzen -> startet bei 0/total
+        _learnSolvedThisSession.Clear();
+
+        // Erste Frage aus der Queue holen
+        _currentIndex = _learnCurrentPass.Count > 0 ? _learnCurrentPass.Dequeue() : 0;
+
+        // Progress-Slider: maxValue = total, value = in dieser Session richtig
         if (learnProgressSlider)
         {
             learnProgressSlider.maxValue = _questions.Count;
-            learnProgressSlider.value = _currentIndex + 1;
+            learnProgressSlider.value = 0;
         }
         if (learnProgressText)
         {
             learnProgressText.gameObject.SetActive(false);
         }
-        
+
         SetActive(scoreInCardText?.gameObject, false);
+    }
+
+    private void UpdateLearnProgressUI()
+    {
+        if (_currentMode != QuizMode.Learn) return;
+        int solved = _learnSolvedThisSession.Count;
+        int total = _questions.Count;
+
+        if (learnProgressSlider)
+        {
+            learnProgressSlider.maxValue = total;
+            learnProgressSlider.value = solved;
+        }
+        if (learnProgressText && learnProgressText.gameObject.activeSelf)
+        {
+            learnProgressText.text = $"{solved} / {total}";
+        }
+        if (questionProgress)
+        {
+            questionProgress.text = $"{solved} / {total}";
+        }
     }
 
     private void SetupScoreMode()
@@ -548,15 +580,14 @@ public class QuizController : MonoBehaviour
         // Question text
         if (questionText) questionText.text = _current.text ?? "";
 
-        // Progress e.g. "7 / 20"
-        if (questionProgress) questionProgress.text = $"{index + 1} / {_questions.Count}";
-
-        // Update Learn progress visuals
+        // Progress: in Learn mode = gelöste Fragen, in Exam/Score = aktuelle Position
         if (_currentMode == QuizMode.Learn)
         {
-            if (learnProgressSlider) learnProgressSlider.value = index + 1;
-            if (learnProgressText && learnProgressText.gameObject.activeSelf) 
-                learnProgressText.text = $"{index + 1} / {_questions.Count}";
+            UpdateLearnProgressUI();
+        }
+        else
+        {
+            if (questionProgress) questionProgress.text = $"{index + 1} / {_questions.Count}";
         }
 
         // Reset all answer buttons
@@ -674,6 +705,14 @@ public class QuizController : MonoBehaviour
         if (correct)
         {
             LearnProgressStore.MarkSolved(language, _currentLevel, _current.storageKey);
+            if (!string.IsNullOrEmpty(_current.storageKey))
+                _learnSolvedThisSession.Add(_current.storageKey);
+            UpdateLearnProgressUI();
+        }
+        else
+        {
+            // Falsch -> Frage im nächsten Durchgang erneut stellen
+            _learnNextPass.Add(_currentIndex);
         }
 
         UpdateNavigationButtons();
@@ -840,17 +879,23 @@ public class QuizController : MonoBehaviour
         switch (_currentMode)
         {
             case QuizMode.Learn:
-                int nextUnsolved = GetNextUnsolvedLearnIndex();
-                if (nextUnsolved < 0)
+                // Aktueller Durchgang leer? -> in den nächsten Durchgang wechseln
+                if (_learnCurrentPass.Count == 0)
                 {
-                    Debug.Log("[QuizController] Lernmodus abgeschlossen!");
-                    int total = _questions.Count;
-                    ShowExamResult(total, total);
+                    if (_learnNextPass.Count == 0)
+                    {
+                        Debug.Log("[QuizController] Lernmodus abgeschlossen!");
+                        int total = _questions.Count;
+                        ShowExamResult(total, total);
+                        break;
+                    }
+
+                    foreach (var idx in _learnNextPass) _learnCurrentPass.Enqueue(idx);
+                    _learnNextPass.Clear();
                 }
-                else
-                {
-                    ShowQuestion(nextUnsolved);
-                }
+
+                int nextIdx = _learnCurrentPass.Dequeue();
+                ShowQuestion(nextIdx);
                 break;
 
             case QuizMode.Score:
@@ -876,18 +921,6 @@ public class QuizController : MonoBehaviour
     {
         if (_currentMode == QuizMode.Exam && _currentIndex > 0)
             ShowQuestion(_currentIndex - 1);
-    }
-
-    private int GetNextUnsolvedLearnIndex()
-    {
-        if (_questions.Count == 0) return -1;
-        for (int step = 1; step <= _questions.Count; step++)
-        {
-            int idx = (_currentIndex + step) % _questions.Count;
-            if (!LearnProgressStore.IsSolved(language, _currentLevel, _questions[idx].storageKey))
-                return idx;
-        }
-        return -1;
     }
 
     private void UpdateNavigationButtons()

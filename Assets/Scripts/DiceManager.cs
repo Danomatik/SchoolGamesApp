@@ -31,6 +31,7 @@ public class DiceManager : MonoBehaviour
     [SerializeField] private CinemachineCamera cam;
 
     private bool rolling = false;
+    public bool IsRolling => rolling;
 
     [SerializeField] private PlayerMovement playerMovement;
 

@@ -7,7 +7,15 @@ public class BoardVisualsManager : MonoBehaviour
     public string fieldNamePrefix = "Field_"; // also Field_0, Field_1, ...
 
     [Header("Spielerfarben (Index = PlayerID-1)")]
-    public Color[] playerColors = { Color.red, Color.blue, Color.green, Color.yellow };
+    // Gleiche Palette wie MainMenuController / LeaderboardPanelController (6 Spieler)
+    public Color[] playerColors = {
+        new Color(0.30f, 0.69f, 0.31f),  // Green
+        new Color(0.13f, 0.59f, 0.95f),  // Blue
+        new Color(0.98f, 0.74f, 0.02f),  // Yellow/Gold
+        new Color(0.90f, 0.30f, 0.24f),  // Red
+        new Color(0.61f, 0.15f, 0.69f),  // Purple
+        new Color(1.00f, 0.60f, 0.00f),  // Orange
+    };
 
     private readonly Dictionary<int, GameObject> cache = new();
 
